@@ -46,7 +46,6 @@ LEFT JOIN borsa_anlik ON borsa_bilgi.Sembol=borsa_anlik.Sembol");
                     }
                 }
             }
-
             hisse();
             ?>
             </tbody>
