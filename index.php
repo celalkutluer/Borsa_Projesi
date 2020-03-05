@@ -1,6 +1,4 @@
 <?php
-include "settings/baglantilar.php";
-//include "settings/fonksiyonlar.php";
 include "inc/header.php";
 ?>
     <span class="col-lg"></span>

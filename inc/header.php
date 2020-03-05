@@ -1,4 +1,7 @@
-<?php ?>
+<?php
+include "settings/baglantilar.php";
+include "settings/fonksiyonlar.php";
+?>
 <!doctype html>
 <html lang="en">
 <head>
