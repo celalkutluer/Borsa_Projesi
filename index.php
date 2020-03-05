@@ -7,7 +7,7 @@ include "inc/header.php";
             <div class="col-sm-6">
                 <div class="table col-sm">
                     <table class="table table-bordered bg-light">
-                        <span class="h6">En Çok Yükselenler</span>
+                        <span class="h6 text-info">En Çok Yükselenler</span>
                         <thead>
                         <tr>
                             <th scope="col">Sembol</th>
@@ -16,52 +16,7 @@ include "inc/header.php";
                         </tr>
                         </thead>
                         <tbody>
-                        <td>*</td>
-                        <td>*</td>
-                        <td>*</td>
-                        </tbody>
-                        <tbody>
-                        <td>*</td>
-                        <td>*</td>
-                        <td>*</td>
-                        </tbody>
-                        <tbody>
-                        <td>*</td>
-                        <td>*</td>
-                        <td>*</td>
-                        </tbody>
-                        <tbody>
-                        <td>*</td>
-                        <td>*</td>
-                        <td>*</td>
-                        </tbody>
-                        <tbody>
-                        <td>*</td>
-                        <td>*</td>
-                        <td>*</td>
-                        </tbody>
-                        <tbody>
-                        <td>*</td>
-                        <td>*</td>
-                        <td>*</td>
-                        </tbody>
-                        <tbody>
-                        <td>*</td>
-                        <td>*</td>
-                        <td>*</td>
-                        </tbody>
-                        <tbody>
-                        <td>*</td>
-                        <td>*</td>
-                        <td>*</td>
-                        </tbody>
-                        <tbody>
-                        <td>*</td>
-                        <td>*</td>
-                        <td>*</td>
-                        </tbody>
-                        <tbody>
-                        <td>*</td>
+                        <td class="text-center"><i class="fas fa-minus text-info"></i></td>
                         <td>*</td>
                         <td>*</td>
                         </tbody>
@@ -71,7 +26,7 @@ include "inc/header.php";
             <div class="col-sm-6">
                 <div class="table col-sm">
                     <table class="table table-bordered bg-light">
-                        <span class="h6">En Çok Düşenler</span>
+                        <span class="h6 text-info">En Çok Düşenler</span>
                         <thead>
                         <tr>
                             <th scope="col">Sembol</th>
@@ -79,51 +34,6 @@ include "inc/header.php";
                             <th scope="col">(%)Fark</th>
                         </tr>
                         </thead>
-                        <tbody>
-                        <td>*</td>
-                        <td>*</td>
-                        <td>*</td>
-                        </tbody>
-                        <tbody>
-                        <td>*</td>
-                        <td>*</td>
-                        <td>*</td>
-                        </tbody>
-                        <tbody>
-                        <td>*</td>
-                        <td>*</td>
-                        <td>*</td>
-                        </tbody>
-                        <tbody>
-                        <td>*</td>
-                        <td>*</td>
-                        <td>*</td>
-                        </tbody>
-                        <tbody>
-                        <td>*</td>
-                        <td>*</td>
-                        <td>*</td>
-                        </tbody>
-                        <tbody>
-                        <td>*</td>
-                        <td>*</td>
-                        <td>*</td>
-                        </tbody>
-                        <tbody>
-                        <td>*</td>
-                        <td>*</td>
-                        <td>*</td>
-                        </tbody>
-                        <tbody>
-                        <td>*</td>
-                        <td>*</td>
-                        <td>*</td>
-                        </tbody>
-                        <tbody>
-                        <td>*</td>
-                        <td>*</td>
-                        <td>*</td>
-                        </tbody>
                         <tbody>
                         <td>*</td>
                         <td>*</td>
@@ -166,9 +76,9 @@ include "inc/header.php";
                                 <tr>
                                     <td><?php echo $tum_hisseler['Sembol']; ?></td>
                                     <td><?php echo $tum_hisseler['Tam_Ad']; ?></td>
-                                    <td>*</td>
+                                    <td class="text-center"><i class="fas fa-arrow-circle-up text-success"></i></td>
                                     <td><?php echo $tum_hisseler['Fiyat']; ?></td>
-                                    <td>*</td>
+                                    <td class="text-center"><i class="fas fa-arrow-down text-danger"></i></td>
                                     <td><?php echo $tum_hisseler['Zaman']; ?></td>
                                     <td>
                                         <button type="button" class="btn btn-success">ALIŞ</button>
