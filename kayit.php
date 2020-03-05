@@ -6,6 +6,9 @@ include "inc/header.php";
         <div class="container">
             <div id="login-row" class="row justify-content-center align-items-center">
                 <div id="login-column" class="col-md-6">
+                    <!--ALERT-->
+                    <div id="ykayitAlert"></div>
+                    <!--ALERT-->
                     <form>
                         <h3 class="text-center text-info">Kayıt</h3>
                         <div class="form-row ">
@@ -38,6 +41,22 @@ include "inc/header.php";
                                 <input type="tel" class="form-control" id="inputCepTelNo1">
                             </div>
                         </div>
+                        <!--DOĞRULAMA-->
+                        <div class="form-group">
+                            <?php
+                            $s1 = rand(1, 9);
+                            $s2 = rand(1, 9);
+                            $t = $s1 + $s2;
+                            $y = md5($t);
+                            ?>
+                            <label for="password"
+                                   class="text-info"><?php echo "$s1+$s2 sayılarının toplamını giriniz"; ?></label><br>
+                            <input type="hidden" value="<?php echo $y; ?>" name="toplam">
+                        </div>
+                        <div class="input-group input-group-icon">
+                            <input name="dkodu" type="text" class="form-control input-lg"/>
+                        </div>
+                        <!--DOĞRULAMA-->
                         <div class="form-group">
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" id="gridCheck">
