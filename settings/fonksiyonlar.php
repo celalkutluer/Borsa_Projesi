@@ -39,4 +39,10 @@ function ara($bas, $son, $yazi)
         '(.*?)'. preg_quote($son, '/').'/i', $yazi, $m);
     return @$m[1];
 }
+function convert_virgül_nokta($data)
+{
+    if(strpos($data,","))
+    {$chng = str_replace(",",".",$data); $data = $chng;}
+    return $data;
+}
 ?>
