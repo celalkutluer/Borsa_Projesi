@@ -8,13 +8,13 @@ include "settings/fonksiyonlar.php";
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+    <link rel="stylesheet" type="text/css" href="assets/css/main.css"/>
     <script src="https://kit.fontawesome.com/a950d67dee.js" crossorigin="anonymous"></script>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css"/>
     <link rel="stylesheet" type="text/css" href="assets/css/bootstrap-grid.min.css"/>
     <link rel="stylesheet" type="text/css" href="assets/css/bootstrap-reboot.min.css"/>
-    <link rel="stylesheet" type="text/css" href="assets/css/main.css"/>
+
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <title>BORSA</title>

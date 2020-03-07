@@ -45,4 +45,10 @@ function convert_virgül_nokta($data)
     {$chng = str_replace(",",".",$data); $data = $chng;}
     return $data;
 }
+function convert_nokta_virgül($data)
+{
+    if(strpos($data,"."))
+    {$chng = str_replace(".",",",$data); $data = $chng;}
+    return $data;
+}
 ?>
