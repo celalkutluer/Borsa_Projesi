@@ -158,6 +158,7 @@ include "inc/header.php";
                 </tr>
                 </thead>
                 <tbody>
+
                 <?php
                 function hisse()
                 {
@@ -174,10 +175,8 @@ include "inc/header.php";
                                  as $tum_hisseler) {
                             ?>
                             <tr>
-                                <td class="text-center">
-                                    <?php
-                                    echo $tum_hisseler['hisse_sembol'];
-                                    ?>
+                                <td class="text-center" id="hisse_sembol_<?php echo $tum_hisseler['hisse_id']; ?>">
+                                    <?php echo $tum_hisseler['hisse_sembol']; ?>
                                 </td>
                                 <td class="text-center">
                                     <?php
@@ -270,35 +269,36 @@ include "inc/header.php";
                                                 </button>
                                             </div>
                                             <div class="modal-body">
-                                                <form class="form-group text-center">
+                                                <form class="form-group">
                                                     <div class="form-group">
                                                         <?php
-                                                        echo "<label for='customRange2'>" . $tum_hisseler['hisse_sembol'] . " hissini almak istediğinizden eminmisiniz?</label>";
+                                                        echo "<label" . $tum_hisseler['hisse_sembol'] . " hissini almak istediğinizden eminmisiniz?</label>";
                                                         ?>
                                                         </br>
-                                                        <label  for="customRange2">Bakiyeniz :</label>
+                                                        <label">Bakiyeniz :</label>
+                                                        <?php
+                                                        echo "<label id='lbl_al_bakiye_" . $tum_hisseler['hisse_id'] . "'></label>";?>
                                                         </br>
                                                         <?php
-                                                        echo "<label for='customRange2'>Alış Tutarı:  " . $tum_hisseler['hisse_deger'] . "</label>";
+                                                        echo "<label>Alış Tutarı:  " . $tum_hisseler['hisse_deger'] . "</label>";
                                                         ?>
                                                         </br>
                                                         <div class="container">
                                                             <div class="row">
-                                                                <div class="col-sm-5">
+                                                                <div class="col-sm-10">
                                                                     <script>
                                                                         function updateTextInput(val) {
-                                                                            document.getElementById('textInput').value = val;
+                                                                            document.getElementById("lbl_miktar").innerHTML = val;
                                                                         }
                                                                     </script>
                                                                     <input type="range" name="rangeInput" min="0"
                                                                            max="100"
-                                                                           onchange="updateTextInput(this.value);"
+                                                                           onchange="updateTextInput(this.value,);"
                                                                            class="form-control-range"
                                                                            id="formControlRange">
                                                                 </div>
-                                                                <div class="col-sm-7">
-                                                                    <label for="customRange2">Miktar :</label>
-                                                                    <input type="text" id="textInput" value="">
+                                                                <div class="col-sm-2">
+                                                                    <label id="lbl_miktar"></label>
                                                                 </div>
                                                             </div>
                                                         </div>

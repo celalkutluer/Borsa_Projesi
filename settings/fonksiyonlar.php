@@ -4,17 +4,20 @@ function g($par)
     $par = temiz(@$_GET[$par]);
     return $par;
 }
+
 function p($par)
 {
     $par = htmlspecialchars(addslashes(trim($_POST[$par])));
     return $par;
 }
+
 ///////////////////////SESSİON
 function s($par)
 {
     $session = $_SESSION[$par];
     return $session;
 }
+
 ///////////////////////YONETİCİ
 /*function yoneticikontrol()
 {
@@ -36,19 +39,27 @@ function kullanicikontrol()
 function ara($bas, $son, $yazi)
 {
     @preg_match_all('/' . preg_quote($bas, '/') .
-        '(.*?)'. preg_quote($son, '/').'/i', $yazi, $m);
+        '(.*?)' . preg_quote($son, '/') . '/i', $yazi, $m);
     return @$m[1];
 }
+
 function convert_virgül_nokta($data)
 {
-    if(strpos($data,","))
-    {$chng = str_replace(",",".",$data); $data = $chng;}
+    if (strpos($data, ",")) {
+        $chng = str_replace(",", ".", $data);
+        $data = $chng;
+    }
     return $data;
 }
+
 function convert_nokta_virgül($data)
 {
-    if(strpos($data,"."))
-    {$chng = str_replace(".",",",$data); $data = $chng;}
+    if (strpos($data, ".")) {
+        $chng = str_replace(".", ",", $data);
+        $data = $chng;
+    }
     return $data;
 }
+
+
 ?>

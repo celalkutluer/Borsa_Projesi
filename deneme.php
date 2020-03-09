@@ -1,44 +1,39 @@
 <?php
-function hisse_dusenler()
-{
-    Global $db;
-    $veri = $db->prepare("SELECT * FROM `hisseler` order by hisse_yuzde ASC LIMIT 10");
-    $veri->execute(array());
-    $v = $veri->fetchAll(pdo::FETCH_ASSOC);
-    $say = $veri->rowCount();
-    if ($say) {
-        foreach ($v as $tum_hisseler) {
-            ?>
-            <td class="text-center">
-                <?php
-                echo $tum_hisseler['hisse_sembol'];
-                ?>
-            </td>
-            <td>
-                <?php
-                if ($tum_hisseler['hisse_yuzde'] > 0) {
-                    echo "<i class=\"fas fa-arrow-circle-up text-success\"></i>";
-                } elseif ($tum_hisseler['hisse_yuzde'] == 0) {
-                    echo "<i class=\"fas fa-minus text-info\"></i>";
-                } else {
-                    echo "<i class=\"fas fa-arrow-circle-down text-danger\"></i>";
-                };
-                ?>
-            </td>
-            <td>
-                <?php
-                echo $tum_hisseler['hisse_deger'];
-                ?>
-            </td>
-            <td>
-                <?php
-                echo $tum_hisseler['hisse_yuzde'];
-                ?>
-            </td>
-            <?php
-        }
-    }
-}
 
-hisse_dusenler();
 ?>
+
+<script type="text/javascript" src="assets/js/jquery-3.4.1.min.js"></script>
+<script type="text/javascript">
+    function yenile(){    $.ajax({
+        url: 'settings/islem.php',
+        type: 'get',
+        dataType: 'JSON',
+        success: function(response){
+            document.getElementById("label_deger").innerHTML = response[0].'hisse_id';
+
+            }
+
+        });}
+    yenile();
+//setInterval(yenile,3000);
+</script>
+<div class="container">
+    <table id="userTable" border="1" >
+        <thead>
+        <tr>
+            <th width="5%">S.no</th>
+            <th width="20%">Username</th>
+            <th width="20%">Name</th>
+            <th width="30%">Email</th>
+        </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</div>
+<form action="" id="form1" onsubmit="return false">
+    <input type="text" name="ad" id="ad_DDD"></br></br>
+    <input type="text" name="soyad" id="soyad"></br></br>
+    <button type="submit" id="gonder">gönder</button>
+    <label id="label_deger"></label>
+</form>
+

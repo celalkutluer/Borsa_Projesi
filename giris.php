@@ -38,7 +38,8 @@ include "inc/header.php";
                             <!--DOĞRULAMA-->
                             <div class="form-group">
                                 <label for="remember-me" class="text-info"><span>Beni hatırla</span> <span><input
-                                                id="remember-me" name="remember-me" type="checkbox"></span></label><br>
+                                                id="remember-me" name="remember-me" type="checkbox"></span></label><span></span>
+                                <a href="sifremi-unuttum.php" class="text-info text-right">Şifremi Unuttum.</a><br>
                                 <input type="submit" name="submit" class="btn btn-info btn-md " value="Giriş">
                             </div>
                             <div id="register-link" class="text-right">
