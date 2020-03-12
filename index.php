@@ -359,7 +359,6 @@ include "inc/header.php";
                                 </tr>
                                 </thead>
                                 <tbody>
-
                                 <?php
                                 for ($sayi = 1; $sayi <= 5; $sayi++) {
                                     ?>
