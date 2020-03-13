@@ -13,7 +13,10 @@
 </div>
 
 <!-- Vendor -->
-<script src="vendor/jquery/jquery.min.js"></script>
+<script
+        src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+        crossorigin="anonymous"></script>
 <script src="vendor/jquery.appear/jquery.appear.min.js"></script>
 <script src="vendor/jquery.easing/jquery.easing.min.js"></script>
 <script src="vendor/jquery.cookie/jquery.cookie.min.js"></script>
@@ -48,6 +51,8 @@
 
 <!-- Theme Initialization Files -->
 <script src="js/theme.init.js"></script>
+<!-- JS -->
+<script src="js/main.js"></script>
 
 </body>
 </html>

@@ -360,7 +360,7 @@ include "inc/header.php";
                                 </thead>
                                 <tbody>
                                 <?php
-                                for ($sayi = 1; $sayi <= 5; $sayi++) {
+                                for ($sayi = 0; $sayi < 5; $sayi++) {
                                     ?>
                                     <tr>
                                         <td class="text-center" id="hisse_yukselen_sembol_<?php echo $sayi; ?>"></td>
@@ -435,7 +435,7 @@ include "inc/header.php";
                                 </thead>
                                 <tbody>
                                 <?php
-                                for ($sayi = 1; $sayi <= 5; $sayi++) {
+                                for ($sayi = 0; $sayi < 5; $sayi++) {
                                     ?>
                                     <tr>
                                         <td class="text-center" id="hisse_dusen_sembol_<?php echo $sayi; ?>"></td>
@@ -526,10 +526,10 @@ include "inc/header.php";
                 <tbody>
 
                 <?php
-                for ($sayi = 1; $sayi <= 100; $sayi++) { ?>
+                for ($sayi = 0; $sayi < 100; $sayi++) { ?>
                     <tr>
                         <td class="text-center" id="hisse_sembol_<?php echo $sayi; ?>"></td>
-                        <td class="text-center" id="hisse_durum_<?php echo $sayi; ?>"></td>
+                        <td class="text-center" ><i id="hisse_durum_<?php echo $sayi; ?>" class=""></i></td>
                         <td class="text-center" id="hisse_son_deger_<?php echo $sayi; ?>"></td>
                         <td class="text-center" id="hisse_fark_<?php echo $sayi; ?>"></td>
                         <td class="text-center" id="hisse_fark_yuzde_<?php echo $sayi; ?>"></td>
