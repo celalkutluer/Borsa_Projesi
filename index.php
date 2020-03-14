@@ -524,7 +524,6 @@ include "inc/header.php";
                 </tr>
                 </thead>
                 <tbody>
-
                 <?php
                 for ($sayi = 0; $sayi < 100; $sayi++) { ?>
                     <tr>
