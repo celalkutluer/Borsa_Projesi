@@ -1,6 +1,12 @@
 <?php
 include "settings/baglantilar.php";
 include "settings/fonksiyonlar.php";
+if(isset($_SESSION['yetki'])){
+}
+else
+{
+    $_SESSION['yetki'] ="kullanici";
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -121,9 +127,25 @@ include "settings/fonksiyonlar.php";
                                             </li>
                                             <li>
                                                 <a class="nav-link " href="profil.php">
-                                                    Profilim
+                                                    Profil
+                                                    <?php
+                                                    if ($_SESSION['yetki'] == "kullanici") {
+                                                    } else {
+                                                        echo "(" . s("isim") . " " . s('soyisim') . ")";
+                                                    }
+                                                    ?>
                                                 </a>
                                             </li>
+                                            <?php
+                                            if ($_SESSION['yetki'] == "kullanici")
+                                            {
+                                            }
+                                            else {
+                                                echo "<li>
+                                                <a role='menuitem' tabindex='-1' href='settings/islem.php?islem=cikis'><i class='fa fa-power-off'></i> Çıkış</a>
+                                            </li>";
+                                            }
+                                            ?>
                                         </ul>
                                     </nav>
                                 </div>

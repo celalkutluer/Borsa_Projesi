@@ -1,6 +1,49 @@
 <?php
 include "baglantilar.php";
 include "fonksiyonlar.php";
+if (g('islem') == 'ygiris') {
+    $eposta = p('eposta');
+    $sifre = p('sifre');
+    $toplam = p('toplam');
+    $dkodu = p('dkodu');
+
+
+    if (empty($eposta)) {
+        echo "<div class='alert alert-warning'>Lütfen E-posta adresinizi giriniz.</div>";
+    } else if (empty($sifre)) {
+        echo "<div class='alert alert-warning'>Lütfen Şifrenizi giriniz.</div>";
+    } elseif (empty($dkodu)) {
+        echo "<div class='alert alert-warning'>Lütfen Doğrulama kodunu giriniz.</div>";
+    } elseif ($toplam != md5($dkodu)) {
+        echo "<div class='alert alert-warning'>Doğrulama kodunuz hatalı.</div>";
+    } else {
+        //////////////////////////////////////////////////////////////////////////////////////////////////
+        $veri= $db->prepare('SELECT kul_adi, kul_soyadi, kul_eposta, kul_bakiye, kul_sifre,kul_yetki FROM kullanicilar WHERE kul_eposta=? AND kul_sifre=?');
+        $veri->execute(array($eposta, md5($sifre)));
+        $v = $veri->fetchAll(PDO::FETCH_ASSOC);
+        $say = $veri->rowCount();
+        foreach ($v as $ykul_bilgileri) ;
+        if ($say) {
+            if ($ykul_bilgileri['kul_yetki'] == '1' || $ykul_bilgileri['personel_yetki'] == '2' || $ykul_bilgileri['personel_yetki'] == '3') {
+                $_SESSION['ykul_id'] = $eposta;
+                $_SESSION['isim'] = $ykul_bilgileri['kul_adi'];
+                $_SESSION['soyisim'] = $ykul_bilgileri['kul_soyadi'];
+                $_SESSION['eposta'] = $ykul_bilgileri['kul_eposta'];
+                $_SESSION['yetki'] = $ykul_bilgileri['kul_yetki'];
+                echo "<div class='alert alert-success'>Giriş Başarılı Lütfen Bekleyiniz</div><meta http-equiv='refresh' content='1; url=index.php'>";
+            } else {
+                echo "<div class='alert alert-warning'>Giriş yetkiniz bulunmamaktadır.</div>";
+
+            }
+        } else {
+            echo "<div class='alert alert-warning'>Böyle Bir Yönetici Bulunmamaktadır.</div>";
+        }
+    }
+}
+if (g('islem') == 'cikis') {
+    session_destroy();
+    header("Location:../index.php");
+}
 /*HİSSE BİLGİLERİ YÜKLEME*/
 ///
 ///
@@ -65,5 +108,6 @@ if (g('islem') == 'tablo_yukselen_dusen') {
     //echo "</pre>";
 }
 /*HİSSE BİLGİLERİ YÜKLEME*/
+
 
 ?>

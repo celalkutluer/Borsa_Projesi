@@ -1,3 +1,15 @@
+$("#btnSignIn").click(function () {
+    var data = $("#frmSignIn").serialize();
+    $.ajax({
+            type: 'POST',
+            url: 'settings/islem.php?islem=ygiris',
+            data: data,
+            success: function (cevap) {
+                $("#ygirisAlert").html(cevap).hide().fadeIn(700);
+            }
+        }
+    );
+});
 function Tablo_veri_cek() {
     $.ajax({
         type: 'POST',
@@ -93,9 +105,10 @@ function Tablo_yukselen_veri_cek() {
         }
     });
 }
-
 $(document).ready(function () {
     setInterval(Tablo_veri_cek, 5000);
     setInterval(Tablo_dusener_veri_cek, 5000);
     setInterval(Tablo_yukselen_veri_cek, 5000);
+
+
 });
