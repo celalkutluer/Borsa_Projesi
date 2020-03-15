@@ -26,7 +26,6 @@ include "settings/fonksiyonlar.php";
 
     <!-- Web Fonts  -->
     <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:300,400,700" rel="stylesheet" type="text/css">
-
     <!-- Vendor CSS -->
     <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="vendor/fontawesome-free/css/all.min.css">

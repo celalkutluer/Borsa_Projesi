@@ -69,5 +69,18 @@ function convert_nokta_virgül($data)
     }
     return $data;
 }
-
+function val_sort($array,$key) {
+    //Loop through and get the values of our specified key
+    foreach($array as $k=>$v) {
+        $b[] = strtolower($v[$key]);
+    }
+    //print_r($b);
+    asort($b);
+    //echo '<br />';
+    //print_r($b);
+    foreach($b as $k=>$v) {
+        $c[] = $array[$k];
+    }
+    return $c;
+}
 ?>
