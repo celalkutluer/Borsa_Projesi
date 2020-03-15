@@ -72,8 +72,8 @@ if (isset($_SESSION['yetki'])) {
                         <div class="header-row">
                             <div class="header-logo">
                                 <a class="navbar-toggler" href="index.php">
-                                    <img alt="Borsa" width="200" height="96" data-sticky-width="150"
-                                         data-sticky-height="72" src="img/logo.png">
+                                    <img alt="Borsa" width="150" height="75" data-sticky-width="100"
+                                         data-sticky-height="50" src="img/logo.png">
                                 </a>
                             </div>
                         </div>
@@ -86,8 +86,7 @@ if (isset($_SESSION['yetki'])) {
                                         <ul class="nav nav-pills" id="mainNav">
                                             <?php
                                             if ($_SESSION['yetki'] == "kullanici") {
-                                            }
-                                            else {
+                                            } else {
                                                 echo "
                                             <li class='dropdown'>
                                                 <a class='nav-link dropdown-toggle active' href='portfoy.php'>
@@ -117,23 +116,28 @@ if (isset($_SESSION['yetki'])) {
                                                     </li>
                                                 </ul>
                                             </li>";
-                                            }
-                                            else {} ?>
+                                            } else {
+                                            } ?>
                                             <li>
                                                 <a class="nav-link" href="siralama.php">
                                                     Liderlik
                                                 </a>
                                             </li>
+                                            <?php
+                                            if ($_SESSION['yetki'] == "kullanici") {
+                                                echo "
                                             <li>
-                                                <a class="nav-link " href="giris.php">
+                                                <a class='nav-link ' href='giris.php'>
                                                     Giriş
                                                 </a>
                                             </li>
                                             <li>
-                                                <a class="nav-link " href="kayit.php">
+                                                <a class='nav-link ' href='kayit.php'>
                                                     Kayıt
                                                 </a>
-                                            </li>
+                                            </li>";
+                                            } else {}
+                                            ?>
                                             <?php
                                             if ($_SESSION['yetki'] == "kullanici") {
                                             } else {

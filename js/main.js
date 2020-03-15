@@ -9,6 +9,11 @@ $("#btnSignIn").click(function () {
             }
         }
     );
+    var x = Math.floor((Math.random() * 10) + 1);
+    var y = Math.floor((Math.random() * 10) + 1);
+    $("#giris_dogrulama_text").text(x+"+"+y+" sayılarının toplamını giriniz.");
+    $("#giris_dogrulama_input").val(md5(x+y));
+
 });
 function Tablo_veri_cek() {
     $.ajax({

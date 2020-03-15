@@ -33,13 +33,13 @@
                                             $t = $s1 + $s2;
                                             $y = md5($t);
                                             ?>
-                                            <label for="password"
+                                            <label for="password" id="giris_dogrulama_text"
                                                    class="font-weight-bold text-info text-2">
                                                 <?php
-                                                echo "$s1+$s2 sayılarının toplamını giriniz";
+                                                echo "$s1+$s2 sayılarının toplamını giriniz.";
                                                 ?>
                                             </label>
-                                            <input class="form-control form-control-lg" type="hidden"
+                                            <input id="giris_dogrulama_input" class="form-control form-control-lg" type="hidden"
                                                    value="<?php echo $y; ?>" name="toplam">
                                         </div>
                                     </div>

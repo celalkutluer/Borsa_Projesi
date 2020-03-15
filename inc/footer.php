@@ -53,6 +53,6 @@
 <script src="js/theme.init.js"></script>
 <!-- JS -->
 <script src="js/main.js"></script>
-
+<script src="js/md5.min.js"></script>
 </body>
 </html>
