@@ -48,8 +48,6 @@ function Tablo_veri_cek() {
             }
         }
     });
-}
-function Tablo_dusener_veri_cek() {
     $.ajax({
         type: 'POST',
         url: 'settings/islem.php?islem=tablo_yukselen_dusen',
@@ -76,8 +74,6 @@ function Tablo_dusener_veri_cek() {
             }
         }
     });
-}
-function Tablo_yukselen_veri_cek() {
     $.ajax({
         type: 'POST',
         url: 'settings/islem.php?islem=tablo_yukselen_dusen',
@@ -105,10 +101,7 @@ function Tablo_yukselen_veri_cek() {
         }
     });
 }
+
 $(document).ready(function () {
-    setInterval(Tablo_veri_cek, 5000);
-    setInterval(Tablo_dusener_veri_cek, 5000);
-    setInterval(Tablo_yukselen_veri_cek, 5000);
-
-
+    setInterval(Tablo_veri_cek, 60000);
 });

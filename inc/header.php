@@ -1,11 +1,9 @@
 <?php
 include "settings/baglantilar.php";
 include "settings/fonksiyonlar.php";
-if(isset($_SESSION['yetki'])){
-}
-else
-{
-    $_SESSION['yetki'] ="kullanici";
+if (isset($_SESSION['yetki'])) {
+} else {
+    $_SESSION['yetki'] = "kullanici";
 }
 ?>
 <!DOCTYPE html>
@@ -86,30 +84,41 @@ else
                                 <div class="header-nav-main header-nav-main-square header-nav-main-dropdown-no-borders header-nav-main-effect-2 header-nav-main-sub-effect-1">
                                     <nav class="collapse">
                                         <ul class="nav nav-pills" id="mainNav">
-                                            <li class="dropdown">
-                                                <a class="nav-link dropdown-toggle active" href="portfoy.php">
+                                            <?php
+                                            if ($_SESSION['yetki'] == "kullanici") {
+                                            }
+                                            else {
+                                                echo "
+                                            <li class='dropdown'>
+                                                <a class='nav-link dropdown-toggle active' href='portfoy.php'>
                                                     Portföy
                                                 </a>
-                                                <ul class="dropdown-menu">
-                                                    <li><a href="aktif_varliklar.php" class="dropdown-item">Aktif
+                                                <ul class='dropdown-menu'>
+                                                    <li><a href='aktif_varliklar.php' class='dropdown-item'>Aktif
                                                             Varlıklarım</a></li>
-                                                    <li><a href="gecmis_alim_satimlar.php" class="dropdown-item">Geçmiş
+                                                    <li><a href='gecmis_alim_satimlar.php' class='dropdown-item'>Geçmiş
                                                             Alım-Satımlar</a></li>
                                                 </ul>
-                                            </li>
-                                            <li class="dropdown">
-                                                <a class="nav-link dropdown-toggle" href="yonetim.php">
+                                            </li>";
+                                            }
+                                            ?>
+                                            <?php
+                                            if ($_SESSION['yetki'] == "1") {
+                                                echo "<li class='dropdown'>
+                                                <a class='nav-link dropdown-toggle' href='yonetim.php'>
                                                     Yönetim
                                                 </a>
-                                                <ul class="dropdown-menu">
-                                                    <li><a href="kullanicilar.php"
-                                                           class="dropdown-item">Kullanıcılar</a></li>
-                                                    <li><a href="log_kayitlari.php" class="dropdown-item">Log
+                                                <ul class='dropdown-menu'>
+                                                    <li><a href='kullanicilar.php'
+                                                           class='dropdown-item'>Kullanıcılar</a></li>
+                                                    <li><a href='log_kayitlari.php' class='dropdown-item'>Log
                                                             Kayıtları</a></li>
-                                                    <li><a href="mali_durum.php" class="dropdown-item">Mali Durum</a>
+                                                    <li><a href='mali_durum.php' class='dropdown-item'>Mali Durum</a>
                                                     </li>
                                                 </ul>
-                                            </li>
+                                            </li>";
+                                            }
+                                            else {} ?>
                                             <li>
                                                 <a class="nav-link" href="siralama.php">
                                                     Liderlik
@@ -125,22 +134,19 @@ else
                                                     Kayıt
                                                 </a>
                                             </li>
-                                            <li>
-                                                <a class="nav-link " href="profil.php">
-                                                    Profil
-                                                    <?php
-                                                    if ($_SESSION['yetki'] == "kullanici") {
-                                                    } else {
-                                                        echo "(" . s("isim") . " " . s('soyisim') . ")";
-                                                    }
-                                                    ?>
-                                                </a>
+                                            <?php
+                                            if ($_SESSION['yetki'] == "kullanici") {
+                                            } else {
+                                                echo "<li>
+                                                <a class='nav-link ' href='profil.php'>
+                                                    Profil(" . s("isim") . " " . s('soyisim') . ")";
+                                            }
+                                            ?>
+                                            </a>
                                             </li>
                                             <?php
-                                            if ($_SESSION['yetki'] == "kullanici")
-                                            {
-                                            }
-                                            else {
+                                            if ($_SESSION['yetki'] == "kullanici") {
+                                            } else {
                                                 echo "<li>
                                                 <a role='menuitem' tabindex='-1' href='settings/islem.php?islem=cikis'><i class='fa fa-power-off'></i> Çıkış</a>
                                             </li>";
