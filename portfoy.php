@@ -1,5 +1,6 @@
 <?php
 include "inc/header.php";
+yoneticikontrol();
 ?>
 
     <!--KODLAR BURAYA-->

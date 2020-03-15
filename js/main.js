@@ -103,5 +103,5 @@ function Tablo_veri_cek() {
 }
 
 $(document).ready(function () {
-    setInterval(Tablo_veri_cek, 60000);
+    setInterval(Tablo_veri_cek, 60000);//60 saniyede bir otomatik güncelleme
 });

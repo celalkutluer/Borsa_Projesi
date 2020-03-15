@@ -1,4 +1,6 @@
-<?php include "inc/header.php"; ?>
+<?php include "inc/header.php";
+yoneticikontrol();
+?>
 <section class="section bg-color-quaternary custom-padding-4 border-0 my-0">
     <div class="container">
         <div class="row mb-3">

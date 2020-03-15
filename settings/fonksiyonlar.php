@@ -28,7 +28,12 @@ function p($par)
     $par = htmlspecialchars(addslashes(trim($_POST[$par])));
     return $par;
 }
-
+function yoneticikontrol()
+{
+    if (!$_SESSION || !$_SESSION['yetki'] == '1'|| !$_SESSION['yetki'] == '2') {
+        header("Location:../index.php");
+    }
+}
 ///////////////////////SESSİON
 function s($par)
 {
