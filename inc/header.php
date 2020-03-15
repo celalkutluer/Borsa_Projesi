@@ -10,20 +10,17 @@ include "settings/fonksiyonlar.php";
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title>Borsa Fantazi Ligi</title>
+    <title>Borsa Yatırım Fantazi Ligi</title>
 
-    <meta name="keywords" content="Borsa Fantazi Ligi"/>
-    <meta name="description" content="Borsa Fantazi Ligi">
-    <meta name="author" content="#">
-    <?php
-    /*    <!-- Favicon -->
-            <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon" />
-            <link rel="apple-touch-icon" href="img/apple-touch-icon.png">*/
-    ?>
+    <meta name="keywords" content="Borsa Yatırım Fantazi Ligi"/>
+    <meta name="description" content="Borsa Yatırım Fantazi Ligi">
+    <meta name="author" content="Borsa Yatırım Fantazi Ligi">
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="img/icon.ico" type="image/x-icon"/>
+    <link rel="apple-touch-icon" href="../img/icon.png">
 
     <!-- Mobile Metas -->
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, shrink-to-fit=no">
-
     <!-- Web Fonts  -->
     <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:300,400,700" rel="stylesheet" type="text/css">
     <!-- Vendor CSS -->
@@ -70,10 +67,10 @@ include "settings/fonksiyonlar.php";
                     <div class="header-column">
                         <div class="header-row">
                             <div class="header-logo">
-                                <a class="navbar-toggler" href="index.php">BORSA</a>
-                                <?php
-                                /*<img alt="Borsa" width="200" height="96" data-sticky-width="150" data-sticky-height="72"> src="img/logo_borsa.png"*/
-                                ?>
+                                <a class="navbar-toggler" href="index.php">
+                                    <img alt="Borsa" width="200" height="96" data-sticky-width="150"
+                                         data-sticky-height="72" src="img/logo.png">
+                                </a>
                             </div>
                         </div>
                     </div>
