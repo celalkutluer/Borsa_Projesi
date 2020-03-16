@@ -17,42 +17,65 @@
         src="https://code.jquery.com/jquery-3.4.1.min.js"
         integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
         crossorigin="anonymous"></script>
-<script src="vendor/jquery.appear/jquery.appear.min.js"></script>
-<script src="vendor/jquery.easing/jquery.easing.min.js"></script>
-<script src="vendor/jquery.cookie/jquery.cookie.min.js"></script>
-<script src="vendor/popper/umd/popper.min.js"></script>
-<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
-<script src="vendor/common/common.min.js"></script>
-<script src="vendor/jquery.validation/jquery.validate.min.js"></script>
-<script src="vendor/jquery.easy-pie-chart/jquery.easypiechart.min.js"></script>
-<script src="vendor/jquery.gmap/jquery.gmap.min.js"></script>
-<script src="vendor/jquery.lazyload/jquery.lazyload.min.js"></script>
-<script src="vendor/isotope/jquery.isotope.min.js"></script>
-<script src="vendor/owl.carousel/owl.carousel.min.js"></script>
-<script src="vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
-<script src="vendor/vide/jquery.vide.min.js"></script>
-<script src="vendor/vivus/vivus.min.js"></script>
+<script src="assets/vendor/jquery-browser-mobile/jquery.browser.mobile.js"></script>
+<script src="assets/vendor/jquery/jquery.ui.touch-punch.js"></script>
+<script src="assets/vendor/jquery.appear/jquery.appear.min.js"></script>
+<script src="assets/vendor/jquery.easing/jquery.easing.min.js"></script>
+<script src="assets/vendor/jquery.cookie/jquery.cookie.min.js"></script>
+<script src="assets/vendor/popper/umd/popper.min.js"></script>
+<script src="assets/vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="assets/vendor/common/common.min.js"></script>
+<script src="assets/vendor/jquery.validation/jquery.validate.min.js"></script>
+<script src="assets/vendor/jquery.easy-pie-chart/jquery.easypiechart.min.js"></script>
+<script src="assets/vendor/jquery.gmap/jquery.gmap.min.js"></script>
+<script src="assets/vendor/jquery.lazyload/jquery.lazyload.min.js"></script>
+<script src="assets/vendor/isotope/jquery.isotope.min.js"></script>
+<script src="assets/vendor/owl.carousel/owl.carousel.min.js"></script>
+<script src="assets/vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
+<script src="assets/vendor/vide/jquery.vide.min.js"></script>
+<script src="assets/vendor/vivus/vivus.min.js"></script>
+<script src="assets/vendor/nanoscroller/nanoscroller.js"></script>
+<script src="assets/vendor/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+<script src="assets/vendor/jquery-placeholder/jquery-placeholder.js"></script>
+
+<!-- Specific Page Vendor -->
+<script src="assets/vendor/jquery-ui/jquery-ui.js"></script>
+<script src="assets/vendor/jqueryui-touch-punch/jqueryui-touch-punch.js"></script>
 
 <!-- Theme Base, Components and Settings -->
-<script src="js/theme.js"></script>
-
-<!-- Current Page Vendor and Views -->
-<script src="vendor/rs-plugin/js/jquery.themepunch.tools.min.js"></script>
-<script src="vendor/rs-plugin/js/jquery.themepunch.revolution.min.js"></script>
-
-<!-- Current Page Vendor and Views -->
-<script src="js/views/view.contact.js"></script>
-
-<!-- Demo -->
-<script src="js/demos/demo-insurance.js"></script>
+<script src="assets/javascripts/theme.js"></script>
 
 <!-- Theme Custom -->
-<script src="js/custom.js"></script>
+<script src="assets/javascripts/theme.custom.js"></script>
 
 <!-- Theme Initialization Files -->
-<script src="js/theme.init.js"></script>
+<script src="assets/javascripts/theme.init.js"></script>
+
+<!-- Current Page Vendor and Views -->
+<script src=assets/"vendor/rs-plugin/js/jquery.themepunch.tools.min.js"></script>
+<script src="assets/vendor/rs-plugin/js/jquery.themepunch.revolution.min.js"></script>
+
+<!-- Current Page Vendor and Views -->
+<script src="assets/js/views/view.contact.js"></script>
+
+<!-- Demo -->
+<script src="assets/js/demos/demo-insurance.js"></script>
+
+
+<!-- Demo Purpose Only -->
+<script>
+    (function() {
+        $('#listenSlider').change(function() {
+            $('.output b').text( this.value );
+
+        });
+
+
+    })();
+</script>
+
 <!-- JS -->
-<script src="js/main.js"></script>
-<script src="js/md5.min.js"></script>
+<script src="assets/js/main.js"></script>
+<script src="assets/js/md5.min.js"></script>
 </body>
 </html>

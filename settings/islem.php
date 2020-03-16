@@ -18,7 +18,7 @@ if (g('islem') == 'ygiris') {
         echo "<div class='alert alert-warning'>Doğrulama kodunuz hatalı.</div>";
     } else {
         //////////////////////////////////////////////////////////////////////////////////////////////////
-        $veri= $db->prepare('SELECT kul_adi, kul_soyadi, kul_eposta, kul_bakiye, kul_sifre,kul_yetki FROM kullanicilar WHERE kul_eposta=? AND kul_sifre=?');
+        $veri= $db->prepare('SELECT kul_id, kul_adi, kul_soyadi, kul_eposta, kul_bakiye, kul_sifre,kul_yetki FROM kullanicilar WHERE kul_eposta=? AND kul_sifre=?');
         $veri->execute(array($eposta, md5($sifre)));
         $v = $veri->fetchAll(PDO::FETCH_ASSOC);
         $say = $veri->rowCount();
@@ -30,6 +30,8 @@ if (g('islem') == 'ygiris') {
                 $_SESSION['soyisim'] = $ykul_bilgileri['kul_soyadi'];
                 $_SESSION['eposta'] = $ykul_bilgileri['kul_eposta'];
                 $_SESSION['yetki'] = $ykul_bilgileri['kul_yetki'];
+                $_SESSION['bakiye'] = $ykul_bilgileri['kul_bakiye'];
+                $_SESSION['kul_id'] = $ykul_bilgileri['kul_id'];
                 echo "<div class='alert alert-success'>Giriş Başarılı Lütfen Bekleyiniz</div><meta http-equiv='refresh' content='1; url=index.php'>";
             } else {
                 echo "<div class='alert alert-warning'>Giriş yetkiniz bulunmamaktadır.</div>";

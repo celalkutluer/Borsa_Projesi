@@ -179,16 +179,80 @@
                         id="hisse_zaman_<?php echo $sayi; ?>"><?php echo $h_td_saat_id_deger[0]; ?></td>
                     <td class="text-center" id="hisse_alis_<?php echo $sayi; ?>">
                         <?php
-                        echo "<button id='btn_hisse_alis_" . $sayi . "' type='button' class='btn btn-success' data-toggle='collapse'
-                                    data-target='#collapseExample" . $sayi . "' aria-expanded='false'
-                                    aria-controls='collapseExample'>AL</button>
-                        <div class='collapse ' id='collapseExample" . $sayi . "'>
-                            <div class='list-group'>
-                            <h align='justify'>Alınmak istenen hisse :".$h_td_sembol[$sayi]."</h>
-                                <h align='left'>Hisse Değeri : ".$h_td_fiyat_id_deger[0]." </h>
-                                <h align='left'>Bakiyeniz :  </h>
-                            </div>
-                        </div>";
+                        echo "<button id='btn_hisse_alis_" . $sayi . "' type='button' class='btn btn-success' data-toggle='modal' data-target='#formModal" . $sayi . "'>AL</button>
+<div class='modal fade' id='formModal" . $sayi . "' tabindex='-1' role='dialog' aria-labelledby='formModalLabel' aria-hidden='true'>
+    <div class='modal-dialog'>
+		<div class='modal-content'>
+			<div class='modal-header'>
+				<h4 class='modal-title' id='formModalLabel'>Satın Al</h4>
+				<button type='button' class='close' data-dismiss='modal' aria-hidden='true'>&times;</button>
+			</div>
+			<div class='modal-body'>
+				<form id='demo-form' class='mb-4' novalidate='novalidate'>
+				    <div class='form-group row align-items-center'>
+						<label class='col-sm-6 text-left text-sm-right mb-0'>Hisse Adı: </label>
+						<label class='col-sm-6 text-left  mb-0'>".$h_td_sembol[$sayi]."</label>
+					</div>
+				    <div class='form-group row align-items-center'>
+						<label class='col-sm-6 text-left text-sm-right mb-0'>Alış Tutarı: </label>
+						<label id='hisse_deger_alim_" . $sayi . "' class='col-sm-6 text-left  mb-0'>".convert_virgül_nokta($h_td_fiyat_id_deger[0])."</label>
+					</div>
+					<div class='form-group row align-items-center'>
+						<label class='col-sm-6 text-left text-sm-right mb-0'>Bakiyeniz: </label>
+						<label class='col-sm-6 text-left  mb-0'>".$_SESSION['bakiye']."</label>
+					</div>
+					<div class='form-group row align-items-center'>
+                        <label class='col-sm-6 text-left text-sm-right mb-0'>Alınmak İstenen Miktar: </label>
+                        <div class='col-sm-6 text-left'>
+                            <input type = 'range' min='1' max='".intval($_SESSION['bakiye'])/floatval(convert_virgül_nokta($h_td_fiyat_id_deger[0]))."' onchange='rangevalue.value=value'/>
+                            <output id='rangevalue" . $sayi . "'>50</output>
+                        </div>
+                    </div>
+                    <div class='form-group row align-items-center'>
+						<label class='col-sm-6 text-left text-sm-right mb-0'>Toplam Ödenecek Tutar: </label>
+						<label id='toplam_odenecek_alim_tutar_" . $sayi . "' class='col-sm-6 text-left  mb-0'>
+						    <script>
+						    var s1=Number(document.getElementById('hisse_deger_alim_" . $sayi . "').value);
+                            var s2=Number(document.getElementById('rangevalue" . $sayi . "').value);
+                            var carpim=s1*s2;
+                            document.getElementById('toplam_odenecek_alim_tutar_" . $sayi . "').innerHTML=''+carpim;
+                            </script>
+                        </label>
+					</div>
+					<div class='form-group row align-items-center'>
+						<label class='col-sm-3 text-left text-sm-right mb-0'>Name</label>
+						<div class='col-sm-9'>
+							<input type='text' name='name' class='form-control' placeholder='Type your name...' required/>
+						</div>
+					</div>
+					<div class='form-group row align-items-center'>
+						<label class='col-sm-3 text-left text-sm-right mb-0'>Email</label>
+						<div class='col-sm-9'>
+							<input type='email' name='email' class='form-control' placeholder='Type your email...' required/>
+						</div>
+					</div>
+					<div class='form-group row align-items-center'>
+						<label class='col-sm-3 text-left text-sm-right mb-0'>URL</label>
+						<div class='col-sm-9'>
+						<input type='url' name='url' class='form-control' placeholder='Type an URL...' />
+					</div>
+			    </div>
+			    <div class='form-group row'>
+			    	<label class='col-sm-3 text-left text-sm-right mb-0'>Comment</label>
+			    	<div class='col-sm-9'>
+			    	    <textarea rows='5' class='form-control' placeholder='Type your comment...' required></textarea>
+			    	</div>
+			    </div>
+			    </form>
+			</div>
+			<div class='modal-footer'>
+				<button type='button' class='btn btn-light' data-dismiss='modal'>Close</button>
+				<button type='button' class='btn btn-primary'>Save Changes</button>
+			</div>
+		</div>
+	</div>
+</div>
+";
                         ?>
                     </td>
                     <td class="text-center" id="hisse_satis_<?php echo $sayi; ?>">

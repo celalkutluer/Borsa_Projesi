@@ -22,38 +22,44 @@ include "settings/fonksiyonlar.php";
     <!-- Mobile Metas -->
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, shrink-to-fit=no">
     <!-- Web Fonts  -->
-    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:300,400,700" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800|Shadows+Into+Light" rel="stylesheet" type="text/css">
     <!-- Vendor CSS -->
-    <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="vendor/fontawesome-free/css/all.min.css">
-    <link rel="stylesheet" href="vendor/animate/animate.min.css">
-    <link rel="stylesheet" href="vendor/simple-line-icons/css/simple-line-icons.min.css">
-    <link rel="stylesheet" href="vendor/owl.carousel/assets/owl.carousel.min.css">
-    <link rel="stylesheet" href="vendor/owl.carousel/assets/owl.theme.default.min.css">
-    <link rel="stylesheet" href="vendor/magnific-popup/magnific-popup.min.css">
+    <link rel="stylesheet" href="assets/vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/vendor/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="assets/vendor/animate/animate.min.css">
+    <link rel="stylesheet" href="assets/vendor/simple-line-icons/css/simple-line-icons.min.css">
+    <link rel="stylesheet" href="assets/vendor/owl.carousel/assets/owl.carousel.min.css">
+    <link rel="stylesheet" href="assets/vendor/owl.carousel/assets/owl.theme.default.min.css">
+    <link rel="stylesheet" href="assets/vendor/magnific-popup/magnific-popup.min.css">
+    <link rel="stylesheet" href="assets/vendor/bootstrap-datepicker/css/bootstrap-datepicker3.css" />
+
+    <!-- Specific Page Vendor CSS -->
+    <link rel="stylesheet" href="assets/vendor/jquery-ui/jquery-ui.css" />
+    <link rel="stylesheet" href="assets/vendor/jquery-ui/jquery-ui.theme.css" />
 
     <!-- Theme CSS -->
-    <link rel="stylesheet" href="css/theme.css">
-    <link rel="stylesheet" href="css/theme-elements.css">
-    <link rel="stylesheet" href="css/theme-blog.css">
-    <link rel="stylesheet" href="css/theme-shop.css">
+    <link rel="stylesheet" href="assets/css/theme.css">
+    <link rel="stylesheet" href="assets/css/theme-elements.css">
+    <link rel="stylesheet" href="assets/css/theme-blog.css">
+    <link rel="stylesheet" href="assets/css/theme-shop.css">
 
     <!-- Current Page CSS -->
-    <link rel="stylesheet" href="vendor/rs-plugin/css/settings.css">
-    <link rel="stylesheet" href="vendor/rs-plugin/css/layers.css">
-    <link rel="stylesheet" href="vendor/rs-plugin/css/navigation.css">
+    <link rel="stylesheet" href="assets/vendor/rs-plugin/css/settings.css">
+    <link rel="stylesheet" href="assets/vendor/rs-plugin/css/layers.css">
+    <link rel="stylesheet" href="assets/vendor/rs-plugin/css/navigation.css">
 
     <!-- Demo CSS -->
-    <link rel="stylesheet" href="css/demos/demo-insurance.css">
+    <link rel="stylesheet" href="assets/css/demos/demo-insurance.css">
 
     <!-- Skin CSS -->
-    <link rel="stylesheet" href="css/skins/skin-insurance.css">
+    <link rel="stylesheet" href="assets/stylesheets/skins/default.css" />
 
     <!-- Theme Custom CSS -->
-    <link rel="stylesheet" href="css/custom.css">
+    <link rel="stylesheet" href="assets/stylesheets/theme-custom.css">
+
 
     <!-- Head Libs -->
-    <script src="vendor/modernizr/modernizr.min.js"></script>
+    <script src="assets/vendor/modernizr/modernizr.min.js"></script>
 
 </head>
 <body>
