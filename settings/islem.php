@@ -41,6 +41,7 @@ if (g('islem') == 'ygiris') {
     }
 }
 if (g('islem') == 'cikis') {
+    session_unset();
     session_destroy();
     header("Location:../index.php");
 }
@@ -108,6 +109,5 @@ if (g('islem') == 'tablo_yukselen_dusen') {
     //echo "</pre>";
 }
 /*HİSSE BİLGİLERİ YÜKLEME*/
-
 
 ?>

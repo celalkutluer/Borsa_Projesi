@@ -6,14 +6,13 @@ $("#btnSignIn").click(function () {
             data: data,
             success: function (cevap) {
                 $("#ygirisAlert").html(cevap).hide().fadeIn(700);
+                var x = Math.floor((Math.random() * 10) + 1);
+                var y = Math.floor((Math.random() * 10) + 1);
+                $("#giris_dogrulama_text").text(x+"+"+y+" sayılarını toplayarak sonucu giriniz.");
+                $("#giris_dogrulama_input").val(md5(x+y));
             }
         }
     );
-    var x = Math.floor((Math.random() * 10) + 1);
-    var y = Math.floor((Math.random() * 10) + 1);
-    $("#giris_dogrulama_text").text(x+"+"+y+" sayılarının toplamını giriniz.");
-    $("#giris_dogrulama_input").val(md5(x+y));
-
 });
 function Tablo_veri_cek() {
     $.ajax({
@@ -28,10 +27,40 @@ function Tablo_veri_cek() {
                 let durumdegeri = hisse_bilgi[sayi][1];
                 durumdegeri = durumdegeri.toString().replace(",", ".")//virgül nokta dönüşümü
                 if (durumdegeri > 0) {
+                    var element = document.getElementById("hisse_durum_" + sayi);
+                    if(element=="fas fa-minus text-info"){
+                        element.classList.remove("fas fa-minus text-info");
+                    }
+                    else if(element=="fas fa-arrow-circle-down text-danger"){
+                        element.classList.remove("fas fa-arrow-circle-down text-danger");
+                    }
+                    else{
+
+                    }
                     $("#hisse_durum_" + sayi).addClass("fas fa-arrow-circle-up text-success");
                 } else if (durumdegeri == 0) {
+                    var element = document.getElementById("hisse_durum_" + sayi);
+                    if(element=="fas fa-arrow-circle-up text-success"){
+                        element.classList.remove("fas fa-arrow-circle-up text-success");
+                    }
+                    else if(element=="fas fa-arrow-circle-down text-danger"){
+                        element.classList.remove("fas fa-arrow-circle-down text-danger");
+                    }
+                    else{
+
+                    }
                     $("#hisse_durum_" + sayi).addClass("fas fa-minus text-info");
                 } else {
+                    var element = document.getElementById("hisse_durum_" + sayi);
+                    if(element=="fas fa-arrow-circle-up text-success"){
+                        element.classList.remove("fas fa-arrow-circle-up text-success");
+                    }
+                    else if(element=="fas fa-minus text-info"){
+                        element.classList.remove("fas fa-minus text-info");
+                    }
+                    else{
+
+                    }
                     $("#hisse_durum_" + sayi).addClass("fas fa-arrow-circle-down text-danger");
                 }
                 ///////////////
@@ -65,10 +94,40 @@ function Tablo_veri_cek() {
                 let durumdegeri = hisse_bilgi[sayi][1];
                 durumdegeri = durumdegeri.toString().replace(",", ".")//virgül nokta dönüşümü
                 if (durumdegeri > 0) {
+                    var element = document.getElementById("hisse_dusen_durum_" + sayi);
+                    if(element=="fas fa-minus text-info"){
+                        element.classList.remove("fas fa-minus text-info");
+                    }
+                    else if(element=="fas fa-arrow-circle-down text-danger"){
+                        element.classList.remove("fas fa-arrow-circle-down text-danger");
+                    }
+                    else{
+
+                    }
                     $("#hisse_dusen_durum_" + sayi).addClass("fas fa-arrow-circle-up text-success");
                 } else if (durumdegeri == 0) {
+                    var element = document.getElementById("hisse_dusen_durum_" + sayi);
+                    if(element=="fas fa-arrow-circle-up text-success"){
+                        element.classList.remove("fas fa-arrow-circle-up text-success");
+                    }
+                    else if(element=="fas fa-arrow-circle-down text-danger"){
+                        element.classList.remove("fas fa-arrow-circle-down text-danger");
+                    }
+                    else{
+
+                    }
                     $("#hisse_dusen_durum_" + sayi).addClass("fas fa-minus text-info");
                 } else {
+                    var element = document.getElementById("hisse_dusen_durum_" + sayi);
+                    if(element=="fas fa-arrow-circle-up text-success"){
+                        element.classList.remove("fas fa-arrow-circle-up text-success");
+                    }
+                    else if(element=="fas fa-minus text-info"){
+                        element.classList.remove("fas fa-minus text-info");
+                    }
+                    else{
+
+                    }
                     $("#hisse_dusen_durum_" + sayi).addClass("fas fa-arrow-circle-down text-danger");
                 }
                 ///////////////
@@ -88,13 +147,44 @@ function Tablo_veri_cek() {
                 //////////////
                 $("#hisse_yukselen_sembol_" + sayi).text(hisse_bilgi[sayi][0]);
                 //////////////
+                //////////////
                 let durumdegeri = hisse_bilgi[sayi][1];
                 durumdegeri = durumdegeri.toString().replace(",", ".")//virgül nokta dönüşümü
                 if (durumdegeri > 0) {
+                    var element = document.getElementById("hisse_yukselen_durum_" + sayi);
+                    if(element=="fas fa-minus text-info"){
+                        element.classList.remove("fas fa-minus text-info");
+                    }
+                    else if(element=="fas fa-arrow-circle-down text-danger"){
+                        element.classList.remove("fas fa-arrow-circle-down text-danger");
+                    }
+                    else{
+
+                    }
                     $("#hisse_yukselen_durum_" + sayi).addClass("fas fa-arrow-circle-up text-success");
                 } else if (durumdegeri == 0) {
+                    var element = document.getElementById("hisse_yukselen_durum_" + sayi);
+                    if(element=="fas fa-arrow-circle-up text-success"){
+                        element.classList.remove("fas fa-arrow-circle-up text-success");
+                    }
+                    else if(element=="fas fa-arrow-circle-down text-danger"){
+                        element.classList.remove("fas fa-arrow-circle-down text-danger");
+                    }
+                    else{
+
+                    }
                     $("#hisse_yukselen_durum_" + sayi).addClass("fas fa-minus text-info");
                 } else {
+                    var element = document.getElementById("hisse_yukselen_durum_" + sayi);
+                    if(element=="fas fa-arrow-circle-up text-success"){
+                        element.classList.remove("fas fa-arrow-circle-up text-success");
+                    }
+                    else if(element=="fas fa-minus text-info"){
+                        element.classList.remove("fas fa-minus text-info");
+                    }
+                    else{
+
+                    }
                     $("#hisse_yukselen_durum_" + sayi).addClass("fas fa-arrow-circle-down text-danger");
                 }
                 ///////////////

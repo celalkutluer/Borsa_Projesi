@@ -56,9 +56,10 @@
                                             </div>
                                         </div>
                                         <div class="form-group col-lg-6">
-                                            <input id="btnSignIn" value="Giriş"
-                                                   class="btn btn-primary btn-modern float-right"
-                                                   data-loading-text="Loading...">
+                                            <button type="button"  id="btnSignIn"
+                                                    class="btn btn-primary btn-modern float-right"
+                                                    data-loading-text="Loading...">
+                                                Giriş</button>
                                         </div>
                                     </div>
                                 </form>

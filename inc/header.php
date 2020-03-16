@@ -1,10 +1,6 @@
 <?php
 include "settings/baglantilar.php";
 include "settings/fonksiyonlar.php";
-if (isset($_SESSION['yetki'])) {
-} else {
-    $_SESSION['yetki'] = "kullanici";
-}
 ?>
 <!DOCTYPE html>
 <html>
@@ -85,8 +81,8 @@ if (isset($_SESSION['yetki'])) {
                                     <nav class="collapse">
                                         <ul class="nav nav-pills" id="mainNav">
                                             <?php
-                                            if ($_SESSION['yetki'] == "kullanici") {
-                                            } else {
+                                            if (isset($_SESSION['yetki'])) {
+
                                                 echo "
                                             <li class='dropdown'>
                                                 <a class='nav-link dropdown-toggle active' href='portfoy.php'>
@@ -99,11 +95,13 @@ if (isset($_SESSION['yetki'])) {
                                                             Alım-Satımlar</a></li>
                                                 </ul>
                                             </li>";
+                                            } else {
                                             }
                                             ?>
                                             <?php
-                                            if ($_SESSION['yetki'] == "1") {
-                                                echo "<li class='dropdown'>
+                                            if (isset($_SESSION['yetki'])) {
+                                                if ($_SESSION['yetki'] == "1") {
+                                                    echo "<li class='dropdown'>
                                                 <a class='nav-link dropdown-toggle' href='yonetim.php'>
                                                     Yönetim
                                                 </a>
@@ -116,15 +114,18 @@ if (isset($_SESSION['yetki'])) {
                                                     </li>
                                                 </ul>
                                             </li>";
-                                            } else {
-                                            } ?>
+                                                }
+                                                else {}
+                                            }
+                                            ?>
                                             <li>
                                                 <a class="nav-link" href="siralama.php">
                                                     Liderlik
                                                 </a>
                                             </li>
                                             <?php
-                                            if ($_SESSION['yetki'] == "kullanici") {
+                                            if (isset($_SESSION['yetki'])) {
+                                            } else {
                                                 echo "
                                             <li>
                                                 <a class='nav-link ' href='giris.php'>
@@ -136,24 +137,19 @@ if (isset($_SESSION['yetki'])) {
                                                     Kayıt
                                                 </a>
                                             </li>";
-                                            } else {}
-                                            ?>
-                                            <?php
-                                            if ($_SESSION['yetki'] == "kullanici") {
-                                            } else {
-                                                echo "<li>
-                                                <a class='nav-link ' href='profil.php'>
-                                                    Profil(" . s("isim") . " " . s('soyisim') . ")";
                                             }
                                             ?>
-                                            </a>
-                                            </li>
                                             <?php
-                                            if ($_SESSION['yetki'] == "kullanici") {
-                                            } else {
+                                            if (isset($_SESSION['yetki'])) {
                                                 echo "<li>
-                                                <a role='menuitem' tabindex='-1' href='settings/islem.php?islem=cikis'><i class='fa fa-power-off'></i> Çıkış</a>
+                                                <a class='nav-link ' href='profil.php'>
+                                                    Profil(" . s("isim") . " " . s('soyisim') . ") </a>
+                                            </li>
+                                            <li>
+                                                <a role='menuitem' tabindex='-1' href='settings/islem.php?islem=cikis'>
+                                                <i class='fa fa-power-off'></i> Çıkış</a>
                                             </li>";
+                                            } else {
                                             }
                                             ?>
                                         </ul>

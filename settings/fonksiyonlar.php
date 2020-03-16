@@ -37,8 +37,8 @@ function s($par)
 ///////////////////////YONETİCİ
 function yoneticikontrol()
 {
-    if (!$_SESSION || !$_SESSION['yetki'] == '1'|| !$_SESSION['yetki'] == '2') {
-        header("Location:../index.php");
+    if (!$_SESSION['yetki'] == '1'|| !$_SESSION['yetki'] == '2') {
+        header("Location:index.php");
     }
 }
 /////////////////////////////
