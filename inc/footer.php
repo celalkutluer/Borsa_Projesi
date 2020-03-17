@@ -63,16 +63,7 @@
 
 
 <!-- Demo Purpose Only -->
-<script>
-    (function() {
-        $('#listenSlider').change(function() {
-            $('.output b').text( this.value );
 
-        });
-
-
-    })();
-</script>
 
 <!-- JS -->
 <script src="assets/js/main.js"></script>

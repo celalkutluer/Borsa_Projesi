@@ -14,6 +14,7 @@ $("#btnSignIn").click(function () {
         }
     );
 });
+
 function Tablo_veri_cek() {
     $.ajax({
         type: 'POST',
