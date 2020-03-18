@@ -25,7 +25,6 @@
                             $icerik = file_get_contents($link);
                             ///
                             $h_td_sembol = array();
-                            $h_td_sembol = ara('target="_blank">', '</a>', $icerik);
                             $h_td_sembol = ara('target="_blank">', '</a>', $icerik);//hisse adlarının dizisi[0] - [99] arası 100 hisse
                             $tum_hisse_dizileri = array();
                             ///
@@ -38,7 +37,6 @@
 
                             }
                             $sorted = val_sort($tum_hisse_dizileri, 1);//1=yuzde
-
                             for ($sayi = 99; $sayi > 94; $sayi--) {
                                 ?>
                                 <tr>
@@ -77,14 +75,6 @@
                             </thead>
                             <tbody>
                             <?php
-                            for ($sayi = 0; $sayi < 100; $sayi++) {
-                                $tum_hiss = array();
-                                $hisse_tekil_yuzde = ara('h_td_yuzde_id_' . $h_td_sembol[$sayi] . '">', '</li>', $icerik);
-                                $hisse_tekil_fiyat = ara('h_td_fiyat_id_' . $h_td_sembol[$sayi] . '">', '</li>', $icerik);
-                                array_push($tum_hiss, $h_td_sembol[$sayi], convert_virgül_nokta($hisse_tekil_yuzde[0]), convert_virgül_nokta($hisse_tekil_fiyat[0]));
-                                array_push($tum_hisse_dizileri, $tum_hiss);//ayrı ayrı array oluşturup sıralama yapabilmek amacıyla
-                            }
-                            $sorted = val_sort($tum_hisse_dizileri, 1);//1=yuzde
                             for ($sayi = 0; $sayi < 5; $sayi++) {
                                 ?>
                                 <tr>
