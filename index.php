@@ -287,7 +287,7 @@
                                     </div>
                                     <div class='modal-footer'>
                                         <button type='button' class='btn btn-light' data-dismiss='modal'>Kapat</button>
-                                        <button type='button' class='btn btn-success'>Sat</button>
+                                        <button type='button' class='btn btn-danger'>Sat</button>
                                     </div>
                                 </div>
                             </div>

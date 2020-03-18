@@ -7851,3 +7851,159 @@ input[type="range"]::-webkit-slider-thumb:active {
 	width: 100%;
 	color: #579E81;
 }
+/* Sign Screens - Wrappers */
+.body-sign {
+	display: table;
+	height: 100vh;
+	margin: 0 auto;
+	max-width: 500px;
+	padding: 0 15px;
+	width: 100%;
+}
+.body-sign .center-sign {
+	display: table-cell;
+	padding-top: 20px;
+	vertical-align: middle;
+}
+.body-sign .panel-sign {
+	background: transparent;
+}
+.body-sign .panel-sign .panel-title-sign .title {
+	background-color: #CCC;
+	border-radius: 5px 5px 0 0;
+	color: #FFF;
+	display: inline-block;
+	font-size: 1.2rem;
+	line-height: 2rem;
+	padding: 13px 17px;
+	vertical-align: bottom;
+}
+.body-sign .panel-sign .panel-body {
+	background: #FFF;
+	border-top: 5px solid #CCC;
+	border-radius: 5px 0 5px 5px;
+	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+	padding: 33px 33px 15px;
+}
+
+/* Sign Screens - Elements */
+.body-sign .input-group-icon .input-group-addon i {
+	width: 14px;
+}
+.body-sign .checkbox-custom {
+	margin-top: 8px;
+}
+.body-sign .line-thru {
+	display: block;
+	font-size: 1.2rem;
+	position: relative;
+}
+.body-sign .line-thru span {
+	color: #CCC;
+	position: relative;
+	z-index: 3;
+}
+.body-sign .line-thru:before {
+	background-color: #FFF;
+	content: '';
+	height: 10px;
+	left: 50%;
+	position: absolute;
+	margin: -5px 0 0 -20px;
+	top: 50%;
+	width: 40px;
+	z-index: 2;
+}
+.body-sign .line-thru:after {
+	border-bottom: 1px solid #DADADA;
+	content: '';
+	display: block;
+	left: 10%;
+	position: absolute;
+	top: 47%;
+	width: 81%;
+	z-index: 1;
+}
+
+/* Lock Screen */
+.body-locked {
+	background: url(../images/patterns/noisy_net.png) repeat;
+	max-width: none;
+	min-height: 400px;
+}
+.body-locked.body-locked-inline {
+	background: none;
+	bottom: 0;
+	height: 100%;
+	left: 0;
+	min-height: 0;
+	position: fixed;
+	right: 0;
+	top: 0;
+	z-index: 9999;
+}
+.body-locked .panel-sign {
+	margin: 0 auto;
+	max-width: 400px;
+	padding-top: 40px;
+}
+.body-locked .panel-sign .panel-body {
+	border-radius: 5px;
+	position: relative;
+}
+.body-locked .current-user {
+	margin-top: 60px;
+	margin-bottom: 35px;
+}
+.body-locked .current-user .user-image {
+	border: 5px solid #CCC;
+	border-radius: 150px;
+	height: 150px;
+	left: 50%;
+	position: absolute;
+	margin-left: -75px;
+	top: -75px;
+	width: 150px;
+}
+.body-locked .current-user .user-name {
+	font-size: 3rem;
+	line-height: 3.6rem;
+}
+.body-locked .current-user .user-email {
+	font-size: 1.1rem;
+	line-height: 1.4rem;
+}
+
+/* Locked Screen - Responsive Landscape */
+@media only screen and (max-width: 767px) and (orientation: landscape) {
+	.body-locked .panel-sign, .body-locked.body-locked-inline .panel-sign {
+		padding-top: 0;
+	}
+	.body-locked .center-sign, .body-locked.body-locked-inline .center-sign {
+		padding-top: 0;
+	}
+	.body-locked .center-sign .current-user, .body-locked.body-locked-inline .center-sign .current-user {
+		margin-bottom: 45px;
+		margin-left: 100px;
+		margin-top: 10px;
+	}
+	.body-locked .center-sign .current-user .user-image, .body-locked.body-locked-inline .center-sign .current-user .user-image {
+		height: 100px;
+		left: 35px;
+		margin-left: 0;
+		margin-top: 0;
+		top: 15px;
+		width: 100px;
+	}
+}
+/* Lock Screen - Modal */
+.mfp-lock-screen.mfp-bg {
+	background: #000 url(../images/patterns/noisy_net.png) repeat;
+	opacity: 0.99;
+	z-index: 9998;
+}
+.mfp-lock-screen.mfp-wrap {
+	background: none;
+	z-index: 9999;
+}
+
