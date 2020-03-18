@@ -130,7 +130,8 @@
                 <th class="text-center" scope="col">Hacim(Lot)</th>
                 <th class="text-center" scope="col">Hacim(TL)</th>
                 <th class="text-center" scope="col">Zaman</th>
-                <?php if(isset($_SESSION['yetki'])){
+                <?php
+                if(isset($_SESSION['yetki'])){
                     echo "    <th class='text-center' scope='col'>Alış</th>
                               <th class='text-center' scope='col'>Satış</th>";
                 }
@@ -181,9 +182,10 @@
                         id="hisse_hacim_tl_<?php echo $sayi; ?>"><?php echo $h_td_hacimtl_id_deger[0]; ?></td>
                     <td class="text-center"
                         id="hisse_zaman_<?php echo $sayi; ?>"><?php echo $h_td_saat_id_deger[0]; ?></td>
-                    <?php if(isset($_SESSION['yetki'])){echo "<td class='text-center' id='hisse_alis_".$sayi." '>
-                        <button id='btn_hisse_alis_" . $sayi . "' type='button' class='btn btn-success' data-toggle='modal' data-target='#formModal" . $sayi . "'>AL</button>
-                        <div class='modal fade' id='formModal" . $sayi . "' tabindex='-1' role='dialog' aria-labelledby='formModalLabel' aria-hidden='true'>
+                    <?php if(isset($_SESSION['yetki'])){echo "
+                    <td class='text-center' id='hisse_alis_".$sayi." '>
+                        <button id='btn_hisse_alis_" . $sayi . "' type='button' class='btn btn-success' data-toggle='modal' data-target='#formModalAl" . $sayi . "'>AL</button>
+                        <div class='modal fade' id='formModalAl" . $sayi . "' tabindex='-1' role='dialog' aria-labelledby='formModalLabel' aria-hidden='true'>
                             <div class='modal-dialog'>
                                 <div class='modal-content'>
                                     <div class='modal-header'>
@@ -225,10 +227,11 @@
                                                     $('#rangevalue" . $sayi . "').text($('#range_" . $sayi . "').val());
                                                     $('#komisyon" . $sayi . "').text((alis*miktar*(".$komisyon."-1)).toFixed(2));
                                                     $('#toplam_odenecek_alim_tutar" . $sayi . "').text((alis*miktar*(".$komisyon. ")).toFixed(2));
-                                              }
+                                                }
                                                 </script>
                                                 ".round(floatval(convert_virgül_nokta($h_td_fiyat_id_deger[0]))*($komisyon)*50,2)."
-                                               </label><span class='col-sm-4 text-left  mb-0'>&#x20BA;</span>
+                                               </label>
+                                               <span class='col-sm-4 text-left  mb-0'>&#x20BA;</span>
                                             </div>
                                         </form>
                                     </div>
@@ -239,14 +242,70 @@
                                 </div>
                             </div>
                         </div>
-                        </td>
+                    </td>
                     <td class='text-center' id='hisse_satis_".$sayi."'>
-                     <button id='btn_hisse_satis_" . $sayi . "' type='button' class='btn btn-danger'>SAT</button>   
-                                            </td>
-
-                 </tr>
-                        ";}
-                        else{} ?>
+                         <button id='btn_hisse_satis_" . $sayi . "' type='button' class='btn btn-danger' data-toggle='modal' data-target='#formModalSat" . $sayi . "'>SAT</button>
+                         <div class='modal fade' id='formModalSat" . $sayi . "' tabindex='-1' role='dialog' aria-labelledby='formModalLabel' aria-hidden='true'>
+                            <div class='modal-dialog'>
+                                <div class='modal-content'>
+                                    <div class='modal-header'>
+                                        <h4 class='modal-title' id='formModalLabel'>Sat</h4>
+                                        <button type='button' class='close' data-dismiss='modal' aria-hidden='true'>&times;</button>
+                                    </div>
+                                    <div class='modal-body'>
+                                        <form id='demo-form' class='mb-4' novalidate='novalidate'>
+                                            <div class='form-group row align-items-center'>
+                                                <label class='col-sm-4 text-left text-sm-right mb-0'>Hisse Adı: </label>
+                                                <label class='col-sm-7 text-center  mb-0'>".$h_td_sembol[$sayi]."</label>
+                                            </div>
+                                            <div class='form-group row align-items-center'>
+                                                <label class='col-sm-4 text-left text-sm-right mb-0'>Alış Tutarı: </label>
+                                                <label id='hisse_deger_satim_" . $sayi . "' class='col-sm-7 text-center  mb-0'>".convert_virgül_nokta($h_td_fiyat_id_deger[0])."</label>
+                                            </div>
+                                            <div class='form-group row align-items-center'>
+                                                <label class='col-sm-4 text-left text-sm-right mb-0'>Bakiyeniz: </label>
+                                                <label class='col-sm-4 text-right  mb-0'>".$_SESSION['bakiye']."</label><span class='col-sm-4 text-left  mb-0'>&#x20BA;</span>
+                                            </div>
+                                            <div class='form-group row align-items-center'>
+                                                <label class='col-sm-4 text-left text-sm-right mb-0'>Satilmak İstenen Miktar: </label>
+                                                <div class='col-sm-7 text-center'>
+                                                    <input id='range_satim" . $sayi . "' type = 'range' min='1' max='".intval($_SESSION['bakiye'])/(floatval(convert_virgül_nokta($h_td_fiyat_id_deger[0]))*$komisyon)."' onchange='satis_hesapla" . $sayi . "()'/>
+                                                    <output  id='rangevaluesatim" . $sayi . "'>1</output>
+                                                </div>
+                                            </div>
+                                            <div class='form-group row align-items-center'>
+                                                <label class='col-sm-4 text-left text-sm-right mb-0'>Komisyon(Binde 3): </label>
+                                                <label id='komisyonsatim" . $sayi . "' class='col-sm-4 text-right  mb-0'>".round(floatval(convert_virgül_nokta($h_td_fiyat_id_deger[0]))*($komisyon-1)*50,2)."</label><span class='col-sm-4 text-left  mb-0'>&#x20BA;</span>
+                                            </div>
+                                            <div class='form-group row align-items-center'>
+                                                <label class='col-sm-4 text-left text-sm-right mb-0'>Toplam Alinacak Tutar: </label>
+                                                <label id='toplam_odenecek_satim_tutar" . $sayi . "' class='col-sm-4 text-right  mb-0'>
+                                                <script>
+                                                function satis_hesapla" . $sayi . "() {
+                                                    var satis=$('#hisse_deger_satim_" . $sayi . "').text();
+                                                    var miktar_satis=$('#range_satim" . $sayi . "').val();
+                                                    $('#rangevaluesatim" . $sayi . "').text($('#range_satim" . $sayi . "').val());
+                                                    $('#komisyonsatim" . $sayi . "').text((satis*miktar_satis*(".$komisyon."-1)).toFixed(2));
+                                                    $('#toplam_odenecek_satim_tutar" . $sayi . "').text((satis*miktar_satis*(".$komisyon. ")).toFixed(2));
+                                                }
+                                                </script>
+                                                ".round(floatval(convert_virgül_nokta($h_td_fiyat_id_deger[0]))*($komisyon)*1,2)."
+                                               </label>
+                                               <span class='col-sm-4 text-left  mb-0'>&#x20BA;</span>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class='modal-footer'>
+                                        <button type='button' class='btn btn-light' data-dismiss='modal'>Kapat</button>
+                                        <button type='button' class='btn btn-success'>Sat</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                 </tr>";
+                    }
+                    else{} ?>
             <?php } ?>
             </tbody>
         </table>
