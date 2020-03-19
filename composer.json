@@ -1,0 +1,12 @@
+{
+    "name": "20180827/borsa_projesi",
+    "authors": [
+        {
+            "name": "CELAL KUTLUER",
+            "email": "celalkutluer@gmail.com"
+        }
+    ],
+    "require": {
+        "sendgrid/sendgrid": "^7.4"
+    }
+}

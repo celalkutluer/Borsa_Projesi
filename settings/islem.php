@@ -104,7 +104,9 @@ VALUES ('" . $Ad . "','" . $Soyad . "','" . $Email . "','" .  $CepTelNo. "','" .
 
             $ekleme = $ekle->execute(array());
             if ($ekleme) {
-                echo "<div class='alert alert-success'>Kayit işleminiz başarı ile gerçekleştirildi.</div><meta http-equiv='refresh' content='1; url=giris.php'>";
+
+
+                echo "<div class='alert alert-success'>Kayit işleminiz başarı ile gerçekleştirildi.</div>";//<meta http-equiv='refresh' content='1; url=giris.php'>
             } else {
                 echo "<div class='alert alert-danger'>Kayit işlemi sırasında bir hata meydana geldi</div>";
             }
