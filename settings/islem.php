@@ -24,7 +24,7 @@ if (g('islem') == 'ygiris') {
         $say = $veri->rowCount();
         foreach ($v as $ykul_bilgileri) ;
         if ($say) {
-            if ($ykul_bilgileri['kul_yetki'] == '1' || $ykul_bilgileri['personel_yetki'] == '2' || $ykul_bilgileri['personel_yetki'] == '3') {
+            if ($ykul_bilgileri['kul_yetki'] == '1' || $ykul_bilgileri['kul_yetki'] == '0' ) {
                 $_SESSION['ykul_id'] = $eposta;
                 $_SESSION['isim'] = $ykul_bilgileri['kul_adi'];
                 $_SESSION['soyisim'] = $ykul_bilgileri['kul_soyadi'];
@@ -38,7 +38,7 @@ if (g('islem') == 'ygiris') {
 
             }
         } else {
-            echo "<div class='alert alert-warning'>Böyle Bir Yönetici Bulunmamaktadır.</div>";
+            echo "<div class='alert alert-warning'>Böyle Bir Kullanıcı Bulunmamaktadır. Lütfen Kayit olun</div><meta http-equiv='refresh' content='1; url=kayit.php'>";
         }
     }
 }
@@ -47,6 +47,75 @@ if (g('islem') == 'cikis') {
     session_destroy();
     header("Location:../index.php");
 }
+///
+if (g('islem') == 'kayit') {
+    ///
+    $Ad = p('frmKayitAd');
+    $Soyad = p('frmKayitSoyad');
+    $Email = p('frmKayitEmail');
+    $Sifre = p('frmKayitSifre');
+    $Sifreconfirm = p('frmKayitSifreconfirm');
+    $Dogum_tar = p('frmKayitDogum_tar');
+    $CepTelNo = p('frmKayitCepTelNo');
+    ///
+    $toplam = p('frmKayittoplam');
+    $dkodu = p('frmKayitdkodu');
+    ///
+    //$Sozlesme = p('frmKayitSozlesme');
+    ///
+    if (empty($Ad)) {
+        echo "<div class='alert alert-warning'>Lütfen Adınızı giriniz.</div>";
+    }
+    else if (empty($Soyad)) {
+        echo "<div class='alert alert-warning'>Lütfen Soyadınızı giriniz.</div>";
+    }
+    else if (empty($Email)) {
+        echo "<div class='alert alert-warning'>Lütfen E-posta adresinizi giriniz.</div>";
+    }
+    else if (empty($Sifre)) {
+        echo "<div class='alert alert-warning'>Lütfen Şifrenizi giriniz.</div>";
+    }
+    else if (empty($Sifreconfirm)) {
+        echo "<div class='alert alert-warning'>Lütfen Şifrenizi tekrar giriniz.</div>";
+    }
+    else if (empty($Dogum_tar)) {
+        echo "<div class='alert alert-warning'>Lütfen Doğum Tarihinizi giriniz.</div>";
+    }
+    else if (empty($CepTelNo)) {
+        echo "<div class='alert alert-warning'>Lütfen Cep Telefon Numaranızı giriniz.</div>";
+    }
+    elseif (empty($dkodu)) {
+        echo "<div class='alert alert-warning'>Lütfen Doğrulama kodunu giriniz.</div>";
+    }
+    elseif ($toplam != md5($dkodu)) {
+        echo "<div class='alert alert-warning'>Doğrulama kodunuz hatalı.</div>";
+    }
+    else {
+        //////////////////////////////////////////////////////////////////////////////////////////////////
+        $veri1 = $db->prepare('SELECT kul_eposta FROM kullanicilar WHERE kul_eposta=?');
+        $veri1->execute(array($Email));
+        $v1 = $veri1->fetchAll(PDO::FETCH_ASSOC);
+        $say1 = $veri1->rowCount();
+        foreach ($v1 as $kul_kayit) ;
+
+        if (!$say1) {
+            $ekle = $db->prepare("INSERT INTO kullanicilar(kul_adi, kul_soyadi, kul_eposta, kul_cep_tel, kul_dogum_tar, kul_sifre) 
+VALUES ('" . $Ad . "','" . $Soyad . "','" . $Email . "','" .  $CepTelNo. "','" . $Dogum_tar . "','" . md5($Sifre) . "')");
+
+            $ekleme = $ekle->execute(array());
+            if ($ekleme) {
+                echo "<div class='alert alert-success'>Kayit işleminiz başarı ile gerçekleştirildi.</div><meta http-equiv='refresh' content='1; url=giris.php'>";
+            } else {
+                echo "<div class='alert alert-danger'>Kayit işlemi sırasında bir hata meydana geldi</div>";
+            }
+        }
+        else {
+            echo "<div class='alert alert-info'>Eposta adresinize tanımlı üyelik mevcut. Lütfen Giriş yapınız.</div><meta http-equiv='refresh' content='1; url=giris.php'>";
+        }
+
+    }
+}
+
 /*HİSSE BİLGİLERİ YÜKLEME*/
 ///
 ///

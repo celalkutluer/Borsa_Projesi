@@ -155,32 +155,32 @@
                     <!--ALERT-->
                     <div id="ykayitAlert"></div>
                     <!--ALERT-->
-                    <form>
+                    <form  id="frmKayit" method="post" >
                         <div class="form-group mb-none">
                             <div class="row">
                                 <div class="col-sm-6 mb-lg">
                                     <label>Ad</label>
-                                    <input name="name" type="text" class="form-control input-lg" />
+                                    <input id="frmKayitAd" name="frmKayitAd" type="text" class="form-control input-lg" />
                                 </div>
                                 <div class="col-sm-6 mb-lg">
                                     <label>Soyad</label>
-                                    <input name="name" type="text" class="form-control input-lg" />
+                                    <input id="frmKayitSoyad" name="frmKayitSoyad" type="text" class="form-control input-lg" />
                                 </div>
                             </div>
                         </div>
                         <div class="form-group mb-lg">
                             <label>E-Posta</label>
-                            <input name="email" type="email" class="form-control input-lg" />
+                            <input id="frmKayitEmail" name="frmKayitEmail" type="email" class="form-control input-lg" />
                         </div>
                         <div class="form-group mb-none">
                             <div class="row">
                                 <div class="col-sm-6 mb-lg">
                                     <label>Şifre</label>
-                                    <input name="pwd" type="password" class="form-control input-lg" />
+                                    <input id="frmKayitSifre" name="frmKayitSifre"  name="pwd" type="password" class="form-control input-lg" />
                                 </div>
                                 <div class="col-sm-6 mb-lg">
                                     <label>Yeniden Şifre</label>
-                                    <input name="pwd_confirm" type="password" class="form-control input-lg" />
+                                    <input  id="frmKayitSifreconfirm" name="frmKayitSifreconfirm"  type="password" class="form-control input-lg" />
                                 </div>
                             </div>
                         </div>
@@ -188,11 +188,11 @@
                             <div class="row">
                                 <div class="col-sm-6 mb-lg">
                                     <label>Doğum Tarihi</label>
-                                    <input name="dogum_tar" type="date" class="form-control input-lg" />
+                                    <input id="frmKayitDogum_tar" name="frmKayitDogum_tar" type="date" class="form-control input-lg" />
                                 </div>
                                 <div class="col-sm-6 mb-lg">
                                     <label>Cep Telefon No</label>
-                                    <input name="cep" type="text" data-plugin-masked-input data-input-mask="(999) 999-9999" placeholder="(555) 555-5555" class="form-control input-lg" />
+                                    <input id="frmKayitCepTelNo" name="frmKayitCepTelNo" type="text" data-plugin-masked-input data-input-mask="(999) 999-9999" placeholder="(555) 555-5555" class="form-control input-lg" />
                                 </div>
                             </div>
                         </div>
@@ -204,34 +204,34 @@
                                 $t = $s1 + $s2;
                                 $y = md5($t);
                                 ?>
-                                <label class="pull-left" id="giris_dogrulama_text">
+                                <label class="pull-left" id="frmKayitgiris_dogrulama_text">
                                     <?php
                                     echo "$s1+$s2 sayılarının toplamını giriniz.";
                                     ?>
                                 </label>
                                 <label class="pull-right">Doğrulama</label>
-                                <input id="giris_dogrulama_input" class="form-control form-control-lg" type="hidden"
-                                       value="<?php echo $y; ?>" name="toplam">
+                                <input id="frmKayitgiris_dogrulama_input" class="form-control form-control-lg" type="hidden"
+                                       value="<?php echo $y; ?>" name="frmKayittoplam">
                             </div>
                             <div class="input-group input-group-icon">
-                                <input name="dkodu" type="text" class="form-control input-lg" />
+                                <input name="frmKayitdkodu" type="text" class="form-control input-lg" />
                                 <span class="input-group-addon">
 										<span class="icon icon-lg">
 											<i class="fa fa-lock"></i>
 										</span>
-									</span>
+								</span>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-sm-8">
                                 <div class="checkbox-custom checkbox-default">
-                                    <input id="AgreeTerms" name="agreeterms" type="checkbox"/>
-                                    <label for="AgreeTerms"><a href="#">Üyelik Sözleşmesi</a>ni kabul ediyorum.</label>
+                                    <input id="frmKayitSozlesme" name="frmKayitSozlesme" type="checkbox"/>
+                                    <label for="frmKayitSozlesme"><a href="#">Üyelik Sözleşmesi</a>ni kabul ediyorum.</label>
                                 </div>
                             </div>
                             <div class="col-sm-4 text-right">
-                                <button type="submit" class="btn btn-primary hidden-xs">Kayıt</button>
-                                <button type="submit" class="btn btn-primary btn-block btn-lg visible-xs mt-lg">Kayıt</button>
+                                <button type="button" type="submit" id="btnfrmKayit" class="btn btn-primary hidden-xs">Kayıt</button>
+                                <button type="button" type="submit" id="btnfrmKayit" class="btn btn-primary btn-block btn-lg visible-xs mt-lg">Kayıt</button>
                             </div>
                         </div>
                     </form>

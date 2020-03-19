@@ -14,6 +14,22 @@ $("#btnSignIn").click(function () {
         }
     );
 });
+$("#btnfrmKayit").click(function () {
+    var data = $("#frmKayit").serialize();
+    $.ajax({
+            type: 'POST',
+            url: 'settings/islem.php?islem=kayit',
+            data: data,
+            success: function (cevap) {
+                $("#ykayitAlert").html(cevap).hide().fadeIn(700);
+                var x = Math.floor((Math.random() * 10) + 1);
+                var y = Math.floor((Math.random() * 10) + 1);
+                $("#frmKayitgiris_dogrulama_text").text(x+"+"+y+" sayılarını toplayarak sonucu giriniz.");
+                $("#frmKayitgiris_dogrulama_input").val(md5(x+y));
+            }
+        }
+    );
+});
 
 function Tablo_veri_cek() {
     $.ajax({
