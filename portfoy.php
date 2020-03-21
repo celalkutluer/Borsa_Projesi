@@ -7,19 +7,23 @@ yoneticikontrol();
             <div class="col-md">
                 <section class="panel panel-success">
                     <header class="panel-heading">
-                        <div class="panel-actions">
-                            <a href="#" class="panel-action panel-action-toggle" data-panel-toggle></a>
-                            <a href="#" class="panel-action panel-action-dismiss" data-panel-dismiss></a>
-                        </div>
-
-                        <h2 class="panel-title">Title</h2>
+                        <h2 class="panel-title">Aktif Varlıklarım</h2>
                     </header>
                     <div class="panel-body">
-                        <code>.panel-success</code>
+
                     </div>
                 </section>
-            </div>//panel-success
+            </div>
+            <div class="col-md">
+                <section class="panel panel-danger">
+                    <header class="panel-heading">
+                        <h2 class="panel-title">Geçmiş Alım-Satımlarım</h2>
+                    </header>
+                    <div class="panel-body">
 
+                    </div>
+                </section>
+            </div>
         </div>
     </section>
     <!--KODLAR BURAYA-->

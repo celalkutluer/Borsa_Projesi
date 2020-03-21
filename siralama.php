@@ -3,8 +3,8 @@ include "inc/header.php";
 ?>
 
 
-    <section class="section section-padding">
-        <div class="container">
+    <section role="main" class="content-body">
+        <div class="conteiner">
             <div class="tabs ">
                 <ul class="nav nav-tabs nav-justified">
                     <li class="active">

@@ -1,137 +1,141 @@
 <?php include "inc/header.php";
 ?>
-<section class="section bg-color-quaternary custom-padding-4 border-0 my-0 section-padding">
-    <div class="container">
-        <div class="row mb-3">
-            <div class="col">
+<section role="main" class="content-body">
+    <section class="section bg-color-quaternary custom-padding-4 border-0 my-0">
+        <div class="container">
+            <div class="row mb-3">
+                <div class="col">
 
-                <div class="row align-items-center">
-                    <div class="col-lg-6">
-                        <!--table-responsive-lg-->
-                        <table class="table table-bordered table-striped table-sm mb-0">
-                            <h3 class="custom-primary-font text-center custom-fontsize-3 font-weight-normal appear-animation"
-                                data-appear-animation="fadeInUpShorter">En Çok Yükselenler</h3>
-                            <thead>
-                            <tr>
-                                <th class="text-center" scope="col">Menkul Adı</th>
-                                <th class="text-center" scope="col">Durum</th>
-                                <th class="text-center" scope="col">Son Değeri</th>
-                                <th class="text-center" scope="col">(%) Fark</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <?php
-                            $link = "http://bigpara.hurriyet.com.tr/borsa/canli-borsa/";
-                            $icerik = file_get_contents($link);
-                            ///
-                            $h_td_sembol = array();
-                            $h_td_sembol = ara('target="_blank">', '</a>', $icerik);//hisse adlarının dizisi[0] - [99] arası 100 hisse
-                            $tum_hisse_dizileri = array();
-                            ///
-                            for ($sayi = 0; $sayi < 100; $sayi++) {
-                                $tum_hiss = array();
-                                $hisse_tekil_yuzde = ara('h_td_yuzde_id_' . $h_td_sembol[$sayi] . '">', '</li>', $icerik);
-                                $hisse_tekil_fiyat = ara('h_td_fiyat_id_' . $h_td_sembol[$sayi] . '">', '</li>', $icerik);
-                                array_push($tum_hiss, $h_td_sembol[$sayi], convert_virgül_nokta($hisse_tekil_yuzde[0]), convert_virgül_nokta($hisse_tekil_fiyat[0]));
-                                array_push($tum_hisse_dizileri, $tum_hiss);
+                    <div class="row align-items-center">
+                        <div class="col-lg-6">
+                            <!--table-responsive-lg-->
+                            <table class="table table-bordered table-striped table-sm mb-0">
+                                <h3 class="custom-primary-font text-center custom-fontsize-3 font-weight-normal appear-animation"
+                                    data-appear-animation="fadeInUpShorter">En Çok Yükselenler</h3>
+                                <thead>
+                                <tr>
+                                    <th class="text-center" scope="col">Menkul Adı</th>
+                                    <th class="text-center" scope="col">Durum</th>
+                                    <th class="text-center" scope="col">Son Değeri</th>
+                                    <th class="text-center" scope="col">(%) Fark</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <?php
+                                $link = "http://bigpara.hurriyet.com.tr/borsa/canli-borsa/";
+                                $icerik = file_get_contents($link);
+                                ///
+                                $h_td_sembol = array();
+                                $h_td_sembol = ara('target="_blank">', '</a>', $icerik);//hisse adlarının dizisi[0] - [99] arası 100 hisse
+                                $tum_hisse_dizileri = array();
+                                ///
+                                for ($sayi = 0; $sayi < 100; $sayi++) {
+                                    $tum_hiss = array();
+                                    $hisse_tekil_yuzde = ara('h_td_yuzde_id_' . $h_td_sembol[$sayi] . '">', '</li>', $icerik);
+                                    $hisse_tekil_fiyat = ara('h_td_fiyat_id_' . $h_td_sembol[$sayi] . '">', '</li>', $icerik);
+                                    array_push($tum_hiss, $h_td_sembol[$sayi], convert_virgül_nokta($hisse_tekil_yuzde[0]), convert_virgül_nokta($hisse_tekil_fiyat[0]));
+                                    array_push($tum_hisse_dizileri, $tum_hiss);
 
-                            }
-                            $sorted = val_sort($tum_hisse_dizileri, 1);//1=yuzde
-                            for ($sayi = 99; $sayi > 94; $sayi--) {
-                                ?>
+                                }
+                                $sorted = val_sort($tum_hisse_dizileri, 1);//1=yuzde
+                                for ($sayi = 99; $sayi > 94; $sayi--) {
+                                    ?>
+                                    <tr>
+                                        <td class="text-center"
+                                            id="hisse_yukselen_sembol_<?php echo $sayi; ?>"><?php echo $sorted[$sayi][0]; ?></td>
+                                        <td class="text-center"><i id="hisse_yukselen_durum_<?php echo $sayi; ?>"
+                                                                   class="<?php
+                                                                   if (convert_virgül_nokta($sorted[$sayi][1]) > 0) {
+                                                                       echo "fas fa-arrow-circle-up text-success";
+                                                                   } elseif (convert_virgül_nokta($sorted[$sayi][1]) == 0) {
+                                                                       echo "fas fa-minus text-info";
+                                                                   } else {
+                                                                       echo "fas fa-arrow-circle-down text-danger";
+                                                                   }
+                                                                   ?>"></i></td>
+                                        <td class="text-center"
+                                            id="hisse_yukselen_son_deger_<?php echo $sayi; ?>"><?php echo $sorted[$sayi][2]; ?></td>
+                                        <td class="text-center"
+                                            id="hisse_yukselen_fark_<?php echo $sayi; ?>"><?php echo $sorted[$sayi][1]; ?></td>
+                                    </tr>
+                                <?php } ?>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-lg-6">
+                            <table class="table table-bordered table-striped table-sm mb-0">
+                                <h3 class="custom-primary-font text-center custom-fontsize-3 font-weight-normal appear-animation"
+                                    data-appear-animation="fadeInUpShorter">En Çok Düşenler</h3>
+                                <thead>
                                 <tr>
-                                    <td class="text-center"
-                                        id="hisse_yukselen_sembol_<?php echo $sayi; ?>"><?php echo $sorted[$sayi][0]; ?></td>
-                                    <td class="text-center"><i id="hisse_yukselen_durum_<?php echo $sayi; ?>"
-                                                               class="<?php
-                                                               if (convert_virgül_nokta($sorted[$sayi][1]) > 0) {
-                                                                   echo "fas fa-arrow-circle-up text-success";
-                                                               } elseif (convert_virgül_nokta($sorted[$sayi][1]) == 0) {
-                                                                   echo "fas fa-minus text-info";
-                                                               } else {
-                                                                   echo "fas fa-arrow-circle-down text-danger";
-                                                               }
-                                                               ?>"></i></td>
-                                    <td class="text-center"
-                                        id="hisse_yukselen_son_deger_<?php echo $sayi; ?>"><?php echo $sorted[$sayi][2]; ?></td>
-                                    <td class="text-center"
-                                        id="hisse_yukselen_fark_<?php echo $sayi; ?>"><?php echo $sorted[$sayi][1]; ?></td>
+                                    <th class="text-center" scope="col">Menkul Adı</th>
+                                    <th class="text-center" scope="col">Durum</th>
+                                    <th class="text-center" scope="col">Son Değeri</th>
+                                    <th class="text-center" scope="col">(%) Fark</th>
                                 </tr>
-                            <?php } ?>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="col-lg-6">
-                        <table class="table table-bordered table-striped table-sm mb-0">
-                            <h3 class="custom-primary-font text-center custom-fontsize-3 font-weight-normal appear-animation"
-                                data-appear-animation="fadeInUpShorter">En Çok Düşenler</h3>
-                            <thead>
-                            <tr>
-                                <th class="text-center" scope="col">Menkul Adı</th>
-                                <th class="text-center" scope="col">Durum</th>
-                                <th class="text-center" scope="col">Son Değeri</th>
-                                <th class="text-center" scope="col">(%) Fark</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <?php
-                            for ($sayi = 0; $sayi < 5; $sayi++) {
-                                ?>
-                                <tr>
-                                    <td class="text-center"
-                                        id="hisse_dusen_sembol_<?php echo $sayi; ?>"><?php echo $sorted[$sayi][0]; ?></td>
-                                    <td class="text-center"><i id="hisse_dusen_durum_<?php echo $sayi; ?>" class="<?php
-                                        if (convert_virgül_nokta($sorted[$sayi][1]) > 0) {
-                                            echo "fas fa-arrow-circle-up text-success";
-                                        } elseif (convert_virgül_nokta($sorted[$sayi][1]) == 0) {
-                                            echo "fas fa-minus text-info";
-                                        } else {
-                                            echo "fas fa-arrow-circle-down text-danger";
-                                        }
-                                        ?>"></i></td>
-                                    <td class="text-center"
-                                        id="hisse_dusen_son_deger_<?php echo $sayi; ?>"><?php echo $sorted[$sayi][2]; ?></td>
-                                    <td class="text-center"
-                                        id="hisse_dusen_fark_<?php echo $sayi; ?>"><?php echo $sorted[$sayi][1]; ?></td>
-                                </tr>
-                            <?php } ?>
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                <?php
+                                for ($sayi = 0; $sayi < 5; $sayi++) {
+                                    ?>
+                                    <tr>
+                                        <td class="text-center"
+                                            id="hisse_dusen_sembol_<?php echo $sayi; ?>"><?php echo $sorted[$sayi][0]; ?></td>
+                                        <td class="text-center"><i id="hisse_dusen_durum_<?php echo $sayi; ?>"
+                                                                   class="<?php
+                                                                   if (convert_virgül_nokta($sorted[$sayi][1]) > 0) {
+                                                                       echo "fas fa-arrow-circle-up text-success";
+                                                                   } elseif (convert_virgül_nokta($sorted[$sayi][1]) == 0) {
+                                                                       echo "fas fa-minus text-info";
+                                                                   } else {
+                                                                       echo "fas fa-arrow-circle-down text-danger";
+                                                                   }
+                                                                   ?>"></i></td>
+                                        <td class="text-center"
+                                            id="hisse_dusen_son_deger_<?php echo $sayi; ?>"><?php echo $sorted[$sayi][2]; ?></td>
+                                        <td class="text-center"
+                                            id="hisse_dusen_fark_<?php echo $sayi; ?>"><?php echo $sorted[$sayi][1]; ?></td>
+                                    </tr>
+                                <?php } ?>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
-<section class="section bg-color-quaternary custom-padding-4 border-0 my-0">
-    <div class="container">
-        <h2 class="custom-primary-font text-center custom-fontsize-3 font-weight-normal appear-animation"
-            data-appear-animation="fadeInUpShorter">BİST100 HİSSE VERİLERİ</h2>
-        <table class="table table-responsive-lg table-bordered table-striped table-sm mb-0">
-            <thead>
-            <tr>
-                <th scope="col">Menkul Adı</th>
-                <th class="text-center" scope="col">Durum</th>
-                <th class="text-center" scope="col">Son Değeri</th>
-                <th class="text-center" scope="col">Fark</th>
-                <th class="text-center" scope="col">(%) Fark</th>
-                <th class="text-center" scope="col">En Düşük</th>
-                <th class="text-center" scope="col">En Yüksek</th>
-                <th class="text-center" scope="col">Hacim(Lot)</th>
-                <th class="text-center" scope="col">Hacim(TL)</th>
-                <th class="text-center" scope="col">Zaman</th>
-                <?php
-                if(isset($_SESSION['yetki'])){
-                    echo "    <th class='text-center' scope='col'>Alış</th>
+    </section>
+    <section class="section bg-color-quaternary custom-padding-4 border-0 my-0">
+        <div class="container">
+            <h2 class="custom-primary-font text-center custom-fontsize-3 font-weight-normal appear-animation"
+                data-appear-animation="fadeInUpShorter">BİST100 HİSSE VERİLERİ</h2>
+            <table class="table table-responsive-lg table-bordered table-striped table-sm mb-0">
+                <thead>
+                <tr>
+                    <th scope="col">Menkul Adı</th>
+                    <th class="text-center" scope="col">Durum</th>
+                    <th class="text-center" scope="col">Son Değeri</th>
+                    <th class="text-center" scope="col">Fark</th>
+                    <th class="text-center" scope="col">(%) Fark</th>
+                    <th class="text-center" scope="col">En Düşük</th>
+                    <th class="text-center" scope="col">En Yüksek</th>
+                    <th class="text-center" scope="col">Hacim(Lot)</th>
+                    <th class="text-center" scope="col">Hacim(TL)</th>
+                    <th class="text-center" scope="col">Zaman</th>
+                    <?php
+                    if (isset($_SESSION['yetki'])) {
+                        echo "    <th class='text-center' scope='col'>Alış</th>
                               <th class='text-center' scope='col'>Satış</th>";
-                }
-                ?>
-            </tr>
-            </thead>
-            <tbody>
-            <?php
-            $komisyon=1.003;
-            for ($sayi = 0; $sayi < 100; $sayi++) {
+                    }
+                    ?>
+                </tr>
+                </thead>
+                <tbody>
+                <?php
+                $komisyon = 1.003;
+                for ($sayi = 0;
+                $sayi < 100;
+                $sayi++) {
                 ///
                 $h_td_yuzde_id_deger = ara('h_td_yuzde_id_' . $h_td_sembol[$sayi] . '">', '</li>', $icerik);
                 $h_td_fiyat_id_deger = ara('h_td_fiyat_id_' . $h_td_sembol[$sayi] . '">', '</li>', $icerik);
@@ -172,8 +176,9 @@
                         id="hisse_hacim_tl_<?php echo $sayi; ?>"><?php echo $h_td_hacimtl_id_deger[0]; ?></td>
                     <td class="text-center"
                         id="hisse_zaman_<?php echo $sayi; ?>"><?php echo $h_td_saat_id_deger[0]; ?></td>
-                    <?php if(isset($_SESSION['yetki'])){echo "
-                    <td class='text-center' id='hisse_alis_".$sayi." '>
+                    <?php if (isset($_SESSION['yetki'])) {
+                        echo "
+                    <td class='text-center' id='hisse_alis_" . $sayi . " '>
                         <button id='btn_hisse_alis_" . $sayi . "' type='button' class='btn btn-success' data-toggle='modal' data-target='#formModalAl" . $sayi . "'>AL</button>
                         <div class='modal fade' id='formModalAl" . $sayi . "' tabindex='-1' role='dialog' aria-labelledby='formModalLabel' aria-hidden='true'>
                             <div class='modal-dialog'>
@@ -186,26 +191,26 @@
                                         <form id='demo-form' class='mb-4' novalidate='novalidate'>
                                             <div class='form-group row align-items-center'>
                                                 <label class='col-sm-4 text-left text-sm-right mb-0'>Hisse Adı: </label>
-                                                <label class='col-sm-7 text-center  mb-0'>".$h_td_sembol[$sayi]."</label>
+                                                <label class='col-sm-7 text-center  mb-0'>" . $h_td_sembol[$sayi] . "</label>
                                             </div>
                                             <div class='form-group row align-items-center'>
                                                 <label class='col-sm-4 text-left text-sm-right mb-0'>Alış Tutarı: </label>
-                                                <label id='hisse_deger_alim_" . $sayi . "' class='col-sm-7 text-center  mb-0'>".convert_virgül_nokta($h_td_fiyat_id_deger[0])."</label>
+                                                <label id='hisse_deger_alim_" . $sayi . "' class='col-sm-7 text-center  mb-0'>" . convert_virgül_nokta($h_td_fiyat_id_deger[0]) . "</label>
                                             </div>
                                             <div class='form-group row align-items-center'>
                                                 <label class='col-sm-4 text-left text-sm-right mb-0'>Bakiyeniz: </label>
-                                                <label class='col-sm-4 text-right  mb-0'>".$_SESSION['bakiye']."</label><span class='col-sm-4 text-left  mb-0'>&#x20BA;</span>
+                                                <label class='col-sm-4 text-right  mb-0'>" . $_SESSION['bakiye'] . "</label><span class='col-sm-4 text-left  mb-0'>&#x20BA;</span>
                                             </div>
                                             <div class='form-group row align-items-center'>
                                                 <label class='col-sm-4 text-left text-sm-right mb-0'>Alınmak İstenen Miktar: </label>
                                                 <div class='col-sm-7 text-center'>
-                                                    <input id='range_" . $sayi . "' type = 'range' min='1' max='".intval($_SESSION['bakiye'])/(floatval(convert_virgül_nokta($h_td_fiyat_id_deger[0]))*$komisyon)."' onchange='alis_hesapla" . $sayi . "()'/>
+                                                    <input id='range_" . $sayi . "' type = 'range' min='1' max='" . intval($_SESSION['bakiye']) / (floatval(convert_virgül_nokta($h_td_fiyat_id_deger[0])) * $komisyon) . "' onchange='alis_hesapla" . $sayi . "()'/>
                                                     <output  id='rangevalue" . $sayi . "'>50</output>
                                                 </div>
                                             </div>
                                             <div class='form-group row align-items-center'>
                                                 <label class='col-sm-4 text-left text-sm-right mb-0'>Komisyon(Binde 3): </label>
-                                                <label id='komisyon" . $sayi . "' class='col-sm-4 text-right  mb-0'>".round(floatval(convert_virgül_nokta($h_td_fiyat_id_deger[0]))*($komisyon-1)*50,2)."</label><span class='col-sm-4 text-left  mb-0'>&#x20BA;</span>
+                                                <label id='komisyon" . $sayi . "' class='col-sm-4 text-right  mb-0'>" . round(floatval(convert_virgül_nokta($h_td_fiyat_id_deger[0])) * ($komisyon - 1) * 50, 2) . "</label><span class='col-sm-4 text-left  mb-0'>&#x20BA;</span>
                                             </div>
                                             <div class='form-group row align-items-center'>
                                                 <label class='col-sm-4 text-left text-sm-right mb-0'>Toplam Ödenecek Tutar: </label>
@@ -215,11 +220,11 @@
                                                     var alis=$('#hisse_deger_alim_" . $sayi . "').text();
                                                     var miktar=$('#range_" . $sayi . "').val();
                                                     $('#rangevalue" . $sayi . "').text($('#range_" . $sayi . "').val());
-                                                    $('#komisyon" . $sayi . "').text((alis*miktar*(".$komisyon."-1)).toFixed(2));
-                                                    $('#toplam_odenecek_alim_tutar" . $sayi . "').text((alis*miktar*(".$komisyon. ")).toFixed(2));
+                                                    $('#komisyon" . $sayi . "').text((alis*miktar*(" . $komisyon . "-1)).toFixed(2));
+                                                    $('#toplam_odenecek_alim_tutar" . $sayi . "').text((alis*miktar*(" . $komisyon . ")).toFixed(2));
                                                 }
                                                 </script>
-                                                ".round(floatval(convert_virgül_nokta($h_td_fiyat_id_deger[0]))*($komisyon)*50,2)."
+                                                " . round(floatval(convert_virgül_nokta($h_td_fiyat_id_deger[0])) * ($komisyon) * 50, 2) . "
                                                </label>
                                                <span class='col-sm-4 text-left  mb-0'>&#x20BA;</span>
                                             </div>
@@ -233,7 +238,7 @@
                             </div>
                         </div>
                     </td>
-                    <td class='text-center' id='hisse_satis_".$sayi."'>
+                    <td class='text-center' id='hisse_satis_" . $sayi . "'>
                          <button id='btn_hisse_satis_" . $sayi . "' type='button' class='btn btn-danger' data-toggle='modal' data-target='#formModalSat" . $sayi . "'>SAT</button>
                          <div class='modal fade' id='formModalSat" . $sayi . "' tabindex='-1' role='dialog' aria-labelledby='formModalLabel' aria-hidden='true'>
                             <div class='modal-dialog'>
@@ -246,26 +251,26 @@
                                         <form id='demo-form' class='mb-4' novalidate='novalidate'>
                                             <div class='form-group row align-items-center'>
                                                 <label class='col-sm-4 text-left text-sm-right mb-0'>Hisse Adı: </label>
-                                                <label class='col-sm-7 text-center  mb-0'>".$h_td_sembol[$sayi]."</label>
+                                                <label class='col-sm-7 text-center  mb-0'>" . $h_td_sembol[$sayi] . "</label>
                                             </div>
                                             <div class='form-group row align-items-center'>
                                                 <label class='col-sm-4 text-left text-sm-right mb-0'>Alış Tutarı: </label>
-                                                <label id='hisse_deger_satim_" . $sayi . "' class='col-sm-7 text-center  mb-0'>".convert_virgül_nokta($h_td_fiyat_id_deger[0])."</label>
+                                                <label id='hisse_deger_satim_" . $sayi . "' class='col-sm-7 text-center  mb-0'>" . convert_virgül_nokta($h_td_fiyat_id_deger[0]) . "</label>
                                             </div>
                                             <div class='form-group row align-items-center'>
                                                 <label class='col-sm-4 text-left text-sm-right mb-0'>Bakiyeniz: </label>
-                                                <label class='col-sm-4 text-right  mb-0'>".$_SESSION['bakiye']."</label><span class='col-sm-4 text-left  mb-0'>&#x20BA;</span>
+                                                <label class='col-sm-4 text-right  mb-0'>" . $_SESSION['bakiye'] . "</label><span class='col-sm-4 text-left  mb-0'>&#x20BA;</span>
                                             </div>
                                             <div class='form-group row align-items-center'>
                                                 <label class='col-sm-4 text-left text-sm-right mb-0'>Satilmak İstenen Miktar: </label>
                                                 <div class='col-sm-7 text-center'>
-                                                    <input id='range_satim" . $sayi . "' type = 'range' min='1' max='".intval($_SESSION['bakiye'])/(floatval(convert_virgül_nokta($h_td_fiyat_id_deger[0]))*$komisyon)."' onchange='satis_hesapla" . $sayi . "()'/>
+                                                    <input id='range_satim" . $sayi . "' type = 'range' min='1' max='" . intval($_SESSION['bakiye']) / (floatval(convert_virgül_nokta($h_td_fiyat_id_deger[0])) * $komisyon) . "' onchange='satis_hesapla" . $sayi . "()'/>
                                                     <output  id='rangevaluesatim" . $sayi . "'>1</output>
                                                 </div>
                                             </div>
                                             <div class='form-group row align-items-center'>
                                                 <label class='col-sm-4 text-left text-sm-right mb-0'>Komisyon(Binde 3): </label>
-                                                <label id='komisyonsatim" . $sayi . "' class='col-sm-4 text-right  mb-0'>".round(floatval(convert_virgül_nokta($h_td_fiyat_id_deger[0]))*($komisyon-1)*50,2)."</label><span class='col-sm-4 text-left  mb-0'>&#x20BA;</span>
+                                                <label id='komisyonsatim" . $sayi . "' class='col-sm-4 text-right  mb-0'>" . round(floatval(convert_virgül_nokta($h_td_fiyat_id_deger[0])) * ($komisyon - 1) * 50, 2) . "</label><span class='col-sm-4 text-left  mb-0'>&#x20BA;</span>
                                             </div>
                                             <div class='form-group row align-items-center'>
                                                 <label class='col-sm-4 text-left text-sm-right mb-0'>Toplam Alinacak Tutar: </label>
@@ -275,11 +280,11 @@
                                                     var satis=$('#hisse_deger_satim_" . $sayi . "').text();
                                                     var miktar_satis=$('#range_satim" . $sayi . "').val();
                                                     $('#rangevaluesatim" . $sayi . "').text($('#range_satim" . $sayi . "').val());
-                                                    $('#komisyonsatim" . $sayi . "').text((satis*miktar_satis*(".$komisyon."-1)).toFixed(2));
-                                                    $('#toplam_odenecek_satim_tutar" . $sayi . "').text((satis*miktar_satis*(".$komisyon. ")).toFixed(2));
+                                                    $('#komisyonsatim" . $sayi . "').text((satis*miktar_satis*(" . $komisyon . "-1)).toFixed(2));
+                                                    $('#toplam_odenecek_satim_tutar" . $sayi . "').text((satis*miktar_satis*(" . $komisyon . ")).toFixed(2));
                                                 }
                                                 </script>
-                                                ".round(floatval(convert_virgül_nokta($h_td_fiyat_id_deger[0]))*($komisyon)*1,2)."
+                                                " . round(floatval(convert_virgül_nokta($h_td_fiyat_id_deger[0])) * ($komisyon) * 1, 2) . "
                                                </label>
                                                <span class='col-sm-4 text-left  mb-0'>&#x20BA;</span>
                                             </div>
@@ -294,12 +299,13 @@
                         </div>
                     </td>
                  </tr>";
-                    }
-                    else{} ?>
-            <?php } ?>
-            </tbody>
-        </table>
-    </div>
+                    } else {
+                    } ?>
+                    <?php } ?>
+                </tbody>
+            </table>
+        </div>
+    </section>
 </section>
 <?php include "inc/footer.php"; ?>
 

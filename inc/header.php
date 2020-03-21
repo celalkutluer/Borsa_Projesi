@@ -30,6 +30,7 @@ include "settings/fonksiyonlar.php";
     <link rel="stylesheet" href="assets/vendor/bootstrap/css/bootstrap.css"/>
 
     <link rel="stylesheet" href="assets/vendor/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="assets/vendor/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="assets/vendor/magnific-popup/magnific-popup.css"/>
     <link rel="stylesheet" href="assets/vendor/bootstrap-datepicker/css/bootstrap-datepicker3.css"/>
 
