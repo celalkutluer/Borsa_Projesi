@@ -58,15 +58,15 @@ include "settings/fonksiyonlar.php";
 
     <!-- start: header -->
     <header class="header header-nav-menu">
-        <div class="logo-container">
+        <div class="container-fluid">
             <a href="index.php" class="logo">
                 <img src="img/logo.png" width="120" height="40" alt="Borsa"/>
             </a>
-            <!-- start: header nav menu -->
+
             <div class="header-nav collapse">
                 <div class="header-nav-main header-nav-main-effect-1 header-nav-main-sub-effect-1">
-                    <nav>
-                        <ul class="nav nav-pills" id="mainNav">
+                    <nav >
+                        <ul class="nav navbar-nav nav-pills" id="mainNav">
                             <?php
                             if (isset($_SESSION['yetki'])) {
 
@@ -111,36 +111,26 @@ include "settings/fonksiyonlar.php";
                                 </a>
                             </li>
                         </ul>
-                    </nav>
-                </div>
-            </div>
-            <!-- end: header nav menu -->
-            <!-- input-group-btn -->
-            <div class="header-right">
-                <!-- start: header nav menu -->
-                <div class="header-nav collapse ">
-                    <div class="header-nav-main header-nav-main-effect-1 header-nav-main-sub-effect-1">
-                        <nav>
-                            <ul class="nav nav-pills" id="mainNav">
-                                <?php
-                                if (isset($_SESSION['yetki'])) {
-                                } else {
-                                    echo "
+                        <ul class="nav navbar-nav nav-pills ml-auto" id="mainNav">
+                            <?php
+                            if (isset($_SESSION['yetki'])) {
+                            } else {
+                                echo "
                                             <li>
                                                 <a class='nav-link ' href='giris.php'>
-                                                    Giriş
+                                                    <span class='fas fa-sign-in-alt'></span>Giriş
                                                 </a>
                                             </li>
                                             <li>
                                                 <a class='nav-link ' href='kayit.php'>
-                                                    Kayıt
+                                                    <span class='fas fa-user'></span>Kayıt
                                                 </a>
                                             </li>";
-                                }
-                                ?>
-                                <?php
-                                if (isset($_SESSION['yetki'])) {
-                                    echo "<li>
+                            }
+                            ?>
+                            <?php
+                            if (isset($_SESSION['yetki'])) {
+                                echo "<li>
                                                 <a class='nav-link ' href='profil.php'>
                                                     Profil(" . s("isim") . " " . s('soyisim') . ") </a>
                                             </li>
@@ -148,19 +138,19 @@ include "settings/fonksiyonlar.php";
                                                 <a role='menuitem' tabindex='-1' href='settings/islem.php?islem=cikis'>
                                                 <i class='fa fa-power-off'></i> Çıkış</a>
                                             </li>";
-                                } else {
-                                }
-                                ?>
-                            </ul>
-                        </nav>
-                    </div>
+                            } else {
+                            }
+                            ?>
+                        </ul>
+                    </nav>
                 </div>
             </div>
+
             <button class="btn header-btn-collapse-nav hidden-md hidden-lg" data-toggle="collapse"
                     data-target=".header-nav">
                 <i class="fa fa-bars"></i>
             </button>
-            <!-- input-group-btn -->
+
         </div>
 
     </header>
