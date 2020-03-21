@@ -1,7 +1,3 @@
-<?php
-include "settings/baglantilar.php";
-include "settings/fonksiyonlar.php";
-?>
 <!doctype html>
 <html class="fixed has-top-menu">
 <head>
@@ -61,8 +57,13 @@ include "settings/fonksiyonlar.php";
             <a href="index.php" class="logo">
                 <img src="img/logo.png" width="120" height="40" alt="Borsa"/>
             </a>
+            <button class="btn header-btn-collapse-nav hidden-md hidden-lg" data-toggle="collapse"
+                    data-target=".header-nav">
+                <i class="fa fa-bars"></i>
+            </button>
+
             <!-- start: header nav menu -->
-            <div class="header-nav collapse">
+            <div class="header-nav collapse ">
                 <div class="header-nav-main header-nav-main-effect-1 header-nav-main-sub-effect-1">
                     <nav>
                         <ul class="nav nav-pills" id="mainNav">
@@ -114,17 +115,23 @@ include "settings/fonksiyonlar.php";
                 </div>
             </div>
             <!-- end: header nav menu -->
-            <!-- input-group-btn -->
-            <div class="header-right">
-                <!-- start: header nav menu -->
-                <div class="header-nav collapse ">
-                    <div class="header-nav-main header-nav-main-effect-1 header-nav-main-sub-effect-1">
-                        <nav>
-                            <ul class="nav nav-pills" id="mainNav">
-                                <?php
-                                if (isset($_SESSION['yetki'])) {
-                                } else {
-                                    echo "
+        </div>
+        <!-- input-group-btn -->
+        <div class="header-right">
+            <button class="btn header-btn-collapse-nav hidden-md hidden-lg" data-toggle="collapse"
+                    data-target=".header-nav">
+                <i class="fa fa-bars"></i>
+            </button>
+
+            <!-- start: header nav menu -->
+            <div class="header-nav collapse ">
+                <div class="header-nav-main header-nav-main-effect-1 header-nav-main-sub-effect-1">
+                    <nav>
+                        <ul class="nav nav-pills" id="mainNav">
+                            <?php
+                            if (isset($_SESSION['yetki'])) {
+                            } else {
+                                echo "
                                             <li>
                                                 <a class='nav-link ' href='giris.php'>
                                                     Giriş
@@ -135,11 +142,11 @@ include "settings/fonksiyonlar.php";
                                                     Kayıt
                                                 </a>
                                             </li>";
-                                }
-                                ?>
-                                <?php
-                                if (isset($_SESSION['yetki'])) {
-                                    echo "<li>
+                            }
+                            ?>
+                            <?php
+                            if (isset($_SESSION['yetki'])) {
+                                echo "<li>
                                                 <a class='nav-link ' href='profil.php'>
                                                     Profil(" . s("isim") . " " . s('soyisim') . ") </a>
                                             </li>
@@ -147,21 +154,70 @@ include "settings/fonksiyonlar.php";
                                                 <a role='menuitem' tabindex='-1' href='settings/islem.php?islem=cikis'>
                                                 <i class='fa fa-power-off'></i> Çıkış</a>
                                             </li>";
-                                } else {
-                                }
-                                ?>
-                            </ul>
-                        </nav>
-                    </div>
+                            } else {
+                            }
+                            ?>
+                        </ul>
+                    </nav>
                 </div>
             </div>
-            <button class="btn header-btn-collapse-nav hidden-md hidden-lg" data-toggle="collapse"
-                    data-target=".header-nav">
-                <i class="fa fa-bars"></i>
-            </button>
-            <!-- input-group-btn -->
+            <span class="input-group-btn">
+			</span>
         </div>
-
+        <!-- input-group-btn -->
     </header>
     <!-- end: header -->
-    <section role="main" class="content-body">
+
+</section>
+
+<!-- Vendor -->
+<script src="assets/vendor/jquery/jquery.js"></script>
+<script src="assets/vendor/jquery-browser-mobile/jquery.browser.mobile.js"></script>
+<script src="assets/vendor/bootstrap/js/bootstrap.js"></script>
+<script src="assets/vendor/nanoscroller/nanoscroller.js"></script>
+<script src="assets/vendor/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+<script src="assets/vendor/magnific-popup/jquery.magnific-popup.js"></script>
+<script src="assets/vendor/jquery-placeholder/jquery-placeholder.js"></script>
+
+<!-- Specific Page Vendor -->
+<script src="assets/vendor/jquery-ui/jquery-ui.js"></script>
+<script src="assets/vendor/jqueryui-touch-punch/jqueryui-touch-punch.js"></script>
+<script src="assets/vendor/jquery-appear/jquery-appear.js"></script>
+<script src="assets/vendor/bootstrap-multiselect/bootstrap-multiselect.js"></script>
+<script src="assets/vendor/jquery.easy-pie-chart/jquery.easy-pie-chart.js"></script>
+<script src="assets/vendor/flot/jquery.flot.js"></script>
+<script src="assets/vendor/flot.tooltip/flot.tooltip.js"></script>
+<script src="assets/vendor/flot/jquery.flot.pie.js"></script>
+<script src="assets/vendor/flot/jquery.flot.categories.js"></script>
+<script src="assets/vendor/flot/jquery.flot.resize.js"></script>
+<script src="assets/vendor/jquery-sparkline/jquery-sparkline.js"></script>
+<script src="assets/vendor/raphael/raphael.js"></script>
+<script src="assets/vendor/morris.js/morris.js"></script>
+<script src="assets/vendor/gauge/gauge.js"></script>
+<script src="assets/vendor/snap.svg/snap.svg.js"></script>
+<script src="assets/vendor/liquid-meter/liquid.meter.js"></script>
+<script src="assets/vendor/jqvmap/jquery.vmap.js"></script>
+<script src="assets/vendor/jqvmap/data/jquery.vmap.sampledata.js"></script>
+<script src="assets/vendor/jqvmap/maps/jquery.vmap.world.js"></script>
+<script src="assets/vendor/jqvmap/maps/continents/jquery.vmap.africa.js"></script>
+<script src="assets/vendor/jqvmap/maps/continents/jquery.vmap.asia.js"></script>
+<script src="assets/vendor/jqvmap/maps/continents/jquery.vmap.australia.js"></script>
+<script src="assets/vendor/jqvmap/maps/continents/jquery.vmap.europe.js"></script>
+<script src="assets/vendor/jqvmap/maps/continents/jquery.vmap.north-america.js"></script>
+<script src="assets/vendor/jqvmap/maps/continents/jquery.vmap.south-america.js"></script>
+
+<!-- Theme Base, Components and Settings -->
+<script src="assets/javascripts/theme.js"></script>
+
+<!-- Theme Custom -->
+<script src="assets/javascripts/theme.custom.js"></script>
+
+<!-- Theme Initialization Files -->
+<script src="assets/javascripts/theme.init.js"></script>
+
+<!-- Examples -->
+<script src="assets/javascripts/layouts/examples.header.menu.js"></script>
+<script src="assets/javascripts/dashboard/examples.dashboard.js"></script>
+
+</body>
+</html>

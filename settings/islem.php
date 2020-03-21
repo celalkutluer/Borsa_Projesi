@@ -99,14 +99,34 @@ if (g('islem') == 'kayit') {
         foreach ($v1 as $kul_kayit) ;
 
         if (!$say1) {
-            $ekle = $db->prepare("INSERT INTO kullanicilar(kul_adi, kul_soyadi, kul_eposta, kul_cep_tel, kul_dogum_tar, kul_sifre) 
-VALUES ('" . $Ad . "','" . $Soyad . "','" . $Email . "','" .  $CepTelNo. "','" . $Dogum_tar . "','" . md5($Sifre) . "')");
+            $ekle = $db->prepare("INSERT INTO kullanicilar(kul_adi, kul_soyadi, kul_eposta,kul_eposta_dogrulama_kod, kul_cep_tel, kul_dogum_tar, kul_sifre) 
+VALUES ('" . $Ad . "','" . $Soyad . "','" . $Email . "','" . sha1(md5($Email)) . "','" .  $CepTelNo. "','" . $Dogum_tar . "','" . md5($Sifre) . "')");
 
             $ekleme = $ekle->execute(array());
             if ($ekleme) {
+                require '../vendor/autoload.php';
 
+                $email = new \SendGrid\Mail\Mail();
+                $email->setFrom("celalkutluer@gmail.com", "Celal KUTLUER");
+                $email->setSubject("Üyelik Hakkında");
+                $email->addTo($Email, $Ad . " " . $Soyad);
+                $email->addContent(
+                    "text/html", "<strong >Üyeliğiniz oluşturulmuştur.</strong></br>
+                                                <a href=  'kayit-dogrulama.php?dogrulama=".sha1(md5($Email))."'>
+                                                    Eposta adresinizi doğrulamak için tıklayınız.
+                                                </a>"
+                );
+                $sendgrid = new \SendGrid('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');
+                try {
+                    $response = $sendgrid->send($email);
+                    if($response->statusCode()=="202"){
+                        echo "<div class='alert alert-success'>Kayit işleminiz başarı ile gerçekleştirildi. E-posta adresinize doğrulama kodu gönderildi.</div>";//<meta http-equiv='refresh' content='1; url=giris.php'>
+                    }
 
-                echo "<div class='alert alert-success'>Kayit işleminiz başarı ile gerçekleştirildi.</div>";//<meta http-equiv='refresh' content='1; url=giris.php'>
+                } catch (Exception $e) {
+                    echo 'Caught exception: '. $e->getMessage() ."\n";
+                }
+
             } else {
                 echo "<div class='alert alert-danger'>Kayit işlemi sırasında bir hata meydana geldi</div>";
             }

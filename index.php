@@ -1,6 +1,6 @@
 <?php include "inc/header.php";
 ?>
-<section class="section bg-color-quaternary custom-padding-4 border-0 my-0">
+<section class="section bg-color-quaternary custom-padding-4 border-0 my-0 section-padding">
     <div class="container">
         <div class="row mb-3">
             <div class="col">

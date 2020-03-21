@@ -1,3 +1,5 @@
+</section>
+
 <footer id="footer" class="footer-reveal custom-bg-color-1 footer-reveal border-top-0 m-0">
     <div class="footer-copyright custom-bg-color-1 border-top-0 mt-0">
         <div class="container">
@@ -10,7 +12,6 @@
         </div>
     </div>
 </footer>
-</div>
 
 <!-- Vendor -->
 <script
@@ -43,13 +44,13 @@
 <script src="assets/vendor/jqueryui-touch-punch/jqueryui-touch-punch.js"></script>
 
 <!-- Theme Base, Components and Settings -->
-<script src="assets/javascripts/theme.js"></script>
+<script src="assets/js/theme.js"></script>
 
 <!-- Theme Custom -->
-<script src="assets/javascripts/theme.custom.js"></script>
+<script src="assets/js/theme.custom.js"></script>
 
 <!-- Theme Initialization Files -->
-<script src="assets/javascripts/theme.init.js"></script>
+<script src="assets/js/theme.init.js"></script>
 
 <!-- Current Page Vendor and Views -->
 <script src=assets/"vendor/rs-plugin/js/jquery.themepunch.tools.min.js"></script>
