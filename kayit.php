@@ -87,8 +87,7 @@ include "inc/header.php";
                                 </div>
                             </div>
                             <div class="col-sm-4 text-right">
-                                <button type="button" type="submit" id="btnfrmKayit" class="btn btn-primary hidden-xs">Kayıt</button>
-                                <button type="button" type="submit" id="btnfrmKayit" class="btn btn-primary btn-block btn-lg visible-xs mt-lg">Kayıt</button>
+                                <button type="button" type="submit" id="btnfrmKayit" class="btn btn-primary btn-block">Kayıt</button>
                             </div>
                         </div>
                     </form>

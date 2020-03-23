@@ -8,6 +8,9 @@ yoneticikontrol();
                 <section class="panel panel-warning">
                     <header class="panel-heading">
                         <h2 class="panel-title">Mali Durum</h2>
+                        <div class="panel-actions">
+                            <a href="#" class="panel-action panel-action-toggle" data-panel-toggle></a>
+                        </div>
                     </header>
                     <div class="panel-body">
 

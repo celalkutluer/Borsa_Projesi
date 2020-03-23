@@ -8,6 +8,9 @@ yoneticikontrol();
                 <section class="panel panel-dark">
                     <header class="panel-heading">
                         <h2 class="panel-title">Log Kayıtları</h2>
+                        <div class="panel-actions">
+                            <a href="#" class="panel-action panel-action-toggle" data-panel-toggle></a>
+                        </div>
                     </header>
                     <div class="panel-body">
 

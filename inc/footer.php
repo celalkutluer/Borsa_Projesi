@@ -42,6 +42,11 @@
 <!-- Specific Page Vendor -->
 <script src="assets/vendor/jquery-ui/jquery-ui.js"></script>
 <script src="assets/vendor/jqueryui-touch-punch/jqueryui-touch-punch.js"></script>
+<script src="assets/vendor/select2/js/select2.js"></script>
+<script src="assets/vendor/pnotify/pnotify.custom.js"></script>
+<script src="assets/vendor/jquery-datatables/media/js/jquery.dataTables.js"></script>
+<script src="assets/vendor/jquery-datatables/extras/TableTools/js/dataTables.tableTools.min.js"></script>
+<script src="assets/vendor/jquery-datatables-bs3/assets/js/datatables.js"></script>
 
 <!-- Theme Base, Components and Settings -->
 <script src="assets/js/theme.js"></script>
@@ -63,7 +68,8 @@
 <script src="assets/js/demos/demo-insurance.js"></script>
 
 
-<!-- Demo Purpose Only -->
+<!-- Examples -->
+<script src="assets/js/ui-elements/examples.modals.js"></script>
 
 
 <!-- JS -->

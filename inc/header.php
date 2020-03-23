@@ -39,6 +39,12 @@ include "settings/fonksiyonlar.php";
     <link rel="stylesheet" href="assets/vendor/jquery-ui/jquery-ui.theme.css"/>
     <link rel="stylesheet" href="assets/vendor/bootstrap-multiselect/bootstrap-multiselect.css"/>
     <link rel="stylesheet" href="assets/vendor/morris.js/morris.css"/>
+    <link rel="stylesheet" href="assets/vendor/select2/css/select2.css" />
+    <link rel="stylesheet" href="assets/vendor/select2-bootstrap-theme/select2-bootstrap.min.css" />
+    <link rel="stylesheet" href="assets/vendor/pnotify/pnotify.custom.css" />
+    <link rel="stylesheet" href="assets/vendor/jquery-datatables-bs3/assets/css/datatables.css" />
+    <!-- Slider-->
+    <link rel="stylesheet" href="assets/vendor/jquery-ui/jquery-ui.structure.min.css" />
 
     <!-- Theme CSS -->
     <link rel="stylesheet" href="assets/stylesheets/theme.css"/>
@@ -132,7 +138,10 @@ include "settings/fonksiyonlar.php";
                             if (isset($_SESSION['yetki'])) {
                                 echo "<li>
                                                 <a class='nav-link ' href='profil.php'>
-                                                    Profil(" . s("isim") . " " . s('soyisim') . ") </a>
+                                                    Profil(" . s("isim") . " " . s('soyisim') . ") 
+                                                </a>
+                                                <input id='anasayfa_kul_id' class='form-control form-control-lg' type='hidden'
+                                       value='".s('kul_id')."' name='toplam'>
                                             </li>
                                             <li>
                                                 <a role='menuitem' tabindex='-1' href='settings/islem.php?islem=cikis'>

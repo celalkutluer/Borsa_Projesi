@@ -8,10 +8,10 @@ include "inc/header.php";
             <div class="tabs ">
                 <ul class="nav nav-tabs nav-justified">
                     <li class="active">
-                        <a href="#kazananlar" data-toggle="tab" class="text-center">EN ÇOK KAZANANLAR</a>
+                        <a href="#kazananlar" data-toggle="tab" class="text-center">KAZANANLAR</a>
                     </li>
                     <li>
-                        <a href="#kaybedenler" data-toggle="tab" class="text-center">EN ÇOK KAYBEDENLER</a>
+                        <a href="#kaybedenler" data-toggle="tab" class="text-center">KAYBEDENLER</a>
                     </li>
                 </ul>
                 <div class="tab-content">
@@ -19,16 +19,16 @@ include "inc/header.php";
                         <div class="tabs tabs-success">
                             <ul class="nav nav-tabs nav-justified">
                                 <li class="active">
-                                    <a href="#kazananlar_gun" data-toggle="tab" class="text-center">GÜNLÜK</a>
+                                    <a href="#kazananlar_gun" data-toggle="tab" class="text-center">GÜN</a>
                                 </li>
                                 <li>
-                                    <a href="#kazananlar_hafta" data-toggle="tab" class="text-center">HAFTALIK</a>
+                                    <a href="#kazananlar_hafta" data-toggle="tab" class="text-center">HAFTA</a>
                                 </li>
                                 <li>
-                                    <a href="#kazananlar_ay" data-toggle="tab" class="text-center">AYLIK</a>
+                                    <a href="#kazananlar_ay" data-toggle="tab" class="text-center">AY</a>
                                 </li>
                                 <li>
-                                    <a href="#kazananlar_yil" data-toggle="tab" class="text-center">YILLIK</a>
+                                    <a href="#kazananlar_yil" data-toggle="tab" class="text-center">YIL</a>
                                 </li>
                             </ul>
                             <div class="tab-content  tabs-danger">
@@ -168,16 +168,16 @@ include "inc/header.php";
                         <div class="tabs tabs-danger">
                             <ul class="nav nav-tabs nav-justified">
                                 <li class="active">
-                                    <a href="#kaybedenler_gun" data-toggle="tab" class="text-center">GÜNLÜK</a>
+                                    <a href="#kaybedenler_gun" data-toggle="tab" class="text-center">GÜN</a>
                                 </li>
                                 <li>
-                                    <a href="#kaybedenler_hafta" data-toggle="tab" class="text-center">HAFTALIK</a>
+                                    <a href="#kaybedenler_hafta" data-toggle="tab" class="text-center">HAFTA</a>
                                 </li>
                                 <li>
-                                    <a href="#kaybedenler_ay" data-toggle="tab" class="text-center">AYLIK</a>
+                                    <a href="#kaybedenler_ay" data-toggle="tab" class="text-center">AY</a>
                                 </li>
                                 <li>
-                                    <a href="#kaybedenler_yil" data-toggle="tab" class="text-center">YILLIK</a>
+                                    <a href="#kaybedenler_yil" data-toggle="tab" class="text-center">YIL</a>
                                 </li>
                             </ul>
                             <div class="tab-content  tabs-danger">

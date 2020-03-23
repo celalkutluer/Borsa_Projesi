@@ -1,4 +1,9 @@
 <?php include "inc/header.php";
+$bakiye_sorgula = $db->prepare('SELECT kul_bakiye FROM kullanicilar WHERE kul_id=?');
+$bakiye_sorgula->execute(array($_SESSION['kul_id']));
+$v = $bakiye_sorgula->fetchAll(PDO::FETCH_ASSOC);
+foreach ($v as $kul_bilgilerim) ;
+$_SESSION['bakiye']= $kul_bilgilerim['kul_bakiye'];
 ?>
 <section role="main" class="content-body">
     <section class="section bg-color-quaternary custom-padding-4 border-0 my-0">
@@ -10,8 +15,8 @@
                         <div class="col-lg-6">
                             <!--table-responsive-lg-->
                             <table class="table table-bordered table-striped table-sm mb-0">
-                                <h3 class="custom-primary-font text-center custom-fontsize-3 font-weight-normal appear-animation"
-                                    data-appear-animation="fadeInUpShorter">En Çok Yükselenler</h3>
+                                <h3 class="custom-primary-font text-center custom-fontsize-3 font-weight-normal"
+                                >En Çok Yükselenler</h3>
                                 <thead>
                                 <tr>
                                     <th class="text-center" scope="col">Menkul Adı</th>
@@ -64,8 +69,8 @@
                         </div>
                         <div class="col-lg-6">
                             <table class="table table-bordered table-striped table-sm mb-0">
-                                <h3 class="custom-primary-font text-center custom-fontsize-3 font-weight-normal appear-animation"
-                                    data-appear-animation="fadeInUpShorter">En Çok Düşenler</h3>
+                                <h3 class="custom-primary-font text-center custom-fontsize-3 font-weight-normal"
+                                >En Çok Düşenler</h3>
                                 <thead>
                                 <tr>
                                     <th class="text-center" scope="col">Menkul Adı</th>
@@ -106,9 +111,9 @@
         </div>
     </section>
     <section class="section bg-color-quaternary custom-padding-4 border-0 my-0">
-        <div class="container">
-            <h2 class="custom-primary-font text-center custom-fontsize-3 font-weight-normal appear-animation"
-                data-appear-animation="fadeInUpShorter">BİST100 HİSSE VERİLERİ</h2>
+        <div class="table-responsive">
+            <h2 class="custom-primary-font text-center custom-fontsize-3 font-weight-normal"
+            >BİST100 HİSSE VERİLERİ</h2>
             <table class="table table-responsive-lg table-bordered table-striped table-sm mb-0">
                 <thead>
                 <tr>
@@ -178,127 +183,148 @@
                         id="hisse_zaman_<?php echo $sayi; ?>"><?php echo $h_td_saat_id_deger[0]; ?></td>
                     <?php if (isset($_SESSION['yetki'])) {
                         echo "
-                    <td class='text-center' id='hisse_alis_" . $sayi . " '>
-                        <button id='btn_hisse_alis_" . $sayi . "' type='button' class='btn btn-success' data-toggle='modal' data-target='#formModalAl" . $sayi . "'>AL</button>
-                        <div class='modal fade' id='formModalAl" . $sayi . "' tabindex='-1' role='dialog' aria-labelledby='formModalLabel' aria-hidden='true'>
-                            <div class='modal-dialog'>
-                                <div class='modal-content'>
-                                    <div class='modal-header'>
-                                        <h4 class='modal-title' id='formModalLabel'>Satın Al</h4>
-                                        <button type='button' class='close' data-dismiss='modal' aria-hidden='true'>&times;</button>
-                                    </div>
-                                    <div class='modal-body'>
-                                        <form id='demo-form' class='mb-4' novalidate='novalidate'>
-                                            <div class='form-group row align-items-center'>
-                                                <label class='col-sm-4 text-left text-sm-right mb-0'>Hisse Adı: </label>
-                                                <label class='col-sm-7 text-center  mb-0'>" . $h_td_sembol[$sayi] . "</label>
+                            <td class='text-center' id='hisse_alis_" . $sayi . " '>
+                                <button id='btn_hisse_alis_" . $sayi . "' type='button' class='btn btn-success modal-with-form' href='#modalAlForm" . $sayi . "'>AL</button>
+                                
+                                <div class='modal-block modal-header-color modal-block-success mfp-hide' id='modalAlForm" . $sayi . "'>
+                                    <section class='panel'>
+                                            <header class='panel-heading'>
+                                                <h4 class='panel-title' id='formModalLabel'>Satın Al</h4>
+                                            </header>
+                                            <div class='panel-body'>
+                                                <!--ALERT-->
+                                                <div id='hisse_alim_alert'></div>
+                                                <!--ALERT-->
+                                                <form id='hisse_alim_form_" . $sayi . "' class='mb-4' novalidate='novalidate'>
+                                                    <div class='form-group row align-items-center'>
+                                                        <label class='col-sm-4 text-left text-sm-right mb-0'>Hisse Adı: </label>
+                                                        <label id='hisse_alim_form_sembol_" . $sayi . "' class='col-sm-7 text-center  mb-0'>" . $h_td_sembol[$sayi] . "</label>
+                                                    </div>
+                                                    <div class='form-group row align-items-center'>
+                                                        <label class='col-sm-4 text-left text-sm-right mb-0'>Alış Tutarı: </label>
+                                                        <label id='hisse_deger_alim_" . $sayi . "' class='col-sm-7 text-center  mb-0'>" . convert_virgül_nokta($h_td_fiyat_id_deger[0]) . "</label>
+                                                    </div>
+                                                    <div class='form-group row align-items-center'>
+                                                        <label class='col-sm-4 text-left text-sm-right mb-0'>Bakiyeniz: </label>
+                                                        <label class='col-sm-4 text-right  mb-0'>" . $_SESSION['bakiye'] . "</label><span class='col-sm-4 text-left  mb-0'>&#x20BA;</span>
+                                                    </div>
+                                                    <div class='form-group row align-items-center'>
+                                                        <label class='col-sm-4 text-left text-sm-right mb-0'>Alınmak İstenen Miktar: </label>
+                                                        <div class='col-sm-7 text-center'>
+                                                            <input id='range_" . $sayi . "' type = 'range' min='1' max='" . intval($_SESSION['bakiye']) / (floatval(convert_virgül_nokta($h_td_fiyat_id_deger[0])) * $komisyon) . "' onchange='alis_hesapla" . $sayi . "()'/>
+                                                            <output  id='rangevalue" . $sayi . "'>";
+                        if((intval($_SESSION['bakiye']) / (floatval(convert_virgül_nokta($h_td_fiyat_id_deger[0])) * $komisyon) *0.5)>=1){
+                            $range_=intval(intval($_SESSION['bakiye']) / (floatval(convert_virgül_nokta($h_td_fiyat_id_deger[0])) * $komisyon) *0.5);
+                        }elseif ($_SESSION['bakiye']> convert_virgül_nokta($h_td_fiyat_id_deger[0])){$range_=1;} else{$range_=0;}
+                        echo "". $range_. "</output>
+                                                        </div>
+                                                    </div>
+                                                    <div class='form-group row align-items-center'>
+                                                        <label class='col-sm-4 text-left text-sm-right mb-0'>Komisyon(Binde 3): </label>
+                                                        <label id='komisyon" . $sayi . "' class='col-sm-4 text-right  mb-0'>" . round(floatval(convert_virgül_nokta($h_td_fiyat_id_deger[0])) * ($komisyon - 1) *  $range_, 2) . "</label><span class='col-sm-4 text-left  mb-0'>&#x20BA;</span>
+                                                    </div>
+                                                    <div class='form-group row align-items-center'>
+                                                        <label class='col-sm-4 text-left text-sm-right mb-0'>Toplam Ödenecek Tutar: </label>
+                                                        <label id='toplam_odenecek_alim_tutar" . $sayi . "' class='col-sm-4 text-right  mb-0'>
+
+                                                        " . round(floatval(convert_virgül_nokta($h_td_fiyat_id_deger[0])) * ($komisyon) * $range_, 2) . "
+                                                       </label>
+                                                       <script>
+                                                        function alis_hesapla" . $sayi . "() {
+                                                            var alis=$('#hisse_deger_alim_" . $sayi . "').text();
+                                                            var miktar=$('#range_" . $sayi . "').val();
+                                                            $('#rangevalue" . $sayi . "').text($('#range_" . $sayi . "').val());
+                                                            $('#komisyon" . $sayi . "').text((alis*miktar*(" . $komisyon . "-1)).toFixed(2));
+                                                            $('#toplam_odenecek_alim_tutar" . $sayi . "').text((alis*miktar*(" . $komisyon . ")).toFixed(2));
+                                                        }
+                                                        </script>
+                                                       <span class='col-sm-4 text-left  mb-0'>&#x20BA;</span>
+                                                    </div>
+                                                    <div class='form-group row align-items-center'>
+                                                        <label class='col-sm-12 text-center  mb-0'>    
+                                                        ";
+                        if($range_==0){ echo "Yeterli Bakiyeniz Bulunmamaktadır."; }
+                        echo "                                                    
+                                                        </label>
+                                                    </div>
+                                                </form>
                                             </div>
-                                            <div class='form-group row align-items-center'>
-                                                <label class='col-sm-4 text-left text-sm-right mb-0'>Alış Tutarı: </label>
-                                                <label id='hisse_deger_alim_" . $sayi . "' class='col-sm-7 text-center  mb-0'>" . convert_virgül_nokta($h_td_fiyat_id_deger[0]) . "</label>
-                                            </div>
-                                            <div class='form-group row align-items-center'>
-                                                <label class='col-sm-4 text-left text-sm-right mb-0'>Bakiyeniz: </label>
-                                                <label class='col-sm-4 text-right  mb-0'>" . $_SESSION['bakiye'] . "</label><span class='col-sm-4 text-left  mb-0'>&#x20BA;</span>
-                                            </div>
-                                            <div class='form-group row align-items-center'>
-                                                <label class='col-sm-4 text-left text-sm-right mb-0'>Alınmak İstenen Miktar: </label>
-                                                <div class='col-sm-7 text-center'>
-                                                    <input id='range_" . $sayi . "' type = 'range' min='1' max='" . intval($_SESSION['bakiye']) / (floatval(convert_virgül_nokta($h_td_fiyat_id_deger[0])) * $komisyon) . "' onchange='alis_hesapla" . $sayi . "()'/>
-                                                    <output  id='rangevalue" . $sayi . "'>50</output>
+                                            <div class='panel-footer'>
+                                                <div class='row'>
+                                                    <div class='col-md-12 text-right'>
+                                                        <button type='button' class='btn btn-light modal-dismiss' >Kapat</button>
+                                                        <button type='button' id='hisse_al_btn_" . $sayi . "' type='submit'  class='btn btn-success'";
+                        if($range_==0){ echo "disabled"; }
+                        echo ">Satın Al</button>
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div class='form-group row align-items-center'>
-                                                <label class='col-sm-4 text-left text-sm-right mb-0'>Komisyon(Binde 3): </label>
-                                                <label id='komisyon" . $sayi . "' class='col-sm-4 text-right  mb-0'>" . round(floatval(convert_virgül_nokta($h_td_fiyat_id_deger[0])) * ($komisyon - 1) * 50, 2) . "</label><span class='col-sm-4 text-left  mb-0'>&#x20BA;</span>
-                                            </div>
-                                            <div class='form-group row align-items-center'>
-                                                <label class='col-sm-4 text-left text-sm-right mb-0'>Toplam Ödenecek Tutar: </label>
-                                                <label id='toplam_odenecek_alim_tutar" . $sayi . "' class='col-sm-4 text-right  mb-0'>
-                                                <script>
-                                                function alis_hesapla" . $sayi . "() {
-                                                    var alis=$('#hisse_deger_alim_" . $sayi . "').text();
-                                                    var miktar=$('#range_" . $sayi . "').val();
-                                                    $('#rangevalue" . $sayi . "').text($('#range_" . $sayi . "').val());
-                                                    $('#komisyon" . $sayi . "').text((alis*miktar*(" . $komisyon . "-1)).toFixed(2));
-                                                    $('#toplam_odenecek_alim_tutar" . $sayi . "').text((alis*miktar*(" . $komisyon . ")).toFixed(2));
-                                                }
-                                                </script>
-                                                " . round(floatval(convert_virgül_nokta($h_td_fiyat_id_deger[0])) * ($komisyon) * 50, 2) . "
-                                               </label>
-                                               <span class='col-sm-4 text-left  mb-0'>&#x20BA;</span>
-                                            </div>
-                                        </form>
-                                    </div>
-                                    <div class='modal-footer'>
-                                        <button type='button' class='btn btn-light' data-dismiss='modal'>Kapat</button>
-                                        <button type='button' class='btn btn-success'>Satın Al</button>
-                                    </div>
+                                    </section>
                                 </div>
-                            </div>
-                        </div>
-                    </td>
-                    <td class='text-center' id='hisse_satis_" . $sayi . "'>
-                         <button id='btn_hisse_satis_" . $sayi . "' type='button' class='btn btn-danger' data-toggle='modal' data-target='#formModalSat" . $sayi . "'>SAT</button>
-                         <div class='modal fade' id='formModalSat" . $sayi . "' tabindex='-1' role='dialog' aria-labelledby='formModalLabel' aria-hidden='true'>
-                            <div class='modal-dialog'>
-                                <div class='modal-content'>
-                                    <div class='modal-header'>
-                                        <h4 class='modal-title' id='formModalLabel'>Sat</h4>
-                                        <button type='button' class='close' data-dismiss='modal' aria-hidden='true'>&times;</button>
-                                    </div>
-                                    <div class='modal-body'>
-                                        <form id='demo-form' class='mb-4' novalidate='novalidate'>
-                                            <div class='form-group row align-items-center'>
-                                                <label class='col-sm-4 text-left text-sm-right mb-0'>Hisse Adı: </label>
-                                                <label class='col-sm-7 text-center  mb-0'>" . $h_td_sembol[$sayi] . "</label>
+                            </td>";
+                        echo "
+                            <td class='text-center' id='hisse_satis_" . $sayi . "'>
+                                <button id='btn_hisse_alis_" . $sayi . "' type='button' class='btn btn-danger modal-with-form' href='#modalSatForm" . $sayi . "'>SAT</button>
+                                
+                                <div class='modal-block modal-header-color modal-block-danger mfp-hide' id='modalSatForm" . $sayi . "'>
+                                    <section class='panel'>
+                                            <header class='panel-heading'>
+                                                <h4 class='panel-title' id='formModalLabel'>Sat</h4>
+                                            </header>
+                                            <div class='panel-body'>
+                                                <form id='demo-form' class='mb-4' novalidate='novalidate'>
+                                                    <div class='form-group row align-items-center'>
+                                                        <label class='col-sm-4 text-left text-sm-right mb-0'>Hisse Adı: </label>
+                                                        <label class='col-sm-7 text-center  mb-0'>" . $h_td_sembol[$sayi] . "</label>
+                                                    </div>
+                                                    <div class='form-group row align-items-center'>
+                                                        <label class='col-sm-4 text-left text-sm-right mb-0'>Alış Tutarı: </label>
+                                                        <label id='hisse_deger_satim_" . $sayi . "' class='col-sm-7 text-center  mb-0'>" . convert_virgül_nokta($h_td_fiyat_id_deger[0]) . "</label>
+                                                    </div>
+                                                    <div class='form-group row align-items-center'>
+                                                        <label class='col-sm-4 text-left text-sm-right mb-0'>Bakiyeniz: </label>
+                                                        <label class='col-sm-4 text-right  mb-0'>" . $_SESSION['bakiye'] . "</label><span class='col-sm-4 text-left  mb-0'>&#x20BA;</span>
+                                                    </div>
+                                                    <div class='form-group row align-items-center'>
+                                                        <label class='col-sm-4 text-left text-sm-right mb-0'>Satilmak İstenen Miktar: </label>
+                                                        <div class='col-sm-7 text-center'>
+                                                            <input id='range_satim" . $sayi . "' type = 'range' min='1' max='" . intval($_SESSION['bakiye']) / (floatval(convert_virgül_nokta($h_td_fiyat_id_deger[0])) * $komisyon) . "' onchange='satis_hesapla" . $sayi . "()'/>
+                                                            <output  id='rangevaluesatim" . $sayi . "'>50</output>
+                                                        </div>
+                                                    </div>
+                                                    <div class='form-group row align-items-center'>
+                                                        <label class='col-sm-4 text-left text-sm-right mb-0'>Komisyon(Binde 3): </label>
+                                                        <label id='komisyonsatim" . $sayi . "' class='col-sm-4 text-right  mb-0'>" . round(floatval(convert_virgül_nokta($h_td_fiyat_id_deger[0])) * ($komisyon - 1) * 50, 2) . "</label><span class='col-sm-4 text-left  mb-0'>&#x20BA;</span>
+                                                    </div>
+                                                    <div class='form-group row align-items-center'>
+                                                        <label class='col-sm-4 text-left text-sm-right mb-0'>Toplam Alinacak Tutar: </label>
+                                                        <label id='toplam_odenecek_satim_tutar" . $sayi . "' class='col-sm-4 text-right  mb-0'>
+                                                        <script>
+                                                            function satis_hesapla" . $sayi . "() {
+                                                                var satis=$('#hisse_deger_satim_" . $sayi . "').text();
+                                                                var miktar_satis=$('#range_satim" . $sayi . "').val();
+                                                                $('#rangevaluesatim" . $sayi . "').text($('#range_satim" . $sayi . "').val());
+                                                                $('#komisyonsatim" . $sayi . "').text((satis*miktar_satis*(" . $komisyon . "-1)).toFixed(2));
+                                                                $('#toplam_odenecek_satim_tutar" . $sayi . "').text((satis*miktar_satis*(" . $komisyon . ")).toFixed(2));
+                                                            }
+                                                        </script>
+                                                        " . round(floatval(convert_virgül_nokta($h_td_fiyat_id_deger[0])) * ($komisyon) * 50, 2) . "
+                                                       </label>
+                                                       <span class='col-sm-4 text-left  mb-0'>&#x20BA;</span>
+                                                    </div>
+                                                </form>
                                             </div>
-                                            <div class='form-group row align-items-center'>
-                                                <label class='col-sm-4 text-left text-sm-right mb-0'>Alış Tutarı: </label>
-                                                <label id='hisse_deger_satim_" . $sayi . "' class='col-sm-7 text-center  mb-0'>" . convert_virgül_nokta($h_td_fiyat_id_deger[0]) . "</label>
-                                            </div>
-                                            <div class='form-group row align-items-center'>
-                                                <label class='col-sm-4 text-left text-sm-right mb-0'>Bakiyeniz: </label>
-                                                <label class='col-sm-4 text-right  mb-0'>" . $_SESSION['bakiye'] . "</label><span class='col-sm-4 text-left  mb-0'>&#x20BA;</span>
-                                            </div>
-                                            <div class='form-group row align-items-center'>
-                                                <label class='col-sm-4 text-left text-sm-right mb-0'>Satilmak İstenen Miktar: </label>
-                                                <div class='col-sm-7 text-center'>
-                                                    <input id='range_satim" . $sayi . "' type = 'range' min='1' max='" . intval($_SESSION['bakiye']) / (floatval(convert_virgül_nokta($h_td_fiyat_id_deger[0])) * $komisyon) . "' onchange='satis_hesapla" . $sayi . "()'/>
-                                                    <output  id='rangevaluesatim" . $sayi . "'>1</output>
+                                            <div class='panel-footer'>
+                                                <div class='row'>
+                                                    <div class='col-md-12 text-right'>
+                                                        <button type='button' class='btn btn-light modal-dismiss' >Kapat</button>
+                                                        <button type='button' class='btn btn-danger modal-confirm'>Sat</button>
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div class='form-group row align-items-center'>
-                                                <label class='col-sm-4 text-left text-sm-right mb-0'>Komisyon(Binde 3): </label>
-                                                <label id='komisyonsatim" . $sayi . "' class='col-sm-4 text-right  mb-0'>" . round(floatval(convert_virgül_nokta($h_td_fiyat_id_deger[0])) * ($komisyon - 1) * 50, 2) . "</label><span class='col-sm-4 text-left  mb-0'>&#x20BA;</span>
-                                            </div>
-                                            <div class='form-group row align-items-center'>
-                                                <label class='col-sm-4 text-left text-sm-right mb-0'>Toplam Alinacak Tutar: </label>
-                                                <label id='toplam_odenecek_satim_tutar" . $sayi . "' class='col-sm-4 text-right  mb-0'>
-                                                <script>
-                                                function satis_hesapla" . $sayi . "() {
-                                                    var satis=$('#hisse_deger_satim_" . $sayi . "').text();
-                                                    var miktar_satis=$('#range_satim" . $sayi . "').val();
-                                                    $('#rangevaluesatim" . $sayi . "').text($('#range_satim" . $sayi . "').val());
-                                                    $('#komisyonsatim" . $sayi . "').text((satis*miktar_satis*(" . $komisyon . "-1)).toFixed(2));
-                                                    $('#toplam_odenecek_satim_tutar" . $sayi . "').text((satis*miktar_satis*(" . $komisyon . ")).toFixed(2));
-                                                }
-                                                </script>
-                                                " . round(floatval(convert_virgül_nokta($h_td_fiyat_id_deger[0])) * ($komisyon) * 1, 2) . "
-                                               </label>
-                                               <span class='col-sm-4 text-left  mb-0'>&#x20BA;</span>
-                                            </div>
-                                        </form>
-                                    </div>
-                                    <div class='modal-footer'>
-                                        <button type='button' class='btn btn-light' data-dismiss='modal'>Kapat</button>
-                                        <button type='button' class='btn btn-danger'>Sat</button>
-                                    </div>
+                                    </section>
                                 </div>
-                            </div>
-                        </div>
-                    </td>
-                 </tr>";
+                            </td>";
                     } else {
                     } ?>
                     <?php } ?>

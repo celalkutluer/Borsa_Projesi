@@ -72,8 +72,7 @@ include "inc/header.php";
                                 </div>
                             </div>
                             <div class="col-sm-4 text-right">
-                                <button type="button"  id="btnSignIn" type="submit" class="btn btn-primary hidden-xs">Giriş</button>
-                                <button type="button"  id="btnSignIn" type="submit" class="btn btn-primary btn-block btn-lg visible-xs mt-lg">Giriş</button>
+                                <button type="button"  id="btnSignIn" type="submit" class="btn btn-primary btn-block ">Giriş</button>
                             </div>
 
                         </div>

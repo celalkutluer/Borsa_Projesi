@@ -8,6 +8,9 @@ yoneticikontrol();
                 <section class="panel panel-success">
                     <header class="panel-heading">
                         <h2 class="panel-title">Aktif Varlıklarım</h2>
+                        <div class="panel-actions">
+                            <a href="#" class="panel-action panel-action-toggle" data-panel-toggle></a>
+                        </div>
                     </header>
                     <div class="panel-body">
 
@@ -18,6 +21,9 @@ yoneticikontrol();
                 <section class="panel panel-danger">
                     <header class="panel-heading">
                         <h2 class="panel-title">Geçmiş Alım-Satımlarım</h2>
+                        <div class="panel-actions">
+                            <a href="#" class="panel-action panel-action-toggle" data-panel-toggle></a>
+                        </div>
                     </header>
                     <div class="panel-body">
 
