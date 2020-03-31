@@ -77,7 +77,7 @@ include "settings/fonksiyonlar.php";
                             if (isset($_SESSION['yetki'])) {
                                 if ($_SESSION['yetki'] == "1") {
                                     echo "<li class='dropdown'>
-                                                <a class='nav-link dropdown-toggle' href='yonetim.php'>
+                                                <a class='nav-link dropdown-toggle' href='#'>
                                                     Yönetim
                                                 </a>
                                                 <ul class='dropdown-menu'>
@@ -97,17 +97,17 @@ include "settings/fonksiyonlar.php";
                             if (isset($_SESSION['yetki'])) {
                                 echo "
                                             <li class='dropdown'>
-                                                <a class='nav-link dropdown-toggle active' href='ligler.php'>
+                                                <a class='nav-link dropdown-toggle active' href='#'>
                                                    Ligler
                                                 </a>
                                                 <ul class='dropdown-menu'>
-                                                    <li><a href='lige_gir.php' class='dropdown-item'>Lige Gir</a></li>
-                                                    <li><a href='lige_kaydol.php' class='dropdown-item'>Yeni Bir Lige Kaydol</a></li>
+                                                    <li><a href='ligim.php' class='dropdown-item'>Ligim</a></li>
+                                                    <li><a href='ligler.php' class='dropdown-item'>Tüm Ligler</a></li>
                                                 </ul>
                                             </li>";
                                 echo "
                                             <li class='dropdown'>
-                                                <a class='nav-link dropdown-toggle active' href='portfoy.php'>
+                                                <a class='nav-link dropdown-toggle active' href='#'>
                                                     Portföy
                                                 </a>
                                                 <ul class='dropdown-menu'>

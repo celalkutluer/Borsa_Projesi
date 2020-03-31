@@ -8,25 +8,28 @@ include "inc/header.php";
             <div class="tabs ">
                 <ul class="nav nav-tabs nav-justified">
                     <li class="active">
-                        <a href="#kazananlar" data-toggle="tab" class="text-center">LİG SIRALAMASI</a>
+                        <a href="#lig" data-toggle="tab" class="text-center">LİG SIRALAMASI</a>
                     </li>
                     <li>
-                        <a href="#kaybedenler" data-toggle="tab" class="text-center">KULLANICI SIRALAMASI</a>
+                        <a href="#kullanici" data-toggle="tab" class="text-center">KULLANICI SIRALAMASI</a>
                     </li>
                 </ul>
                 <div class="tab-content">
-                    <div id="kazananlar" class="tab-pane active">
+                    <div id="lig" class="tab-pane active">
                         <div class="tabs tabs-success">
                             <ul class="nav nav-tabs nav-justified">
                                 <li>
-                                    <a href="#kazananlar_hafta" data-toggle="tab" class="text-center">HAFTA</a>
+                                    <a href="#lig_hafta" data-toggle="tab" class="text-center">HAFTALIK</a>
                                 </li>
                                 <li>
-                                    <a href="#kazananlar_ay" data-toggle="tab" class="text-center">AY</a>
+                                    <a href="#lig_ay" data-toggle="tab" class="text-center">AYLIK</a>
+                                </li>
+                                <li>
+                                    <a href="#lig_genel" data-toggle="tab" class="text-center">GENEL</a>
                                 </li>
                             </ul>
                             <div class="tab-content  tabs-danger">
-                                <div id="kazananlar_gun" class="tab-pane active">
+                                <div id="lig_hafta" class="tab-pane active">
                                     <section class="panel">
                                         <div class="panel-body">
                                             <div class="table-responsive">
@@ -58,7 +61,7 @@ include "inc/header.php";
                                         </div>
                                     </section>
                                 </div>
-                                <div id="kazananlar_hafta" class="tab-pane">
+                                <div id="lig_ay" class="tab-pane">
                                     <section class="panel">
                                         <div class="panel-body">
                                             <div class="table-responsive">
@@ -91,7 +94,7 @@ include "inc/header.php";
                                     </section>
 
                                 </div>
-                                <div id="kazananlar_ay" class="tab-pane ">
+                                <div id="lig_genel" class="tab-pane ">
                                     <section class="panel">
                                         <div class="panel-body">
                                             <div class="table-responsive">
@@ -123,59 +126,27 @@ include "inc/header.php";
                                         </div>
                                     </section>
                                 </div>
-                                <div id="kazananlar_yil" class="tab-pane">
-                                    <section class="panel">
-                                        <div class="panel-body">
-                                            <div class="table-responsive">
-                                                <table class="table table-bordered">
-                                                    <thead>
-                                                    <tr>
-                                                        <th class="text-center">Sıra</th>
-                                                        <th class="text-center">Ad</th>
-                                                        <th class="text-center">Soyad</th>
-                                                        <th class="text-center">Kazanç</th>
-                                                    </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                    <?php
-                                                    for ($sayi = 0; $sayi < 10; $sayi++) {
-                                                        echo
-                                                            "<tr>
-                                                        <td class='text-center'>" . ($sayi + 1) . "</td>
-                                                        <td class='text-center' id='kazananlar_yil_Ad_" . $sayi . "'>Ad</td>
-                                                        <td class='text-center' id='kazananlar_yil_Soyad_" . $sayi . "'>Soyad</td>
-                                                        <td class='text-center' id='kazananlar_yil_TL_" . $sayi . "'>TL</td>
-                                                                </tr> 
-                                                                ";
-                                                    }
-                                                    ?>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </section>
-                                </div>
                             </div>
                         </div>
                     </div>
-                    <div id="kaybedenler" class="tab-pane">
+                    <div id="kullanici" class="tab-pane">
                         <div class="tabs tabs-danger">
                             <ul class="nav nav-tabs nav-justified">
                                 <li class="active">
-                                    <a href="#kaybedenler_gun" data-toggle="tab" class="text-center">GÜN</a>
+                                    <a href="#kullanici_gun" data-toggle="tab" class="text-center">GÜNLÜK</a>
                                 </li>
                                 <li>
-                                    <a href="#kaybedenler_hafta" data-toggle="tab" class="text-center">HAFTA</a>
+                                    <a href="#kullanici_hafta" data-toggle="tab" class="text-center">HAFTALIK</a>
                                 </li>
                                 <li>
-                                    <a href="#kaybedenler_ay" data-toggle="tab" class="text-center">AY</a>
+                                    <a href="#kullanici_ay" data-toggle="tab" class="text-center">AYLIK</a>
                                 </li>
                                 <li>
-                                    <a href="#kaybedenler_yil" data-toggle="tab" class="text-center">YIL</a>
+                                    <a href="#kullanici_genel" data-toggle="tab" class="text-center">GENEL</a>
                                 </li>
                             </ul>
                             <div class="tab-content  tabs-danger">
-                                <div id="kaybedenler_gun" class="tab-pane active">
+                                <div id="kullanici_gun" class="tab-pane active">
                                     <section class="panel">
                                         <div class="panel-body">
                                             <div class="table-responsive">
@@ -207,7 +178,7 @@ include "inc/header.php";
                                         </div>
                                     </section>
                                 </div>
-                                <div id="kaybedenler_hafta" class="tab-pane">
+                                <div id="kullanici_hafta" class="tab-pane">
                                     <section class="panel">
                                         <div class="panel-body">
                                             <div class="table-responsive">
@@ -239,7 +210,7 @@ include "inc/header.php";
                                         </div>
                                     </section>
                                 </div>
-                                <div id="kaybedenler_ay" class="tab-pane ">
+                                <div id="kullanici_ay" class="tab-pane ">
                                     <section class="panel">
                                         <div class="panel-body">
                                             <div class="table-responsive">
@@ -271,7 +242,7 @@ include "inc/header.php";
                                         </div>
                                     </section>
                                 </div>
-                                <div id="kaybedenler_yil" class="tab-pane">
+                                <div id="kullanici_genel" class="tab-pane">
                                     <section class="panel">
                                         <div class="panel-body">
                                             <div class="table-responsive">

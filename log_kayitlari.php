@@ -13,7 +13,26 @@ yoneticikontrol();
                         </div>
                     </header>
                     <div class="panel-body">
-
+                        <table class="table table-bordered table-striped mb-none" id="datatable-default">
+                            <thead>
+                            <tr>
+                                <th>*</th>
+                                <th>*</th>
+                                <th>*</th>
+                                <th class="hidden-xs">**</th>
+                                <th class="hidden-xs">*</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>***</td>
+                                <td>***</td>
+                                <td>***</td>
+                                <td class="center hidden-xs">******</td>
+                                <td class="center hidden-xs">******</td>
+                            </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </section>
             </div>

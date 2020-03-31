@@ -14,24 +14,23 @@ kullanicikontrol();
                         </div>
                     </header>
                     <div class="panel-body">
-                        <table class="table table-bordered table-striped mb-none" id="datatable-details">
+                        <table class="table table-bordered table-striped mb-none" id="datatable-default">
                             <thead>
                             <tr>
-                                <th>Hisse Adı</th>
-                                <th>Miktarı</th>
-                                <th>Değeri</th>
+                                <th>*</th>
+                                <th>*</th>
+                                <th>*</th>
+                                <th class="hidden-xs">**</th>
+                                <th class="hidden-xs">*</th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr>
-                                <td>AEFES</td>
-                                <td>150</td>
-                                <td>12640</td>
-                            </tr>
-                            <tr>
-                                <td>GUBRF</td>
-                                <td>125</td>
-                                <td>125.50</td>
+                                <td>***</td>
+                                <td>***</td>
+                                <td>***</td>
+                                <td class="center hidden-xs">******</td>
+                                <td class="center hidden-xs">******</td>
                             </tr>
                             </tbody>
                         </table>
