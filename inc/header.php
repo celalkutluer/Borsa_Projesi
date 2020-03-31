@@ -39,12 +39,12 @@ include "settings/fonksiyonlar.php";
     <link rel="stylesheet" href="assets/vendor/jquery-ui/jquery-ui.theme.css"/>
     <link rel="stylesheet" href="assets/vendor/bootstrap-multiselect/bootstrap-multiselect.css"/>
     <link rel="stylesheet" href="assets/vendor/morris.js/morris.css"/>
-    <link rel="stylesheet" href="assets/vendor/select2/css/select2.css" />
-    <link rel="stylesheet" href="assets/vendor/select2-bootstrap-theme/select2-bootstrap.min.css" />
-    <link rel="stylesheet" href="assets/vendor/pnotify/pnotify.custom.css" />
-    <link rel="stylesheet" href="assets/vendor/jquery-datatables-bs3/assets/css/datatables.css" />
+    <link rel="stylesheet" href="assets/vendor/select2/css/select2.css"/>
+    <link rel="stylesheet" href="assets/vendor/select2-bootstrap-theme/select2-bootstrap.min.css"/>
+    <link rel="stylesheet" href="assets/vendor/pnotify/pnotify.custom.css"/>
+    <link rel="stylesheet" href="assets/vendor/jquery-datatables-bs3/assets/css/datatables.css"/>
     <!-- Slider-->
-    <link rel="stylesheet" href="assets/vendor/jquery-ui/jquery-ui.structure.min.css" />
+    <link rel="stylesheet" href="assets/vendor/jquery-ui/jquery-ui.structure.min.css"/>
 
     <!-- Theme CSS -->
     <link rel="stylesheet" href="assets/stylesheets/theme.css"/>
@@ -71,26 +71,8 @@ include "settings/fonksiyonlar.php";
 
             <div class="header-nav collapse">
                 <div class="header-nav-main header-nav-main-effect-1 header-nav-main-sub-effect-1">
-                    <nav >
+                    <nav>
                         <ul class="nav navbar-nav nav-pills" id="mainNav">
-                            <?php
-                            if (isset($_SESSION['yetki'])) {
-
-                                echo "
-                                            <li class='dropdown'>
-                                                <a class='nav-link dropdown-toggle active' href='portfoy.php'>
-                                                    Portföy
-                                                </a>
-                                                <ul class='dropdown-menu'>
-                                                    <li><a href='aktif_varliklar.php' class='dropdown-item'>Aktif
-                                                            Varlıklarım</a></li>
-                                                    <li><a href='gecmis_alim_satimlar.php' class='dropdown-item'>Geçmiş
-                                                            Alım-Satımlar</a></li>
-                                                </ul>
-                                            </li>";
-                            } else {
-                            }
-                            ?>
                             <?php
                             if (isset($_SESSION['yetki'])) {
                                 if ($_SESSION['yetki'] == "1") {
@@ -109,6 +91,34 @@ include "settings/fonksiyonlar.php";
                                             </li>";
                                 } else {
                                 }
+                            }
+                            ?>
+                            <?php
+                            if (isset($_SESSION['yetki'])) {
+                                echo "
+                                            <li class='dropdown'>
+                                                <a class='nav-link dropdown-toggle active' href='ligler.php'>
+                                                   Ligler
+                                                </a>
+                                                <ul class='dropdown-menu'>
+                                                    <li><a href='lige_gir.php' class='dropdown-item'>Lige Gir</a></li>
+                                                    <li><a href='lige_kaydol.php' class='dropdown-item'>Yeni Bir Lige Kaydol</a></li>
+                                                </ul>
+                                            </li>";
+                                echo "
+                                            <li class='dropdown'>
+                                                <a class='nav-link dropdown-toggle active' href='portfoy.php'>
+                                                    Portföy
+                                                </a>
+                                                <ul class='dropdown-menu'>
+                                                    <li><a href='aktif_varliklar.php' class='dropdown-item'>Aktif
+                                                            Varlıklarım</a></li>
+                                                    <li><a href='gecmis_alim_satimlar.php' class='dropdown-item'>Geçmiş
+                                                            Alım-Satımlar</a></li>
+                                                </ul>
+                                            </li>";
+
+                            } else {
                             }
                             ?>
                             <li>
@@ -141,7 +151,7 @@ include "settings/fonksiyonlar.php";
                                                     Profil(" . s("isim") . " " . s('soyisim') . ") 
                                                 </a>
                                                 <input id='anasayfa_kul_id' class='form-control form-control-lg' type='hidden'
-                                       value='".s('kul_id')."' name='toplam'>
+                                       value='" . s('kul_id') . "' name='toplam'>
                                             </li>
                                             <li>
                                                 <a role='menuitem' tabindex='-1' href='settings/islem.php?islem=cikis'>

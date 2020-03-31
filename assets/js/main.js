@@ -31,26 +31,6 @@ $("#btnfrmKayit").click(function () {
     );
 });
 ///ALIM BUTONLARI
-$(document).on('click', '#hisse_al_btn_0', function () {
-    var data = {
-        'sembol': $("#hisse_alim_form_sembol_0").text()
-        , 'alis_tutar': $("#hisse_deger_alim_0").text()
-        , 'alis_miktar': $("#rangevalue0").text()
-        , 'alis_komisyon': $("#komisyon0").text()
-        , 'alis_toplam': $("#toplam_odenecek_alim_tutar0").text()
-        , 'kul_id': $("#anasayfa_kul_id").val()
-    }
-    $.ajax({
-            type: 'POST',
-            url: 'settings/islem.php?islem=hisse_satin_al',
-            data: data,
-            success: function (cevap) {
-                $("#hisse_alim_alert").html(cevap).hide().fadeIn(700);
-            }
-        }
-    );
-});
-
 function Tablo_veri_cek() {
     $.ajax({
         type: 'POST',
@@ -82,6 +62,8 @@ function Tablo_veri_cek() {
                 }
                 ///////////////
                 $("#hisse_son_deger_" + sayi).text(hisse_bilgi[sayi][2]);
+                //
+                $("#hisse_deger_satim_" + sayi).text(hisse_bilgi[sayi][2]);
                 ///////////////
                 $("#hisse_fark_" + sayi).text(hisse_bilgi[sayi][3]);
                 ///////////////

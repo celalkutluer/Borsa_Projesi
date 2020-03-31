@@ -1,9 +1,11 @@
 <?php include "inc/header.php";
-$bakiye_sorgula = $db->prepare('SELECT kul_bakiye FROM kullanicilar WHERE kul_id=?');
-$bakiye_sorgula->execute(array($_SESSION['kul_id']));
-$v = $bakiye_sorgula->fetchAll(PDO::FETCH_ASSOC);
-foreach ($v as $kul_bilgilerim) ;
-$_SESSION['bakiye']= $kul_bilgilerim['kul_bakiye'];
+if (isset($_SESSION['yetki'])) {
+    $bakiye_sorgula = $db->prepare('SELECT kul_bakiye FROM kullanicilar WHERE kul_id=?');
+    $bakiye_sorgula->execute(array($_SESSION['kul_id']));
+    $v = $bakiye_sorgula->fetchAll(PDO::FETCH_ASSOC);
+    foreach ($v as $kul_bilgilerim) ;
+    $_SESSION['bakiye'] = $kul_bilgilerim['kul_bakiye'];
+}//sayfa açıldığında bakiyemizi güncelliyoruz
 ?>
 <section role="main" class="content-body">
     <section class="section bg-color-quaternary custom-padding-4 border-0 my-0">
@@ -279,7 +281,7 @@ $_SESSION['bakiye']= $kul_bilgilerim['kul_bakiye'];
                                                     </div>
                                                     <div class='form-group row align-items-center'>
                                                         <label class='col-sm-4 text-left text-sm-right mb-0'>Alış Tutarı: </label>
-                                                        <label id='hisse_deger_satim_" . $sayi . "' class='col-sm-7 text-center  mb-0'>" . convert_virgül_nokta($h_td_fiyat_id_deger[0]) . "</label>
+                                                        <label id='hisse_deger_satim_" . $sayi . "' class='col-sm-7 text-center  mb-0' onchange='satis_hesapla" . $sayi . "()'>" . convert_virgül_nokta($h_td_fiyat_id_deger[0]) . "</label>
                                                     </div>
                                                     <div class='form-group row align-items-center'>
                                                         <label class='col-sm-4 text-left text-sm-right mb-0'>Bakiyeniz: </label>

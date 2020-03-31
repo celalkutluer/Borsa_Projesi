@@ -1,6 +1,6 @@
 <?php
 include "inc/header.php";
-yoneticikontrol();
+kullanicikontrol();
 ?>
     <section role="main" class="content-body">
         <div class="conteiner">

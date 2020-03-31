@@ -1,6 +1,6 @@
 <?php
 include "inc/header.php";
-yoneticikontrol();
+kullanicikontrol();
 ?>
 
     <section role="main" class="content-body">
@@ -14,7 +14,27 @@ yoneticikontrol();
                         </div>
                     </header>
                     <div class="panel-body">
-
+                        <table class="table table-bordered table-striped mb-none" id="datatable-details">
+                            <thead>
+                            <tr>
+                                <th>Hisse Adı</th>
+                                <th>Miktarı</th>
+                                <th>Değeri</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>AEFES</td>
+                                <td>150</td>
+                                <td>12640</td>
+                            </tr>
+                            <tr>
+                                <td>GUBRF</td>
+                                <td>125</td>
+                                <td>125.50</td>
+                            </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </section>
             </div>

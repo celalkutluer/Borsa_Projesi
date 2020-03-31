@@ -11,12 +11,14 @@ include "inc/header.php";
                 <div class="panel-body">
                     <!--ALERT-->
                     <div id="ygirisAlert"></div>
+
                     <!--ALERT-->
                     <form  id="frmSignIn" method="post" >
                         <div class="form-group mb-lg">
                             <label>E-posta Adresi</label>
                             <div class="input-group input-group-icon">
-                                <input name="eposta" type="text" class="form-control input-lg" />
+                                <input name="eposta" type="text" class="form-control input-lg"
+                                <?php if( isset($_COOKIE['eposta'])){  echo "value='".$_COOKIE['eposta']."'"; } ?> />
                                 <span class="input-group-addon">
 										<span class="icon icon-lg">
 											<i class="fa fa-user"></i>
@@ -30,7 +32,7 @@ include "inc/header.php";
                                 <a href="sifremi-unuttum.php" class="pull-right">Şifreni mi unuttun?</a>
                             </div>
                             <div class="input-group input-group-icon">
-                                <input name="sifre" type="password" class="form-control input-lg" />
+                                <input name="sifre" type="password" class="form-control input-lg"/>
                                 <span class="input-group-addon">
 										<span class="icon icon-lg">
 											<i class="fa fa-lock"></i>
@@ -67,7 +69,7 @@ include "inc/header.php";
                         <div class="row">
                             <div class="col-sm-8">
                                 <div class="checkbox-custom checkbox-default">
-                                    <input id="RememberMe" name="rememberme" type="checkbox"/>
+                                    <input name="rememberme" type="checkbox"/>
                                     <label for="RememberMe">Hatırla</label>
                                 </div>
                             </div>

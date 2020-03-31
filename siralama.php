@@ -8,27 +8,21 @@ include "inc/header.php";
             <div class="tabs ">
                 <ul class="nav nav-tabs nav-justified">
                     <li class="active">
-                        <a href="#kazananlar" data-toggle="tab" class="text-center">KAZANANLAR</a>
+                        <a href="#kazananlar" data-toggle="tab" class="text-center">LİG SIRALAMASI</a>
                     </li>
                     <li>
-                        <a href="#kaybedenler" data-toggle="tab" class="text-center">KAYBEDENLER</a>
+                        <a href="#kaybedenler" data-toggle="tab" class="text-center">KULLANICI SIRALAMASI</a>
                     </li>
                 </ul>
                 <div class="tab-content">
                     <div id="kazananlar" class="tab-pane active">
                         <div class="tabs tabs-success">
                             <ul class="nav nav-tabs nav-justified">
-                                <li class="active">
-                                    <a href="#kazananlar_gun" data-toggle="tab" class="text-center">GÜN</a>
-                                </li>
                                 <li>
                                     <a href="#kazananlar_hafta" data-toggle="tab" class="text-center">HAFTA</a>
                                 </li>
                                 <li>
                                     <a href="#kazananlar_ay" data-toggle="tab" class="text-center">AY</a>
-                                </li>
-                                <li>
-                                    <a href="#kazananlar_yil" data-toggle="tab" class="text-center">YIL</a>
                                 </li>
                             </ul>
                             <div class="tab-content  tabs-danger">

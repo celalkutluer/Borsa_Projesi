@@ -70,7 +70,9 @@
 
 <!-- Examples -->
 <script src="assets/js/ui-elements/examples.modals.js"></script>
-
+<script src="assets/js/tables/examples.datatables.default.js"></script>
+<script src="assets/js/tables/examples.datatables.row.with.details.js"></script>
+<script src="assets/js/tables/examples.datatables.tabletools.js"></script>
 
 <!-- JS -->
 <script src="assets/js/main.js"></script>

@@ -3,6 +3,7 @@ include "baglantilar.php";
 include "fonksiyonlar.php";
 
 if (g('islem') == 'ygiris') {
+
     $eposta = p('eposta');
     $sifre = p('sifre');
     $toplam = p('toplam');
@@ -18,6 +19,14 @@ if (g('islem') == 'ygiris') {
     } elseif ($toplam != md5($dkodu)) {
         echo "<div class='alert alert-warning'>Doğrulama kodunuz hatalı.</div>";
     } else {
+        if (isset($_POST['rememberme'])) {
+            setcookie("eposta",$eposta,strtotime("+7 day"));
+            setcookie("sifre",$sifre,strtotime("+7 day"));
+        }
+        else {
+            setcookie("eposta",$eposta,strtotime("-7 day"));
+            setcookie("sifre",$sifre,strtotime("-7 day"));
+        }
         //////////////////////////////////////////////////////////////////////////////////////////////////
         $veri = $db->prepare('SELECT kul_Id, kul_Ad, kul_Soyad, kul_Eposta, kul_Bakiye, kul_Sifre,kul_Yetki FROM kullanicilar WHERE kul_Eposta=? AND kul_Sifre=?');
         $veri->execute(array($eposta, md5($sifre)));
@@ -40,12 +49,15 @@ if (g('islem') == 'ygiris') {
         } else {
             echo "<div class='alert alert-warning'>Böyle Bir Kullanıcı Bulunmamaktadır. Lütfen Kayit olun</div><meta http-equiv='refresh' content='1; url=kayit.php'>";
         }
+        //////////////////////////////////////////////////////////////////////////////////
+
     }
 }
 if (g('islem') == 'cikis') {
     session_unset();
     session_destroy();
     header("Location:../index.php");
+    exit;
 }
 ///
 if (g('islem') == 'kayit') {
@@ -203,34 +215,54 @@ if (g('islem') == 'hisse_satin_al') {
     $hisse_satin_al_komisyon = p('alis_komisyon');
     $hisse_satin_al_toplam = p('alis_toplam');
 
-//
+    //
     $veri = $db->prepare('SELECT kul_bakiye FROM kullanicilar WHERE kul_id=?');
     $veri->execute(array($hisse_satin_al_kul_id));
     $v = $veri->fetchAll(PDO::FETCH_ASSOC);
     foreach ($v as $kul_bilgilerim) ;
-    if ($kul_bilgilerim['kul_bakiye'] > $hisse_satin_al_toplam) {
-        //
-        $ekle = $db->prepare("INSERT INTO alim(alim_kul_id, alim_hisse_sembol, alim_hisse_deger, alim_hisse_komisyon, alim_hisse_lot,alim_hisse_toplam_tutar) 
+    if (bakiye_son($hisse_satin_al_sembol) == $hisse_satin_al_tutar) {
+
+
+        if ($kul_bilgilerim['kul_bakiye'] > $hisse_satin_al_toplam) {
+            //
+            $ekle = $db->prepare("INSERT INTO alim(alim_kul_id, alim_hisse_sembol, alim_hisse_deger, alim_hisse_komisyon, alim_hisse_lot,alim_hisse_toplam_tutar) 
             VALUES ('" . $hisse_satin_al_kul_id . "','" . $hisse_satin_al_sembol . "','" . $hisse_satin_al_tutar . "','" . $hisse_satin_al_komisyon . "'
             ,'" . $hisse_satin_al_miktar . "','" . $hisse_satin_al_toplam . "')");
 
-        $ekleme = $ekle->execute(array());
-        if ($ekleme) {
+            $ekleme = $ekle->execute(array());
+            if ($ekleme) {
 
-            $yeni_bakiye = $kul_bilgilerim['kul_bakiye'] - $hisse_satin_al_toplam;
+                $yeni_bakiye = $kul_bilgilerim['kul_bakiye'] - $hisse_satin_al_toplam;
 
-            $guncelle = $db->prepare('UPDATE kullanicilar SET kul_bakiye=? WHERE kul_id=?');
-            $guncelleme = $guncelle->execute(array($yeni_bakiye, $hisse_satin_al_kul_id));
-            if ($guncelleme) {
-                echo "<div class='alert alert-success'>Satın Alma İşlemi Başarı ile Gerçekleşti.</div>";
-                echo "<div class='alert alert-success'>Kalan Bakiyeniz:".$yeni_bakiye." </div><meta http-equiv='refresh' content='1; url=index.php'>";
+                $guncelle = $db->prepare('UPDATE kullanicilar SET kul_bakiye=? WHERE kul_id=?');
+                $guncelleme = $guncelle->execute(array($yeni_bakiye, $hisse_satin_al_kul_id));
+                if ($guncelleme) {
+                    echo "<div class='alert alert-success'>Satın Alma İşlemi Başarı ile Gerçekleşti.</div>";
+                    echo "<div class='alert alert-success'>Kalan Bakiyeniz:" . $yeni_bakiye . " </div><meta http-equiv='refresh' content='1; url=index.php'>";
+                }
+            } else {
+                echo "<div class='alert alert-danger'>Bir Hata Meydana Geldi.</div>";
             }
         } else {
-            echo "<div class='alert alert-danger'>Bir Hata Meydana Geldi.</div>";
+            echo "<div class='alert alert-danger'>Yeterli Bakiye Mevcut Değil</div>";
         }
     } else {
-        echo "<div class='alert alert-danger'>Yeterli Bakiye Mevcut Değil</div>";
+        echo "<div class='alert alert-danger'>Hisse Fiyatı Değişti</div>";
     }
 }
-
+/*
+if (g('islem') == 'hisse_alim_bilgi_getir') {
+    $veri = $db->prepare("SELECT alim_hisse_lot,alim_hisse_deger,alim_hisse_toplam_tutar,alim_zaman FROM alim WHERE alim_hisse_sembol=? and alim_kul_id=?");
+    $veri->execute(array('AEFES',$_SESSION['kul_id']));
+    $v = $veri->fetchAll(pdo::FETCH_ASSOC);
+    $say = $veri->rowCount();
+    $tum=array();
+    foreach ($v as $tum_alimlar) {
+        $alimlar = array();
+        array_push($alimlar, $tum_alimlar['alim_hisse_lot'], $tum_alimlar['alim_hisse_deger'], $tum_alimlar['alim_hisse_toplam_tutar'], $tum_alimlar['alim_zaman']);
+        array_push($tum,$alimlar);
+    }
+    echo json_encode($tum);
+}
+*/
 ?>

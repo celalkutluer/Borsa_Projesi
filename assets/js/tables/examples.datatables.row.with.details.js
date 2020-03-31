@@ -17,18 +17,18 @@ Theme Version: 	1.7.0
 
 			return [
 				'<table class="table mb-none">',
-					'<tr class="b-top-none">',
-						'<td><label class="mb-none">Rendering engine:</label></td>',
-						'<td>' + data[1]+ ' ' + data[4] + '</td>',
-					'</tr>',
-					'<tr>',
-						'<td><label class="mb-none">Link to source:</label></td>',
-						'<td>Could provide a link here</td>',
-					'</tr>',
-					'<tr>',
-						'<td><label class="mb-none">Extra info:</label></td>',
-						'<td>And any further details here (images etc)</td>',
-					'</tr>',
+				'<tr class="b-top-none">',
+				'<td><label class="mb-none">Rendering engine:</label></td>',
+				'<td>' + data[1]+ ' ' + data[4] + '</td>',
+				'</tr>',
+				'<tr>',
+				'<td><label class="mb-none">Link to source:</label></td>',
+				'<td>Could provide a link here</td>',
+				'</tr>',
+				'<tr>',
+				'<td><label class="mb-none">Extra info:</label></td>',
+				'<td>And any further details here (images etc)</td>',
+				'</tr>',
 				'</table>'
 			].join('');
 		};
@@ -41,13 +41,13 @@ Theme Version: 	1.7.0
 
 		$table
 			.find( 'thead tr' ).each(function() {
-				this.insertBefore( th, this.childNodes[0] );
-			});
+			this.insertBefore( th, this.childNodes[0] );
+		});
 
 		$table
 			.find( 'tbody tr' ).each(function() {
-				this.insertBefore(  td.cloneNode( true ), this.childNodes[0] );
-			});
+			this.insertBefore(  td.cloneNode( true ), this.childNodes[0] );
+		});
 
 		// initialize
 		var datatable = $table.dataTable({
