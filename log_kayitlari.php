@@ -16,21 +16,41 @@ yoneticikontrol();
                         <table class="table table-bordered table-striped mb-none" id="datatable-default">
                             <thead>
                             <tr>
-                                <th>*</th>
-                                <th>*</th>
-                                <th>*</th>
-                                <th class="hidden-xs">**</th>
-                                <th class="hidden-xs">*</th>
+                                <th>Id</th>
+                                <th>Ad</th>
+                                <th>Soyad</th>
+                                <th>Eylem</th>
+                                <th>Açıklama</th>
+                                <th>Zamanı</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td>***</td>
-                                <td>***</td>
-                                <td>***</td>
-                                <td class="center hidden-xs">******</td>
-                                <td class="center hidden-xs">******</td>
-                            </tr>
+                            <?php
+                            function loglar()
+                            {
+                                global $db;
+                                $veri = $db->prepare("SELECT log.log_id,kullanicilar.kul_Ad,kullanicilar.kul_Soyad,log.log_eylem,log.log_aciklama,log.log_zaman FROM log inner join kullanicilar on log.log_kul_id=kullanicilar.kul_Id");
+                                $veri->execute(array());
+                                $v = $veri->fetchAll(pdo::FETCH_ASSOC);
+                                $say = $veri->rowCount();
+                                if ($say) {
+                                    foreach ($v as $tum_kullanicilar) {
+                                        ?>
+                                        <tr>
+                                            <td><?php echo $tum_kullanicilar['log_id']; ?></td>
+                                            <td><?php echo $tum_kullanicilar['kul_Ad']; ?></td>
+                                            <td><?php echo $tum_kullanicilar['kul_Soyad']; ?></td>
+                                            <td><?php echo $tum_kullanicilar['log_eylem']; ?></td>
+                                            <td><?php echo $tum_kullanicilar['log_aciklama']; ?></td>
+                                            <td><?php echo $tum_kullanicilar['log_zaman']; ?></td>
+                                        </tr>
+                                        <?php
+                                    }
+                                }
+                            }
+
+                            loglar();
+                            ?>
                             </tbody>
                         </table>
                     </div>

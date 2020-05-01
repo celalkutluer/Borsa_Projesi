@@ -8,7 +8,7 @@ include "inc/header.php";
             <div class="tabs ">
                 <ul class="nav nav-tabs nav-justified">
                     <li class="active">
-                        <a href="#lig" data-toggle="tab" class="text-center">LİG SIRALAMASI</a>
+                        <a href="#lig" data-toggle="tab" class="text-center" >LİG SIRALAMASI</a>
                     </li>
                     <li>
                         <a href="#kullanici" data-toggle="tab" class="text-center">KULLANICI SIRALAMASI</a>

@@ -149,6 +149,8 @@ VALUES ('" . $Ad . "','" . $Soyad . "','" . $Email . "','" . sha1(md5($Email)) .
 ///
 $link = "http://bigpara.hurriyet.com.tr/borsa/canli-borsa/";
 $icerik = file_get_contents($link);
+$icerik = preg_replace('~[\r\n]~', '', $icerik);
+$icerik = preg_replace('~[ ]~', '', $icerik);
 ///
 $h_td_sembol = array();
 $h_td_sembol = ara('target="_blank">', '</a>', $icerik);
@@ -157,6 +159,7 @@ $h_td_sembol = ara('target="_blank">', '</a>', $icerik);
 ///
 ///
 if (g('islem') == 'tablo_bilgi_al') {
+
     $h_td_sembol = ara('target="_blank">', '</a>', $icerik);//hisse adlarının dizisi[0] - [99] arası 100 hisse
     $tum_hisse_dizileri = array();
 

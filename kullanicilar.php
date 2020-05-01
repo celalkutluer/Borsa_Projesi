@@ -16,21 +16,46 @@ yoneticikontrol();
                         <table class="table table-bordered table-striped mb-none" id="datatable-default">
                             <thead>
                             <tr>
-                                <th>*</th>
-                                <th>*</th>
-                                <th>*</th>
-                                <th class="hidden-xs">**</th>
-                                <th class="hidden-xs">*</th>
+                                <th>Id</th>
+                                <th>Ad</th>
+                                <th>Soyad</th>
+                                <th>E-Posta</th>
+                                <th>Yetki</th>
+                                <th>Son Giriş Tarihi</th>
+                                <th class="hidden-xs">Üyelik Tarihi</th>
+                                <th class="hidden-xs">Pasife Al</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td>***</td>
-                                <td>***</td>
-                                <td>***</td>
-                                <td class="center hidden-xs">******</td>
-                                <td class="center hidden-xs">******</td>
-                            </tr>
+                            <?php
+                            function kullanicilar()
+                            {
+                                global $db;
+                                $veri = $db->prepare("SELECT * FROM kullanicilar");
+                                $veri->execute(array());
+                                $v = $veri->fetchAll(pdo::FETCH_ASSOC);
+                                $say = $veri->rowCount();
+                                if ($say) {
+                                    foreach ($v as $tum_kullanicilar) {
+                                        ?>
+                                        <tr>
+                                            <td><?php echo $tum_kullanicilar['kul_Id']; ?></td>
+                                            <td><?php echo $tum_kullanicilar['kul_Ad']; ?></td>
+                                            <td><?php echo $tum_kullanicilar['kul_Soyad']; ?></td>
+                                            <td><?php echo $tum_kullanicilar['kul_Eposta']; ?></td>
+                                            <td><?php if ($tum_kullanicilar['kul_Yetki'] == 1) echo "Yönetici"; else echo "Yatırımcı"; ?></td>
+                                            <td><?php echo $tum_kullanicilar['kul_Son_Giris_Tar']; ?></td>
+                                            <td class="center hidden-xs"><?php echo $tum_kullanicilar['kul_Uyelik_Tarih']; ?></td>
+                                            <td class="center hidden-xs">
+                                                <button id='btn_' type='button' class="btn btn-warning" >PASİF AL</button></td>
+                                        </tr>
+                                        <?php
+                                    }
+                                }
+                            }
+
+                            kullanicilar();
+                            ?>
                             </tbody>
                         </table>
 

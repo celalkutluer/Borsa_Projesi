@@ -16,20 +16,60 @@ yoneticikontrol();
                         <table class="table table-bordered table-striped mb-none" id="datatable-default">
                             <thead>
                             <tr>
-                                <th>*</th>
-                                <th>*</th>
-                                <th>*</th>
-                                <th class="hidden-xs">**</th>
-                                <th class="hidden-xs">*</th>
+                                <th>Id</th>
+                                <th>Gelir Türü</th>
+                                <th>İşlem Adedi</th>
+                                <th>Gelir</th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr>
-                                <td>***</td>
-                                <td>***</td>
-                                <td>***</td>
-                                <td class="center hidden-xs">******</td>
-                                <td class="center hidden-xs">******</td>
+                                <?php
+                                function alimlar()
+                                {
+                                global $db;
+                                $veri = $db->prepare("SELECT COUNT(alim_hisse_komisyon) AS adet, SUM(alim_hisse_komisyon) AS toplam FROM alim");
+                                $veri->execute(array());
+                                $v = $veri->fetchAll(pdo::FETCH_ASSOC);
+                                $say = $veri->rowCount();
+                                if ($say) {
+                                foreach ($v as $tum_alimlar) {
+                                ?>
+                            <tr>
+                                <td>1</td>
+                                <td>Hisse Alım</td>
+                                <td><?php echo $tum_alimlar['adet']; ?></td>
+                                <td class="center"><?php echo $tum_alimlar['toplam']; ?><span>&#x20BA;</span></td>
+                                <?php
+                            }
+                            }
+                            }
+                                alimlar();
+                            ?>
+                            </tr>
+                            <tr>
+                                <?php
+                                function satimlar()
+                                {
+                                global $db;
+                                $veri = $db->prepare("SELECT COUNT(satim_hisse_komisyon) AS adet, SUM(satim_hisse_komisyon) AS toplam FROM satim");
+                                $veri->execute(array());
+                                $v = $veri->fetchAll(pdo::FETCH_ASSOC);
+                                $say = $veri->rowCount();
+                                if ($say) {
+                                foreach ($v as $tum_satimlar) {
+                                ?>
+                            <tr>
+                                <td>2</td>
+                                <td>Hisse Satım</td>
+                                <td><?php echo $tum_satimlar['adet']; ?></td>
+                                <td class="center"><?php echo $tum_satimlar['toplam']; ?><span>&#x20BA;</span></td>
+                                <?php
+                                }
+                                }
+                                }
+                                satimlar();
+                                ?>
                             </tr>
                             </tbody>
                         </table>

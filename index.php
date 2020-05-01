@@ -9,6 +9,8 @@ if (isset($_SESSION['yetki'])) {
 
 $link = "http://bigpara.hurriyet.com.tr/borsa/canli-borsa/";
 $icerik = file_get_contents($link);
+$icerik = preg_replace('~[\r\n]~', '', $icerik);
+$icerik = preg_replace('~[ ]~', '', $icerik);
 ///
 $h_td_sembol = array();
 $h_td_sembol = ara('target="_blank">', '</a>', $icerik);//hisse adlarının dizisi[0] - [99] arası 100 hisse
@@ -18,6 +20,7 @@ $komisyon = 1.003;
 
 ?>
 <section role="main" class="content-body">
+    <section class="section bg-color-quy">
     <section class="section bg-color-quaternary custom-padding-4 border-0 my-0">
             <div class="container">
                 <div class="row mb-3">
@@ -141,9 +144,7 @@ $komisyon = 1.003;
                 </thead>
                 <tbody>
                 <?php
-                for ($sayi = 0;
-                $sayi < 100;
-                $sayi++) {
+                for ($sayi = 0;$sayi < 100;$sayi++) {
                 ///
                 $h_td_yuzde_id_deger = ara('h_td_yuzde_id_' . $h_td_sembol[$sayi] . '">', '</li>', $icerik);
                 $h_td_fiyat_id_deger = ara('h_td_fiyat_id_' . $h_td_sembol[$sayi] . '">', '</li>', $icerik);
@@ -265,9 +266,11 @@ $komisyon = 1.003;
                                     </section>
                                 </div>
                             </td>";
+
+
                         echo "
                             <td class='text-center' id='hisse_satis_" . $sayi . "'>
-                                <button id='btn_hisse_alis_" . $sayi . "' type='button' class='btn btn-danger modal-with-form' href='#modalSatForm" . $sayi . "'>SAT</button>
+                                <button id='btn_hisse_satis_" . $sayi . "' type='button' class='btn btn-danger modal-with-form' href='#modalSatForm" . $sayi . "'>SAT</button>
                                 
                                 <div class='modal-block modal-header-color modal-block-danger mfp-hide' id='modalSatForm" . $sayi . "'>
                                     <section class='panel'>
@@ -281,18 +284,24 @@ $komisyon = 1.003;
                                                         <label class='col-sm-7 text-center  mb-0'>" . $h_td_sembol[$sayi] . "</label>
                                                     </div>
                                                     <div class='form-group row align-items-center'>
-                                                        <label class='col-sm-4 text-left text-sm-right mb-0'>Alış Tutarı: </label>
+                                                        <label class='col-sm-4 text-left text-sm-right mb-0'>Satış Tutarı: </label>
                                                         <label id='hisse_deger_satim_" . $sayi . "' class='col-sm-7 text-center  mb-0' onchange='satis_hesapla" . $sayi . "()'>" . convert_virgül_nokta($h_td_fiyat_id_deger[0]) . "</label>
                                                     </div>
                                                     <div class='form-group row align-items-center'>
-                                                        <label class='col-sm-4 text-left text-sm-right mb-0'>Bakiyeniz: </label>
-                                                        <label class='col-sm-4 text-right  mb-0'>" . $_SESSION['bakiye'] . "</label><span class='col-sm-4 text-left  mb-0'>&#x20BA;</span>
+                                                        <label class='col-sm-4 text-left text-sm-right mb-0'>Portföyümdeki Hisse Adedi: </label>
+                                                        <label id='hisse_varlik_elde_" . $sayi . "' class='col-sm-4 text-right  mb-0'>";
+                                                    $veri = $db->prepare('SELECT varlik_elde FROM varliklar WHERE varlik_kul_id=? and varlik_hisse_sembol=?');
+                                                    $veri->execute(array($_SESSION['kul_id'], $h_td_sembol[$sayi]));
+                                                    $v = $veri->fetchAll(PDO::FETCH_ASSOC);
+                                                    foreach ($v as $varlik_elde) ;
+                                                    echo $varlik_elde['varlik_elde'];
+                                                    echo "</label>
                                                     </div>
                                                     <div class='form-group row align-items-center'>
                                                         <label class='col-sm-4 text-left text-sm-right mb-0'>Satilmak İstenen Miktar: </label>
                                                         <div class='col-sm-7 text-center'>
-                                                            <input id='range_satim" . $sayi . "' type = 'range' min='1' max='" . intval($_SESSION['bakiye']) / (floatval(convert_virgül_nokta($h_td_fiyat_id_deger[0])) * $komisyon) . "' onchange='satis_hesapla" . $sayi . "()'/>
-                                                            <output  id='rangevaluesatim" . $sayi . "'>50</output>
+                                                            <input id='range_satim" . $sayi . "' type = 'range' min='1' max='" . $varlik_elde['varlik_elde'] . "' onchange='satis_hesapla" . $sayi . "()'/>
+                                                            <output  id='rangevaluesatim" . $sayi . "'>1</output>
                                                         </div>
                                                     </div>
                                                     <div class='form-group row align-items-center'>
