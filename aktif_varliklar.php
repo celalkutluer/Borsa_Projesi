@@ -25,13 +25,31 @@ kullanicikontrol();
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td>***</td>
-                                <td>***</td>
-                                <td>***</td>
-                                <td class="center hidden-xs">******</td>
-                                <td class="center hidden-xs">******</td>
-                            </tr>
+                            <?php
+                            function aktif_varliklar()
+                            {
+                                global $db;
+                                $veri = $db->prepare("SELECT * FROM varliklar");
+                                $veri->execute(array());
+                                $v = $veri->fetchAll(pdo::FETCH_ASSOC);
+                                $say = $veri->rowCount();
+                                if ($say) {
+                                    foreach ($v as $tum_aktif_varliklar) {
+                                        ?>
+                                        <tr>
+                                            <td><?php echo $tum_aktif_varliklar['kul_Id']; ?></td>
+                                            <td><?php echo $tum_aktif_varliklar['kul_Ad']; ?></td>
+                                            <td><?php echo $tum_aktif_varliklar['kul_Soyad']; ?></td>
+                                            <td><?php echo $tum_aktif_varliklar['kul_Eposta']; ?></td>
+                                            <td><?php echo $tum_aktif_varliklar['kul_Son_Giris_Tar']; ?></td>
+                                        </tr>
+                                        <?php
+                                    }
+                                }
+                            }
+
+                            aktif_varliklar();
+                            ?>
                             </tbody>
                         </table>
                     </div>
