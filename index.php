@@ -266,8 +266,9 @@ $komisyon = 1.003;
                                     </section>
                                 </div>
                             </td>";
+                        ?>
 
-
+                        <?php
                         echo "
                             <td class='text-center' id='hisse_satis_" . $sayi . "'>
                                 <button id='btn_hisse_satis_" . $sayi . "' type='button' class='btn btn-danger modal-with-form' href='#modalSatForm" . $sayi . "'>SAT</button>
@@ -293,20 +294,35 @@ $komisyon = 1.003;
                                                     $veri = $db->prepare('SELECT varlik_elde FROM varliklar WHERE varlik_kul_id=? and varlik_hisse_sembol=?');
                                                     $veri->execute(array($_SESSION['kul_id'], $h_td_sembol[$sayi]));
                                                     $v = $veri->fetchAll(PDO::FETCH_ASSOC);
-                                                    foreach ($v as $varlik_elde) ;
-                                                    echo $varlik_elde['varlik_elde'];
+                                                    $say = $veri->rowCount();
+                                                    $miktar=0;
+                                                    if($say>0) {
+                                                        foreach ($v as $varlik_elde) ;
+                                                        $miktar=$varlik_elde['varlik_elde'];
+                                                        echo $miktar;
+                                                    }
+                                                    else{
+                                                        echo $miktar;
+                                                    }
                                                     echo "</label>
                                                     </div>
                                                     <div class='form-group row align-items-center'>
                                                         <label class='col-sm-4 text-left text-sm-right mb-0'>Satilmak İstenen Miktar: </label>
                                                         <div class='col-sm-7 text-center'>
-                                                            <input id='range_satim" . $sayi . "' type = 'range' min='1' max='" . $varlik_elde['varlik_elde'] . "' onchange='satis_hesapla" . $sayi . "()'/>
-                                                            <output  id='rangevaluesatim" . $sayi . "'>1</output>
+                                                            <input id='range_satim" . $sayi . "' type = 'range' min='";
+                                                    if($miktar>0) {
+                                                        echo "1";
+                                                    }
+                                                    else{
+                                                        echo "0";
+                                                    }
+                                                    echo "' max='" . $miktar . "' onchange='satis_hesapla" . $sayi . "()'/>
+                                                            <output  id='rangevaluesatim" . $sayi . "'>" . $miktar/2 . "</output>
                                                         </div>
                                                     </div>
                                                     <div class='form-group row align-items-center'>
                                                         <label class='col-sm-4 text-left text-sm-right mb-0'>Komisyon(Binde 3): </label>
-                                                        <label id='komisyonsatim" . $sayi . "' class='col-sm-4 text-right  mb-0'>" . round(floatval(convert_virgül_nokta($h_td_fiyat_id_deger[0])) * ($komisyon - 1) * 50, 2) . "</label><span class='col-sm-4 text-left  mb-0'>&#x20BA;</span>
+                                                        <label id='komisyonsatim" . $sayi . "' class='col-sm-4 text-right  mb-0'>" . round(floatval(convert_virgül_nokta($h_td_fiyat_id_deger[0])) * ($komisyon - 1) * $miktar/2, 2) . "</label><span class='col-sm-4 text-left  mb-0'>&#x20BA;</span>
                                                     </div>
                                                     <div class='form-group row align-items-center'>
                                                         <label class='col-sm-4 text-left text-sm-right mb-0'>Toplam Alinacak Tutar: </label>
@@ -320,7 +336,7 @@ $komisyon = 1.003;
                                                                 $('#toplam_odenecek_satim_tutar" . $sayi . "').text((satis*miktar_satis*(" . $komisyon . ")).toFixed(2));
                                                             }
                                                         </script>
-                                                        " . round(floatval(convert_virgül_nokta($h_td_fiyat_id_deger[0])) * ($komisyon) * 50, 2) . "
+                                                        " . round(floatval(convert_virgül_nokta($h_td_fiyat_id_deger[0])) * ($komisyon) * $miktar/2, 2) . "
                                                        </label>
                                                        <span class='col-sm-4 text-left  mb-0'>&#x20BA;</span>
                                                     </div>
@@ -338,7 +354,8 @@ $komisyon = 1.003;
                                 </div>
                             </td>";
                     } else {
-                    } ?>
+                    }
+                    ?>
                     <?php } ?>
                 </tbody>
             </table>
