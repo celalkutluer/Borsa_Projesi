@@ -358,7 +358,7 @@ $komisyonx = 1.003;
                                                     <div class='col-md-12 text-right'>
                                                         <button type='button' class='btn btn-light modal-dismiss' >Kapat</button>
                                                         <button type='button' id='hisse_sat_btn_" . $sayi . "' type='submit'  class='btn btn-danger'";
-                            if($range_==0||$miktar==0){ echo "disabled"; }
+                            if($miktar==0){ echo "disabled"; }
                             echo ">Sat</button>
                                                     </div>
                                                 </div>

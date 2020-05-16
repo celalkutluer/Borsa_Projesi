@@ -307,10 +307,10 @@ if (g('islem') == 'hisse_sat') {
             $varlikguncelle = $db->prepare("UPDATE varliklar SET varlik_satim_adet='" . $varlik_satim_guncel . "',varlik_elde='" . $varlik_elde_guncel . "' WHERE varlik_kul_id=? AND varlik_hisse_sembol=?");
             $varlikguncelleme = $varlikguncelle->execute(array($hisse_sat_kul_id, $hisse_sat_sembol));
             //
-            $bakiyeguncelle = $db->prepare('UPDATE kullanicilar SET kul_bakiye=? WHERE kul_id=?');
-            $bakiyeguncelleme = $varlikguncelle->execute(array($yeni_bakiyem, $hisse_sat_kul_id));
+            $bakiyegun = $db->prepare('UPDATE kullanicilar SET kul_Bakiye=? WHERE kul_Id=?');
+            $bakiyeguncel = $bakiyegun->execute(array($yeni_bakiyem, $hisse_sat_kul_id));
             //
-            if ($satekleme && $varlikguncelleme && $bakiyeguncelleme) {
+            if ($satekleme && $varlikguncelleme && $bakiyeguncel) {
                 echo "<div class='alert alert-success'>Satım İşlemi Başarı ile Gerçekleşti.</div>";
                 echo "<div class='alert alert-success'>Kalan Hisse Miktarı:  " . $varlik_elde_guncel . "</div>";
                 echo "<div class='alert alert-success'>Bakiyeniz:  " . $yeni_bakiyem . "</div><meta http-equiv='refresh' content='1; url=index.php'>";
