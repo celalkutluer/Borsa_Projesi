@@ -30,6 +30,7 @@ $("#btnfrmKayit").click(function () {
         }
     );
 });
+
 ///ALIM BUTONLARI
 function Tablo_veri_cek() {
     $.ajax({
@@ -1686,6 +1687,1507 @@ $(document).on('click', '#hisse_al_btn_99', function () {
     $.ajax({
         type: 'POST', url: 'settings/islem.php?islem=hisse_satin_al', data: data, success: function (cevap) {
             $("#hisse_alim_alert").html(cevap).hide().fadeIn(700);
+        }
+    });
+});
+//satım butonları
+$(document).on('click', '#hisse_sat_btn_0', function () {
+    var data = {
+        'sembol': $("#hisse_sat_form_sembol_0").text(),
+        'sat_tutar': $("#hisse_deger_sat_0").text(),
+        'sat_miktar': $("#rangevaluesat0").text(),
+        'sat_komisyon': $("#komisyonsat0").text(),
+        'sat_toplam': $("#toplam_odenecek_sat_tutar0").text(),
+        'kul_id': $("#anasayfa_kul_id").val()
+    }
+    $.ajax({
+        type: 'POST', url: 'settings/islem.php?islem=hisse_sat', data: data, success: function (cevap) {
+            $("#hisse_sat_alert").html(cevap).hide().fadeIn(700);
+        }
+    });
+});
+$(document).on('click', '#hisse_sat_btn_1', function () {
+    var data = {
+        'sembol': $("#hisse_sat_form_sembol_1").text(),
+        'sat_tutar': $("#hisse_deger_sat_1").text(),
+        'sat_miktar': $("#rangevaluesat1").text(),
+        'sat_komisyon': $("#komisyonsat1").text(),
+        'sat_toplam': $("#toplam_odenecek_sat_tutar1").text(),
+        'kul_id': $("#anasayfa_kul_id").val()
+    }
+    $.ajax({
+        type: 'POST', url: 'settings/islem.php?islem=hisse_sat', data: data, success: function (cevap) {
+            $("#hisse_sat_alert").html(cevap).hide().fadeIn(700);
+        }
+    });
+});
+$(document).on('click', '#hisse_sat_btn_2', function () {
+    var data = {
+        'sembol': $("#hisse_sat_form_sembol_2").text(),
+        'sat_tutar': $("#hisse_deger_sat_2").text(),
+        'sat_miktar': $("#rangevaluesat2").text(),
+        'sat_komisyon': $("#komisyonsat2").text(),
+        'sat_toplam': $("#toplam_odenecek_sat_tutar2").text(),
+        'kul_id': $("#anasayfa_kul_id").val()
+    }
+    $.ajax({
+        type: 'POST', url: 'settings/islem.php?islem=hisse_sat', data: data, success: function (cevap) {
+            $("#hisse_sat_alert").html(cevap).hide().fadeIn(700);
+        }
+    });
+});
+$(document).on('click', '#hisse_sat_btn_3', function () {
+    var data = {
+        'sembol': $("#hisse_sat_form_sembol_3").text(),
+        'sat_tutar': $("#hisse_deger_sat_3").text(),
+        'sat_miktar': $("#rangevaluesat3").text(),
+        'sat_komisyon': $("#komisyonsat3").text(),
+        'sat_toplam': $("#toplam_odenecek_sat_tutar3").text(),
+        'kul_id': $("#anasayfa_kul_id").val()
+    }
+    $.ajax({
+        type: 'POST', url: 'settings/islem.php?islem=hisse_sat', data: data, success: function (cevap) {
+            $("#hisse_sat_alert").html(cevap).hide().fadeIn(700);
+        }
+    });
+});
+$(document).on('click', '#hisse_sat_btn_4', function () {
+    var data = {
+        'sembol': $("#hisse_sat_form_sembol_4").text(),
+        'sat_tutar': $("#hisse_deger_sat_4").text(),
+        'sat_miktar': $("#rangevaluesat4").text(),
+        'sat_komisyon': $("#komisyonsat4").text(),
+        'sat_toplam': $("#toplam_odenecek_sat_tutar4").text(),
+        'kul_id': $("#anasayfa_kul_id").val()
+    }
+    $.ajax({
+        type: 'POST', url: 'settings/islem.php?islem=hisse_sat', data: data, success: function (cevap) {
+            $("#hisse_sat_alert").html(cevap).hide().fadeIn(700);
+        }
+    });
+});
+$(document).on('click', '#hisse_sat_btn_5', function () {
+    var data = {
+        'sembol': $("#hisse_sat_form_sembol_5").text(),
+        'sat_tutar': $("#hisse_deger_sat_5").text(),
+        'sat_miktar': $("#rangevaluesat5").text(),
+        'sat_komisyon': $("#komisyonsat5").text(),
+        'sat_toplam': $("#toplam_odenecek_sat_tutar5").text(),
+        'kul_id': $("#anasayfa_kul_id").val()
+    }
+    $.ajax({
+        type: 'POST', url: 'settings/islem.php?islem=hisse_sat', data: data, success: function (cevap) {
+            $("#hisse_sat_alert").html(cevap).hide().fadeIn(700);
+        }
+    });
+});
+$(document).on('click', '#hisse_sat_btn_6', function () {
+    var data = {
+        'sembol': $("#hisse_sat_form_sembol_6").text(),
+        'sat_tutar': $("#hisse_deger_sat_6").text(),
+        'sat_miktar': $("#rangevaluesat6").text(),
+        'sat_komisyon': $("#komisyonsat6").text(),
+        'sat_toplam': $("#toplam_odenecek_sat_tutar6").text(),
+        'kul_id': $("#anasayfa_kul_id").val()
+    }
+    $.ajax({
+        type: 'POST', url: 'settings/islem.php?islem=hisse_sat', data: data, success: function (cevap) {
+            $("#hisse_sat_alert").html(cevap).hide().fadeIn(700);
+        }
+    });
+});
+$(document).on('click', '#hisse_sat_btn_7', function () {
+    var data = {
+        'sembol': $("#hisse_sat_form_sembol_7").text(),
+        'sat_tutar': $("#hisse_deger_sat_7").text(),
+        'sat_miktar': $("#rangevaluesat7").text(),
+        'sat_komisyon': $("#komisyonsat7").text(),
+        'sat_toplam': $("#toplam_odenecek_sat_tutar7").text(),
+        'kul_id': $("#anasayfa_kul_id").val()
+    }
+    $.ajax({
+        type: 'POST', url: 'settings/islem.php?islem=hisse_sat', data: data, success: function (cevap) {
+            $("#hisse_sat_alert").html(cevap).hide().fadeIn(700);
+        }
+    });
+});
+$(document).on('click', '#hisse_sat_btn_8', function () {
+    var data = {
+        'sembol': $("#hisse_sat_form_sembol_8").text(),
+        'sat_tutar': $("#hisse_deger_sat_8").text(),
+        'sat_miktar': $("#rangevaluesat8").text(),
+        'sat_komisyon': $("#komisyonsat8").text(),
+        'sat_toplam': $("#toplam_odenecek_sat_tutar8").text(),
+        'kul_id': $("#anasayfa_kul_id").val()
+    }
+    $.ajax({
+        type: 'POST', url: 'settings/islem.php?islem=hisse_sat', data: data, success: function (cevap) {
+            $("#hisse_sat_alert").html(cevap).hide().fadeIn(700);
+        }
+    });
+});
+$(document).on('click', '#hisse_sat_btn_9', function () {
+    var data = {
+        'sembol': $("#hisse_sat_form_sembol_9").text(),
+        'sat_tutar': $("#hisse_deger_sat_9").text(),
+        'sat_miktar': $("#rangevaluesat9").text(),
+        'sat_komisyon': $("#komisyonsat9").text(),
+        'sat_toplam': $("#toplam_odenecek_sat_tutar9").text(),
+        'kul_id': $("#anasayfa_kul_id").val()
+    }
+    $.ajax({
+        type: 'POST', url: 'settings/islem.php?islem=hisse_sat', data: data, success: function (cevap) {
+            $("#hisse_sat_alert").html(cevap).hide().fadeIn(700);
+        }
+    });
+});
+$(document).on('click', '#hisse_sat_btn_10', function () {
+    var data = {
+        'sembol': $("#hisse_sat_form_sembol_10").text(),
+        'sat_tutar': $("#hisse_deger_sat_10").text(),
+        'sat_miktar': $("#rangevaluesat10").text(),
+        'sat_komisyon': $("#komisyonsat10").text(),
+        'sat_toplam': $("#toplam_odenecek_sat_tutar10").text(),
+        'kul_id': $("#anasayfa_kul_id").val()
+    }
+    $.ajax({
+        type: 'POST', url: 'settings/islem.php?islem=hisse_sat', data: data, success: function (cevap) {
+            $("#hisse_sat_alert").html(cevap).hide().fadeIn(700);
+        }
+    });
+});
+$(document).on('click', '#hisse_sat_btn_11', function () {
+    var data = {
+        'sembol': $("#hisse_sat_form_sembol_11").text(),
+        'sat_tutar': $("#hisse_deger_sat_11").text(),
+        'sat_miktar': $("#rangevaluesat11").text(),
+        'sat_komisyon': $("#komisyonsat11").text(),
+        'sat_toplam': $("#toplam_odenecek_sat_tutar11").text(),
+        'kul_id': $("#anasayfa_kul_id").val()
+    }
+    $.ajax({
+        type: 'POST', url: 'settings/islem.php?islem=hisse_sat', data: data, success: function (cevap) {
+            $("#hisse_sat_alert").html(cevap).hide().fadeIn(700);
+        }
+    });
+});
+$(document).on('click', '#hisse_sat_btn_12', function () {
+    var data = {
+        'sembol': $("#hisse_sat_form_sembol_12").text(),
+        'sat_tutar': $("#hisse_deger_sat_12").text(),
+        'sat_miktar': $("#rangevaluesat12").text(),
+        'sat_komisyon': $("#komisyonsat12").text(),
+        'sat_toplam': $("#toplam_odenecek_sat_tutar12").text(),
+        'kul_id': $("#anasayfa_kul_id").val()
+    }
+    $.ajax({
+        type: 'POST', url: 'settings/islem.php?islem=hisse_sat', data: data, success: function (cevap) {
+            $("#hisse_sat_alert").html(cevap).hide().fadeIn(700);
+        }
+    });
+});
+$(document).on('click', '#hisse_sat_btn_13', function () {
+    var data = {
+        'sembol': $("#hisse_sat_form_sembol_13").text(),
+        'sat_tutar': $("#hisse_deger_sat_13").text(),
+        'sat_miktar': $("#rangevaluesat13").text(),
+        'sat_komisyon': $("#komisyonsat13").text(),
+        'sat_toplam': $("#toplam_odenecek_sat_tutar13").text(),
+        'kul_id': $("#anasayfa_kul_id").val()
+    }
+    $.ajax({
+        type: 'POST', url: 'settings/islem.php?islem=hisse_sat', data: data, success: function (cevap) {
+            $("#hisse_sat_alert").html(cevap).hide().fadeIn(700);
+        }
+    });
+});
+$(document).on('click', '#hisse_sat_btn_14', function () {
+    var data = {
+        'sembol': $("#hisse_sat_form_sembol_14").text(),
+        'sat_tutar': $("#hisse_deger_sat_14").text(),
+        'sat_miktar': $("#rangevaluesat14").text(),
+        'sat_komisyon': $("#komisyonsat14").text(),
+        'sat_toplam': $("#toplam_odenecek_sat_tutar14").text(),
+        'kul_id': $("#anasayfa_kul_id").val()
+    }
+    $.ajax({
+        type: 'POST', url: 'settings/islem.php?islem=hisse_sat', data: data, success: function (cevap) {
+            $("#hisse_sat_alert").html(cevap).hide().fadeIn(700);
+        }
+    });
+});
+$(document).on('click', '#hisse_sat_btn_15', function () {
+    var data = {
+        'sembol': $("#hisse_sat_form_sembol_15").text(),
+        'sat_tutar': $("#hisse_deger_sat_15").text(),
+        'sat_miktar': $("#rangevaluesat15").text(),
+        'sat_komisyon': $("#komisyonsat15").text(),
+        'sat_toplam': $("#toplam_odenecek_sat_tutar15").text(),
+        'kul_id': $("#anasayfa_kul_id").val()
+    }
+    $.ajax({
+        type: 'POST', url: 'settings/islem.php?islem=hisse_sat', data: data, success: function (cevap) {
+            $("#hisse_sat_alert").html(cevap).hide().fadeIn(700);
+        }
+    });
+});
+$(document).on('click', '#hisse_sat_btn_16', function () {
+    var data = {
+        'sembol': $("#hisse_sat_form_sembol_16").text(),
+        'sat_tutar': $("#hisse_deger_sat_16").text(),
+        'sat_miktar': $("#rangevaluesat16").text(),
+        'sat_komisyon': $("#komisyonsat16").text(),
+        'sat_toplam': $("#toplam_odenecek_sat_tutar16").text(),
+        'kul_id': $("#anasayfa_kul_id").val()
+    }
+    $.ajax({
+        type: 'POST', url: 'settings/islem.php?islem=hisse_sat', data: data, success: function (cevap) {
+            $("#hisse_sat_alert").html(cevap).hide().fadeIn(700);
+        }
+    });
+});
+$(document).on('click', '#hisse_sat_btn_17', function () {
+    var data = {
+        'sembol': $("#hisse_sat_form_sembol_17").text(),
+        'sat_tutar': $("#hisse_deger_sat_17").text(),
+        'sat_miktar': $("#rangevaluesat17").text(),
+        'sat_komisyon': $("#komisyonsat17").text(),
+        'sat_toplam': $("#toplam_odenecek_sat_tutar17").text(),
+        'kul_id': $("#anasayfa_kul_id").val()
+    }
+    $.ajax({
+        type: 'POST', url: 'settings/islem.php?islem=hisse_sat', data: data, success: function (cevap) {
+            $("#hisse_sat_alert").html(cevap).hide().fadeIn(700);
+        }
+    });
+});
+$(document).on('click', '#hisse_sat_btn_18', function () {
+    var data = {
+        'sembol': $("#hisse_sat_form_sembol_18").text(),
+        'sat_tutar': $("#hisse_deger_sat_18").text(),
+        'sat_miktar': $("#rangevaluesat18").text(),
+        'sat_komisyon': $("#komisyonsat18").text(),
+        'sat_toplam': $("#toplam_odenecek_sat_tutar18").text(),
+        'kul_id': $("#anasayfa_kul_id").val()
+    }
+    $.ajax({
+        type: 'POST', url: 'settings/islem.php?islem=hisse_sat', data: data, success: function (cevap) {
+            $("#hisse_sat_alert").html(cevap).hide().fadeIn(700);
+        }
+    });
+});
+$(document).on('click', '#hisse_sat_btn_19', function () {
+    var data = {
+        'sembol': $("#hisse_sat_form_sembol_19").text(),
+        'sat_tutar': $("#hisse_deger_sat_19").text(),
+        'sat_miktar': $("#rangevaluesat19").text(),
+        'sat_komisyon': $("#komisyonsat19").text(),
+        'sat_toplam': $("#toplam_odenecek_sat_tutar19").text(),
+        'kul_id': $("#anasayfa_kul_id").val()
+    }
+    $.ajax({
+        type: 'POST', url: 'settings/islem.php?islem=hisse_sat', data: data, success: function (cevap) {
+            $("#hisse_sat_alert").html(cevap).hide().fadeIn(700);
+        }
+    });
+});
+$(document).on('click', '#hisse_sat_btn_20', function () {
+    var data = {
+        'sembol': $("#hisse_sat_form_sembol_20").text(),
+        'sat_tutar': $("#hisse_deger_sat_20").text(),
+        'sat_miktar': $("#rangevaluesat20").text(),
+        'sat_komisyon': $("#komisyonsat20").text(),
+        'sat_toplam': $("#toplam_odenecek_sat_tutar20").text(),
+        'kul_id': $("#anasayfa_kul_id").val()
+    }
+    $.ajax({
+        type: 'POST', url: 'settings/islem.php?islem=hisse_sat', data: data, success: function (cevap) {
+            $("#hisse_sat_alert").html(cevap).hide().fadeIn(700);
+        }
+    });
+});
+$(document).on('click', '#hisse_sat_btn_21', function () {
+    var data = {
+        'sembol': $("#hisse_sat_form_sembol_21").text(),
+        'sat_tutar': $("#hisse_deger_sat_21").text(),
+        'sat_miktar': $("#rangevaluesat21").text(),
+        'sat_komisyon': $("#komisyonsat21").text(),
+        'sat_toplam': $("#toplam_odenecek_sat_tutar21").text(),
+        'kul_id': $("#anasayfa_kul_id").val()
+    }
+    $.ajax({
+        type: 'POST', url: 'settings/islem.php?islem=hisse_sat', data: data, success: function (cevap) {
+            $("#hisse_sat_alert").html(cevap).hide().fadeIn(700);
+        }
+    });
+});
+$(document).on('click', '#hisse_sat_btn_22', function () {
+    var data = {
+        'sembol': $("#hisse_sat_form_sembol_22").text(),
+        'sat_tutar': $("#hisse_deger_sat_22").text(),
+        'sat_miktar': $("#rangevaluesat22").text(),
+        'sat_komisyon': $("#komisyonsat22").text(),
+        'sat_toplam': $("#toplam_odenecek_sat_tutar22").text(),
+        'kul_id': $("#anasayfa_kul_id").val()
+    }
+    $.ajax({
+        type: 'POST', url: 'settings/islem.php?islem=hisse_sat', data: data, success: function (cevap) {
+            $("#hisse_sat_alert").html(cevap).hide().fadeIn(700);
+        }
+    });
+});
+$(document).on('click', '#hisse_sat_btn_23', function () {
+    var data = {
+        'sembol': $("#hisse_sat_form_sembol_23").text(),
+        'sat_tutar': $("#hisse_deger_sat_23").text(),
+        'sat_miktar': $("#rangevaluesat23").text(),
+        'sat_komisyon': $("#komisyonsat23").text(),
+        'sat_toplam': $("#toplam_odenecek_sat_tutar23").text(),
+        'kul_id': $("#anasayfa_kul_id").val()
+    }
+    $.ajax({
+        type: 'POST', url: 'settings/islem.php?islem=hisse_sat', data: data, success: function (cevap) {
+            $("#hisse_sat_alert").html(cevap).hide().fadeIn(700);
+        }
+    });
+});
+$(document).on('click', '#hisse_sat_btn_24', function () {
+    var data = {
+        'sembol': $("#hisse_sat_form_sembol_24").text(),
+        'sat_tutar': $("#hisse_deger_sat_24").text(),
+        'sat_miktar': $("#rangevaluesat24").text(),
+        'sat_komisyon': $("#komisyonsat24").text(),
+        'sat_toplam': $("#toplam_odenecek_sat_tutar24").text(),
+        'kul_id': $("#anasayfa_kul_id").val()
+    }
+    $.ajax({
+        type: 'POST', url: 'settings/islem.php?islem=hisse_sat', data: data, success: function (cevap) {
+            $("#hisse_sat_alert").html(cevap).hide().fadeIn(700);
+        }
+    });
+});
+$(document).on('click', '#hisse_sat_btn_25', function () {
+    var data = {
+        'sembol': $("#hisse_sat_form_sembol_25").text(),
+        'sat_tutar': $("#hisse_deger_sat_25").text(),
+        'sat_miktar': $("#rangevaluesat25").text(),
+        'sat_komisyon': $("#komisyonsat25").text(),
+        'sat_toplam': $("#toplam_odenecek_sat_tutar25").text(),
+        'kul_id': $("#anasayfa_kul_id").val()
+    }
+    $.ajax({
+        type: 'POST', url: 'settings/islem.php?islem=hisse_sat', data: data, success: function (cevap) {
+            $("#hisse_sat_alert").html(cevap).hide().fadeIn(700);
+        }
+    });
+});
+$(document).on('click', '#hisse_sat_btn_26', function () {
+    var data = {
+        'sembol': $("#hisse_sat_form_sembol_26").text(),
+        'sat_tutar': $("#hisse_deger_sat_26").text(),
+        'sat_miktar': $("#rangevaluesat26").text(),
+        'sat_komisyon': $("#komisyonsat26").text(),
+        'sat_toplam': $("#toplam_odenecek_sat_tutar26").text(),
+        'kul_id': $("#anasayfa_kul_id").val()
+    }
+    $.ajax({
+        type: 'POST', url: 'settings/islem.php?islem=hisse_sat', data: data, success: function (cevap) {
+            $("#hisse_sat_alert").html(cevap).hide().fadeIn(700);
+        }
+    });
+});
+$(document).on('click', '#hisse_sat_btn_27', function () {
+    var data = {
+        'sembol': $("#hisse_sat_form_sembol_27").text(),
+        'sat_tutar': $("#hisse_deger_sat_27").text(),
+        'sat_miktar': $("#rangevaluesat27").text(),
+        'sat_komisyon': $("#komisyonsat27").text(),
+        'sat_toplam': $("#toplam_odenecek_sat_tutar27").text(),
+        'kul_id': $("#anasayfa_kul_id").val()
+    }
+    $.ajax({
+        type: 'POST', url: 'settings/islem.php?islem=hisse_sat', data: data, success: function (cevap) {
+            $("#hisse_sat_alert").html(cevap).hide().fadeIn(700);
+        }
+    });
+});
+$(document).on('click', '#hisse_sat_btn_28', function () {
+    var data = {
+        'sembol': $("#hisse_sat_form_sembol_28").text(),
+        'sat_tutar': $("#hisse_deger_sat_28").text(),
+        'sat_miktar': $("#rangevaluesat28").text(),
+        'sat_komisyon': $("#komisyonsat28").text(),
+        'sat_toplam': $("#toplam_odenecek_sat_tutar28").text(),
+        'kul_id': $("#anasayfa_kul_id").val()
+    }
+    $.ajax({
+        type: 'POST', url: 'settings/islem.php?islem=hisse_sat', data: data, success: function (cevap) {
+            $("#hisse_sat_alert").html(cevap).hide().fadeIn(700);
+        }
+    });
+});
+$(document).on('click', '#hisse_sat_btn_29', function () {
+    var data = {
+        'sembol': $("#hisse_sat_form_sembol_29").text(),
+        'sat_tutar': $("#hisse_deger_sat_29").text(),
+        'sat_miktar': $("#rangevaluesat29").text(),
+        'sat_komisyon': $("#komisyonsat29").text(),
+        'sat_toplam': $("#toplam_odenecek_sat_tutar29").text(),
+        'kul_id': $("#anasayfa_kul_id").val()
+    }
+    $.ajax({
+        type: 'POST', url: 'settings/islem.php?islem=hisse_sat', data: data, success: function (cevap) {
+            $("#hisse_sat_alert").html(cevap).hide().fadeIn(700);
+        }
+    });
+});
+$(document).on('click', '#hisse_sat_btn_30', function () {
+    var data = {
+        'sembol': $("#hisse_sat_form_sembol_30").text(),
+        'sat_tutar': $("#hisse_deger_sat_30").text(),
+        'sat_miktar': $("#rangevaluesat30").text(),
+        'sat_komisyon': $("#komisyonsat30").text(),
+        'sat_toplam': $("#toplam_odenecek_sat_tutar30").text(),
+        'kul_id': $("#anasayfa_kul_id").val()
+    }
+    $.ajax({
+        type: 'POST', url: 'settings/islem.php?islem=hisse_sat', data: data, success: function (cevap) {
+            $("#hisse_sat_alert").html(cevap).hide().fadeIn(700);
+        }
+    });
+});
+$(document).on('click', '#hisse_sat_btn_31', function () {
+    var data = {
+        'sembol': $("#hisse_sat_form_sembol_31").text(),
+        'sat_tutar': $("#hisse_deger_sat_31").text(),
+        'sat_miktar': $("#rangevaluesat31").text(),
+        'sat_komisyon': $("#komisyonsat31").text(),
+        'sat_toplam': $("#toplam_odenecek_sat_tutar31").text(),
+        'kul_id': $("#anasayfa_kul_id").val()
+    }
+    $.ajax({
+        type: 'POST', url: 'settings/islem.php?islem=hisse_sat', data: data, success: function (cevap) {
+            $("#hisse_sat_alert").html(cevap).hide().fadeIn(700);
+        }
+    });
+});
+$(document).on('click', '#hisse_sat_btn_32', function () {
+    var data = {
+        'sembol': $("#hisse_sat_form_sembol_32").text(),
+        'sat_tutar': $("#hisse_deger_sat_32").text(),
+        'sat_miktar': $("#rangevaluesat32").text(),
+        'sat_komisyon': $("#komisyonsat32").text(),
+        'sat_toplam': $("#toplam_odenecek_sat_tutar32").text(),
+        'kul_id': $("#anasayfa_kul_id").val()
+    }
+    $.ajax({
+        type: 'POST', url: 'settings/islem.php?islem=hisse_sat', data: data, success: function (cevap) {
+            $("#hisse_sat_alert").html(cevap).hide().fadeIn(700);
+        }
+    });
+});
+$(document).on('click', '#hisse_sat_btn_33', function () {
+    var data = {
+        'sembol': $("#hisse_sat_form_sembol_33").text(),
+        'sat_tutar': $("#hisse_deger_sat_33").text(),
+        'sat_miktar': $("#rangevaluesat33").text(),
+        'sat_komisyon': $("#komisyonsat33").text(),
+        'sat_toplam': $("#toplam_odenecek_sat_tutar33").text(),
+        'kul_id': $("#anasayfa_kul_id").val()
+    }
+    $.ajax({
+        type: 'POST', url: 'settings/islem.php?islem=hisse_sat', data: data, success: function (cevap) {
+            $("#hisse_sat_alert").html(cevap).hide().fadeIn(700);
+        }
+    });
+});
+$(document).on('click', '#hisse_sat_btn_34', function () {
+    var data = {
+        'sembol': $("#hisse_sat_form_sembol_34").text(),
+        'sat_tutar': $("#hisse_deger_sat_34").text(),
+        'sat_miktar': $("#rangevaluesat34").text(),
+        'sat_komisyon': $("#komisyonsat34").text(),
+        'sat_toplam': $("#toplam_odenecek_sat_tutar34").text(),
+        'kul_id': $("#anasayfa_kul_id").val()
+    }
+    $.ajax({
+        type: 'POST', url: 'settings/islem.php?islem=hisse_sat', data: data, success: function (cevap) {
+            $("#hisse_sat_alert").html(cevap).hide().fadeIn(700);
+        }
+    });
+});
+$(document).on('click', '#hisse_sat_btn_35', function () {
+    var data = {
+        'sembol': $("#hisse_sat_form_sembol_35").text(),
+        'sat_tutar': $("#hisse_deger_sat_35").text(),
+        'sat_miktar': $("#rangevaluesat35").text(),
+        'sat_komisyon': $("#komisyonsat35").text(),
+        'sat_toplam': $("#toplam_odenecek_sat_tutar35").text(),
+        'kul_id': $("#anasayfa_kul_id").val()
+    }
+    $.ajax({
+        type: 'POST', url: 'settings/islem.php?islem=hisse_sat', data: data, success: function (cevap) {
+            $("#hisse_sat_alert").html(cevap).hide().fadeIn(700);
+        }
+    });
+});
+$(document).on('click', '#hisse_sat_btn_36', function () {
+    var data = {
+        'sembol': $("#hisse_sat_form_sembol_36").text(),
+        'sat_tutar': $("#hisse_deger_sat_36").text(),
+        'sat_miktar': $("#rangevaluesat36").text(),
+        'sat_komisyon': $("#komisyonsat36").text(),
+        'sat_toplam': $("#toplam_odenecek_sat_tutar36").text(),
+        'kul_id': $("#anasayfa_kul_id").val()
+    }
+    $.ajax({
+        type: 'POST', url: 'settings/islem.php?islem=hisse_sat', data: data, success: function (cevap) {
+            $("#hisse_sat_alert").html(cevap).hide().fadeIn(700);
+        }
+    });
+});
+$(document).on('click', '#hisse_sat_btn_37', function () {
+    var data = {
+        'sembol': $("#hisse_sat_form_sembol_37").text(),
+        'sat_tutar': $("#hisse_deger_sat_37").text(),
+        'sat_miktar': $("#rangevaluesat37").text(),
+        'sat_komisyon': $("#komisyonsat37").text(),
+        'sat_toplam': $("#toplam_odenecek_sat_tutar37").text(),
+        'kul_id': $("#anasayfa_kul_id").val()
+    }
+    $.ajax({
+        type: 'POST', url: 'settings/islem.php?islem=hisse_sat', data: data, success: function (cevap) {
+            $("#hisse_sat_alert").html(cevap).hide().fadeIn(700);
+        }
+    });
+});
+$(document).on('click', '#hisse_sat_btn_38', function () {
+    var data = {
+        'sembol': $("#hisse_sat_form_sembol_38").text(),
+        'sat_tutar': $("#hisse_deger_sat_38").text(),
+        'sat_miktar': $("#rangevaluesat38").text(),
+        'sat_komisyon': $("#komisyonsat38").text(),
+        'sat_toplam': $("#toplam_odenecek_sat_tutar38").text(),
+        'kul_id': $("#anasayfa_kul_id").val()
+    }
+    $.ajax({
+        type: 'POST', url: 'settings/islem.php?islem=hisse_sat', data: data, success: function (cevap) {
+            $("#hisse_sat_alert").html(cevap).hide().fadeIn(700);
+        }
+    });
+});
+$(document).on('click', '#hisse_sat_btn_39', function () {
+    var data = {
+        'sembol': $("#hisse_sat_form_sembol_39").text(),
+        'sat_tutar': $("#hisse_deger_sat_39").text(),
+        'sat_miktar': $("#rangevaluesat39").text(),
+        'sat_komisyon': $("#komisyonsat39").text(),
+        'sat_toplam': $("#toplam_odenecek_sat_tutar39").text(),
+        'kul_id': $("#anasayfa_kul_id").val()
+    }
+    $.ajax({
+        type: 'POST', url: 'settings/islem.php?islem=hisse_sat', data: data, success: function (cevap) {
+            $("#hisse_sat_alert").html(cevap).hide().fadeIn(700);
+        }
+    });
+});
+$(document).on('click', '#hisse_sat_btn_40', function () {
+    var data = {
+        'sembol': $("#hisse_sat_form_sembol_40").text(),
+        'sat_tutar': $("#hisse_deger_sat_40").text(),
+        'sat_miktar': $("#rangevaluesat40").text(),
+        'sat_komisyon': $("#komisyonsat40").text(),
+        'sat_toplam': $("#toplam_odenecek_sat_tutar40").text(),
+        'kul_id': $("#anasayfa_kul_id").val()
+    }
+    $.ajax({
+        type: 'POST', url: 'settings/islem.php?islem=hisse_sat', data: data, success: function (cevap) {
+            $("#hisse_sat_alert").html(cevap).hide().fadeIn(700);
+        }
+    });
+});
+$(document).on('click', '#hisse_sat_btn_41', function () {
+    var data = {
+        'sembol': $("#hisse_sat_form_sembol_41").text(),
+        'sat_tutar': $("#hisse_deger_sat_41").text(),
+        'sat_miktar': $("#rangevaluesat41").text(),
+        'sat_komisyon': $("#komisyonsat41").text(),
+        'sat_toplam': $("#toplam_odenecek_sat_tutar41").text(),
+        'kul_id': $("#anasayfa_kul_id").val()
+    }
+    $.ajax({
+        type: 'POST', url: 'settings/islem.php?islem=hisse_sat', data: data, success: function (cevap) {
+            $("#hisse_sat_alert").html(cevap).hide().fadeIn(700);
+        }
+    });
+});
+$(document).on('click', '#hisse_sat_btn_42', function () {
+    var data = {
+        'sembol': $("#hisse_sat_form_sembol_42").text(),
+        'sat_tutar': $("#hisse_deger_sat_42").text(),
+        'sat_miktar': $("#rangevaluesat42").text(),
+        'sat_komisyon': $("#komisyonsat42").text(),
+        'sat_toplam': $("#toplam_odenecek_sat_tutar42").text(),
+        'kul_id': $("#anasayfa_kul_id").val()
+    }
+    $.ajax({
+        type: 'POST', url: 'settings/islem.php?islem=hisse_sat', data: data, success: function (cevap) {
+            $("#hisse_sat_alert").html(cevap).hide().fadeIn(700);
+        }
+    });
+});
+$(document).on('click', '#hisse_sat_btn_43', function () {
+    var data = {
+        'sembol': $("#hisse_sat_form_sembol_43").text(),
+        'sat_tutar': $("#hisse_deger_sat_43").text(),
+        'sat_miktar': $("#rangevaluesat43").text(),
+        'sat_komisyon': $("#komisyonsat43").text(),
+        'sat_toplam': $("#toplam_odenecek_sat_tutar43").text(),
+        'kul_id': $("#anasayfa_kul_id").val()
+    }
+    $.ajax({
+        type: 'POST', url: 'settings/islem.php?islem=hisse_sat', data: data, success: function (cevap) {
+            $("#hisse_sat_alert").html(cevap).hide().fadeIn(700);
+        }
+    });
+});
+$(document).on('click', '#hisse_sat_btn_44', function () {
+    var data = {
+        'sembol': $("#hisse_sat_form_sembol_44").text(),
+        'sat_tutar': $("#hisse_deger_sat_44").text(),
+        'sat_miktar': $("#rangevaluesat44").text(),
+        'sat_komisyon': $("#komisyonsat44").text(),
+        'sat_toplam': $("#toplam_odenecek_sat_tutar44").text(),
+        'kul_id': $("#anasayfa_kul_id").val()
+    }
+    $.ajax({
+        type: 'POST', url: 'settings/islem.php?islem=hisse_sat', data: data, success: function (cevap) {
+            $("#hisse_sat_alert").html(cevap).hide().fadeIn(700);
+        }
+    });
+});
+$(document).on('click', '#hisse_sat_btn_45', function () {
+    var data = {
+        'sembol': $("#hisse_sat_form_sembol_45").text(),
+        'sat_tutar': $("#hisse_deger_sat_45").text(),
+        'sat_miktar': $("#rangevaluesat45").text(),
+        'sat_komisyon': $("#komisyonsat45").text(),
+        'sat_toplam': $("#toplam_odenecek_sat_tutar45").text(),
+        'kul_id': $("#anasayfa_kul_id").val()
+    }
+    $.ajax({
+        type: 'POST', url: 'settings/islem.php?islem=hisse_sat', data: data, success: function (cevap) {
+            $("#hisse_sat_alert").html(cevap).hide().fadeIn(700);
+        }
+    });
+});
+$(document).on('click', '#hisse_sat_btn_46', function () {
+    var data = {
+        'sembol': $("#hisse_sat_form_sembol_46").text(),
+        'sat_tutar': $("#hisse_deger_sat_46").text(),
+        'sat_miktar': $("#rangevaluesat46").text(),
+        'sat_komisyon': $("#komisyonsat46").text(),
+        'sat_toplam': $("#toplam_odenecek_sat_tutar46").text(),
+        'kul_id': $("#anasayfa_kul_id").val()
+    }
+    $.ajax({
+        type: 'POST', url: 'settings/islem.php?islem=hisse_sat', data: data, success: function (cevap) {
+            $("#hisse_sat_alert").html(cevap).hide().fadeIn(700);
+        }
+    });
+});
+$(document).on('click', '#hisse_sat_btn_47', function () {
+    var data = {
+        'sembol': $("#hisse_sat_form_sembol_47").text(),
+        'sat_tutar': $("#hisse_deger_sat_47").text(),
+        'sat_miktar': $("#rangevaluesat47").text(),
+        'sat_komisyon': $("#komisyonsat47").text(),
+        'sat_toplam': $("#toplam_odenecek_sat_tutar47").text(),
+        'kul_id': $("#anasayfa_kul_id").val()
+    }
+    $.ajax({
+        type: 'POST', url: 'settings/islem.php?islem=hisse_sat', data: data, success: function (cevap) {
+            $("#hisse_sat_alert").html(cevap).hide().fadeIn(700);
+        }
+    });
+});
+$(document).on('click', '#hisse_sat_btn_48', function () {
+    var data = {
+        'sembol': $("#hisse_sat_form_sembol_48").text(),
+        'sat_tutar': $("#hisse_deger_sat_48").text(),
+        'sat_miktar': $("#rangevaluesat48").text(),
+        'sat_komisyon': $("#komisyonsat48").text(),
+        'sat_toplam': $("#toplam_odenecek_sat_tutar48").text(),
+        'kul_id': $("#anasayfa_kul_id").val()
+    }
+    $.ajax({
+        type: 'POST', url: 'settings/islem.php?islem=hisse_sat', data: data, success: function (cevap) {
+            $("#hisse_sat_alert").html(cevap).hide().fadeIn(700);
+        }
+    });
+});
+$(document).on('click', '#hisse_sat_btn_49', function () {
+    var data = {
+        'sembol': $("#hisse_sat_form_sembol_49").text(),
+        'sat_tutar': $("#hisse_deger_sat_49").text(),
+        'sat_miktar': $("#rangevaluesat49").text(),
+        'sat_komisyon': $("#komisyonsat49").text(),
+        'sat_toplam': $("#toplam_odenecek_sat_tutar49").text(),
+        'kul_id': $("#anasayfa_kul_id").val()
+    }
+    $.ajax({
+        type: 'POST', url: 'settings/islem.php?islem=hisse_sat', data: data, success: function (cevap) {
+            $("#hisse_sat_alert").html(cevap).hide().fadeIn(700);
+        }
+    });
+});
+$(document).on('click', '#hisse_sat_btn_50', function () {
+    var data = {
+        'sembol': $("#hisse_sat_form_sembol_50").text(),
+        'sat_tutar': $("#hisse_deger_sat_50").text(),
+        'sat_miktar': $("#rangevaluesat50").text(),
+        'sat_komisyon': $("#komisyonsat50").text(),
+        'sat_toplam': $("#toplam_odenecek_sat_tutar50").text(),
+        'kul_id': $("#anasayfa_kul_id").val()
+    }
+    $.ajax({
+        type: 'POST', url: 'settings/islem.php?islem=hisse_sat', data: data, success: function (cevap) {
+            $("#hisse_sat_alert").html(cevap).hide().fadeIn(700);
+        }
+    });
+});
+$(document).on('click', '#hisse_sat_btn_51', function () {
+    var data = {
+        'sembol': $("#hisse_sat_form_sembol_51").text(),
+        'sat_tutar': $("#hisse_deger_sat_51").text(),
+        'sat_miktar': $("#rangevaluesat51").text(),
+        'sat_komisyon': $("#komisyonsat51").text(),
+        'sat_toplam': $("#toplam_odenecek_sat_tutar51").text(),
+        'kul_id': $("#anasayfa_kul_id").val()
+    }
+    $.ajax({
+        type: 'POST', url: 'settings/islem.php?islem=hisse_sat', data: data, success: function (cevap) {
+            $("#hisse_sat_alert").html(cevap).hide().fadeIn(700);
+        }
+    });
+});
+$(document).on('click', '#hisse_sat_btn_52', function () {
+    var data = {
+        'sembol': $("#hisse_sat_form_sembol_52").text(),
+        'sat_tutar': $("#hisse_deger_sat_52").text(),
+        'sat_miktar': $("#rangevaluesat52").text(),
+        'sat_komisyon': $("#komisyonsat52").text(),
+        'sat_toplam': $("#toplam_odenecek_sat_tutar52").text(),
+        'kul_id': $("#anasayfa_kul_id").val()
+    }
+    $.ajax({
+        type: 'POST', url: 'settings/islem.php?islem=hisse_sat', data: data, success: function (cevap) {
+            $("#hisse_sat_alert").html(cevap).hide().fadeIn(700);
+        }
+    });
+});
+$(document).on('click', '#hisse_sat_btn_53', function () {
+    var data = {
+        'sembol': $("#hisse_sat_form_sembol_53").text(),
+        'sat_tutar': $("#hisse_deger_sat_53").text(),
+        'sat_miktar': $("#rangevaluesat53").text(),
+        'sat_komisyon': $("#komisyonsat53").text(),
+        'sat_toplam': $("#toplam_odenecek_sat_tutar53").text(),
+        'kul_id': $("#anasayfa_kul_id").val()
+    }
+    $.ajax({
+        type: 'POST', url: 'settings/islem.php?islem=hisse_sat', data: data, success: function (cevap) {
+            $("#hisse_sat_alert").html(cevap).hide().fadeIn(700);
+        }
+    });
+});
+$(document).on('click', '#hisse_sat_btn_54', function () {
+    var data = {
+        'sembol': $("#hisse_sat_form_sembol_54").text(),
+        'sat_tutar': $("#hisse_deger_sat_54").text(),
+        'sat_miktar': $("#rangevaluesat54").text(),
+        'sat_komisyon': $("#komisyonsat54").text(),
+        'sat_toplam': $("#toplam_odenecek_sat_tutar54").text(),
+        'kul_id': $("#anasayfa_kul_id").val()
+    }
+    $.ajax({
+        type: 'POST', url: 'settings/islem.php?islem=hisse_sat', data: data, success: function (cevap) {
+            $("#hisse_sat_alert").html(cevap).hide().fadeIn(700);
+        }
+    });
+});
+$(document).on('click', '#hisse_sat_btn_55', function () {
+    var data = {
+        'sembol': $("#hisse_sat_form_sembol_55").text(),
+        'sat_tutar': $("#hisse_deger_sat_55").text(),
+        'sat_miktar': $("#rangevaluesat55").text(),
+        'sat_komisyon': $("#komisyonsat55").text(),
+        'sat_toplam': $("#toplam_odenecek_sat_tutar55").text(),
+        'kul_id': $("#anasayfa_kul_id").val()
+    }
+    $.ajax({
+        type: 'POST', url: 'settings/islem.php?islem=hisse_sat', data: data, success: function (cevap) {
+            $("#hisse_sat_alert").html(cevap).hide().fadeIn(700);
+        }
+    });
+});
+$(document).on('click', '#hisse_sat_btn_56', function () {
+    var data = {
+        'sembol': $("#hisse_sat_form_sembol_56").text(),
+        'sat_tutar': $("#hisse_deger_sat_56").text(),
+        'sat_miktar': $("#rangevaluesat56").text(),
+        'sat_komisyon': $("#komisyonsat56").text(),
+        'sat_toplam': $("#toplam_odenecek_sat_tutar56").text(),
+        'kul_id': $("#anasayfa_kul_id").val()
+    }
+    $.ajax({
+        type: 'POST', url: 'settings/islem.php?islem=hisse_sat', data: data, success: function (cevap) {
+            $("#hisse_sat_alert").html(cevap).hide().fadeIn(700);
+        }
+    });
+});
+$(document).on('click', '#hisse_sat_btn_57', function () {
+    var data = {
+        'sembol': $("#hisse_sat_form_sembol_57").text(),
+        'sat_tutar': $("#hisse_deger_sat_57").text(),
+        'sat_miktar': $("#rangevaluesat57").text(),
+        'sat_komisyon': $("#komisyonsat57").text(),
+        'sat_toplam': $("#toplam_odenecek_sat_tutar57").text(),
+        'kul_id': $("#anasayfa_kul_id").val()
+    }
+    $.ajax({
+        type: 'POST', url: 'settings/islem.php?islem=hisse_sat', data: data, success: function (cevap) {
+            $("#hisse_sat_alert").html(cevap).hide().fadeIn(700);
+        }
+    });
+});
+$(document).on('click', '#hisse_sat_btn_58', function () {
+    var data = {
+        'sembol': $("#hisse_sat_form_sembol_58").text(),
+        'sat_tutar': $("#hisse_deger_sat_58").text(),
+        'sat_miktar': $("#rangevaluesat58").text(),
+        'sat_komisyon': $("#komisyonsat58").text(),
+        'sat_toplam': $("#toplam_odenecek_sat_tutar58").text(),
+        'kul_id': $("#anasayfa_kul_id").val()
+    }
+    $.ajax({
+        type: 'POST', url: 'settings/islem.php?islem=hisse_sat', data: data, success: function (cevap) {
+            $("#hisse_sat_alert").html(cevap).hide().fadeIn(700);
+        }
+    });
+});
+$(document).on('click', '#hisse_sat_btn_59', function () {
+    var data = {
+        'sembol': $("#hisse_sat_form_sembol_59").text(),
+        'sat_tutar': $("#hisse_deger_sat_59").text(),
+        'sat_miktar': $("#rangevaluesat59").text(),
+        'sat_komisyon': $("#komisyonsat59").text(),
+        'sat_toplam': $("#toplam_odenecek_sat_tutar59").text(),
+        'kul_id': $("#anasayfa_kul_id").val()
+    }
+    $.ajax({
+        type: 'POST', url: 'settings/islem.php?islem=hisse_sat', data: data, success: function (cevap) {
+            $("#hisse_sat_alert").html(cevap).hide().fadeIn(700);
+        }
+    });
+});
+$(document).on('click', '#hisse_sat_btn_60', function () {
+    var data = {
+        'sembol': $("#hisse_sat_form_sembol_60").text(),
+        'sat_tutar': $("#hisse_deger_sat_60").text(),
+        'sat_miktar': $("#rangevaluesat60").text(),
+        'sat_komisyon': $("#komisyonsat60").text(),
+        'sat_toplam': $("#toplam_odenecek_sat_tutar60").text(),
+        'kul_id': $("#anasayfa_kul_id").val()
+    }
+    $.ajax({
+        type: 'POST', url: 'settings/islem.php?islem=hisse_sat', data: data, success: function (cevap) {
+            $("#hisse_sat_alert").html(cevap).hide().fadeIn(700);
+        }
+    });
+});
+$(document).on('click', '#hisse_sat_btn_61', function () {
+    var data = {
+        'sembol': $("#hisse_sat_form_sembol_61").text(),
+        'sat_tutar': $("#hisse_deger_sat_61").text(),
+        'sat_miktar': $("#rangevaluesat61").text(),
+        'sat_komisyon': $("#komisyonsat61").text(),
+        'sat_toplam': $("#toplam_odenecek_sat_tutar61").text(),
+        'kul_id': $("#anasayfa_kul_id").val()
+    }
+    $.ajax({
+        type: 'POST', url: 'settings/islem.php?islem=hisse_sat', data: data, success: function (cevap) {
+            $("#hisse_sat_alert").html(cevap).hide().fadeIn(700);
+        }
+    });
+});
+$(document).on('click', '#hisse_sat_btn_62', function () {
+    var data = {
+        'sembol': $("#hisse_sat_form_sembol_62").text(),
+        'sat_tutar': $("#hisse_deger_sat_62").text(),
+        'sat_miktar': $("#rangevaluesat62").text(),
+        'sat_komisyon': $("#komisyonsat62").text(),
+        'sat_toplam': $("#toplam_odenecek_sat_tutar62").text(),
+        'kul_id': $("#anasayfa_kul_id").val()
+    }
+    $.ajax({
+        type: 'POST', url: 'settings/islem.php?islem=hisse_sat', data: data, success: function (cevap) {
+            $("#hisse_sat_alert").html(cevap).hide().fadeIn(700);
+        }
+    });
+});
+$(document).on('click', '#hisse_sat_btn_63', function () {
+    var data = {
+        'sembol': $("#hisse_sat_form_sembol_63").text(),
+        'sat_tutar': $("#hisse_deger_sat_63").text(),
+        'sat_miktar': $("#rangevaluesat63").text(),
+        'sat_komisyon': $("#komisyonsat63").text(),
+        'sat_toplam': $("#toplam_odenecek_sat_tutar63").text(),
+        'kul_id': $("#anasayfa_kul_id").val()
+    }
+    $.ajax({
+        type: 'POST', url: 'settings/islem.php?islem=hisse_sat', data: data, success: function (cevap) {
+            $("#hisse_sat_alert").html(cevap).hide().fadeIn(700);
+        }
+    });
+});
+$(document).on('click', '#hisse_sat_btn_64', function () {
+    var data = {
+        'sembol': $("#hisse_sat_form_sembol_64").text(),
+        'sat_tutar': $("#hisse_deger_sat_64").text(),
+        'sat_miktar': $("#rangevaluesat64").text(),
+        'sat_komisyon': $("#komisyonsat64").text(),
+        'sat_toplam': $("#toplam_odenecek_sat_tutar64").text(),
+        'kul_id': $("#anasayfa_kul_id").val()
+    }
+    $.ajax({
+        type: 'POST', url: 'settings/islem.php?islem=hisse_sat', data: data, success: function (cevap) {
+            $("#hisse_sat_alert").html(cevap).hide().fadeIn(700);
+        }
+    });
+});
+$(document).on('click', '#hisse_sat_btn_65', function () {
+    var data = {
+        'sembol': $("#hisse_sat_form_sembol_65").text(),
+        'sat_tutar': $("#hisse_deger_sat_65").text(),
+        'sat_miktar': $("#rangevaluesat65").text(),
+        'sat_komisyon': $("#komisyonsat65").text(),
+        'sat_toplam': $("#toplam_odenecek_sat_tutar65").text(),
+        'kul_id': $("#anasayfa_kul_id").val()
+    }
+    $.ajax({
+        type: 'POST', url: 'settings/islem.php?islem=hisse_sat', data: data, success: function (cevap) {
+            $("#hisse_sat_alert").html(cevap).hide().fadeIn(700);
+        }
+    });
+});
+$(document).on('click', '#hisse_sat_btn_66', function () {
+    var data = {
+        'sembol': $("#hisse_sat_form_sembol_66").text(),
+        'sat_tutar': $("#hisse_deger_sat_66").text(),
+        'sat_miktar': $("#rangevaluesat66").text(),
+        'sat_komisyon': $("#komisyonsat66").text(),
+        'sat_toplam': $("#toplam_odenecek_sat_tutar66").text(),
+        'kul_id': $("#anasayfa_kul_id").val()
+    }
+    $.ajax({
+        type: 'POST', url: 'settings/islem.php?islem=hisse_sat', data: data, success: function (cevap) {
+            $("#hisse_sat_alert").html(cevap).hide().fadeIn(700);
+        }
+    });
+});
+$(document).on('click', '#hisse_sat_btn_67', function () {
+    var data = {
+        'sembol': $("#hisse_sat_form_sembol_67").text(),
+        'sat_tutar': $("#hisse_deger_sat_67").text(),
+        'sat_miktar': $("#rangevaluesat67").text(),
+        'sat_komisyon': $("#komisyonsat67").text(),
+        'sat_toplam': $("#toplam_odenecek_sat_tutar67").text(),
+        'kul_id': $("#anasayfa_kul_id").val()
+    }
+    $.ajax({
+        type: 'POST', url: 'settings/islem.php?islem=hisse_sat', data: data, success: function (cevap) {
+            $("#hisse_sat_alert").html(cevap).hide().fadeIn(700);
+        }
+    });
+});
+$(document).on('click', '#hisse_sat_btn_68', function () {
+    var data = {
+        'sembol': $("#hisse_sat_form_sembol_68").text(),
+        'sat_tutar': $("#hisse_deger_sat_68").text(),
+        'sat_miktar': $("#rangevaluesat68").text(),
+        'sat_komisyon': $("#komisyonsat68").text(),
+        'sat_toplam': $("#toplam_odenecek_sat_tutar68").text(),
+        'kul_id': $("#anasayfa_kul_id").val()
+    }
+    $.ajax({
+        type: 'POST', url: 'settings/islem.php?islem=hisse_sat', data: data, success: function (cevap) {
+            $("#hisse_sat_alert").html(cevap).hide().fadeIn(700);
+        }
+    });
+});
+$(document).on('click', '#hisse_sat_btn_69', function () {
+    var data = {
+        'sembol': $("#hisse_sat_form_sembol_69").text(),
+        'sat_tutar': $("#hisse_deger_sat_69").text(),
+        'sat_miktar': $("#rangevaluesat69").text(),
+        'sat_komisyon': $("#komisyonsat69").text(),
+        'sat_toplam': $("#toplam_odenecek_sat_tutar69").text(),
+        'kul_id': $("#anasayfa_kul_id").val()
+    }
+    $.ajax({
+        type: 'POST', url: 'settings/islem.php?islem=hisse_sat', data: data, success: function (cevap) {
+            $("#hisse_sat_alert").html(cevap).hide().fadeIn(700);
+        }
+    });
+});
+$(document).on('click', '#hisse_sat_btn_70', function () {
+    var data = {
+        'sembol': $("#hisse_sat_form_sembol_70").text(),
+        'sat_tutar': $("#hisse_deger_sat_70").text(),
+        'sat_miktar': $("#rangevaluesat70").text(),
+        'sat_komisyon': $("#komisyonsat70").text(),
+        'sat_toplam': $("#toplam_odenecek_sat_tutar70").text(),
+        'kul_id': $("#anasayfa_kul_id").val()
+    }
+    $.ajax({
+        type: 'POST', url: 'settings/islem.php?islem=hisse_sat', data: data, success: function (cevap) {
+            $("#hisse_sat_alert").html(cevap).hide().fadeIn(700);
+        }
+    });
+});
+$(document).on('click', '#hisse_sat_btn_71', function () {
+    var data = {
+        'sembol': $("#hisse_sat_form_sembol_71").text(),
+        'sat_tutar': $("#hisse_deger_sat_71").text(),
+        'sat_miktar': $("#rangevaluesat71").text(),
+        'sat_komisyon': $("#komisyonsat71").text(),
+        'sat_toplam': $("#toplam_odenecek_sat_tutar71").text(),
+        'kul_id': $("#anasayfa_kul_id").val()
+    }
+    $.ajax({
+        type: 'POST', url: 'settings/islem.php?islem=hisse_sat', data: data, success: function (cevap) {
+            $("#hisse_sat_alert").html(cevap).hide().fadeIn(700);
+        }
+    });
+});
+$(document).on('click', '#hisse_sat_btn_72', function () {
+    var data = {
+        'sembol': $("#hisse_sat_form_sembol_72").text(),
+        'sat_tutar': $("#hisse_deger_sat_72").text(),
+        'sat_miktar': $("#rangevaluesat72").text(),
+        'sat_komisyon': $("#komisyonsat72").text(),
+        'sat_toplam': $("#toplam_odenecek_sat_tutar72").text(),
+        'kul_id': $("#anasayfa_kul_id").val()
+    }
+    $.ajax({
+        type: 'POST', url: 'settings/islem.php?islem=hisse_sat', data: data, success: function (cevap) {
+            $("#hisse_sat_alert").html(cevap).hide().fadeIn(700);
+        }
+    });
+});
+$(document).on('click', '#hisse_sat_btn_73', function () {
+    var data = {
+        'sembol': $("#hisse_sat_form_sembol_73").text(),
+        'sat_tutar': $("#hisse_deger_sat_73").text(),
+        'sat_miktar': $("#rangevaluesat73").text(),
+        'sat_komisyon': $("#komisyonsat73").text(),
+        'sat_toplam': $("#toplam_odenecek_sat_tutar73").text(),
+        'kul_id': $("#anasayfa_kul_id").val()
+    }
+    $.ajax({
+        type: 'POST', url: 'settings/islem.php?islem=hisse_sat', data: data, success: function (cevap) {
+            $("#hisse_sat_alert").html(cevap).hide().fadeIn(700);
+        }
+    });
+});
+$(document).on('click', '#hisse_sat_btn_74', function () {
+    var data = {
+        'sembol': $("#hisse_sat_form_sembol_74").text(),
+        'sat_tutar': $("#hisse_deger_sat_74").text(),
+        'sat_miktar': $("#rangevaluesat74").text(),
+        'sat_komisyon': $("#komisyonsat74").text(),
+        'sat_toplam': $("#toplam_odenecek_sat_tutar74").text(),
+        'kul_id': $("#anasayfa_kul_id").val()
+    }
+    $.ajax({
+        type: 'POST', url: 'settings/islem.php?islem=hisse_sat', data: data, success: function (cevap) {
+            $("#hisse_sat_alert").html(cevap).hide().fadeIn(700);
+        }
+    });
+});
+$(document).on('click', '#hisse_sat_btn_75', function () {
+    var data = {
+        'sembol': $("#hisse_sat_form_sembol_75").text(),
+        'sat_tutar': $("#hisse_deger_sat_75").text(),
+        'sat_miktar': $("#rangevaluesat75").text(),
+        'sat_komisyon': $("#komisyonsat75").text(),
+        'sat_toplam': $("#toplam_odenecek_sat_tutar75").text(),
+        'kul_id': $("#anasayfa_kul_id").val()
+    }
+    $.ajax({
+        type: 'POST', url: 'settings/islem.php?islem=hisse_sat', data: data, success: function (cevap) {
+            $("#hisse_sat_alert").html(cevap).hide().fadeIn(700);
+        }
+    });
+});
+$(document).on('click', '#hisse_sat_btn_76', function () {
+    var data = {
+        'sembol': $("#hisse_sat_form_sembol_76").text(),
+        'sat_tutar': $("#hisse_deger_sat_76").text(),
+        'sat_miktar': $("#rangevaluesat76").text(),
+        'sat_komisyon': $("#komisyonsat76").text(),
+        'sat_toplam': $("#toplam_odenecek_sat_tutar76").text(),
+        'kul_id': $("#anasayfa_kul_id").val()
+    }
+    $.ajax({
+        type: 'POST', url: 'settings/islem.php?islem=hisse_sat', data: data, success: function (cevap) {
+            $("#hisse_sat_alert").html(cevap).hide().fadeIn(700);
+        }
+    });
+});
+$(document).on('click', '#hisse_sat_btn_77', function () {
+    var data = {
+        'sembol': $("#hisse_sat_form_sembol_77").text(),
+        'sat_tutar': $("#hisse_deger_sat_77").text(),
+        'sat_miktar': $("#rangevaluesat77").text(),
+        'sat_komisyon': $("#komisyonsat77").text(),
+        'sat_toplam': $("#toplam_odenecek_sat_tutar77").text(),
+        'kul_id': $("#anasayfa_kul_id").val()
+    }
+    $.ajax({
+        type: 'POST', url: 'settings/islem.php?islem=hisse_sat', data: data, success: function (cevap) {
+            $("#hisse_sat_alert").html(cevap).hide().fadeIn(700);
+        }
+    });
+});
+$(document).on('click', '#hisse_sat_btn_78', function () {
+    var data = {
+        'sembol': $("#hisse_sat_form_sembol_78").text(),
+        'sat_tutar': $("#hisse_deger_sat_78").text(),
+        'sat_miktar': $("#rangevaluesat78").text(),
+        'sat_komisyon': $("#komisyonsat78").text(),
+        'sat_toplam': $("#toplam_odenecek_sat_tutar78").text(),
+        'kul_id': $("#anasayfa_kul_id").val()
+    }
+    $.ajax({
+        type: 'POST', url: 'settings/islem.php?islem=hisse_sat', data: data, success: function (cevap) {
+            $("#hisse_sat_alert").html(cevap).hide().fadeIn(700);
+        }
+    });
+});
+$(document).on('click', '#hisse_sat_btn_79', function () {
+    var data = {
+        'sembol': $("#hisse_sat_form_sembol_79").text(),
+        'sat_tutar': $("#hisse_deger_sat_79").text(),
+        'sat_miktar': $("#rangevaluesat79").text(),
+        'sat_komisyon': $("#komisyonsat79").text(),
+        'sat_toplam': $("#toplam_odenecek_sat_tutar79").text(),
+        'kul_id': $("#anasayfa_kul_id").val()
+    }
+    $.ajax({
+        type: 'POST', url: 'settings/islem.php?islem=hisse_sat', data: data, success: function (cevap) {
+            $("#hisse_sat_alert").html(cevap).hide().fadeIn(700);
+        }
+    });
+});
+$(document).on('click', '#hisse_sat_btn_80', function () {
+    var data = {
+        'sembol': $("#hisse_sat_form_sembol_80").text(),
+        'sat_tutar': $("#hisse_deger_sat_80").text(),
+        'sat_miktar': $("#rangevaluesat80").text(),
+        'sat_komisyon': $("#komisyonsat80").text(),
+        'sat_toplam': $("#toplam_odenecek_sat_tutar80").text(),
+        'kul_id': $("#anasayfa_kul_id").val()
+    }
+    $.ajax({
+        type: 'POST', url: 'settings/islem.php?islem=hisse_sat', data: data, success: function (cevap) {
+            $("#hisse_sat_alert").html(cevap).hide().fadeIn(700);
+        }
+    });
+});
+$(document).on('click', '#hisse_sat_btn_81', function () {
+    var data = {
+        'sembol': $("#hisse_sat_form_sembol_81").text(),
+        'sat_tutar': $("#hisse_deger_sat_81").text(),
+        'sat_miktar': $("#rangevaluesat81").text(),
+        'sat_komisyon': $("#komisyonsat81").text(),
+        'sat_toplam': $("#toplam_odenecek_sat_tutar81").text(),
+        'kul_id': $("#anasayfa_kul_id").val()
+    }
+    $.ajax({
+        type: 'POST', url: 'settings/islem.php?islem=hisse_sat', data: data, success: function (cevap) {
+            $("#hisse_sat_alert").html(cevap).hide().fadeIn(700);
+        }
+    });
+});
+$(document).on('click', '#hisse_sat_btn_82', function () {
+    var data = {
+        'sembol': $("#hisse_sat_form_sembol_82").text(),
+        'sat_tutar': $("#hisse_deger_sat_82").text(),
+        'sat_miktar': $("#rangevaluesat82").text(),
+        'sat_komisyon': $("#komisyonsat82").text(),
+        'sat_toplam': $("#toplam_odenecek_sat_tutar82").text(),
+        'kul_id': $("#anasayfa_kul_id").val()
+    }
+    $.ajax({
+        type: 'POST', url: 'settings/islem.php?islem=hisse_sat', data: data, success: function (cevap) {
+            $("#hisse_sat_alert").html(cevap).hide().fadeIn(700);
+        }
+    });
+});
+$(document).on('click', '#hisse_sat_btn_83', function () {
+    var data = {
+        'sembol': $("#hisse_sat_form_sembol_83").text(),
+        'sat_tutar': $("#hisse_deger_sat_83").text(),
+        'sat_miktar': $("#rangevaluesat83").text(),
+        'sat_komisyon': $("#komisyonsat83").text(),
+        'sat_toplam': $("#toplam_odenecek_sat_tutar83").text(),
+        'kul_id': $("#anasayfa_kul_id").val()
+    }
+    $.ajax({
+        type: 'POST', url: 'settings/islem.php?islem=hisse_sat', data: data, success: function (cevap) {
+            $("#hisse_sat_alert").html(cevap).hide().fadeIn(700);
+        }
+    });
+});
+$(document).on('click', '#hisse_sat_btn_84', function () {
+    var data = {
+        'sembol': $("#hisse_sat_form_sembol_84").text(),
+        'sat_tutar': $("#hisse_deger_sat_84").text(),
+        'sat_miktar': $("#rangevaluesat84").text(),
+        'sat_komisyon': $("#komisyonsat84").text(),
+        'sat_toplam': $("#toplam_odenecek_sat_tutar84").text(),
+        'kul_id': $("#anasayfa_kul_id").val()
+    }
+    $.ajax({
+        type: 'POST', url: 'settings/islem.php?islem=hisse_sat', data: data, success: function (cevap) {
+            $("#hisse_sat_alert").html(cevap).hide().fadeIn(700);
+        }
+    });
+});
+$(document).on('click', '#hisse_sat_btn_85', function () {
+    var data = {
+        'sembol': $("#hisse_sat_form_sembol_85").text(),
+        'sat_tutar': $("#hisse_deger_sat_85").text(),
+        'sat_miktar': $("#rangevaluesat85").text(),
+        'sat_komisyon': $("#komisyonsat85").text(),
+        'sat_toplam': $("#toplam_odenecek_sat_tutar85").text(),
+        'kul_id': $("#anasayfa_kul_id").val()
+    }
+    $.ajax({
+        type: 'POST', url: 'settings/islem.php?islem=hisse_sat', data: data, success: function (cevap) {
+            $("#hisse_sat_alert").html(cevap).hide().fadeIn(700);
+        }
+    });
+});
+$(document).on('click', '#hisse_sat_btn_86', function () {
+    var data = {
+        'sembol': $("#hisse_sat_form_sembol_86").text(),
+        'sat_tutar': $("#hisse_deger_sat_86").text(),
+        'sat_miktar': $("#rangevaluesat86").text(),
+        'sat_komisyon': $("#komisyonsat86").text(),
+        'sat_toplam': $("#toplam_odenecek_sat_tutar86").text(),
+        'kul_id': $("#anasayfa_kul_id").val()
+    }
+    $.ajax({
+        type: 'POST', url: 'settings/islem.php?islem=hisse_sat', data: data, success: function (cevap) {
+            $("#hisse_sat_alert").html(cevap).hide().fadeIn(700);
+        }
+    });
+});
+$(document).on('click', '#hisse_sat_btn_87', function () {
+    var data = {
+        'sembol': $("#hisse_sat_form_sembol_87").text(),
+        'sat_tutar': $("#hisse_deger_sat_87").text(),
+        'sat_miktar': $("#rangevaluesat87").text(),
+        'sat_komisyon': $("#komisyonsat87").text(),
+        'sat_toplam': $("#toplam_odenecek_sat_tutar87").text(),
+        'kul_id': $("#anasayfa_kul_id").val()
+    }
+    $.ajax({
+        type: 'POST', url: 'settings/islem.php?islem=hisse_sat', data: data, success: function (cevap) {
+            $("#hisse_sat_alert").html(cevap).hide().fadeIn(700);
+        }
+    });
+});
+$(document).on('click', '#hisse_sat_btn_88', function () {
+    var data = {
+        'sembol': $("#hisse_sat_form_sembol_88").text(),
+        'sat_tutar': $("#hisse_deger_sat_88").text(),
+        'sat_miktar': $("#rangevaluesat88").text(),
+        'sat_komisyon': $("#komisyonsat88").text(),
+        'sat_toplam': $("#toplam_odenecek_sat_tutar88").text(),
+        'kul_id': $("#anasayfa_kul_id").val()
+    }
+    $.ajax({
+        type: 'POST', url: 'settings/islem.php?islem=hisse_sat', data: data, success: function (cevap) {
+            $("#hisse_sat_alert").html(cevap).hide().fadeIn(700);
+        }
+    });
+});
+$(document).on('click', '#hisse_sat_btn_89', function () {
+    var data = {
+        'sembol': $("#hisse_sat_form_sembol_89").text(),
+        'sat_tutar': $("#hisse_deger_sat_89").text(),
+        'sat_miktar': $("#rangevaluesat89").text(),
+        'sat_komisyon': $("#komisyonsat89").text(),
+        'sat_toplam': $("#toplam_odenecek_sat_tutar89").text(),
+        'kul_id': $("#anasayfa_kul_id").val()
+    }
+    $.ajax({
+        type: 'POST', url: 'settings/islem.php?islem=hisse_sat', data: data, success: function (cevap) {
+            $("#hisse_sat_alert").html(cevap).hide().fadeIn(700);
+        }
+    });
+});
+$(document).on('click', '#hisse_sat_btn_90', function () {
+    var data = {
+        'sembol': $("#hisse_sat_form_sembol_90").text(),
+        'sat_tutar': $("#hisse_deger_sat_90").text(),
+        'sat_miktar': $("#rangevaluesat90").text(),
+        'sat_komisyon': $("#komisyonsat90").text(),
+        'sat_toplam': $("#toplam_odenecek_sat_tutar90").text(),
+        'kul_id': $("#anasayfa_kul_id").val()
+    }
+    $.ajax({
+        type: 'POST', url: 'settings/islem.php?islem=hisse_sat', data: data, success: function (cevap) {
+            $("#hisse_sat_alert").html(cevap).hide().fadeIn(700);
+        }
+    });
+});
+$(document).on('click', '#hisse_sat_btn_91', function () {
+    var data = {
+        'sembol': $("#hisse_sat_form_sembol_91").text(),
+        'sat_tutar': $("#hisse_deger_sat_91").text(),
+        'sat_miktar': $("#rangevaluesat91").text(),
+        'sat_komisyon': $("#komisyonsat91").text(),
+        'sat_toplam': $("#toplam_odenecek_sat_tutar91").text(),
+        'kul_id': $("#anasayfa_kul_id").val()
+    }
+    $.ajax({
+        type: 'POST', url: 'settings/islem.php?islem=hisse_sat', data: data, success: function (cevap) {
+            $("#hisse_sat_alert").html(cevap).hide().fadeIn(700);
+        }
+    });
+});
+$(document).on('click', '#hisse_sat_btn_92', function () {
+    var data = {
+        'sembol': $("#hisse_sat_form_sembol_92").text(),
+        'sat_tutar': $("#hisse_deger_sat_92").text(),
+        'sat_miktar': $("#rangevaluesat92").text(),
+        'sat_komisyon': $("#komisyonsat92").text(),
+        'sat_toplam': $("#toplam_odenecek_sat_tutar92").text(),
+        'kul_id': $("#anasayfa_kul_id").val()
+    }
+    $.ajax({
+        type: 'POST', url: 'settings/islem.php?islem=hisse_sat', data: data, success: function (cevap) {
+            $("#hisse_sat_alert").html(cevap).hide().fadeIn(700);
+        }
+    });
+});
+$(document).on('click', '#hisse_sat_btn_93', function () {
+    var data = {
+        'sembol': $("#hisse_sat_form_sembol_93").text(),
+        'sat_tutar': $("#hisse_deger_sat_93").text(),
+        'sat_miktar': $("#rangevaluesat93").text(),
+        'sat_komisyon': $("#komisyonsat93").text(),
+        'sat_toplam': $("#toplam_odenecek_sat_tutar93").text(),
+        'kul_id': $("#anasayfa_kul_id").val()
+    }
+    $.ajax({
+        type: 'POST', url: 'settings/islem.php?islem=hisse_sat', data: data, success: function (cevap) {
+            $("#hisse_sat_alert").html(cevap).hide().fadeIn(700);
+        }
+    });
+});
+$(document).on('click', '#hisse_sat_btn_94', function () {
+    var data = {
+        'sembol': $("#hisse_sat_form_sembol_94").text(),
+        'sat_tutar': $("#hisse_deger_sat_94").text(),
+        'sat_miktar': $("#rangevaluesat94").text(),
+        'sat_komisyon': $("#komisyonsat94").text(),
+        'sat_toplam': $("#toplam_odenecek_sat_tutar94").text(),
+        'kul_id': $("#anasayfa_kul_id").val()
+    }
+    $.ajax({
+        type: 'POST', url: 'settings/islem.php?islem=hisse_sat', data: data, success: function (cevap) {
+            $("#hisse_sat_alert").html(cevap).hide().fadeIn(700);
+        }
+    });
+});
+$(document).on('click', '#hisse_sat_btn_95', function () {
+    var data = {
+        'sembol': $("#hisse_sat_form_sembol_95").text(),
+        'sat_tutar': $("#hisse_deger_sat_95").text(),
+        'sat_miktar': $("#rangevaluesat95").text(),
+        'sat_komisyon': $("#komisyonsat95").text(),
+        'sat_toplam': $("#toplam_odenecek_sat_tutar95").text(),
+        'kul_id': $("#anasayfa_kul_id").val()
+    }
+    $.ajax({
+        type: 'POST', url: 'settings/islem.php?islem=hisse_sat', data: data, success: function (cevap) {
+            $("#hisse_sat_alert").html(cevap).hide().fadeIn(700);
+        }
+    });
+});
+$(document).on('click', '#hisse_sat_btn_96', function () {
+    var data = {
+        'sembol': $("#hisse_sat_form_sembol_96").text(),
+        'sat_tutar': $("#hisse_deger_sat_96").text(),
+        'sat_miktar': $("#rangevaluesat96").text(),
+        'sat_komisyon': $("#komisyonsat96").text(),
+        'sat_toplam': $("#toplam_odenecek_sat_tutar96").text(),
+        'kul_id': $("#anasayfa_kul_id").val()
+    }
+    $.ajax({
+        type: 'POST', url: 'settings/islem.php?islem=hisse_sat', data: data, success: function (cevap) {
+            $("#hisse_sat_alert").html(cevap).hide().fadeIn(700);
+        }
+    });
+});
+$(document).on('click', '#hisse_sat_btn_97', function () {
+    var data = {
+        'sembol': $("#hisse_sat_form_sembol_97").text(),
+        'sat_tutar': $("#hisse_deger_sat_97").text(),
+        'sat_miktar': $("#rangevaluesat97").text(),
+        'sat_komisyon': $("#komisyonsat97").text(),
+        'sat_toplam': $("#toplam_odenecek_sat_tutar97").text(),
+        'kul_id': $("#anasayfa_kul_id").val()
+    }
+    $.ajax({
+        type: 'POST', url: 'settings/islem.php?islem=hisse_sat', data: data, success: function (cevap) {
+            $("#hisse_sat_alert").html(cevap).hide().fadeIn(700);
+        }
+    });
+});
+$(document).on('click', '#hisse_sat_btn_98', function () {
+    var data = {
+        'sembol': $("#hisse_sat_form_sembol_98").text(),
+        'sat_tutar': $("#hisse_deger_sat_98").text(),
+        'sat_miktar': $("#rangevaluesat98").text(),
+        'sat_komisyon': $("#komisyonsat98").text(),
+        'sat_toplam': $("#toplam_odenecek_sat_tutar98").text(),
+        'kul_id': $("#anasayfa_kul_id").val()
+    }
+    $.ajax({
+        type: 'POST', url: 'settings/islem.php?islem=hisse_sat', data: data, success: function (cevap) {
+            $("#hisse_sat_alert").html(cevap).hide().fadeIn(700);
+        }
+    });
+});
+$(document).on('click', '#hisse_sat_btn_99', function () {
+    var data = {
+        'sembol': $("#hisse_sat_form_sembol_99").text(),
+        'sat_tutar': $("#hisse_deger_sat_99").text(),
+        'sat_miktar': $("#rangevaluesat99").text(),
+        'sat_komisyon': $("#komisyonsat99").text(),
+        'sat_toplam': $("#toplam_odenecek_sat_tutar99").text(),
+        'kul_id': $("#anasayfa_kul_id").val()
+    }
+    $.ajax({
+        type: 'POST', url: 'settings/islem.php?islem=hisse_sat', data: data, success: function (cevap) {
+            $("#hisse_sat_alert").html(cevap).hide().fadeIn(700);
         }
     });
 });
