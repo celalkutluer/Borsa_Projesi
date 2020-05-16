@@ -320,18 +320,18 @@ $komisyonx = 1.003;
                                 echo "0";
                             }
                             echo "' max='" . $miktar . "' onchange='sat_hesapla" . $sayi . "()'/>
-                                                            <output  id='rangevaluesat" . $sayi . "'>" . floor(floor($miktar/2)) . "</output>
+                                                            <output  id='rangevaluesat" . $sayi . "'>" . ceil($miktar/2) . "</output>
                                                         </div>
                                                     </div>
                                                     <div class='form-group row align-items-center'>
                                                         <label class='col-sm-4 text-left text-sm-right mb-0'>Komisyon(Binde 3): </label>
-                                                        <label id='komisyonsat" . $sayi . "' class='col-sm-4 text-right  mb-0'>" . round(floatval(convert_virgül_nokta($h_td_fiyat_id_deger[0])) * ($komisyon - 1) * floor(floor($miktar/2)), 2) . "</label><span class='col-sm-4 text-left  mb-0'>&#x20BA;</span>
+                                                        <label id='komisyonsat" . $sayi . "' class='col-sm-4 text-right  mb-0'>" . round(floatval(convert_virgül_nokta($h_td_fiyat_id_deger[0])) * ($komisyon - 1) * ceil($miktar/2), 2) . "</label><span class='col-sm-4 text-left  mb-0'>&#x20BA;</span>
                                                     </div>
                                                     <div class='form-group row align-items-center'>
                                                         <label class='col-sm-4 text-left text-sm-right mb-0'>Toplam Alinacak Tutar: </label>
                                                         <label id='toplam_odenecek_sat_tutar" . $sayi . "' class='col-sm-4 text-right  mb-0'>
 
-                                                        " . round(floatval(convert_virgül_nokta($h_td_fiyat_id_deger[0])) * floor($miktar/2)-floatval(convert_virgül_nokta($h_td_fiyat_id_deger[0])) * floor($miktar/2)*($komisyon-1), 2) . "
+                                                        " . round(floatval(convert_virgül_nokta($h_td_fiyat_id_deger[0])) * ceil($miktar/2)-floatval(convert_virgül_nokta($h_td_fiyat_id_deger[0])) * ceil($miktar/2)*($komisyon-1), 2) . "
                                                        </label>
                                                        <script>
                                                         function sat_hesapla" . $sayi . "() {
