@@ -1,6 +1,14 @@
 <?php
 include "settings/baglantilar.php";
 include "settings/fonksiyonlar.php";
+//
+if (isset($_SESSION['yetki'])) {
+    $bakiye_sorgula = $db->prepare('SELECT kul_bakiye FROM kullanicilar WHERE kul_id=?');
+    $bakiye_sorgula->execute(array($_SESSION['kul_id']));
+    $v = $bakiye_sorgula->fetchAll(PDO::FETCH_ASSOC);
+    foreach ($v as $kul_bilgilerim) ;
+    $_SESSION['bakiye'] = $kul_bilgilerim['kul_bakiye'];
+}//sayfa açıldığında bakiyemizi güncelliyoruz
 ?>
 <!doctype html>
 <html class="fixed has-top-menu">
@@ -152,6 +160,9 @@ include "settings/fonksiyonlar.php";
                                                 </a>
                                                 <input id='anasayfa_kul_id' class='form-control form-control-lg' type='hidden'
                                        value='" . s('kul_id') . "' name='toplam'>
+                                            </li>
+                                            <li>
+                                                <a class='nav-link '>BAKİYENİZ : " .$_SESSION['bakiye']. " &#x20BA;</a>
                                             </li>
                                             <li>
                                                 <a role='menuitem' tabindex='-1' href='settings/islem.php?islem=cikis'>
