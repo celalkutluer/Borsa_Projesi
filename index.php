@@ -262,9 +262,22 @@ $komisyonx = 1.003;
                             ?>
 
                             <?php
+                            //
+                            $veri = $db->prepare('SELECT varlik_elde FROM varliklar WHERE varlik_kul_id=? and varlik_hisse_sembol=?');
+                            $veri->execute(array($_SESSION['kul_id'], $h_td_sembol[$sayi]));
+                            $v = $veri->fetchAll(PDO::FETCH_ASSOC);
+                            $say = $veri->rowCount();
+                            $miktar=0;
+                            if($say>0) {
+                                foreach ($v as $varlik_elde) ;
+                                $miktar=$varlik_elde['varlik_elde'];
+                            }
+                           //
                             echo "
                             <td class='text-center' id='hisse_sat_" . $sayi . " '>
-                                <button id='btn_hisse_sat_" . $sayi . "' type='button' class='btn btn-danger modal-with-form' href='#modalsatForm" . $sayi . "'>SAT</button>
+                                <button id='btn_hisse_sat_" . $sayi . "' type='button' class='btn btn-danger modal-with-form' href='#modalsatForm" . $sayi . "'";
+                            if($miktar==0){ echo "disabled title='Portföyünüzde Bulunmamakta.'"; }
+                            echo " >SAT</button>
                                 
                                 <div class='modal-block modal-header-color modal-block-success mfp-hide' id='modalsatForm" . $sayi . "'>
                                     <section class='panel'>
@@ -287,19 +300,7 @@ $komisyonx = 1.003;
                                                     <div class='form-group row align-items-center'>
                                                         <label class='col-sm-4 text-left text-sm-right mb-0'>Portföyümdeki Hisse Adedi: </label>
                                                         <label id='hisse_varlik_elde_" . $sayi . "' class='col-sm-4 text-right  mb-0'>";
-                            $veri = $db->prepare('SELECT varlik_elde FROM varliklar WHERE varlik_kul_id=? and varlik_hisse_sembol=?');
-                            $veri->execute(array($_SESSION['kul_id'], $h_td_sembol[$sayi]));
-                            $v = $veri->fetchAll(PDO::FETCH_ASSOC);
-                            $say = $veri->rowCount();
-                            $miktar=0;
-                            if($say>0) {
-                                foreach ($v as $varlik_elde) ;
-                                $miktar=$varlik_elde['varlik_elde'];
-                                echo $miktar;
-                            }
-                            else{
-                                echo $miktar;
-                            }
+                            echo $miktar;
                             echo "</label>
                                                     </div>
                                                     <div class='form-group row align-items-center'>
