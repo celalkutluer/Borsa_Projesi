@@ -143,11 +143,7 @@ VALUES ('" . $Ad . "','" . $Soyad . "','" . $Email . "','" . sha1(md5($Email)) .
 
     }
 }
-
 /*HİSSE BİLGİLERİ YÜKLEME*/
-///
-///
-///
 ///
 $link = "http://bigpara.hurriyet.com.tr/borsa/canli-borsa/";
 $icerik = file_get_contents($link);
@@ -156,9 +152,6 @@ $icerik = preg_replace('~[ ]~', '', $icerik);
 ///
 $h_td_sembol = array();
 $h_td_sembol = ara('target="_blank">', '</a>', $icerik);
-///
-///
-///
 ///
 if (g('islem') == 'tablo_bilgi_al') {
 
@@ -236,7 +229,7 @@ if (g('islem') == 'hisse_satin_al') {
             //
             $yeni_bakiye = $kul_bilgilerim['kul_bakiye'] - $hisse_satin_al_toplam;
             //
-            $ekle = $db->prepare("INSERT INTO alim(alim_kul_id, alim_hisse_sembol, alim_hisse_deger, alim_hisse_komisyon, alim_hisse_lot,alim_hisse_toplam_tutar) VALUES ('" . $hisse_satin_al_kul_id . "','" . $hisse_satin_al_sembol . "','" . $hisse_satin_al_tutar . "','" . $hisse_satin_al_komisyon . "','" . $hisse_satin_al_miktar . "','" . $hisse_satin_al_toplam . "')");
+            $ekle = $db->prepare("INSERT INTO alim(alim_kul_id, alim_hisse_sembol, alim_hisse_deger, alim_hisse_komisyon, alim_hisse_lot,alim_lot_satilmayan,alim_hisse_toplam_tutar) VALUES ('" . $hisse_satin_al_kul_id . "','" . $hisse_satin_al_sembol . "','" . $hisse_satin_al_tutar . "','" . $hisse_satin_al_komisyon . "','" . $hisse_satin_al_miktar . "','" . $hisse_satin_al_miktar . "','" . $hisse_satin_al_toplam . "')");
             $ekleme = $ekle->execute(array());
             //
             if ($say_ekle > 0) {
@@ -300,8 +293,44 @@ if (g('islem') == 'hisse_sat') {
             $varlik_satim_guncel = $varlik_elde['varlik_satim_adet'] + $hisse_sat_miktar;
             $varlik_elde_guncel = $varlik_elde['varlik_elde'] - $hisse_sat_miktar;
             $yeni_bakiyem = $kul_bilgilerim['kul_bakiye'] + $hisse_sat_toplam;
+            ///
+            ///
+            ///
+            $toplam_kar_zarar=0;
+            $lot_degisen=$hisse_sat_miktar;
             //
-            $satekle = $db->prepare("INSERT INTO satim(satim_kul_id, satim_hisse_sembol, satim_hisse_deger, satim_hisse_komisyon, satim_hisse_lot, satim_hisse_toplam_tutar) VALUES ('" . $hisse_sat_kul_id . "','" . $hisse_sat_sembol . "','" . $hisse_sat_tutar . "','" . $hisse_sat_komisyon . "','" . $hisse_sat_miktar . "','" . $hisse_sat_toplam . "')");
+            $veri_kar_zarar = $db->prepare('SELECT alim_id,alim_hisse_lot,alim_lot_satilmayan,alim_hisse_toplam_tutar FROM alim WHERE alim_lot_satilmayan>0 AND alim_kul_id=? AND alim_hisse_sembol=?  ORDER BY alim_zaman ASC');
+            $veri_kar_zarar->execute(array($hisse_sat_kul_id, $hisse_sat_sembol));
+            $v_kar_zarar = $veri_kar_zarar->fetchAll(PDO::FETCH_ASSOC);
+            $say_kar_zarar = $veri_kar_zarar->rowCount();
+            foreach ($v_kar_zarar as $kar_zarar) {
+
+                if($lot_degisen>0){
+                    if($kar_zarar['alim_hisse_lot']>=$lot_degisen){
+                        $toplam_kar_zarar=$toplam_kar_zarar+$kar_zarar['alim_hisse_toplam_tutar']*$lot_degisen/$kar_zarar['alim_hisse_lot'];
+                        //
+                        $alim_satilmayan_gunce = $db->prepare("UPDATE alim SET alim_lot_satilmayan='" . ($kar_zarar['alim_lot_satilmayan']-$lot_degisen) . "' WHERE alim_id=?");
+                        $alim_satilmayan_guncellemem = $alim_satilmayan_gunce->execute(array($kar_zarar['alim_id']));
+                        //
+                        break;
+                    }
+                    else{
+                        $toplam_kar_zarar=$toplam_kar_zarar+$kar_zarar['alim_hisse_toplam_tutar'];
+                        $lot_degisen=$lot_degisen-$kar_zarar['alim_hisse_lot'];
+                        //
+                        $alim_satilmayan_gunc = $db->prepare("UPDATE alim SET alim_lot_satilmayan=0 WHERE alim_id=?");
+                        $alim_satilmayan_guncelleme = $alim_satilmayan_gunc->execute(array($kar_zarar['alim_id']));
+                    }
+                }
+                else{
+                    echo "<div class='alert alert-success'>Hata .</div>";
+                }
+            }
+            $kar_zarar_durum=($hisse_sat_toplam-$toplam_kar_zarar);
+            ///
+            ///
+            ///
+            $satekle = $db->prepare("INSERT INTO satim(satim_kul_id, satim_hisse_sembol, satim_hisse_deger, satim_hisse_komisyon, satim_hisse_lot,satim_kar_zarar, satim_hisse_toplam_tutar) VALUES ('" . $hisse_sat_kul_id . "','" . $hisse_sat_sembol . "','" . $hisse_sat_tutar . "','" . $hisse_sat_komisyon . "','" . $hisse_sat_miktar . "','" . $kar_zarar_durum . "','" . $hisse_sat_toplam . "')");
             $satekleme = $satekle->execute(array());
             //
             $varlikguncelle = $db->prepare("UPDATE varliklar SET varlik_satim_adet='" . $varlik_satim_guncel . "',varlik_elde='" . $varlik_elde_guncel . "' WHERE varlik_kul_id=? AND varlik_hisse_sembol=?");
