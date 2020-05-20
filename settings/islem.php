@@ -354,7 +354,8 @@ if (g('islem') == 'hisse_sat') {
             } else {
                 echo "<div class='alert alert-danger'>İşlem Başarısız.</div>";
             }
-        } else {
+        }
+        else {
             echo "<div class='alert alert-danger'>Hisse Fiyatı Değişti</div>";
         }
     } else {
