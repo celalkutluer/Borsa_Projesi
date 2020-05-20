@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Anamakine: 127.0.0.1
--- Üretim Zamanı: 19 May 2020, 21:38:14
+-- Üretim Zamanı: 20 May 2020, 12:49:39
 -- Sunucu sürümü: 10.4.11-MariaDB
 -- PHP Sürümü: 7.4.2
 
@@ -48,7 +48,8 @@ INSERT INTO `alim` (`alim_id`, `alim_kul_id`, `alim_hisse_sembol`, `alim_hisse_d
 (166, 1, 'AEFES', '17.17', '0.05', 1, 0, '17.22', '2020-05-18 23:45:47'),
 (167, 1, 'AEFES', '17.17', '3.97', 77, 0, '1326.06', '2020-05-18 23:45:55'),
 (168, 1, 'AEFES', '17.17', '4.22', 82, 0, '1412.16', '2020-05-18 23:46:03'),
-(169, 1, 'AEFES', '17.17', '2.88', 56, 0, '964.40', '2020-05-18 23:46:12');
+(169, 1, 'AEFES', '17.17', '2.88', 56, 0, '964.40', '2020-05-18 23:46:12'),
+(170, 5, 'AEFES', '17.17', '0.05', 1, 0, '17.22', '2020-05-19 22:40:00');
 
 -- --------------------------------------------------------
 
@@ -81,7 +82,8 @@ CREATE TABLE `kullanicilar` (
 --
 
 INSERT INTO `kullanicilar` (`kul_Id`, `kul_Ad`, `kul_Soyad`, `kul_Eposta`, `kul_CepNo`, `kul_DogumTar`, `kul_Sifre`, `kul_Bakiye`, `kul_Eposta_Dogrulama_Kod`, `kul_Eposta_Dogrulama`, `kul_Uyelik_Tarih`, `kul_Son_Giris_Tar`, `kul_lig_id`, `kul_Yetki`, `kul_Pasif_Durum`, `kul_Pasif_Tarih`, `kul_Pasif_Sure`) VALUES
-(1, 'CELAL', 'KUTLUER', 'celal', '+905075091032', '0000-00-00', '4a7d1ed414474e4033ac29ccb8653d9b', '9867.22', NULL, '1', '2020-03-23 17:28:39', NULL, 1, '1', '1', NULL, NULL);
+(1, 'CELAL', 'KUTLUER', 'celal', '+905075091032', '0000-00-00', '4a7d1ed414474e4033ac29ccb8653d9b', '9867.22', NULL, '1', '2020-03-23 17:28:39', NULL, 1, '1', '1', NULL, NULL),
+(5, 'celal', 'kutluer', 'celal1', '5555555', '2020-05-14', '4a7d1ed414474e4033ac29ccb8653d9b', '9999.90', 'c5903bd6edb28d2e9a78f37d48bc42d89cbe9a17', '0', '2020-05-19 22:39:34', NULL, 2, '0', '1', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -93,13 +95,18 @@ CREATE TABLE `ligler` (
                           `lig_id` int(11) NOT NULL,
                           `lig_baslik` text COLLATE utf8_turkish_ci DEFAULT NULL,
                           `lig_duyuru` text COLLATE utf8_turkish_ci DEFAULT NULL,
-                          `lig_uye_1` int(11) DEFAULT NULL,
-                          `lig_uye_2` int(11) DEFAULT NULL,
-                          `lig_uye_3` int(11) DEFAULT NULL,
-                          `lig_uye_4` int(11) DEFAULT NULL,
+                          `lig_bos_uyelik` int(11) DEFAULT 10,
                           `lig_yonetici_id` int(11) DEFAULT NULL,
                           `lig_son_siralama` tinyint(4) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_turkish_ci;
+
+--
+-- Tablo döküm verisi `ligler`
+--
+
+INSERT INTO `ligler` (`lig_id`, `lig_baslik`, `lig_duyuru`, `lig_bos_uyelik`, `lig_yonetici_id`, `lig_son_siralama`) VALUES
+(1, 'BORSACILAR', 'Borsanın yıldızları....', 9, 1, NULL),
+(2, 'HİSSENİN YILDIZLARI', '...', 9, 4, NULL);
 
 -- --------------------------------------------------------
 
@@ -294,7 +301,9 @@ INSERT INTO `log` (`log_id`, `log_kul_id`, `log_eylem`, `log_aciklama`, `log_zam
 (172, 1, 'Hisse Alım', '1 -Nolu kullanıcı CELAL KUTLUER AEFES hissesini 17.17 TL tutardan 56 adet aldı. Bu işlem için 2.88 TL komisyon ile 964.40 TL toplam tutar ödedi.', '2020-05-18 23:46:12'),
 (173, 1, 'Hisse Satım', '1 -Nolu kullanıcı CELAL KUTLUER AEFES hissesini 17.17 TL tutardan 78 adet sattı. Bu işlem için 4.02 TL komisyon ödedi. 1335.24 TL toplam tutar aldı.', '2020-05-18 23:46:30'),
 (174, 1, 'Hisse Satım', '1 -Nolu kullanıcı CELAL KUTLUER AEFES hissesini 17.17 TL tutardan 84 adet sattı. Bu işlem için 4.33 TL komisyon ödedi. 1437.95 TL toplam tutar aldı.', '2020-05-18 23:46:45'),
-(175, 1, 'Hisse Satım', '1 -Nolu kullanıcı CELAL KUTLUER AEFES hissesini 17.17 TL tutardan 54 adet sattı. Bu işlem için 2.78 TL komisyon ödedi. 924.40 TL toplam tutar aldı.', '2020-05-19 22:23:47');
+(175, 1, 'Hisse Satım', '1 -Nolu kullanıcı CELAL KUTLUER AEFES hissesini 17.17 TL tutardan 54 adet sattı. Bu işlem için 2.78 TL komisyon ödedi. 924.40 TL toplam tutar aldı.', '2020-05-19 22:23:47'),
+(176, 5, 'Hisse Alım', '5 -Nolu kullanıcı celal kutluer AEFES hissesini 17.17 TL tutardan 1 adet aldı. Bu işlem için 0.05 TL komisyon ile 17.22 TL toplam tutar ödedi.', '2020-05-19 22:40:00'),
+(177, 5, 'Hisse Satım', '5 -Nolu kullanıcı celal kutluer AEFES hissesini 17.17 TL tutardan 1 adet sattı. Bu işlem için 0.05 TL komisyon ödedi. 17.12 TL toplam tutar aldı.', '2020-05-19 22:40:10');
 
 -- --------------------------------------------------------
 
@@ -321,7 +330,8 @@ CREATE TABLE `satim` (
 INSERT INTO `satim` (`satim_id`, `satim_kul_id`, `satim_hisse_sembol`, `satim_hisse_deger`, `satim_hisse_komisyon`, `satim_hisse_lot`, `satim_kar_zarar`, `satim_hisse_toplam_tutar`, `satim_zaman`) VALUES
 (91, 1, 'AEFES', '17.17', '4.02', 78, '-8.04', '1335.24', '2020-05-18 23:46:30'),
 (92, 1, 'AEFES', '17.17', '4.33', 84, '-8.65', '1437.95', '2020-05-18 23:46:45'),
-(93, 1, 'AEFES', '17.17', '2.78', 54, '-5.56', '924.40', '2020-05-19 22:23:47');
+(93, 1, 'AEFES', '17.17', '2.78', 54, '-5.56', '924.40', '2020-05-19 22:23:47'),
+(94, 5, 'AEFES', '17.17', '0.05', 1, '-0.10', '17.12', '2020-05-19 22:40:10');
 
 -- --------------------------------------------------------
 
@@ -344,7 +354,8 @@ CREATE TABLE `varliklar` (
 --
 
 INSERT INTO `varliklar` (`varlik_id`, `varlik_kul_id`, `varlik_hisse_sembol`, `varlik_alim_adet`, `varlik_satim_adet`, `varlik_elde`, `varlik_degisim_zaman`) VALUES
-(16, 1, 'AEFES', 1289, 1289, 0, '2020-05-18 21:56:43');
+(16, 1, 'AEFES', 1289, 1289, 0, '2020-05-18 21:56:43'),
+(17, 5, 'AEFES', 1, 1, 0, '2020-05-19 22:40:00');
 
 --
 -- Dökümü yapılmış tablolar için indeksler
@@ -394,37 +405,37 @@ ALTER TABLE `varliklar`
 -- Tablo için AUTO_INCREMENT değeri `alim`
 --
 ALTER TABLE `alim`
-    MODIFY `alim_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=170;
+    MODIFY `alim_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=171;
 
 --
 -- Tablo için AUTO_INCREMENT değeri `kullanicilar`
 --
 ALTER TABLE `kullanicilar`
-    MODIFY `kul_Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+    MODIFY `kul_Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Tablo için AUTO_INCREMENT değeri `ligler`
 --
 ALTER TABLE `ligler`
-    MODIFY `lig_id` int(11) NOT NULL AUTO_INCREMENT;
+    MODIFY `lig_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Tablo için AUTO_INCREMENT değeri `log`
 --
 ALTER TABLE `log`
-    MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=176;
+    MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=178;
 
 --
 -- Tablo için AUTO_INCREMENT değeri `satim`
 --
 ALTER TABLE `satim`
-    MODIFY `satim_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=94;
+    MODIFY `satim_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=95;
 
 --
 -- Tablo için AUTO_INCREMENT değeri `varliklar`
 --
 ALTER TABLE `varliklar`
-    MODIFY `varlik_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+    MODIFY `varlik_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
