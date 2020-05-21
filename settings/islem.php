@@ -143,6 +143,110 @@ VALUES ('" . $Ad . "','" . $Soyad . "','" . $Email . "','" . sha1(md5($Email)) .
 
     }
 }
+if (g('islem') == 'lig_olustur') {
+    ///
+    $baslik = p('lig_olustur_baslık');
+    $duyuru = p('lig_olustur_duyuru');
+
+
+    if (empty($baslik)) {
+        echo "<div class='alert alert-warning'>Lütfen Lig Başlığı Yazın.</div>";
+    } else if (empty($duyuru)) {
+        echo "<div class='alert alert-warning'>Lütfen Lig Duyurusu Yazın.</div>";
+    } else {
+        $veri = $db->prepare('SELECT kul_lig_id FROM kullanicilar WHERE kul_Id=?');
+        $veri->execute(array($_SESSION['kul_id']));
+        $v = $veri->fetchAll(PDO::FETCH_ASSOC);
+        $say = $veri->rowCount();
+        foreach ($v as $ligler) ;
+        //
+        $veri = $db->prepare('SELECT lig_baslik FROM ligler WHERE lig_baslik=?');
+        $veri->execute(array($baslik));
+        $v = $veri->fetchAll(PDO::FETCH_ASSOC);
+        $say = $veri->rowCount();
+        foreach ($v as $ligler) ;
+
+        if (!$say) {
+            $ekle = $db->prepare("INSERT INTO ligler( lig_baslik, lig_duyuru, lig_bos_uyelik, lig_yonetici_id) VALUES ('" . $baslik . "','" . $duyuru . "',9,'" . $_SESSION['kul_id'] . "')");
+            $ekleme = $ekle->execute(array());
+            //
+            $veri = $db->prepare('SELECT lig_id FROM ligler WHERE lig_baslik=?');
+            $veri->execute(array($baslik));
+            $v = $veri->fetchAll(PDO::FETCH_ASSOC);
+            foreach ($v as $ligle) ;
+            //
+            $kul_gunce = $db->prepare("UPDATE kullanicilar SET kul_lig_id='" . $ligle['lig_id'] . "' WHERE kul_Id=?");
+            $kul_guncell = $kul_gunce->execute(array($_SESSION['kul_id']));
+
+            if ($ekleme || $kul_guncell) {
+
+                echo "<div class='alert alert-success'>Lig Kayıt İşleminiz Gerçekleşti.</div><meta http-equiv='refresh' content='1; url=ligler.php'>";
+            } else {
+                echo "<div class='alert alert-success'>Lig Kayıt İşlemi Başarısız oldu</div>";
+            }
+        } else {
+            echo "<div class='alert alert-success'>Girilen Lig Başlığı Mevcut. Başka Bir Lig Başlığı Deneyin.</div>";
+
+        }
+    }
+}
+if (g('islem') == 'lig_katil') {
+    ///
+    $baslik = p('lig_baslik');
+    //
+    $veri = $db->prepare('SELECT lig_id,lig_bos_uyelik FROM ligler WHERE lig_baslik=?');
+    $veri->execute(array($baslik));
+    $v = $veri->fetchAll(PDO::FETCH_ASSOC);
+    foreach ($v as $ligle) ;
+    //
+    if ($ligle['lig_bos_uyelik'] > 0) {
+        ///
+        $kul_gunce = $db->prepare("UPDATE kullanicilar SET kul_lig_id='" . $ligle['lig_id'] . "' WHERE kul_Id=?");
+        $kul_guncellem = $kul_gunce->execute(array($_SESSION['kul_id']));
+        ///
+        $lig_gunce = $db->prepare("UPDATE ligler SET lig_bos_uyelik='" . ($ligle['lig_bos_uyelik']-1) . "' WHERE lig_Id=?");
+        $lig_guncellemem = $lig_gunce->execute(array($ligle['lig_id']));
+
+        if ($kul_guncellem&&$lig_guncellemem) {
+            echo "<div class='alert alert-success'>Seçilen Lige Kayıt İşleminiz Gerçekleşti.</div><meta http-equiv='refresh' content='1; url=ligler.php'>";
+        } else {
+            echo "<div class='alert alert-success'>Seçilen Lige Kayıt İşlemi Başarısız Oldu</div>";
+        }
+    }
+    else{
+        echo "<div class='alert alert-success'>Seçilen Ligde Boş Üyelik Mevcut Değil</div>";
+    }
+}
+if (g('islem') == 'lig_ayril') {
+    ///
+    $veri = $db->prepare('SELECT kul_lig_id FROM kullanicilar WHERE kul_Id=?');
+    $veri->execute(array($_SESSION['kul_id']));
+    $v = $veri->fetchAll(PDO::FETCH_ASSOC);
+    foreach ($v as $kulla) ;
+    ///
+    $verim = $db->prepare('SELECT lig_bos_uyelik,lig_yonetici_id FROM ligler WHERE lig_Id=?');
+    $verim->execute(array($kulla['kul_lig_id']));
+    $vm = $verim->fetchAll(PDO::FETCH_ASSOC);
+    foreach ($vm as $liglerim) ;
+    ///
+    if($liglerim['lig_yonetici_id']==$_SESSION['kul_id'])
+    {
+        $lig_gunce = $db->prepare("UPDATE ligler SET lig_yonetici_id=null WHERE lig_Id=?");
+        $lig_guncellemem = $lig_gunce->execute(array($kulla['kul_lig_id']));
+    }
+
+    $lig_guncem = $db->prepare("UPDATE ligler SET lig_bos_uyelik='" . ($liglerim['lig_bos_uyelik']+1) . "' WHERE lig_Id=?");
+    $lig_guncelleme = $lig_guncem->execute(array($kulla['kul_lig_id']));
+    ///
+    $kul_gunce = $db->prepare("UPDATE kullanicilar SET kul_lig_id=null WHERE kul_Id=?");
+    $kul_guncellemem = $kul_gunce->execute(array($_SESSION['kul_id']));
+    ///
+    if ($kul_guncellemem&&$lig_guncelleme) {
+        echo "<div class='alert alert-success'>Ligden Ayrılma İşleminiz Gerçekleşti.</div><meta http-equiv='refresh' content='1; url=ligler.php'>";
+    } else {
+        echo "<div class='alert alert-success'>Lig Ayrılma İşleminiz Başarısız oldu</div>";
+    }
+}
 /*HİSSE BİLGİLERİ YÜKLEME*/
 ///
 $link = "http://bigpara.hurriyet.com.tr/borsa/canli-borsa/";
@@ -296,8 +400,8 @@ if (g('islem') == 'hisse_sat') {
             ///
             ///
             ///
-            $toplam_kar_zarar=0;
-            $lot_degisen=$hisse_sat_miktar;
+            $toplam_kar_zarar = 0;
+            $lot_degisen = $hisse_sat_miktar;
             //
             $veri_kar_zarar = $db->prepare('SELECT alim_id,alim_hisse_lot,alim_lot_satilmayan,alim_hisse_toplam_tutar FROM alim WHERE alim_lot_satilmayan>0 AND alim_kul_id=? AND alim_hisse_sembol=?  ORDER BY alim_zaman ASC');
             $veri_kar_zarar->execute(array($hisse_sat_kul_id, $hisse_sat_sembol));
@@ -305,28 +409,26 @@ if (g('islem') == 'hisse_sat') {
             $say_kar_zarar = $veri_kar_zarar->rowCount();
             foreach ($v_kar_zarar as $kar_zarar) {
 
-                if($lot_degisen>0){
-                    if($kar_zarar['alim_hisse_lot']>=$lot_degisen){
-                        $toplam_kar_zarar=$toplam_kar_zarar+$kar_zarar['alim_hisse_toplam_tutar']*$lot_degisen/$kar_zarar['alim_hisse_lot'];
+                if ($lot_degisen > 0) {
+                    if ($kar_zarar['alim_hisse_lot'] >= $lot_degisen) {
+                        $toplam_kar_zarar = $toplam_kar_zarar + $kar_zarar['alim_hisse_toplam_tutar'] * $lot_degisen / $kar_zarar['alim_hisse_lot'];
                         //
-                        $alim_satilmayan_gunce = $db->prepare("UPDATE alim SET alim_lot_satilmayan='" . ($kar_zarar['alim_lot_satilmayan']-$lot_degisen) . "' WHERE alim_id=?");
+                        $alim_satilmayan_gunce = $db->prepare("UPDATE alim SET alim_lot_satilmayan='" . ($kar_zarar['alim_lot_satilmayan'] - $lot_degisen) . "' WHERE alim_id=?");
                         $alim_satilmayan_guncellemem = $alim_satilmayan_gunce->execute(array($kar_zarar['alim_id']));
                         //
                         break;
-                    }
-                    else{
-                        $toplam_kar_zarar=$toplam_kar_zarar+$kar_zarar['alim_hisse_toplam_tutar'];
-                        $lot_degisen=$lot_degisen-$kar_zarar['alim_hisse_lot'];
+                    } else {
+                        $toplam_kar_zarar = $toplam_kar_zarar + $kar_zarar['alim_hisse_toplam_tutar'];
+                        $lot_degisen = $lot_degisen - $kar_zarar['alim_hisse_lot'];
                         //
                         $alim_satilmayan_gunc = $db->prepare("UPDATE alim SET alim_lot_satilmayan=0 WHERE alim_id=?");
                         $alim_satilmayan_guncelleme = $alim_satilmayan_gunc->execute(array($kar_zarar['alim_id']));
                     }
-                }
-                else{
+                } else {
                     echo "<div class='alert alert-success'>Hata .</div>";
                 }
             }
-            $kar_zarar_durum=($hisse_sat_toplam-$toplam_kar_zarar);
+            $kar_zarar_durum = ($hisse_sat_toplam - $toplam_kar_zarar);
             ///
             ///
             ///
@@ -354,27 +456,12 @@ if (g('islem') == 'hisse_sat') {
             } else {
                 echo "<div class='alert alert-danger'>İşlem Başarısız.</div>";
             }
-        }
-        else {
+        } else {
             echo "<div class='alert alert-danger'>Hisse Fiyatı Değişti</div>";
         }
     } else {
         echo "<div class='alert alert-danger'>Girilen Hisse Miktarı Portföyünüzde Bulunmamakta.</div>";
     }
 }
-/*
-if (g('islem') == 'hisse_alim_bilgi_getir') {
-    $veri = $db->prepare("SELECT alim_hisse_lot,alim_hisse_deger,alim_hisse_toplam_tutar,alim_zaman FROM alim WHERE alim_hisse_sembol=? and alim_kul_id=?");
-    $veri->execute(array('AEFES',$_SESSION['kul_id']));
-    $v = $veri->fetchAll(pdo::FETCH_ASSOC);
-    $say = $veri->rowCount();
-    $tum=array();
-    foreach ($v as $tum_alimlar) {
-        $alimlar = array();
-        array_push($alimlar, $tum_alimlar['alim_hisse_lot'], $tum_alimlar['alim_hisse_deger'], $tum_alimlar['alim_hisse_toplam_tutar'], $tum_alimlar['alim_zaman']);
-        array_push($tum,$alimlar);
-    }
-    echo json_encode($tum);
-}
-*/
+
 ?>

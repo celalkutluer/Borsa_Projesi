@@ -6,8 +6,22 @@ kullanicikontrol();
         <div class="conteiner">
             <div class="col-md">
                 <section class="panel panel-warning">
+                    <?php
+                    $veri = $db->prepare('SELECT kul_lig_id FROM kullanicilar WHERE kul_Id=?');
+                    $veri->execute(array($_SESSION['kul_id']));
+                    $v = $veri->fetchAll(PDO::FETCH_ASSOC);
+                    foreach ($v as $ligler) ;
+                    //
+                    $veril = $db->prepare('SELECT lig_baslik FROM ligler WHERE lig_id=?');
+                    $veril->execute(array($ligler['kul_lig_id']));
+                    $vl = $veril->fetchAll(PDO::FETCH_ASSOC);
+                    $say_ = $veril->rowCount();
+                    foreach ($vl as $liglerl) ;
+                    ?>
                     <header class="panel-heading">
-                        <h2 class="panel-title">Ligim</h2>
+                        <h2 class="panel-title">Ligim - <?php if ($say_ > 0) {
+                                echo $liglerl['lig_baslik'];
+                            } ?></h2>
                         <div class="panel-actions">
                             <a href="#" class="panel-action panel-action-toggle" data-panel-toggle></a>
                         </div>
@@ -17,32 +31,36 @@ kullanicikontrol();
                             <table class="table table-condensed mb-none">
                                 <thead>
                                 <tr>
-                                    <th>#</th>
-                                    <th>First Name</th>
-                                    <th>Last Name</th>
-                                    <th>Username</th>
+                                    <th class='text-center'>#</th>
+                                    <th class='text-center'>Ad</th>
+                                    <th class='text-center'>Soyad</th>
+                                    <th class='text-center'>Toplam Kazanç</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Mark</td>
-                                    <td>Otto</td>
-                                    <td>@mdo</td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>Jacob</td>
-                                    <td>Thornton</td>
-                                    <td>@fat</td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td>Larry</td>
-                                    <td>the Bird</td>
-                                    <td>@twitter</td>
-                                </tr>
+                                <?php
+                                if ($ligler['kul_lig_id'] == null) {
 
+                                } else {
+                                    $sayi = 0;
+                                    $veri_lig = $db->prepare('SELECT upper(kullanicilar.kul_Ad) as ad, upper(kullanicilar.kul_Soyad) as soyad,sum(satim.satim_kar_zarar) as kazanc FROM kullanicilar INNER JOIN satim on satim.satim_kul_id=kullanicilar.kul_Id WHERE kul_lig_id=1 GROUP By kul_Id ORDER by sum(satim.satim_kar_zarar) DESC
+');
+                                    $veri_lig->execute(array($ligler['kul_lig_id']));
+                                    $v_lig = $veri_lig->fetchAll(PDO::FETCH_ASSOC);
+                                    $say_lig = $veri_lig->rowCount();
+                                    foreach ($v_lig as $lig) {
+                                        echo
+                                            "<tr>
+                                <td class='text-center' id='lig_baslik_" . $sayi . "'>" . ($sayi + 1) . "</td>
+                                <td class='text-center' id='lig_baslik_" . $sayi . "'>" . $lig['ad'] . "</td>
+                                <td class='text-center' id='lig_bosluk_" . $sayi . "'>" . $lig['soyad'] . "</td>
+                                <td class='text-center' id='lig_kazanc_" . $sayi . "'>" . $lig['kazanc'] . " TL</td>
+                                    </tr>";
+                                        $sayi++;
+
+                                    }
+                                }
+                                ?>
                                 </tbody>
                             </table>
                         </div>

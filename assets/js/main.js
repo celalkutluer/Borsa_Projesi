@@ -1,3 +1,4 @@
+var secilen_lig;
 $("#btnSignIn").click(function () {
     var data = $("#frmSignIn").serialize();
     $.ajax({
@@ -30,7 +31,41 @@ $("#btnfrmKayit").click(function () {
         }
     );
 });
-
+$("#lig_olustur_btn").click(function () {
+    var data = $("#lig_olustur_form").serialize();
+    $.ajax({
+            type: 'POST',
+            url: 'settings/islem.php?islem=lig_olustur',
+            data: data,
+            success: function (cevap) {
+                $("#lig_olustur_alert").html(cevap).hide().fadeIn(700);
+            }
+        }
+    );
+});
+$("#lig_katil_btn").click(function () {
+    $.ajax({
+            type: 'POST',
+            url: 'settings/islem.php?islem=lig_katil',
+            dataType: 'json',
+            data: { lig_baslik: secilen_lig},
+            success: function (cevap) {
+                $("#lig_alert").html(cevap).hide().fadeIn(700);
+            }
+        }
+    );
+});
+$("#lig_ayril_btn").click(function () {
+    $.ajax({
+            type: 'POST',
+            url: 'settings/islem.php?islem=lig_ayril',
+            data: 0,
+            success: function (cevap) {
+                $("#lig_alert").html(cevap).hide().fadeIn(700);
+            }
+        }
+    );
+});
 ///ALIM BUTONLARI
 function Tablo_veri_cek() {
     $.ajax({
