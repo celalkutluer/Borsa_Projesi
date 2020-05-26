@@ -43,18 +43,7 @@ $("#lig_olustur_btn").click(function () {
         }
     );
 });
-$("#lig_katil_btn").click(function () {
-    $.ajax({
-            type: 'POST',
-            url: 'settings/islem.php?islem=lig_katil',
-            dataType: 'json',
-            data: { lig_baslik: secilen_lig},
-            success: function (cevap) {
-                $("#lig_alert").html(cevap).hide().fadeIn(700);
-            }
-        }
-    );
-});
+
 $("#lig_ayril_btn").click(function () {
     $.ajax({
             type: 'POST',
@@ -66,6 +55,7 @@ $("#lig_ayril_btn").click(function () {
         }
     );
 });
+
 ///ALIM BUTONLARI
 function Tablo_veri_cek() {
     $.ajax({

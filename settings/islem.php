@@ -194,10 +194,12 @@ if (g('islem') == 'lig_katil') {
     ///
     $baslik = p('lig_baslik');
     //
+
     $veri = $db->prepare('SELECT lig_id,lig_bos_uyelik FROM ligler WHERE lig_baslik=?');
     $veri->execute(array($baslik));
     $v = $veri->fetchAll(PDO::FETCH_ASSOC);
     foreach ($v as $ligle) ;
+
     //
     if ($ligle['lig_bos_uyelik'] > 0) {
         ///
@@ -206,11 +208,11 @@ if (g('islem') == 'lig_katil') {
         ///
         $lig_gunce = $db->prepare("UPDATE ligler SET lig_bos_uyelik='" . ($ligle['lig_bos_uyelik']-1) . "' WHERE lig_Id=?");
         $lig_guncellemem = $lig_gunce->execute(array($ligle['lig_id']));
-
+        //
         if ($kul_guncellem&&$lig_guncellemem) {
             echo "<div class='alert alert-success'>Seçilen Lige Kayıt İşleminiz Gerçekleşti.</div><meta http-equiv='refresh' content='1; url=ligler.php'>";
         } else {
-            echo "<div class='alert alert-success'>Seçilen Lige Kayıt İşlemi Başarısız Oldu</div>";
+            echo "<div class='alert alert-success'>ok</div>";
         }
     }
     else{
