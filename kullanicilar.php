@@ -13,6 +13,9 @@ yoneticikontrol();
                         </div>
                     </header>
                     <div class="panel-body">
+                        <!--ALERT-->
+                        <div id='kullanici_alert'></div>
+                        <!--ALERT-->
                         <table class="table table-bordered table-striped mb-none" id="datatable-default">
                             <thead>
                             <tr>
@@ -31,6 +34,7 @@ yoneticikontrol();
                             function kullanicilar()
                             {
                                 global $db;
+                                $sayi=0;
                                 $veri = $db->prepare("SELECT * FROM kullanicilar");
                                 $veri->execute(array());
                                 $v = $veri->fetchAll(pdo::FETCH_ASSOC);
@@ -39,16 +43,19 @@ yoneticikontrol();
                                     foreach ($v as $tum_kullanicilar) {
                                         ?>
                                         <tr>
-                                            <td><?php echo $tum_kullanicilar['kul_Id']; ?></td>
+                                            <td id="kullanici_id_<?php echo $sayi;?>"><?php echo $tum_kullanicilar['kul_Id']; ?></td>
                                             <td><?php echo $tum_kullanicilar['kul_Ad']; ?></td>
                                             <td><?php echo $tum_kullanicilar['kul_Soyad']; ?></td>
                                             <td><?php echo $tum_kullanicilar['kul_Eposta']; ?></td>
                                             <td><?php if ($tum_kullanicilar['kul_Yetki'] == 1) echo "Yönetici"; else echo "Yatırımcı"; ?></td>
                                             <td><?php echo (new \DateTime($tum_kullanicilar['kul_Son_Giris_Tar']))->format('d-m-Y H:i:s') . PHP_EOL; ?></td>
                                             <td class="center hidden-xs"><?php echo (new \DateTime($tum_kullanicilar['kul_Uyelik_Tarih']))->format('d-m-Y H:i:s') . PHP_EOL; ?></td>
-                                            <td class="center hidden-xs"><button id='btn_' type='button' class="btn btn-warning" >PASİF AL</button></td>
+                                            <td class="center hidden-xs">
+                                                <button id='btn_' type='button' class="btn btn-warning" <?php echo "onclick=".chr(34)."pasife_al_btn("."'".$sayi."'".")".chr(34); if($tum_kullanicilar['kul_Pasif_Durum']=='0'){ echo "disabled";} ?> >PASİF AL</button>
+                                            </td>
                                         </tr>
                                         <?php
+                                        $sayi++;
                                     }
                                 }
                             }
@@ -57,7 +64,21 @@ yoneticikontrol();
                             ?>
                             </tbody>
                         </table>
-
+                        <script type="text/javascript">
+                            function pasife_al_btn(no)
+                            {
+                                var id=document.getElementById('kullanici_id_'+no).innerText;
+                                $.ajax({
+                                        type: 'POST',
+                                        url: 'settings/islem.php?islem=pasife_al',
+                                        data: { id: id},
+                                        success: function (cevap) {
+                                            $("#kullanici_alert").html(cevap).hide().fadeIn(700);
+                                        }
+                                    }
+                                );
+                            }
+                        </script>
                     </div>
                 </section>
             </div>

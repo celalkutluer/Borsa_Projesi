@@ -27,32 +27,58 @@ if (g('islem') == 'ygiris') {
             setcookie("sifre", $sifre, strtotime("-7 day"));
         }
         //////////////////////////////////////////////////////////////////////////////////////////////////
-        $veri = $db->prepare('SELECT kul_Id, kul_Ad, kul_Soyad, kul_Eposta, kul_Bakiye, kul_Sifre,kul_Yetki FROM kullanicilar WHERE kul_Eposta=? AND kul_Sifre=?');
+        $veri = $db->prepare('SELECT kul_Id, kul_Ad, kul_Soyad, kul_Eposta, kul_Bakiye, kul_Sifre,kul_Yetki,kul_Pasif_Durum,kul_Pasif_Tarih,kul_Pasif_Sure FROM kullanicilar WHERE kul_Eposta=? AND kul_Sifre=?');
         $veri->execute(array($eposta, md5($sifre)));
         $v = $veri->fetchAll(PDO::FETCH_ASSOC);
         $say = $veri->rowCount();
         foreach ($v as $ykul_bilgileri) ;
         if ($say) {
             if ($ykul_bilgileri['kul_Yetki'] == '1' || $ykul_bilgileri['kul_Yetki'] == '0') {
-                $_SESSION['isim'] = $ykul_bilgileri['kul_Ad'];
-                $_SESSION['soyisim'] = $ykul_bilgileri['kul_Soyad'];
-                $_SESSION['eposta'] = $ykul_bilgileri['kul_Eposta'];
-                $_SESSION['yetki'] = $ykul_bilgileri['kul_Yetki'];
-                $_SESSION['bakiye'] = $ykul_bilgileri['kul_Bakiye'];
-                $_SESSION['kul_id'] = $ykul_bilgileri['kul_Id'];
-                echo "<div class='alert alert-success'>Giriş Başarılı Lütfen Bekleyiniz</div><meta http-equiv='refresh' content='1; url=index.php'>";
-                ///
-                $kul_gunce = $db->prepare("UPDATE kullanicilar SET kul_Son_Giris_Tar=CURRENT_TIMESTAMP WHERE kul_Id=?");
-                $kul_guncellemem = $kul_gunce->execute(array($ykul_bilgileri['kul_Id']));
-                ///
-                $ekle_log = $db->prepare("INSERT INTO log(log_kul_id, log_eylem, log_aciklama) VALUES ('" . $ykul_bilgileri['kul_Id'] . "','Giriş','" . $ykul_bilgileri['kul_Id'] . " -Nolu kullanıcı " . $ykul_bilgileri['kul_Ad']. " " . $ykul_bilgileri['kul_Soyad'] . ", " . $_SERVER['REMOTE_ADDR'] . " ip adresi üzerinden giriş yaptı.')");
-                $ekleme_log = $ekle_log->execute(array());
-                if ($ekleme_log) {
-                    echo "<div class='alert alert-success'>Log Ekleme İşlemi Tamamlandı.</div>";
-                } else {
-                    echo "<div class='alert alert-danger'>Log Kayıt İşlemi Başarısız.</div>";
+                //
+
+                $bir=date_format(date_modify(date_create((new \DateTime())->format('Y-m-d H:i:s')),"+1 hours"),"d-m-Y H:i:s");
+
+                $datem=date_create($ykul_bilgileri['kul_Pasif_Tarih']);
+                $sure="+".$ykul_bilgileri['kul_Pasif_Sure']." days";
+                date_modify($datem,$sure);
+                $iki=date_format($datem,"d-m-Y H:i:s");
+                //
+                if($ykul_bilgileri['kul_Pasif_Durum']=='0'&&strtotime($iki)>strtotime($bir))
+                {
+                    echo "<div class='alert alert-danger'>Hesabınız Yönetici tarafından pasife alınmıştır.  ".$iki." den önce giriş yapamazsınız.</div>";
+                    echo "<div class='alert alert-danger'>Şu anki zaman :".$bir."</div>";
                 }
-                ///
+                else
+                {
+                    if($ykul_bilgileri['kul_Pasif_Durum']=='0'){
+                        $kul_gun = $db->prepare("UPDATE kullanicilar SET kul_Pasif_Durum='1' WHERE kul_Id=?");
+                        $kul_gunce = $kul_gun->execute(array($ykul_bilgileri['kul_Id']));
+                        ///
+                        $ekl_log = $db->prepare("INSERT INTO log(log_kul_id, log_eylem, log_aciklama) VALUES ('" . $ykul_bilgileri['kul_Id'] . "','Pasif Süre Dolması','" . $ykul_bilgileri['kul_Id'] . " -Nolu kullanıcı " . $ykul_bilgileri['kul_Ad']. " " . $ykul_bilgileri['kul_Soyad'] . ", pasif kaldığı sürenin dolması nedeniyle aktif duruma getirildi.')");
+                        $eklem_log = $ekl_log->execute(array());
+                        ///
+                    }
+                    $_SESSION['isim'] = $ykul_bilgileri['kul_Ad'];
+                    $_SESSION['soyisim'] = $ykul_bilgileri['kul_Soyad'];
+                    $_SESSION['eposta'] = $ykul_bilgileri['kul_Eposta'];
+                    $_SESSION['yetki'] = $ykul_bilgileri['kul_Yetki'];
+                    $_SESSION['bakiye'] = $ykul_bilgileri['kul_Bakiye'];
+                    $_SESSION['kul_id'] = $ykul_bilgileri['kul_Id'];
+                    echo "<div class='alert alert-success'>Giriş Başarılı Lütfen Bekleyiniz</div><meta http-equiv='refresh' content='1; url=index.php'>";
+                    ///
+                    $kul_gunce = $db->prepare("UPDATE kullanicilar SET kul_Son_Giris_Tar=CURRENT_TIMESTAMP WHERE kul_Id=?");
+                    $kul_guncellemem = $kul_gunce->execute(array($ykul_bilgileri['kul_Id']));
+                    ///
+                    $ekle_log = $db->prepare("INSERT INTO log(log_kul_id, log_eylem, log_aciklama) VALUES ('" . $ykul_bilgileri['kul_Id'] . "','Giriş','" . $ykul_bilgileri['kul_Id'] . " -Nolu kullanıcı " . $ykul_bilgileri['kul_Ad']. " " . $ykul_bilgileri['kul_Soyad'] . ", " . $_SERVER['REMOTE_ADDR'] . " ip adresi üzerinden giriş yaptı.')");
+                    $ekleme_log = $ekle_log->execute(array());
+                    if ($ekleme_log) {
+                        echo "<div class='alert alert-success'>Log Ekleme İşlemi Tamamlandı.</div>";
+                    } else {
+                        echo "<div class='alert alert-danger'>Log Kayıt İşlemi Başarısız.</div>";
+                    }
+                    ///
+                }
+
             } else {
                 echo "<div class='alert alert-warning'>Giriş yetkiniz bulunmamaktadır.</div>";
             }
@@ -302,6 +328,40 @@ if (g('islem') == 'lig_ayril') {
         echo "<div class='alert alert-success'>Lig Ayrılma İşleminiz Başarısız oldu</div>";
     }
 }
+///
+if (g('islem') == 'pasife_al') {
+    ///
+    $id= p('id');
+    //
+    $veri_logum = $db->prepare('SELECT log_kul_id FROM log WHERE log_eylem="Pasife Alma" AND log_kul_id=?');
+    $veri_logum->execute(array($id));
+    $say_logum = $veri_logum->rowCount();
+    ///
+    $kul_gunce = $db->prepare("UPDATE kullanicilar SET kul_Pasif_Durum='0',kul_Pasif_Tarih=CURRENT_TIMESTAMP ,kul_Pasif_Sure='".($say_logum+1)."' WHERE kul_Id=?");
+    $kul_guncellemem = $kul_gunce->execute(array($id));
+    ///
+    //
+    $veri_log = $db->prepare('SELECT kul_lig_id,kul_Ad,kul_Soyad,kul_Pasif_Tarih,kul_Pasif_Sure FROM kullanicilar WHERE kul_Id=?');
+    $veri_log->execute(array($id));
+    $v_log = $veri_log->fetchAll(PDO::FETCH_ASSOC);
+    foreach ($v_log as $kullanicilar) ;
+    //
+    if ($kul_guncellemem) {
+        echo "<div class='alert alert-success'>Kullanıcı Pasife Alma İşleminiz Gerçekleşti.</div><meta http-equiv='refresh' content='1; url=kullanicilar.php'>";
+        //
+        $ekle_log = $db->prepare("INSERT INTO log(log_kul_id, log_eylem, log_aciklama) VALUES ('" . $id . "','Pasife Alma','" . $_SESSION['kul_id'] . " -Nolu Yönetici ," . $id . " nolu Kullanıcı olan " . $kullanicilar['kul_Ad'] . "" . $kullanicilar['kul_Soyad'] . " i" . $kullanicilar['kul_Pasif_Tarih'] . " de " . $kullanicilar['kul_Pasif_Sure'] . " günlüğüne pasife aldı')");
+        $ekleme_log = $ekle_log->execute(array());
+        if ($ekleme_log) {
+            echo "<div class='alert alert-success'>Log Ekleme İşlemi Tamamlandı.</div>";
+        } else {
+            echo "<div class='alert alert-danger'>Log Kayıt İşlemi Başarısız.</div>";
+        }
+        //
+    } else {
+        echo "<div class='alert alert-success'>Kullanıcı Pasife Alma İşleminiz Başarısız oldu</div>";
+    }
+}
+
 ///
 /*HİSSE BİLGİLERİ YÜKLEME*/
 ///
