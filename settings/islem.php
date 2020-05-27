@@ -154,7 +154,7 @@ if (g('islem') == 'lig_olustur') {
     } else if (empty($duyuru)) {
         echo "<div class='alert alert-warning'>Lütfen Lig Duyurusu Yazın.</div>";
     } else {
-        $veri = $db->prepare('SELECT kul_lig_id FROM kullanicilar WHERE kul_Id=?');
+        $veri = $db->prepare('SELECT kul_lig_id,kul_Ad,kul_Soyad FROM kullanicilar WHERE kul_Id=?');
         $veri->execute(array($_SESSION['kul_id']));
         $v = $veri->fetchAll(PDO::FETCH_ASSOC);
         $say = $veri->rowCount();
@@ -179,8 +179,15 @@ if (g('islem') == 'lig_olustur') {
             $kul_guncell = $kul_gunce->execute(array($_SESSION['kul_id']));
 
             if ($ekleme || $kul_guncell) {
-
                 echo "<div class='alert alert-success'>Lig Kayıt İşleminiz Gerçekleşti.</div><meta http-equiv='refresh' content='1; url=ligler.php'>";
+                //
+                $ekle_log = $db->prepare("INSERT INTO log(log_kul_id, log_eylem, log_aciklama) VALUES ('" . $_SESSION['kul_id'] . "','Lig Oluşturma','" . $_SESSION['kul_id'] . " -Nolu kullanıcı " . $ligler['kul_Ad'] . " " . $ligler['kul_Soyad'] . " " . $ligle['lig_id'] . " nolu " . $baslik . " ligini oluşturdu.')");
+                $ekleme_log = $ekle_log->execute(array());
+                if ($ekleme_log) {
+                    echo "<div class='alert alert-success'>Log Ekleme İşlemi Tamamlandı.</div>";
+                } else {
+                    echo "<div class='alert alert-danger'>Log Kayıt İşlemi Başarısız.</div>";
+                }
             } else {
                 echo "<div class='alert alert-success'>Lig Kayıt İşlemi Başarısız oldu</div>";
             }
@@ -194,7 +201,11 @@ if (g('islem') == 'lig_katil') {
     ///
     $baslik = p('lig_baslik');
     //
-
+    $veri_log = $db->prepare('SELECT kul_lig_id,kul_Ad,kul_Soyad FROM kullanicilar WHERE kul_Id=?');
+    $veri_log->execute(array($_SESSION['kul_id']));
+    $v_log = $veri_log->fetchAll(PDO::FETCH_ASSOC);
+    foreach ($v_log as $ligler) ;
+    //
     $veri = $db->prepare('SELECT lig_id,lig_bos_uyelik FROM ligler WHERE lig_baslik=?');
     $veri->execute(array($baslik));
     $v = $veri->fetchAll(PDO::FETCH_ASSOC);
@@ -211,6 +222,15 @@ if (g('islem') == 'lig_katil') {
         //
         if ($kul_guncellem&&$lig_guncellemem) {
             echo "<div class='alert alert-success'>Seçilen Lige Kayıt İşleminiz Gerçekleşti.</div><meta http-equiv='refresh' content='1; url=ligler.php'>";
+            //
+            $ekle_log = $db->prepare("INSERT INTO log(log_kul_id, log_eylem, log_aciklama) VALUES ('" . $_SESSION['kul_id'] . "','Lig Giriş','" . $_SESSION['kul_id'] . " -Nolu kullanıcı " . $ligler['kul_Ad'] . " " . $ligler['kul_Soyad'] . " " . $ligle['lig_id'] . " nolu " . $baslik . " ligine katıldı')");
+            $ekleme_log = $ekle_log->execute(array());
+            if ($ekleme_log) {
+                echo "<div class='alert alert-success'>Log Ekleme İşlemi Tamamlandı.</div>";
+            } else {
+                echo "<div class='alert alert-danger'>Log Kayıt İşlemi Başarısız.</div>";
+            }
+            //
         } else {
             echo "<div class='alert alert-success'>ok</div>";
         }
@@ -221,12 +241,12 @@ if (g('islem') == 'lig_katil') {
 }
 if (g('islem') == 'lig_ayril') {
     ///
-    $veri = $db->prepare('SELECT kul_lig_id FROM kullanicilar WHERE kul_Id=?');
+    $veri = $db->prepare('SELECT kul_lig_id,kul_Ad,kul_Soyad FROM kullanicilar WHERE kul_Id=?');
     $veri->execute(array($_SESSION['kul_id']));
     $v = $veri->fetchAll(PDO::FETCH_ASSOC);
     foreach ($v as $kulla) ;
     ///
-    $verim = $db->prepare('SELECT lig_bos_uyelik,lig_yonetici_id FROM ligler WHERE lig_Id=?');
+    $verim = $db->prepare('SELECT lig_baslik,lig_bos_uyelik,lig_yonetici_id FROM ligler WHERE lig_Id=?');
     $verim->execute(array($kulla['kul_lig_id']));
     $vm = $verim->fetchAll(PDO::FETCH_ASSOC);
     foreach ($vm as $liglerim) ;
@@ -245,6 +265,15 @@ if (g('islem') == 'lig_ayril') {
     ///
     if ($kul_guncellemem&&$lig_guncelleme) {
         echo "<div class='alert alert-success'>Ligden Ayrılma İşleminiz Gerçekleşti.</div><meta http-equiv='refresh' content='1; url=ligler.php'>";
+        //
+        $ekle_log = $db->prepare("INSERT INTO log(log_kul_id, log_eylem, log_aciklama) VALUES ('" . $_SESSION['kul_id'] . "','Lig Çıkış','" . $_SESSION['kul_id'] . " -Nolu kullanıcı " . $kulla['kul_Ad'] . " " . $kulla['kul_Soyad'] . " " . $kulla['kul_lig_id'] . " nolu " . $liglerim['lig_baslik'] . " liginden ayrıldı')");
+        $ekleme_log = $ekle_log->execute(array());
+        if ($ekleme_log) {
+            echo "<div class='alert alert-success'>Log Ekleme İşlemi Tamamlandı.</div>";
+        } else {
+            echo "<div class='alert alert-danger'>Log Kayıt İşlemi Başarısız.</div>";
+        }
+        //
     } else {
         echo "<div class='alert alert-success'>Lig Ayrılma İşleminiz Başarısız oldu</div>";
     }
