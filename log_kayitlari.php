@@ -42,7 +42,7 @@ yoneticikontrol();
                                             <td><?php echo $tum_kullanicilar['kul_Soyad']; ?></td>
                                             <td><?php echo $tum_kullanicilar['log_eylem']; ?></td>
                                             <td><?php echo $tum_kullanicilar['log_aciklama']; ?></td>
-                                            <td><?php echo $tum_kullanicilar['log_zaman']; ?></td>
+                                            <td><?php echo (new \DateTime($tum_kullanicilar['log_zaman']))->format('d-m-Y H:i:s') . PHP_EOL; ?></td>
                                         </tr>
                                         <?php
                                     }

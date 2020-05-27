@@ -162,7 +162,10 @@ if (isset($_SESSION['yetki'])) {
                                        value='" . s('kul_id') . "' name='toplam'>
                                             </li>
                                             <li>
-                                                <a class='nav-link '>BAKİYENİZ : " .$_SESSION['bakiye']. " &#x20BA;</a>
+                                                <a class='nav-link '>İP ADRESİNİZ : " . $_SERVER['REMOTE_ADDR'] . "</a>
+                                            </li>
+                                            <li>
+                                                <a class='nav-link '>BAKİYENİZ : " . $_SESSION['bakiye'] . " &#x20BA;</a>
                                             </li>
                                             <li>
                                                 <a role='menuitem' tabindex='-1' href='settings/islem.php?islem=cikis'>

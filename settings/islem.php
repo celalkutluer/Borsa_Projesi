@@ -41,10 +41,20 @@ if (g('islem') == 'ygiris') {
                 $_SESSION['bakiye'] = $ykul_bilgileri['kul_Bakiye'];
                 $_SESSION['kul_id'] = $ykul_bilgileri['kul_Id'];
                 echo "<div class='alert alert-success'>Giriş Başarılı Lütfen Bekleyiniz</div><meta http-equiv='refresh' content='1; url=index.php'>";
-
+                ///
+                $kul_gunce = $db->prepare("UPDATE kullanicilar SET kul_Son_Giris_Tar=CURRENT_TIMESTAMP WHERE kul_Id=?");
+                $kul_guncellemem = $kul_gunce->execute(array($ykul_bilgileri['kul_Id']));
+                ///
+                $ekle_log = $db->prepare("INSERT INTO log(log_kul_id, log_eylem, log_aciklama) VALUES ('" . $ykul_bilgileri['kul_Id'] . "','Giriş','" . $ykul_bilgileri['kul_Id'] . " -Nolu kullanıcı " . $ykul_bilgileri['kul_Ad']. " " . $ykul_bilgileri['kul_Soyad'] . ", " . $_SERVER['REMOTE_ADDR'] . " ip adresi üzerinden giriş yaptı.')");
+                $ekleme_log = $ekle_log->execute(array());
+                if ($ekleme_log) {
+                    echo "<div class='alert alert-success'>Log Ekleme İşlemi Tamamlandı.</div>";
+                } else {
+                    echo "<div class='alert alert-danger'>Log Kayıt İşlemi Başarısız.</div>";
+                }
+                ///
             } else {
                 echo "<div class='alert alert-warning'>Giriş yetkiniz bulunmamaktadır.</div>";
-
             }
         } else {
             echo "<div class='alert alert-warning'>Böyle Bir Kullanıcı Bulunmamaktadır. Lütfen Kayit olun</div><meta http-equiv='refresh' content='1; url=kayit.php'>";
@@ -133,7 +143,20 @@ VALUES ('" . $Ad . "','" . $Soyad . "','" . $Email . "','" . sha1(md5($Email)) .
                      echo 'Caught exception: '. $e->getMessage() ."\n";
                  }*/
                 echo "<div class='alert alert-success'>Kayit işleminiz başarı ile gerçekleştirildi. E-posta adresinize doğrulama kodu gönderildi.</div>";//<meta http-equiv='refresh' content='1; url=giris.php'>
-
+                //
+                $veri_log = $db->prepare('SELECT kul_id FROM kullanicilar WHERE kul_Eposta=?');
+                $veri_log->execute(array($Email));
+                $v_log = $veri_log->fetchAll(PDO::FETCH_ASSOC);
+                foreach ($v_log as $kul_kayit_log) ;
+                ////////////////////////////
+                $ekle_log = $db->prepare("INSERT INTO log(log_kul_id, log_eylem, log_aciklama) VALUES ('" . $kul_kayit_log['kul_id'] . "','Üyelik Kaydı','" . $kul_kayit_log['kul_id'] . " -Nolu kullanıcı " . $Ad. " " . $Soyad . ", " . $_SERVER['REMOTE_ADDR'] . " ip adresi üzerinden " . $Email . " e-posta adresi ile üyelik başvurusunda bulundu.')");
+                $ekleme_log = $ekle_log->execute(array());
+                if ($ekleme_log) {
+                    echo "<div class='alert alert-success'>Log Ekleme İşlemi Tamamlandı.</div>";
+                } else {
+                    echo "<div class='alert alert-danger'>Log Kayıt İşlemi Başarısız.</div>";
+                }
+                //
             } else {
                 echo "<div class='alert alert-danger'>Kayit işlemi sırasında bir hata meydana geldi</div>";
             }
@@ -143,6 +166,7 @@ VALUES ('" . $Ad . "','" . $Soyad . "','" . $Email . "','" . sha1(md5($Email)) .
 
     }
 }
+///
 if (g('islem') == 'lig_olustur') {
     ///
     $baslik = p('lig_olustur_baslık');
@@ -278,6 +302,7 @@ if (g('islem') == 'lig_ayril') {
         echo "<div class='alert alert-success'>Lig Ayrılma İşleminiz Başarısız oldu</div>";
     }
 }
+///
 /*HİSSE BİLGİLERİ YÜKLEME*/
 ///
 $link = "http://bigpara.hurriyet.com.tr/borsa/canli-borsa/";

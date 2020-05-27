@@ -40,15 +40,20 @@ kullanicikontrol();
                         <ul class="simple-post-list">
                             <li>
                                 <div class="post-info">
-                                    <div >Son Online Olunan Tarih</div>
-                                    <div class="text-center">02/01/2020</div>
+                                    <div class="text-center">Son 5 Online Olunan Tarih</div>
+                                    <?php
+                                    //
+                                    $sayi = 0;
+                                    $veri_tarih = $db->prepare('SELECT log_zaman FROM log WHERE log_kul_id=? and log_eylem="Giriş" ORDER BY log_zaman DESC LIMIT 5');
+                                    $veri_tarih ->execute(array($_SESSION['kul_id']));
+                                    $v_tarih = $veri_tarih ->fetchAll(PDO::FETCH_ASSOC);
+                                    foreach ($v_tarih  as $tarih ) {
+                                        echo"<div class='text-center'>".(new \DateTime($tarih['log_zaman']))->format('d-m-Y H:i:s') . PHP_EOL."</div>";
+                                        $sayi++;
+                                    }
+                                    //
+                                    ?>
                                 </div>
-                            </li>
-                            <li>
-
-                            </li>
-                            <li>
-
                             </li>
                         </ul>
                     </div>
@@ -131,7 +136,7 @@ kullanicikontrol();
                 <h4 class="mb-md">Mali Bilgiler</h4>
                 <ul class="simple-card-list mb-xlg">
                     <li class="info">
-                        <h3>12503,20 &#x20BA;</h3>
+                        <h3><?php echo $_SESSION['bakiye'];?> &#x20BA;</h3>
                         <p>Toplam Varlığım</p>
                     </li>
                     <li class="primary">

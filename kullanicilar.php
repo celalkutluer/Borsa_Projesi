@@ -44,10 +44,9 @@ yoneticikontrol();
                                             <td><?php echo $tum_kullanicilar['kul_Soyad']; ?></td>
                                             <td><?php echo $tum_kullanicilar['kul_Eposta']; ?></td>
                                             <td><?php if ($tum_kullanicilar['kul_Yetki'] == 1) echo "Yönetici"; else echo "Yatırımcı"; ?></td>
-                                            <td><?php echo $tum_kullanicilar['kul_Son_Giris_Tar']; ?></td>
-                                            <td class="center hidden-xs"><?php echo $tum_kullanicilar['kul_Uyelik_Tarih']; ?></td>
-                                            <td class="center hidden-xs">
-                                                <button id='btn_' type='button' class="btn btn-warning" >PASİF AL</button></td>
+                                            <td><?php echo (new \DateTime($tum_kullanicilar['kul_Son_Giris_Tar']))->format('d-m-Y H:i:s') . PHP_EOL; ?></td>
+                                            <td class="center hidden-xs"><?php echo (new \DateTime($tum_kullanicilar['kul_Uyelik_Tarih']))->format('d-m-Y H:i:s') . PHP_EOL; ?></td>
+                                            <td class="center hidden-xs"><button id='btn_' type='button' class="btn btn-warning" >PASİF AL</button></td>
                                         </tr>
                                         <?php
                                     }
