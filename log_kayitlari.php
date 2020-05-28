@@ -16,7 +16,8 @@ yoneticikontrol();
                         <table class="table table-bordered table-striped mb-none" id="datatable-default">
                             <thead>
                             <tr>
-                                <th>Id</th>
+                                <th>Sıra</th>
+                                <th>Log Id</th>
                                 <th>Ad</th>
                                 <th>Soyad</th>
                                 <th>E-Posta</th>
@@ -30,7 +31,8 @@ yoneticikontrol();
                             function loglar()
                             {
                                 global $db;
-                                $veri = $db->prepare("SELECT log.log_id,kullanicilar.kul_Ad,kullanicilar.kul_Soyad,kullanicilar.kul_Eposta,log.log_eylem,log.log_aciklama,log.log_zaman FROM log inner join kullanicilar on log.log_kul_id=kullanicilar.kul_Id");
+                                $sayi=0;
+                                $veri = $db->prepare("SELECT log.log_id,kullanicilar.kul_Ad,kullanicilar.kul_Soyad,kullanicilar.kul_Eposta,log.log_eylem,log.log_aciklama,log.log_zaman FROM log inner join kullanicilar on log.log_kul_id=kullanicilar.kul_Id order by log.log_zaman DESC");
                                 $veri->execute(array());
                                 $v = $veri->fetchAll(pdo::FETCH_ASSOC);
                                 $say = $veri->rowCount();
@@ -38,6 +40,7 @@ yoneticikontrol();
                                     foreach ($v as $tum_kullanicilar) {
                                         ?>
                                         <tr>
+                                            <td><?php echo ($sayi+1); ?></td>
                                             <td><?php echo $tum_kullanicilar['log_id']; ?></td>
                                             <td><?php echo $tum_kullanicilar['kul_Ad']; ?></td>
                                             <td><?php echo $tum_kullanicilar['kul_Soyad']; ?></td>
@@ -47,10 +50,10 @@ yoneticikontrol();
                                             <td><?php echo (new \DateTime($tum_kullanicilar['log_zaman']))->format('d-m-Y H:i:s') . PHP_EOL; ?></td>
                                         </tr>
                                         <?php
+                                        $sayi++;
                                     }
                                 }
                             }
-
                             loglar();
                             ?>
                             </tbody>
