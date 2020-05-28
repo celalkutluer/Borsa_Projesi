@@ -43,7 +43,6 @@ $("#lig_olustur_btn").click(function () {
         }
     );
 });
-
 $("#lig_ayril_btn").click(function () {
     $.ajax({
             type: 'POST',
@@ -55,7 +54,6 @@ $("#lig_ayril_btn").click(function () {
         }
     );
 });
-
 ///ALIM BUTONLARI
 function Tablo_veri_cek() {
     $.ajax({
@@ -209,9 +207,15 @@ function Tablo_veri_cek() {
         }
     });//yükselen
 }
-
 $(document).ready(function () {
     setInterval(Tablo_veri_cek, 60000);//60 saniyede bir otomatik güncelleme
+    //
+    $('#profil_form_bilgi').on('input change', function() {
+        $('#profil_bilgi_kaydet_btn').attr('disabled', false);
+    });
+    $('#profil_form_sifre').on('input change', function() {
+        $('#profil_sifre_kaydet_btn').attr('disabled', false);
+    });
 
 });
 ///ALIM BUTONLARI

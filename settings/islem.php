@@ -365,6 +365,169 @@ if (g('islem') == 'pasife_al') {
         echo "<div class='alert alert-success'>Kullanıcı Pasife Alma İşleminiz Başarısız oldu</div>";
     }
 }
+///
+if (g('islem') == 'profil_bilgi_kaydet') {
+    ///
+    $profilAd= p('profilAd');
+    $profilSoyad= p('profilSoyad');
+    $profilEposta= p('profilEposta');
+    $profilCepNo= p('profilCepNo');
+    $profilDogumTar= p('profilDogumTar');
+    $id= p('kul_id');
+    ///
+    if(empty($profilAd)){echo "<div class='alert alert-warning'>Lütfen Adınızı giriniz.</div>";}
+    elseif (empty($profilSoyad)){echo "<div class='alert alert-warning'>Lütfen Soyadınızı giriniz.</div>";}
+    elseif (empty($profilEposta)){echo "<div class='alert alert-warning'>Lütfen E-posta Adresinizi giriniz.</div>";}
+    elseif (empty($profilCepNo)){echo "<div class='alert alert-warning'>Lütfen Cep Numaranızı giriniz.</div>";}
+    elseif (empty($profilDogumTar)){echo "<div class='alert alert-warning'>Lütfen Doğum Tarihinizi giriniz.</div>";}
+    else {
+        ///
+        $veri_profil = $db->prepare('SELECT `kul_Ad`,`kul_Soyad`,`kul_Eposta`,`kul_CepNo`,`kul_DogumTar` FROM `kullanicilar` WHERE `kul_Id`=?');
+        $veri_profil ->execute(array($_SESSION['kul_id']));
+        $v_profil = $veri_profil ->fetchAll(PDO::FETCH_ASSOC);
+        foreach ($v_profil  as $profil );
+        ///
+        if($profil['kul_Ad']!=$profilAd){
+            $kul_gunce_Ad = $db->prepare("UPDATE kullanicilar SET kul_Ad='" . $profilAd . "' WHERE kul_Id=?");
+            $kul_guncellem_Ad = $kul_gunce_Ad->execute(array($_SESSION['kul_id']));
+            if ($kul_guncellem_Ad) {
+                echo "<div class='alert alert-success'>İsim Değişikliği İşleminiz Gerçekleşti.</div><meta http-equiv='refresh' content='1; url=profil.php'>";
+            }else {
+                echo "<div class='alert alert-danger'>İsim Değişikliği İşleminiz Başarısız.</div>";
+            }
+            //
+            $ekle_log_Ad = $db->prepare("INSERT INTO log(log_kul_id, log_eylem, log_aciklama) 
+VALUES ('" . $_SESSION['kul_id'] . "','Profil Bilgi Güncelleme','" . $_SESSION['kul_id'] . " -Nolu kullanıcı " .
+                $profil['kul_Ad'] . " " . $profil['kul_Soyad'] . ", ismini " . $profilAd . " olarak değiştirdi')");
+            $ekleme_log_Ad = $ekle_log_Ad->execute(array());
+            if ($ekleme_log_Ad) {
+                echo "<div class='alert alert-success'>Log Ekleme İşlemi Tamamlandı.</div>";
+            } else {
+                echo "<div class='alert alert-danger'>Log Kayıt İşlemi Başarısız.</div>";
+            }
+        }
+        if($profil['kul_Soyad']!=$profilSoyad){
+            $kul_gunce_Soyad = $db->prepare("UPDATE kullanicilar SET kul_Soyad='" . $profilSoyad . "' WHERE kul_Id=?");
+            $kul_guncellem_Soyad = $kul_gunce_Soyad->execute(array($_SESSION['kul_id']));
+            if ($kul_guncellem_Soyad) {
+                echo "<div class='alert alert-success'>Soyad Değişikliği İşleminiz Gerçekleşti.</div><meta http-equiv='refresh' content='1; url=profil.php'>";
+            }else {
+                echo "<div class='alert alert-danger'>Soyad Değişikliği İşleminiz Başarısız.</div>";
+            }
+            //
+            $ekle_log_Soyad = $db->prepare("INSERT INTO log(log_kul_id, log_eylem, log_aciklama) 
+VALUES ('" . $_SESSION['kul_id'] . "','Profil Bilgi Güncelleme','" . $_SESSION['kul_id'] . " -Nolu kullanıcı " .
+                $profil['kul_Ad'] . " " . $profil['kul_Soyad'] . ", soyadını " . $profilSoyad . " olarak değiştirdi')");
+            $ekleme_log_Soyad = $ekle_log_Soyad->execute(array());
+            if ($ekleme_log_Soyad) {
+                echo "<div class='alert alert-success'>Log Ekleme İşlemi Tamamlandı.</div>";
+            } else {
+                echo "<div class='alert alert-danger'>Log Kayıt İşlemi Başarısız.</div>";
+            }
+        }
+        if($profil['kul_Eposta']!=$profilEposta){
+            ///
+            $veri1 = $db->prepare('SELECT kul_Eposta FROM kullanicilar WHERE kul_Eposta=?');
+            $veri1->execute(array($profilEposta));
+            $v1 = $veri1->fetchAll(PDO::FETCH_ASSOC);
+            $say1 = $veri1->rowCount();
+            foreach ($v1 as $kul_kayit) ;
+
+            if (!$say1) {
+                $kul_gunce_Eposta = $db->prepare("UPDATE kullanicilar SET kul_Eposta='" . $profilEposta . "' WHERE kul_Id=?");
+                $kul_guncellem_Eposta = $kul_gunce_Eposta->execute(array($_SESSION['kul_id']));
+                if ($kul_guncellem_Eposta) {
+                    echo "<div class='alert alert-success'>Eposta Değişikliği İşleminiz Gerçekleşti.</div><meta http-equiv='refresh' content='1; url=profil.php'>";
+                }else {
+                    echo "<div class='alert alert-danger'>Eposta Değişikliği İşleminiz Başarısız.</div>";
+                }
+                //
+                $ekle_log_Eposta = $db->prepare("INSERT INTO log(log_kul_id, log_eylem, log_aciklama) 
+VALUES ('" . $_SESSION['kul_id'] . "','Profil Bilgi Güncelleme','" . $_SESSION['kul_id'] . " -Nolu kullanıcı " .
+                    $profil['kul_Ad'] . " " . $profil['kul_Soyad'] . ", " . $profil['kul_Eposta'] . " eposta adresini " . $profilEposta . " olarak değiştirdi')");
+                $ekleme_log_Eposta = $ekle_log_Eposta->execute(array());
+                if ($ekleme_log_Eposta) {
+                    echo "<div class='alert alert-success'>Log Ekleme İşlemi Tamamlandı.</div>";
+                } else {
+                    echo "<div class='alert alert-danger'>Log Kayıt İşlemi Başarısız.</div>";
+                }
+            }
+            else
+            {
+                echo "<div class='alert alert-danger'>Girilen e-posta adresi başka bir kullanıcımız tarafından kullanılmakta.</div>";
+            }
+
+        }
+        if($profil['kul_CepNo']!=$profilCepNo){
+            $kul_gunce_Eposta = $db->prepare("UPDATE kullanicilar SET kul_CepNo='" . $profilEposta . "' WHERE kul_Id=?");
+            $kul_guncellem_Eposta = $kul_gunce_Eposta->execute(array($_SESSION['kul_id']));
+            if ($kul_guncellem_Eposta) {
+                echo "<div class='alert alert-success'>Cep no Değişikliği İşleminiz Gerçekleşti.</div><meta http-equiv='refresh' content='1; url=profil.php'>";
+            }else {
+                echo "<div class='alert alert-danger'>Cep no Değişikliği İşleminiz Başarısız.</div>";
+            }
+            //
+            $ekle_log_Eposta = $db->prepare("INSERT INTO log(log_kul_id, log_eylem, log_aciklama) 
+VALUES ('" . $_SESSION['kul_id'] . "','Profil Bilgi Güncelleme','" . $_SESSION['kul_id'] . " -Nolu kullanıcı " .
+                $profil['kul_Ad'] . " " . $profil['kul_Soyad'] . ", " . $profil['kul_CepNo'] . " cep numarasını " . $profilCepNo . " olarak değiştirdi')");
+            $ekleme_log_Eposta = $ekle_log_Eposta->execute(array());
+            if ($ekleme_log_Eposta) {
+                echo "<div class='alert alert-success'>Log Ekleme İşlemi Tamamlandı.</div>";
+            } else {
+                echo "<div class='alert alert-danger'>Log Kayıt İşlemi Başarısız.</div>";
+            }
+        }
+        if($profil['kul_DogumTar']!=$profilDogumTar){
+            $kul_gunce_DogumTar = $db->prepare("UPDATE kullanicilar SET kul_DogumTar='" . $profilDogumTar . "' WHERE kul_Id=?");
+            $kul_guncellem_DogumTar = $kul_gunce_DogumTar->execute(array($_SESSION['kul_id']));
+            if ($kul_guncellem_DogumTar) {
+                echo "<div class='alert alert-success'>Doğum Tarihi Değişikliği İşleminiz Gerçekleşti.</div><meta http-equiv='refresh' content='1; url=profil.php'>";
+            }else {
+                echo "<div class='alert alert-danger'>Doğum Tarihi Değişikliği İşleminiz Başarısız.</div>";
+            }
+            //
+            $ekle_log_DogumTar = $db->prepare("INSERT INTO log(log_kul_id, log_eylem, log_aciklama) 
+VALUES ('" . $_SESSION['kul_id'] . "','Profil Bilgi Güncelleme','" . $_SESSION['kul_id'] . " -Nolu kullanıcı " .
+                $profil['kul_Ad'] . " " . $profil['kul_Soyad'] . ", " . $profil['kul_DogumTar'] . " doğum tarihini " . $profilDogumTar . " olarak değiştirdi')");
+            $ekleme_log_DogumTar = $ekle_log_DogumTar->execute(array());
+            if ($ekleme_log_DogumTar) {
+                echo "<div class='alert alert-success'>Log Ekleme İşlemi Tamamlandı.</div>";
+            } else {
+                echo "<div class='alert alert-danger'>Log Kayıt İşlemi Başarısız.</div>";
+            }
+        }
+    }
+}
+if (g('islem') == 'profil_sifre_kaydet') {
+    ///
+    $sifre= p('sifre');
+    $sifre_tekrar= p('sifre_tekrar');
+    $id= p('kul_id');
+    ///
+    if(empty($sifre)){echo "<div class='alert alert-warning'>Lütfen Şifre giriniz.</div>";}
+    elseif (empty($sifre_tekrar)){echo "<div class='alert alert-warning'>Lütfen Şifrenizi Tekrar giriniz.</div>";}
+    elseif ($sifre!=$sifre_tekrar){echo "<div class='alert alert-warning'>Şifreler Uyumsuz.</div>";}
+    else {
+        $kul_gunce_Sifre = $db->prepare("UPDATE kullanicilar SET kul_Sifre='" . md5($sifre) . "' WHERE kul_Id=?");
+        $kul_guncellem_Sifre = $kul_gunce_Sifre->execute(array($_SESSION['kul_id']));
+        if ($kul_guncellem_Sifre) {
+            echo "<div class='alert alert-success'>Şifre Değişikliği İşleminiz Gerçekleşti.</div><meta http-equiv='refresh' content='1; url=profil.php'>";
+        }else {
+            echo "<div class='alert alert-danger'>Şifre Değişikliği İşleminiz Başarısız.</div>";
+        }
+        //
+        //
+        $ekle_log_Sifre = $db->prepare("INSERT INTO log(log_kul_id, log_eylem, log_aciklama) 
+VALUES ('" . $_SESSION['kul_id'] . "','Profil Şifre Güncelleme','" . $_SESSION['kul_id'] . " -Nolu kullanıcı " .
+            $_SESSION['isim'] . " " . $_SESSION['soyisim'] . ", şifresini değiştirdi')");
+        $ekleme_log_Sifre = $ekle_log_Sifre->execute(array());
+        if ($ekleme_log_Sifre) {
+            echo "<div class='alert alert-success'>Log Ekleme İşlemi Tamamlandı.</div>";
+        } else {
+            echo "<div class='alert alert-danger'>Log Kayıt İşlemi Başarısız.</div>";
+        }
+    }
+}
 
 ///
 /*HİSSE BİLGİLERİ YÜKLEME*/

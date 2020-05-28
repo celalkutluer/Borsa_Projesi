@@ -70,7 +70,7 @@ $komisyon = 1.003;
                                 </td>
                                 <td class='text-center' id='aktif_varlik_sat'>
                                    <button class='btn btn-danger modal-with-form' href='#modalaktif_varliksatForm" . $sayi . "' type='button' >SAT</button>
-                                    <div class='modal-block modal-header-color modal-block-success mfp-hide' id='modalaktif_varliksatForm" . $sayi . "'>
+                                    <div class='modal-block modal-header-color modal-block-danger mfp-hide' id='modalaktif_varliksatForm" . $sayi . "'>
                                     <section class='panel'>
                                             <header class='panel-heading'>
                                                 <h4 class='panel-title' id='formModalLabel'>Sat</h4>

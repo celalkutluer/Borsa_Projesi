@@ -68,65 +68,115 @@ kullanicikontrol();
                     </ul>
                     <div class="tab-content">
                         <div id="overview" class="tab-pane active">
-                            <form class="form-horizontal" method="get">
+                            <?php
+                            $veri_profil = $db->prepare('SELECT `kul_Ad`,`kul_Soyad`,`kul_Eposta`,`kul_CepNo`,`kul_DogumTar` FROM `kullanicilar` WHERE `kul_Id`=?');
+                            $veri_profil ->execute(array($_SESSION['kul_id']));
+                            $v_profil = $veri_profil ->fetchAll(PDO::FETCH_ASSOC);
+                            foreach ($v_profil  as $profil );
+                            ?>
+                            <!--ALERT-->
+                            <div id='profil_alert'></div>
+                            <!--ALERT-->
+                            <form class="form-horizontal" method="get" id="profil_form_bilgi">
                                 <fieldset>
                                     <div class="form-group">
-                                        <label class="col-md-3 control-label" for="profileFirstName">Ad</label>
+                                        <label class="col-md-3 control-label" for="profilAd">Ad</label>
                                         <div class="col-md-8">
-                                            <input type="text" class="form-control" id="profileFirstName">
+                                            <input type="text" class="form-control" id="profilAd" value="<?php echo $profil['kul_Ad'];?>" >
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-md-3 control-label" for="profileLastName">Soyad</label>
+                                        <label class="col-md-3 control-label" for="profilSoyad">Soyad</label>
                                         <div class="col-md-8">
-                                            <input type="text" class="form-control" id="profileLastName">
+                                            <input type="text" class="form-control" id="profilSoyad" value="<?php echo $profil['kul_Soyad'];?>" >
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-md-3 control-label" for="profileAddress">E-posta</label>
+                                        <label class="col-md-3 control-label" for="profilEposta">E-posta</label>
                                         <div class="col-md-8">
-                                            <input type="email" class="form-control" id="profileAddress">
+                                            <input type="email" class="form-control" id="profilEposta" value="<?php echo $profil['kul_Eposta'];?>" >
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-md-3 control-label" for="profileCompany">Cep Teleonu</label>
+                                        <label class="col-md-3 control-label" for="profilCepNo">Cep Telefonu</label>
                                         <div class="col-md-8">
-                                            <input type="text" class="form-control" id="profileCompany">
+                                            <input type="text" class="form-control" id="profilCepNo" value="<?php echo $profil['kul_CepNo'];?>" >
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-md-3 control-label" for="profileCompany">Doğum Tarihi</label>
+                                        <label class="col-md-3 control-label" for="profilDogumTar">Doğum Tarihi</label>
                                         <div class="col-md-8">
-                                            <input type="date" class="form-control" id="profileCompany">
-                                        </div>
-                                    </div>
-                                </fieldset>
-                                <hr class="dotted tall">
-                                <h4 class="mb-xlg">Şifre Değiştirme</h4>
-                                <fieldset class="mb-xl">
-                                    <div class="form-group">
-                                        <label class="col-md-3 control-label" for="profileNewPassword">Yeni Şifre</label>
-                                        <div class="col-md-8">
-                                            <input type="text" class="form-control" id="profileNewPassword">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-md-3 control-label" for="profileNewPasswordRepeat">Yei Şifre Tekrar</label>
-                                        <div class="col-md-8">
-                                            <input type="text" class="form-control" id="profileNewPasswordRepeat">
+                                            <input type="date" class="form-control" id="profilDogumTar" value="<?php echo $profil['kul_DogumTar'];?>" >
                                         </div>
                                     </div>
                                 </fieldset>
                                 <div class="panel-footer">
                                     <div class="container-fluid">
                                         <div class="col-md">
-                                            <button type="submit" class="btn btn-primary btn-block">Kaydet</button>
+                                            <button id="profil_bilgi_kaydet_btn" type="button" class="btn btn-primary btn-block"<?php echo "onclick=".chr(34)."profil_bilgi_kaydet()".chr(34); ?> disabled>Kaydet</button>
                                         </div>
                                     </div>
                                 </div>
-
+                                <hr class="dotted tall">
+                                <script type="text/javascript">
+                                    function profil_bilgi_kaydet(){
+                                        var data = {
+                                            'profilAd': document.getElementById('profilAd').value,
+                                            'profilSoyad': document.getElementById('profilSoyad').value,
+                                            'profilEposta': document.getElementById('profilEposta').value,
+                                            'profilCepNo': document.getElementById('profilCepNo').value,
+                                            'profilDogumTar': document.getElementById('profilDogumTar').value,
+                                            'kul_id': $("#anasayfa_kul_id").val()
+                                        }
+                                        $.ajax({
+                                            type: 'POST', url: 'settings/islem.php?islem=profil_bilgi_kaydet', data: data, success: function (cevap) {
+                                                $("#profil_alert").html(cevap).hide().fadeIn(700);
+                                            }
+                                        });
+                                    }
+                                </script>
                             </form>
-
+                            <!--ALERT-->
+                            <div id='profil_sifre_alert'></div>
+                            <!--ALERT-->
+                            <form class="form-horizontal" method="get" id="profil_form_sifre">
+                                <h4 class="mb-xlg">Şifre Değiştirme</h4>
+                                <fieldset class="mb-xl">
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label" for="profileNewPassword">Yeni Şifre</label>
+                                        <div class="col-md-8">
+                                            <input type="password" class="form-control" id="profileNewPassword">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label" for="profileNewPasswordRepeat">Yei Şifre Tekrar</label>
+                                        <div class="col-md-8">
+                                            <input type="password" class="form-control" id="profileNewPasswordRepeat">
+                                        </div>
+                                    </div>
+                                </fieldset>
+                                <div class="panel-footer">
+                                    <div class="container-fluid">
+                                        <div class="col-md">
+                                            <button id="profil_sifre_kaydet_btn" type="button" class="btn btn-primary btn-block"<?php echo "onclick=".chr(34)."profil_sifre_kaydet()".chr(34); ?> disabled>Kaydet</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <script type="text/javascript">
+                                    function profil_sifre_kaydet() {
+                                        var data = {
+                                            'sifre': document.getElementById('profileNewPassword').value,
+                                            'sifre_tekrar': document.getElementById('profileNewPasswordRepeat').value,
+                                            'kul_id': $("#anasayfa_kul_id").val()
+                                        }
+                                        $.ajax({
+                                            type: 'POST', url: 'settings/islem.php?islem=profil_sifre_kaydet', data: data, success: function (cevap) {
+                                                $("#profil_sifre_alert").html(cevap).hide().fadeIn(700);
+                                            }
+                                        });
+                                    }
+                                </script>
+                            </form>
                         </div>
                     </div>
                 </div>
