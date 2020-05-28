@@ -583,5 +583,96 @@ if (g('islem') == 'hisse_sat') {
         echo "<div class='alert alert-danger'>Girilen Hisse Miktarı Portföyünüzde Bulunmamakta.</div>";
     }
 }
+if (g('islem') == 'hisse_sat_aktif_varlik') {
+    ///
+    $hisse_sat_kul_id = p('kul_id');
+    $hisse_sat_sembol = p('sembol');
+    $hisse_sat_tutar = p('sat_tutar');
+    $hisse_sat_miktar = p('sat_miktar');
+    $hisse_sat_komisyon = p('sat_komisyon');
+    $hisse_sat_toplam = p('sat_toplam');
+    //
+    $veri = $db->prepare('SELECT varlik_elde,varlik_satim_adet FROM varliklar WHERE varlik_kul_id=? and varlik_hisse_sembol=?');
+    $veri->execute(array($hisse_sat_kul_id, $hisse_sat_sembol));
+    $v = $veri->fetchAll(PDO::FETCH_ASSOC);
+    foreach ($v as $varlik_elde) ;
+    //
+    $veri = $db->prepare('SELECT kul_Ad,kul_Soyad,kul_bakiye FROM kullanicilar WHERE kul_id=?');
+    $veri->execute(array($hisse_sat_kul_id));
+    $v = $veri->fetchAll(PDO::FETCH_ASSOC);
+    foreach ($v as $kul_bilgilerim) ;
+    //
+    if ($varlik_elde['varlik_elde'] >= $hisse_sat_miktar) {//sahte girişlere karşı veritabanı karşılaştırması
+        if (bakiye_son($hisse_sat_sembol) == $hisse_sat_tutar) {//hisse fiyatı değişti mi ? karşılaştırması
+            //
+            $varlik_satim_guncel = $varlik_elde['varlik_satim_adet'] + $hisse_sat_miktar;
+            $varlik_elde_guncel = $varlik_elde['varlik_elde'] - $hisse_sat_miktar;
+            $yeni_bakiyem = $kul_bilgilerim['kul_bakiye'] + $hisse_sat_toplam;
+            ///
+            ///
+            ///
+            $toplam_kar_zarar = 0;
+            $lot_degisen = $hisse_sat_miktar;
+            //
+            $veri_kar_zarar = $db->prepare('SELECT alim_id,alim_hisse_lot,alim_lot_satilmayan,alim_hisse_toplam_tutar FROM alim WHERE alim_lot_satilmayan>0 AND alim_kul_id=? AND alim_hisse_sembol=?  ORDER BY alim_zaman ASC');
+            $veri_kar_zarar->execute(array($hisse_sat_kul_id, $hisse_sat_sembol));
+            $v_kar_zarar = $veri_kar_zarar->fetchAll(PDO::FETCH_ASSOC);
+            $say_kar_zarar = $veri_kar_zarar->rowCount();
+            foreach ($v_kar_zarar as $kar_zarar) {
+
+                if ($lot_degisen > 0) {
+                    if ($kar_zarar['alim_hisse_lot'] >= $lot_degisen) {
+                        $toplam_kar_zarar = $toplam_kar_zarar + $kar_zarar['alim_hisse_toplam_tutar'] * $lot_degisen / $kar_zarar['alim_hisse_lot'];
+                        //
+                        $alim_satilmayan_gunce = $db->prepare("UPDATE alim SET alim_lot_satilmayan='" . ($kar_zarar['alim_lot_satilmayan'] - $lot_degisen) . "' WHERE alim_id=?");
+                        $alim_satilmayan_guncellemem = $alim_satilmayan_gunce->execute(array($kar_zarar['alim_id']));
+                        //
+                        break;
+                    } else {
+                        $toplam_kar_zarar = $toplam_kar_zarar + $kar_zarar['alim_hisse_toplam_tutar'];
+                        $lot_degisen = $lot_degisen - $kar_zarar['alim_hisse_lot'];
+                        //
+                        $alim_satilmayan_gunc = $db->prepare("UPDATE alim SET alim_lot_satilmayan=0 WHERE alim_id=?");
+                        $alim_satilmayan_guncelleme = $alim_satilmayan_gunc->execute(array($kar_zarar['alim_id']));
+                    }
+                } else {
+                    echo "<div class='alert alert-success'>Hata .</div>";
+                }
+            }
+            $kar_zarar_durum = ($hisse_sat_toplam - $toplam_kar_zarar);
+            ///
+            ///
+            ///
+            $satekle = $db->prepare("INSERT INTO satim(satim_kul_id, satim_hisse_sembol, satim_hisse_deger, satim_hisse_komisyon, satim_hisse_lot,satim_kar_zarar, satim_hisse_toplam_tutar) VALUES ('" . $hisse_sat_kul_id . "','" . $hisse_sat_sembol . "','" . $hisse_sat_tutar . "','" . $hisse_sat_komisyon . "','" . $hisse_sat_miktar . "','" . $kar_zarar_durum . "','" . $hisse_sat_toplam . "')");
+            $satekleme = $satekle->execute(array());
+            //
+            $varlikguncelle = $db->prepare("UPDATE varliklar SET varlik_satim_adet='" . $varlik_satim_guncel . "',varlik_elde='" . $varlik_elde_guncel . "' WHERE varlik_kul_id=? AND varlik_hisse_sembol=?");
+            $varlikguncelleme = $varlikguncelle->execute(array($hisse_sat_kul_id, $hisse_sat_sembol));
+            //
+            $bakiyegun = $db->prepare('UPDATE kullanicilar SET kul_Bakiye=? WHERE kul_Id=?');
+            $bakiyeguncel = $bakiyegun->execute(array($yeni_bakiyem, $hisse_sat_kul_id));
+            //
+            if ($satekleme && $varlikguncelleme && $bakiyeguncel) {
+                echo "<div class='alert alert-success'>Satım İşlemi Başarı ile Gerçekleşti.</div>";
+                echo "<div class='alert alert-success'>Kalan Hisse Miktarı:  " . $varlik_elde_guncel . "</div>";
+                echo "<div class='alert alert-success'>Bakiyeniz:  " . $yeni_bakiyem . "</div><meta http-equiv='refresh' content='1; url=aktif_varliklar.php'>";
+                //
+                $ekle = $db->prepare("INSERT INTO log(log_kul_id, log_eylem, log_aciklama) VALUES ('" . $hisse_sat_kul_id . "','Hisse Satım','" . $hisse_sat_kul_id . " -Nolu kullanıcı " . $kul_bilgilerim['kul_Ad'] . " " . $kul_bilgilerim['kul_Soyad'] . " " . $hisse_sat_sembol . " hissesini " . $hisse_sat_tutar . " TL tutardan " . $hisse_sat_miktar . " adet sattı. Bu işlem için " . $hisse_sat_komisyon . " TL komisyon ödedi. " . $hisse_sat_toplam . " TL toplam tutar aldı.')");
+                $ekleme = $ekle->execute(array());
+                if ($ekleme) {
+                    echo "<div class='alert alert-success'>Log Ekleme İşlemi Tamamlandı.</div>";
+                } else {
+                    echo "<div class='alert alert-danger'>Log Kayıt İşlemi Başarısız.</div>";
+                }
+            } else {
+                echo "<div class='alert alert-danger'>İşlem Başarısız.</div>";
+            }
+        } else {
+            echo "<div class='alert alert-danger'>Hisse Fiyatı Değişti</div>";
+        }
+    } else {
+        echo "<div class='alert alert-danger'>Girilen Hisse Miktarı Portföyünüzde Bulunmamakta.</div>";
+    }
+}
 
 ?>

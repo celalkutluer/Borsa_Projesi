@@ -10,7 +10,6 @@ $h_td_sembol = ara('target="_blank">', '</a>', $icerik);//hisse adlarının dizi
 $tum_hisse_dizileri = array();
 ///
 $komisyon = 1.003;
-$komisyonx = 1.003;
 ?>
 <section role="main" class="content-body">
     <section class="section bg-color-quy">
