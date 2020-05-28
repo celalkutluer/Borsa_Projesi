@@ -34,23 +34,24 @@ if (g('islem') == 'ygiris') {
         foreach ($v as $ykul_bilgileri) ;
         if ($say) {
             if ($ykul_bilgileri['kul_Yetki'] == '1' || $ykul_bilgileri['kul_Yetki'] == '0') {
-                //
-
-                $bir=date_format(date_modify(date_create((new \DateTime())->format('Y-m-d H:i:s')),"+1 hours"),"d-m-Y H:i:s");
-
-                $datem=date_create($ykul_bilgileri['kul_Pasif_Tarih']);
-                $sure="+".$ykul_bilgileri['kul_Pasif_Sure']." days";
-                date_modify($datem,$sure);
-                $iki=date_format($datem,"d-m-Y H:i:s");
-                //
-                if($ykul_bilgileri['kul_Pasif_Durum']=='0'&&strtotime($iki)>strtotime($bir))
+                if($ykul_bilgileri['kul_Pasif_Durum']=='0')
                 {
-                    echo "<div class='alert alert-danger'>Hesabınız Yönetici tarafından pasife alınmıştır.  ".$iki." den önce giriş yapamazsınız.</div>";
-                    echo "<div class='alert alert-danger'>Şu anki zaman :".$bir."</div>";
-                }
-                else
-                {
-                    if($ykul_bilgileri['kul_Pasif_Durum']=='0'){
+                    ///
+                    $bir=date_format(date_modify(date_create((new \DateTime())->format('Y-m-d H:i:s')),"+1 hours"),"d-m-Y H:i:s");
+                    ///
+                    $datem=date_create($ykul_bilgileri['kul_Pasif_Tarih']);
+                    $sure="+".$ykul_bilgileri['kul_Pasif_Sure']." days";
+                    date_modify($datem,$sure);
+                    $iki=date_format($datem,"d-m-Y H:i:s");
+                    //
+                    if(strtotime($iki)>strtotime($bir)){
+                        echo "<div class='alert alert-danger'>Hesabınız Yönetici tarafından pasife alınmıştır. </div>";
+                        echo "<div class='alert alert-danger'> ".$iki." den önce giriş yapamazsınız.</div>";
+                        echo "<div class='alert alert-danger'>Şu anki zaman :".$bir."</div>";
+                    }
+                    else
+                    {
+                        ///
                         $kul_gun = $db->prepare("UPDATE kullanicilar SET kul_Pasif_Durum='1' WHERE kul_Id=?");
                         $kul_gunce = $kul_gun->execute(array($ykul_bilgileri['kul_Id']));
                         ///
@@ -58,6 +59,9 @@ if (g('islem') == 'ygiris') {
                         $eklem_log = $ekl_log->execute(array());
                         ///
                     }
+                }
+                else
+                {
                     $_SESSION['isim'] = $ykul_bilgileri['kul_Ad'];
                     $_SESSION['soyisim'] = $ykul_bilgileri['kul_Soyad'];
                     $_SESSION['eposta'] = $ykul_bilgileri['kul_Eposta'];
