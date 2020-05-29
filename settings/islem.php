@@ -246,10 +246,10 @@ if (g('islem') == 'lig_olustur') {
                     echo "<div class='alert alert-danger'>Log Kayıt İşlemi Başarısız.</div>";
                 }
             } else {
-                echo "<div class='alert alert-success'>Lig Kayıt İşlemi Başarısız oldu</div>";
+                echo "<div class='alert alert-danger'>Lig Kayıt İşlemi Başarısız oldu</div>";
             }
         } else {
-            echo "<div class='alert alert-success'>Girilen Lig Başlığı Mevcut. Başka Bir Lig Başlığı Deneyin.</div>";
+            echo "<div class='alert alert-danger'>Girilen Lig Başlığı Mevcut. Başka Bir Lig Başlığı Deneyin.</div>";
 
         }
     }

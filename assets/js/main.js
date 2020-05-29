@@ -17,19 +17,25 @@ $("#btnSignIn").click(function () {
 });
 $("#btnfrmKayit").click(function () {
     var data = $("#frmKayit").serialize();
-    $.ajax({
-            type: 'POST',
-            url: 'settings/islem.php?islem=kayit',
-            data: data,
-            success: function (cevap) {
-                $("#ykayitAlert").html(cevap).hide().fadeIn(700);
-                var x = Math.floor((Math.random() * 10) + 1);
-                var y = Math.floor((Math.random() * 10) + 1);
-                $("#frmKayitgiris_dogrulama_text").text(x + "+" + y + " sayılarını toplayarak sonucu giriniz.");
-                $("#frmKayitgiris_dogrulama_input").val(md5(x + y));
+    var check=document.getElementById("frmKayitSozlesme").checked;
+    if(check){
+        $.ajax({
+                type: 'POST',
+                url: 'settings/islem.php?islem=kayit',
+                data: data,
+                success: function (cevap) {
+                    $("#ykayitAlert").html(cevap).hide().fadeIn(700);
+                    var x = Math.floor((Math.random() * 10) + 1);
+                    var y = Math.floor((Math.random() * 10) + 1);
+                    $("#frmKayitgiris_dogrulama_text").text(x + "+" + y + " sayılarını toplayarak sonucu giriniz.");
+                    $("#frmKayitgiris_dogrulama_input").val(md5(x + y));
+                }
             }
-        }
-    );
+        );
+    }else {
+        alert("Üyelik Sözleşmesini okuyun ve Üyelik Sözleşmesini okudum checkbox'ını işaretleyin.");
+    }
+
 });
 $("#lig_olustur_btn").click(function () {
     var data = $("#lig_olustur_form").serialize();
