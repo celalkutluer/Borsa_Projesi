@@ -108,7 +108,7 @@ if (g('islem') == 'kayit') {
     $Sifre = p('frmKayitSifre');
     $Sifreconfirm = p('frmKayitSifreconfirm');
     $Dogum_tar = p('frmKayitDogum_tar');
-    $CepTelNo = p('frmKayitCepTelNo');
+    $CepTelNo = NumarayiFormatla(p('frmKayitCepTelNo'));
     ///
     $toplam = p('frmKayittoplam');
     $dkodu = p('frmKayitdkodu');
@@ -133,6 +133,8 @@ if (g('islem') == 'kayit') {
         echo "<div class='alert alert-warning'>Lütfen Doğrulama kodunu giriniz.</div>";
     } elseif ($toplam != md5($dkodu)) {
         echo "<div class='alert alert-warning'>Doğrulama kodunuz hatalı.</div>";
+    } elseif (!filter_var($Email, FILTER_VALIDATE_EMAIL)) {
+        echo "<div class='alert alert-warning'>Eposta adresi hatalı.</div>";
     } else {
         //////////////////////////////////////////////////////////////////////////////////////////////////
         $veri1 = $db->prepare('SELECT kul_Eposta FROM kullanicilar WHERE kul_Eposta=?');
@@ -371,7 +373,7 @@ if (g('islem') == 'profil_bilgi_kaydet') {
     $profilAd= p('profilAd');
     $profilSoyad= p('profilSoyad');
     $profilEposta= p('profilEposta');
-    $profilCepNo= p('profilCepNo');
+    $profilCepNo= NumarayiFormatla(p('profilCepNo'));
     $profilDogumTar= p('profilDogumTar');
     $id= p('kul_id');
     ///

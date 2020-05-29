@@ -1,1 +1,0 @@
-<button class='btn btn-primary' onclick=".chr(34)."pasife_al_btn("."'".$sayi."'".")".chr(34)>Katıl</button>
