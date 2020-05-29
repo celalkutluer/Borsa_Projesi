@@ -135,7 +135,8 @@ if (g('islem') == 'kayit') {
         echo "<div class='alert alert-warning'>Doğrulama kodunuz hatalı.</div>";
     } elseif (!filter_var($Email, FILTER_VALIDATE_EMAIL)) {
         echo "<div class='alert alert-warning'>Eposta adresi hatalı.</div>";
-    } else {
+    }
+    else {
         //////////////////////////////////////////////////////////////////////////////////////////////////
         $veri1 = $db->prepare('SELECT kul_Eposta FROM kullanicilar WHERE kul_Eposta=?');
         $veri1->execute(array($Email));
@@ -382,6 +383,7 @@ if (g('islem') == 'profil_bilgi_kaydet') {
     elseif (empty($profilEposta)){echo "<div class='alert alert-warning'>Lütfen E-posta Adresinizi giriniz.</div>";}
     elseif (empty($profilCepNo)){echo "<div class='alert alert-warning'>Lütfen Cep Numaranızı giriniz.</div>";}
     elseif (empty($profilDogumTar)){echo "<div class='alert alert-warning'>Lütfen Doğum Tarihinizi giriniz.</div>";}
+    elseif (!filter_var($profilEposta, FILTER_VALIDATE_EMAIL)){echo "<div class='alert alert-warning'>Geçerli bir E-posta Adresi giriniz.</div>";}
     else {
         ///
         $veri_profil = $db->prepare('SELECT `kul_Ad`,`kul_Soyad`,`kul_Eposta`,`kul_CepNo`,`kul_DogumTar` FROM `kullanicilar` WHERE `kul_Id`=?');
@@ -461,7 +463,7 @@ VALUES ('" . $_SESSION['kul_id'] . "','Profil Bilgi Güncelleme','" . $_SESSION[
 
         }
         if($profil['kul_CepNo']!=$profilCepNo){
-            $kul_gunce_Eposta = $db->prepare("UPDATE kullanicilar SET kul_CepNo='" . $profilEposta . "' WHERE kul_Id=?");
+            $kul_gunce_Eposta = $db->prepare("UPDATE kullanicilar SET kul_CepNo='" . $profilCepNo . "' WHERE kul_Id=?");
             $kul_guncellem_Eposta = $kul_gunce_Eposta->execute(array($_SESSION['kul_id']));
             if ($kul_guncellem_Eposta) {
                 echo "<div class='alert alert-success'>Cep no Değişikliği İşleminiz Gerçekleşti.</div><meta http-equiv='refresh' content='1; url=profil.php'>";
@@ -532,67 +534,7 @@ VALUES ('" . $_SESSION['kul_id'] . "','Profil Şifre Güncelleme','" . $_SESSION
 }
 
 ///
-/*HİSSE BİLGİLERİ YÜKLEME*/
-///
-$link = "http://bigpara.hurriyet.com.tr/borsa/canli-borsa/";
-$icerik = file_get_contents($link);
-$icerik = preg_replace('~[\r\n]~', '', $icerik);
-$icerik = preg_replace('~[ ]~', '', $icerik);
-///
-$h_td_sembol = array();
-$h_td_sembol = ara('target="_blank">', '</a>', $icerik);
-///
-if (g('islem') == 'tablo_bilgi_al') {
-
-    $h_td_sembol = ara('target="_blank">', '</a>', $icerik);//hisse adlarının dizisi[0] - [99] arası 100 hisse
-    $tum_hisse_dizileri = array();
-
-    for ($sayi = 0; $sayi < 100; $sayi++) {
-        $hisse_tekil = array();
-
-        $h_td_yuzde_id_deger = ara('h_td_yuzde_id_' . $h_td_sembol[$sayi] . '">', '</li>', $icerik);
-        $h_td_fiyat_id_deger = ara('h_td_fiyat_id_' . $h_td_sembol[$sayi] . '">', '</li>', $icerik);
-        $h_td_farktl_id_deger = ara('h_td_farktl_id_' . $h_td_sembol[$sayi] . '">', '</li>', $icerik);
-        $h_td_dusuk_id_deger = ara('h_td_dusuk_id_' . $h_td_sembol[$sayi] . '">', '</li>', $icerik);
-        $h_td_yuksek_id_deger = ara('h_td_yuksek_id_' . $h_td_sembol[$sayi] . '">', '</li>', $icerik);
-        $h_td_hacimlot_id_deger = ara('h_td_hacimlot_id_' . $h_td_sembol[$sayi] . '">', '</li>', $icerik);
-        $h_td_hacimtl_id_deger = ara('h_td_hacimtl_id_' . $h_td_sembol[$sayi] . '">', '</li>', $icerik);
-        $h_td_saat_id_deger = ara('h_td_saat_id_' . $h_td_sembol[$sayi] . '">', '</li>', $icerik);
-
-        array_push($hisse_tekil,
-            $h_td_sembol[$sayi],
-            $h_td_yuzde_id_deger,
-            $h_td_fiyat_id_deger,
-            $h_td_farktl_id_deger,
-            $h_td_dusuk_id_deger,
-            $h_td_yuksek_id_deger,
-            $h_td_hacimlot_id_deger,
-            $h_td_hacimtl_id_deger,
-            $h_td_saat_id_deger
-        );
-        array_push($tum_hisse_dizileri, $hisse_tekil);
-    }
-    echo json_encode($tum_hisse_dizileri);
-}
-if (g('islem') == 'tablo_yukselen_dusen') {
-    $h_td_sembol = ara('target="_blank">', '</a>', $icerik);//hisse adlarının dizisi[0] - [99] arası 100 hisse
-    $tum_hisse_dizileri = array();
-
-    for ($sayi = 0; $sayi < 100; $sayi++) {
-        $tum_hiss = array();
-        $hisse_tekil_yuzde = ara('h_td_yuzde_id_' . $h_td_sembol[$sayi] . '">', '</li>', $icerik);
-        $hisse_tekil_fiyat = ara('h_td_fiyat_id_' . $h_td_sembol[$sayi] . '">', '</li>', $icerik);
-        array_push($tum_hiss, $h_td_sembol[$sayi], convert_virgül_nokta($hisse_tekil_yuzde[0]), convert_virgül_nokta($hisse_tekil_fiyat[0]));
-        array_push($tum_hisse_dizileri, $tum_hiss);
-
-    }
-    $sorted = val_sort($tum_hisse_dizileri, 1);//1=yuzde
-    //echo "<pre>";
-    //print_r($sorted);
-    echo json_encode($sorted);
-    //echo "</pre>";
-}
-/*HİSSE BİLGİLERİ YÜKLEME*/
+/*HİSSE AL-SAT*/
 if (g('islem') == 'hisse_satin_al') {
     ///
     $hisse_satin_al_kul_id = p('kul_id');
@@ -839,5 +781,67 @@ if (g('islem') == 'hisse_sat_aktif_varlik') {
         echo "<div class='alert alert-danger'>Girilen Hisse Miktarı Portföyünüzde Bulunmamakta.</div>";
     }
 }
+///
+/*HİSSE BİLGİLERİ YÜKLEME*/
+///
+$link = "http://bigpara.hurriyet.com.tr/borsa/canli-borsa/";
+$icerik = file_get_contents($link);
+$icerik = preg_replace('~[\r\n]~', '', $icerik);
+$icerik = preg_replace('~[ ]~', '', $icerik);
+///
+$h_td_sembol = array();
+$h_td_sembol = ara('target="_blank">', '</a>', $icerik);
+///
+if (g('islem') == 'tablo_bilgi_al') {
+
+    $h_td_sembol = ara('target="_blank">', '</a>', $icerik);//hisse adlarının dizisi[0] - [99] arası 100 hisse
+    $tum_hisse_dizileri = array();
+
+    for ($sayi = 0; $sayi < 100; $sayi++) {
+        $hisse_tekil = array();
+
+        $h_td_yuzde_id_deger = ara('h_td_yuzde_id_' . $h_td_sembol[$sayi] . '">', '</li>', $icerik);
+        $h_td_fiyat_id_deger = ara('h_td_fiyat_id_' . $h_td_sembol[$sayi] . '">', '</li>', $icerik);
+        $h_td_farktl_id_deger = ara('h_td_farktl_id_' . $h_td_sembol[$sayi] . '">', '</li>', $icerik);
+        $h_td_dusuk_id_deger = ara('h_td_dusuk_id_' . $h_td_sembol[$sayi] . '">', '</li>', $icerik);
+        $h_td_yuksek_id_deger = ara('h_td_yuksek_id_' . $h_td_sembol[$sayi] . '">', '</li>', $icerik);
+        $h_td_hacimlot_id_deger = ara('h_td_hacimlot_id_' . $h_td_sembol[$sayi] . '">', '</li>', $icerik);
+        $h_td_hacimtl_id_deger = ara('h_td_hacimtl_id_' . $h_td_sembol[$sayi] . '">', '</li>', $icerik);
+        $h_td_saat_id_deger = ara('h_td_saat_id_' . $h_td_sembol[$sayi] . '">', '</li>', $icerik);
+
+        array_push($hisse_tekil,
+            $h_td_sembol[$sayi],
+            $h_td_yuzde_id_deger,
+            $h_td_fiyat_id_deger,
+            $h_td_farktl_id_deger,
+            $h_td_dusuk_id_deger,
+            $h_td_yuksek_id_deger,
+            $h_td_hacimlot_id_deger,
+            $h_td_hacimtl_id_deger,
+            $h_td_saat_id_deger
+        );
+        array_push($tum_hisse_dizileri, $hisse_tekil);
+    }
+    echo json_encode($tum_hisse_dizileri);
+}
+if (g('islem') == 'tablo_yukselen_dusen') {
+    $h_td_sembol = ara('target="_blank">', '</a>', $icerik);//hisse adlarının dizisi[0] - [99] arası 100 hisse
+    $tum_hisse_dizileri = array();
+
+    for ($sayi = 0; $sayi < 100; $sayi++) {
+        $tum_hiss = array();
+        $hisse_tekil_yuzde = ara('h_td_yuzde_id_' . $h_td_sembol[$sayi] . '">', '</li>', $icerik);
+        $hisse_tekil_fiyat = ara('h_td_fiyat_id_' . $h_td_sembol[$sayi] . '">', '</li>', $icerik);
+        array_push($tum_hiss, $h_td_sembol[$sayi], convert_virgül_nokta($hisse_tekil_yuzde[0]), convert_virgül_nokta($hisse_tekil_fiyat[0]));
+        array_push($tum_hisse_dizileri, $tum_hiss);
+
+    }
+    $sorted = val_sort($tum_hisse_dizileri, 1);//1=yuzde
+    //echo "<pre>";
+    //print_r($sorted);
+    echo json_encode($sorted);
+    //echo "</pre>";
+}
+
 
 ?>
