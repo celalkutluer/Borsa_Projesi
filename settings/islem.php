@@ -175,7 +175,7 @@ VALUES ('" . $Ad . "','" . $Soyad . "','" . $Email . "','" . sha1(md5($Email)) .
                  } catch (Exception $e) {
                      echo 'Caught exception: '. $e->getMessage() ."\n";
                  }*/
-                echo "<div class='alert alert-success'>Kayit işleminiz başarı ile gerçekleştirildi. E-posta adresinize doğrulama kodu gönderildi.</div>";//<meta http-equiv='refresh' content='1; url=giris.php'>
+                echo "<div class='alert alert-success'>Kayit işleminiz başarı ile gerçekleştirildi.</div><meta http-equiv='refresh' content='1; url=giris.php'>";// E-posta adresinize doğrulama kodu gönderildi.
                 //
                 $veri_log = $db->prepare('SELECT kul_id FROM kullanicilar WHERE kul_Eposta=?');
                 $veri_log->execute(array($Email));
@@ -308,17 +308,39 @@ if (g('islem') == 'lig_ayril') {
     $vm = $verim->fetchAll(PDO::FETCH_ASSOC);
     foreach ($vm as $liglerim) ;
     ///
-    if($liglerim['lig_yonetici_id']==$_SESSION['kul_id'])
-    {
-        $lig_gunce = $db->prepare("UPDATE ligler SET lig_yonetici_id=null WHERE lig_Id=?");
-        $lig_guncellemem = $lig_gunce->execute(array($kulla['kul_lig_id']));
-    }
-
     $lig_guncem = $db->prepare("UPDATE ligler SET lig_bos_uyelik='" . ($liglerim['lig_bos_uyelik']+1) . "' WHERE lig_Id=?");
     $lig_guncelleme = $lig_guncem->execute(array($kulla['kul_lig_id']));
     ///
     $kul_gunce = $db->prepare("UPDATE kullanicilar SET kul_lig_id=null WHERE kul_Id=?");
     $kul_guncellemem = $kul_gunce->execute(array($_SESSION['kul_id']));
+    ///
+    $veri_sonmu = $db->prepare('SELECT `kul_Id` FROM `kullanicilar` WHERE `kul_lig_id`=? order by `kul_Uyelik_Tarih` ASC LIMIT 1');
+    $veri_sonmu->execute(array($kulla['kul_lig_id']));
+    $v_sonmu = $veri_sonmu->fetchAll(PDO::FETCH_ASSOC);
+    $say_sonmu = $veri_sonmu->rowCount();
+    foreach ($v_sonmu as $kulla_sonmu) ;
+    ////
+    if($say_sonmu&&$liglerim['lig_yonetici_id']==$_SESSION['kul_id']){
+        $lig_gunce = $db->prepare("UPDATE ligler SET lig_yonetici_id='".$kulla_sonmu['kul_Id']."' WHERE lig_Id=?");
+        $lig_guncellemem = $lig_gunce->execute(array($kulla['kul_lig_id']));
+    }
+    elseif(!$say_sonmu)
+    {
+        $lig_gunce = $db->prepare("DELETE FROM `ligler` WHERE `lig_id`=?");
+        $lig_guncellemem = $lig_gunce->execute(array($kulla['kul_lig_id']));
+        echo "<div class='alert alert-success'>Liginizin son elemanı olduğunuz ve ayrıldığınızdan liginiz silindi.</div><meta http-equiv='refresh' content='2; url=ligler.php'>";
+        //
+        $ekle_log_lig_sil = $db->prepare("INSERT INTO log(log_kul_id, log_eylem, log_aciklama) 
+VALUES ('" . $_SESSION['kul_id'] . "','Lig Silme','" . $_SESSION['kul_id'] . " -Nolu kullanıcı " . $kulla['kul_Ad'] . " " .
+            $kulla['kul_Soyad'] . " " . $kulla['kul_lig_id'] . " nolu " . $liglerim['lig_baslik'] . " liginden ayrıldı. Ligin son üyesi olduğundan lig silindi')");
+        $ekleme_log_lig_sil = $ekle_log_lig_sil->execute(array());
+        if ($ekleme_log_lig_sil) {
+            echo "<div class='alert alert-success'>Log Ekleme İşlemi Tamamlandı.</div>";
+        } else {
+            echo "<div class='alert alert-danger'>Log Kayıt İşlemi Başarısız.</div>";
+        }
+        //
+    }
     ///
     if ($kul_guncellemem&&$lig_guncelleme) {
         echo "<div class='alert alert-success'>Ligden Ayrılma İşleminiz Gerçekleşti.</div><meta http-equiv='refresh' content='1; url=ligler.php'>";

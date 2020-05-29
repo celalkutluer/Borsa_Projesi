@@ -57,7 +57,7 @@ kullanicikontrol();
                         </div>
                     </header>
                     <div class="panel-body">
-                        <table class="table table-bordered table-striped mb-none" id="datatable-default">
+                        <table class="table table-bordered table-striped mb-none" id="datatable-tabletools">
                             <thead>
                             <tr>
                                 <th>Sıra</th>

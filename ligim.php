@@ -34,6 +34,7 @@ kullanicikontrol();
                                     <th class='text-center'>#</th>
                                     <th class='text-center'>Ad</th>
                                     <th class='text-center'>Soyad</th>
+                                    <th class='text-center'>Yatırımcı/Yönetici</th>
                                     <th class='text-center'>Toplam Kazanç</th>
                                 </tr>
                                 </thead>
@@ -43,17 +44,31 @@ kullanicikontrol();
 
                                 } else {
                                     $sayi = 0;
-                                    $veri_lig = $db->prepare('SELECT upper(kullanicilar.kul_Ad) as ad, upper(kullanicilar.kul_Soyad) as soyad,sum(satim.satim_kar_zarar) as kazanc FROM kullanicilar INNER JOIN satim on satim.satim_kul_id=kullanicilar.kul_Id WHERE kul_lig_id=1 GROUP By kul_Id ORDER by sum(satim.satim_kar_zarar) DESC
-');
+                                    /////
+                                    $veri_lig_yon = $db->prepare('SELECT `lig_yonetici_id` FROM `ligler` WHERE `lig_id`=?');
+                                    $veri_lig_yon->execute(array($ligler['kul_lig_id']));
+                                    $v_lig_yon = $veri_lig_yon->fetchAll(PDO::FETCH_ASSOC);
+                                    foreach ($v_lig_yon as $lig_yon);
+                                    /////
+                                    $veri_lig = $db->prepare('SELECT kullanicilar.kul_Id as id,upper(kullanicilar.kul_Ad) as ad, upper(kullanicilar.kul_Soyad) as soyad,sum(satim.satim_kar_zarar) as kazanc FROM kullanicilar INNER JOIN satim on satim.satim_kul_id=kullanicilar.kul_Id WHERE kul_lig_id=? GROUP By kul_Id ORDER by sum(satim.satim_kar_zarar) DESC');
                                     $veri_lig->execute(array($ligler['kul_lig_id']));
                                     $v_lig = $veri_lig->fetchAll(PDO::FETCH_ASSOC);
                                     $say_lig = $veri_lig->rowCount();
+                                    ///
                                     foreach ($v_lig as $lig) {
                                         echo
                                             "<tr>
                                 <td class='text-center' id='lig_baslik_" . $sayi . "'>" . ($sayi + 1) . "</td>
                                 <td class='text-center' id='lig_baslik_" . $sayi . "'>" . $lig['ad'] . "</td>
                                 <td class='text-center' id='lig_bosluk_" . $sayi . "'>" . $lig['soyad'] . "</td>
+                                <td class='text-center' id='lig_yon_" . $sayi . "'>";
+                                        if($lig['id']==$lig_yon['lig_yonetici_id']){
+                                            echo "Lig Yöneticisi";
+                                        }
+                                        else{
+                                            echo "Yatırımcı";
+                                        }
+                                        echo "</td>
                                 <td class='text-center' id='lig_kazanc_" . $sayi . "'>" . $lig['kazanc'] . " TL</td>
                                     </tr>";
                                         $sayi++;
