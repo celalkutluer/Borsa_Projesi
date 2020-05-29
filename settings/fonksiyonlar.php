@@ -31,14 +31,12 @@ function p($par)
     $par = htmlspecialchars(addslashes(trim($_POST[$par])));
     return $par;
 }
-
 ///////////////////////SESSİON
 function s($par)
 {
     $session = $_SESSION[$par];
     return $session;
 }
-
 ///////////////////////YONETİCİ
 function yoneticikontrol()
 {
@@ -49,7 +47,6 @@ function yoneticikontrol()
         exit;
     }
 }
-
 /////////////////////////////KULLANICI KONTROL
 function kullanicikontrol()
 {
@@ -60,7 +57,6 @@ function kullanicikontrol()
         exit;
     }
 }
-
 /////////////////////////////
 function convert_virgül_nokta($data)
 {
@@ -104,4 +100,69 @@ function bakiye_son($sembol)
     return convert_virgül_nokta($h_td_fiyat_id_deger[0]);
 }
 
+function rasgeleharf($kackarakter)
+{
+    $s = "";
+    $char = "ABCDEFGHIJKLMNOPRSTUVWYZQX";
+    for ($k = 1; $k <= $kackarakter; $k++) {
+        $h = substr($char, mt_rand(0, strlen($char) - 1), 1);
+        $s .= $h;
+    }
+    return $s;
+}
+
+function uzanti($dosya)
+{
+    $uzanti = pathinfo($dosya);
+    $uzanti = $uzanti["extension"];
+    return $uzanti;
+}
+
+function resimadi()
+{
+    $rn = rand(1000, 9999);
+    $rn .= rasgeleharf(1);
+    $rn .= rand(1000, 9999);
+    $rn .= rasgeleharf(2);
+    $rn .= rasgeleharf(2);
+    $rn .= rand(1000, 9999);
+    $rn .= rasgeleharf(1);
+    $rn .= rand(1000, 9999);
+    $rn .= rasgeleharf(2);
+    $rn .= rasgeleharf(2);
+    $rn .= rand(1000, 9999);
+    $rn .= rasgeleharf(1);
+    $rn .= rand(1000, 9999);
+    $rn .= rasgeleharf(2);
+    $rn .= rasgeleharf(2);
+    $rn .= rand(1000, 9999);
+    $rn .= rasgeleharf(1);
+    $rn .= rand(1000, 9999);
+    $rn .= rasgeleharf(2);
+    $rn .= rasgeleharf(2);
+    $rn .= rand(1000, 9999);
+    $rn .= rasgeleharf(1);
+    return $rn;
+}
+
+function resimyukle($postisim, $yeniisim, $yol)
+{
+    // VEROT RESİM YÜKLEME
+    $foo = new Upload($_FILES[$postisim]);
+    if ($foo->uploaded) {
+        $foo->allowed = array('image/*');
+        $foo->file_new_name_body = $yeniisim;
+        $foo->image_resize = true;
+        $foo->image_x = 500;
+        $foo->image_ratio_y = true;
+        $foo->Process($yol);
+        if ($foo->processed) {
+            $foo->Clean();
+            return true;
+        } else {
+            return false;
+        }
+    }
+    // VEROT RESİM YÜKLEME
+}
 ?>

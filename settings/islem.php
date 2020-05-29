@@ -831,7 +831,7 @@ if (g('islem') == 'hisse_sat_aktif_varlik') {
                 echo "<div class='alert alert-danger'>İşlem Başarısız.</div>";
             }
         } else {
-            echo "<div class='alert alert-danger'>Hisse Fiyatı Değişti</div>";
+            echo "<div class='alert alert-danger'>Hisse Fiyatı Değişti. Sayfayı güncelleyiniz.</div>";
         }
     } else {
         echo "<div class='alert alert-danger'>Girilen Hisse Miktarı Portföyünüzde Bulunmamakta.</div>";

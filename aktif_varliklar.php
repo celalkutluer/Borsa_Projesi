@@ -41,8 +41,10 @@ $komisyon = 1.003;
                             $v_aktif_varlik = $veri_aktif_varlik->fetchAll(PDO::FETCH_ASSOC);
                             $say_aktif_varlik = $veri_aktif_varlik->rowCount();
                             foreach ($v_aktif_varlik as $aktif_varlik) {
+                                ////
                                 $aktif_varlik_fiyat=$aktif_varlik['alim_hisse_toplam_tutar']/$aktif_varlik['alim_hisse_lot'];
                                 $son_deger=bakiye_son($aktif_varlik['alim_hisse_sembol'] );
+                                ///
                                 echo
                                     "<tr>
                                 <td class='text-center' id='aktif_varlik_sira_" . $sayi . "'>" . ($sayi + 1) . "</td>
