@@ -22,6 +22,7 @@ if (g('islem') == 'ygiris') {
         if (isset($_POST['rememberme'])) {
             setcookie("eposta", $eposta, strtotime("+7 day"));
             setcookie("sifre", $sifre, strtotime("+7 day"));
+            echo "<div class='alert alert-info'>Sizi Hatırlayacağız...</div>";
         } else {
             setcookie("eposta", $eposta, strtotime("-7 day"));
             setcookie("sifre", $sifre, strtotime("-7 day"));
