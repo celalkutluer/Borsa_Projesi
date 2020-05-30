@@ -17,8 +17,8 @@ $("#btnSignIn").click(function () {
 });
 $("#btnfrmKayit").click(function () {
     var data = $("#frmKayit").serialize();
-    var check=document.getElementById("frmKayitSozlesme").checked;
-    if(check){
+    var check = document.getElementById("frmKayitSozlesme").checked;
+    if (check) {
         $.ajax({
                 type: 'POST',
                 url: 'settings/islem.php?islem=kayit',
@@ -32,11 +32,26 @@ $("#btnfrmKayit").click(function () {
                 }
             }
         );
-    }else {
+    } else {
         alert("Üyelik Sözleşmesini okuyun ve Üyelik Sözleşmesini okudum checkbox'ını işaretleyin.");
     }
 
 });
+///
+$("#profil_resim_kaydet_btn").click(function () {
+
+    $.ajax({
+            type: 'POST',
+            url: 'settings/islem.php?islem=profil_resim_kayit',
+            data: 0,
+            success: function (cevap) {
+                $("#profil_resim_Alert").html(cevap).hide().fadeIn(700);
+                }
+        }
+    );
+})
+;
+///
 $("#lig_olustur_btn").click(function () {
     var data = $("#lig_olustur_form").serialize();
     $.ajax({
@@ -60,6 +75,7 @@ $("#lig_ayril_btn").click(function () {
         }
     );
 });
+
 ///ALIM BUTONLARI
 function Tablo_veri_cek() {
     $.ajax({
@@ -213,13 +229,14 @@ function Tablo_veri_cek() {
         }
     });//yükselen
 }
+
 $(document).ready(function () {
     setInterval(Tablo_veri_cek, 60000);//60 saniyede bir otomatik güncelleme
     //
-    $('#profil_form_bilgi').on('input change', function() {
+    $('#profil_form_bilgi').on('input change', function () {
         $('#profil_bilgi_kaydet_btn').attr('disabled', false);
     });
-    $('#profil_form_sifre').on('input change', function() {
+    $('#profil_form_sifre').on('input change', function () {
         $('#profil_sifre_kaydet_btn').attr('disabled', false);
     });
 
