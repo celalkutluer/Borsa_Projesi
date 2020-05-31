@@ -249,7 +249,7 @@ $komisyon = 1.003;
                                                 <div class='row'>
                                                     <div class='col-md-12 text-right'>
                                                         <button type='button' class='btn btn-light modal-dismiss' >Kapat</button>
-                                                        <button type='button' id='hisse_al_btn_" . $sayi . "' type='submit'  class='btn btn-success'";
+                                                        <button type='button' id='hisse_al_btn_" . $sayi . "' type='submit'  class='btn btn-success' onclick=".chr(34)."alim_btn_func("."'".$sayi."'".")".chr(34);
                             if($range_==0){ echo "disabled"; }
                             echo ">Satın Al</button>
                                                     </div>
@@ -350,7 +350,7 @@ $komisyon = 1.003;
                                                 <div class='row'>
                                                     <div class='col-md-12 text-right'>
                                                         <button type='button' class='btn btn-light modal-dismiss' >Kapat</button>
-                                                        <button type='button' id='hisse_sat_btn_" . $sayi . "' type='submit'  class='btn btn-danger'";
+                                                        <button type='button' id='hisse_sat_btn_" . $sayi . "' type='submit'  class='btn btn-danger'onclick=".chr(34)."satim_btn_func("."'".$sayi."'".")".chr(34);
                             if($miktar==0){ echo "disabled"; }
                             echo ">Sat</button>
                                                     </div>
@@ -366,6 +366,46 @@ $komisyon = 1.003;
                         ?>
                     </tbody>
                 </table>
+                <script type="text/javascript">
+                    function alim_btn_func(no)
+                    {
+                        var data = {
+                            'sembol': document.getElementById('hisse_alim_form_sembol_'+no).innerText,
+                            'alis_tutar': document.getElementById('hisse_deger_alim_'+no).innerText,
+                            'alis_miktar': document.getElementById('rangevalue'+no).innerText,
+                            'alis_komisyon': document.getElementById('komisyon'+no).innerText,
+                            'alis_toplam': document.getElementById('toplam_odenecek_alim_tutar'+no).innerText,
+                            'kul_id': $("#anasayfa_kul_id").val()
+                        }
+                        $.ajax({
+                            type: 'POST',
+                            url: 'settings/islem.php?islem=hisse_satin_al',
+                            data: data,
+                            success: function (cevap) {
+                                $("#hisse_alim_alert").html(cevap).hide().fadeIn(700);
+                            }
+                        });
+                    }
+                    function satim_btn_func(no)
+                    {
+                        var data = {
+                            'sembol': document.getElementById('hisse_sat_form_sembol_'+no).innerText,
+                            'sat_tutar': document.getElementById('hisse_deger_sat_'+no).innerText,
+                            'sat_miktar': document.getElementById('rangevaluesat'+no).innerText,
+                            'sat_komisyon': document.getElementById('komisyonsat'+no).innerText,
+                            'sat_toplam': document.getElementById('toplam_odenecek_sat_tutar'+no).innerText,
+                            'kul_id': $("#anasayfa_kul_id").val()
+                        }
+                        $.ajax({
+                            type: 'POST',
+                            url: 'settings/islem.php?islem=hisse_sat',
+                            data: data,
+                            success: function (cevap) {
+                                $("#hisse_sat_alert").html(cevap).hide().fadeIn(700);
+                            }
+                        });
+                    }
+                </script>
             </div>
         </section>
     </section>

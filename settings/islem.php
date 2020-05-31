@@ -3,7 +3,7 @@ include "baglantilar.php";
 require_once "class.upload.php";
 include "fonksiyonlar.php";
 
-if (g('islem') == 'ygiris') {
+if (g('islem') == 'giris') {
 
     $eposta = p('eposta');
     $sifre = p('sifre');
@@ -222,7 +222,7 @@ if (g('islem') == 'profil_resim_kayit') {
                 $ekle_res = $db->prepare("UPDATE `kullanicilar` SET `kul_Resim`='" . $vtyol . "' WHERE `kul_Id`=?");
                 $ekleme_res = $ekle_res->execute(array($_SESSION['kul_id']));
                 if ($ekleme_res) {
-                    echo "<div class='alert alert-success'>Resim Güncelleme gerçekleştirildi.</div>";
+                    echo "<div class='alert alert-success'>Resim Güncelleme gerçekleştirildi.</div><meta http-equiv='refresh' content='1; url=profil.php'>";
                     ///
                     $ekle_log = $db->prepare("INSERT INTO log(log_kul_id, log_eylem, log_aciklama) VALUES ('" . $_SESSION['kul_id'] . "','Profil Resim Değiştirme','" . $_SESSION['kul_id'] . " -Nolu kullanıcı " . $_SESSION['isim'] . " " . $_SESSION['soyisim'] . ", resmini değiştirdi.')");
                     $ekleme_log = $ekle_log->execute(array());
@@ -694,6 +694,7 @@ if (g('islem') == 'hisse_sat') {
     foreach ($v as $kul_bilgilerim) ;
     //
     if ($varlik_elde['varlik_elde'] >= $hisse_sat_miktar) {//sahte girişlere karşı veritabanı karşılaştırması
+
         if (bakiye_son($hisse_sat_sembol) == $hisse_sat_tutar) {//hisse fiyatı değişti mi ? karşılaştırması
             //
             $varlik_satim_guncel = $varlik_elde['varlik_satim_adet'] + $hisse_sat_miktar;
@@ -758,7 +759,8 @@ if (g('islem') == 'hisse_sat') {
             } else {
                 echo "<div class='alert alert-danger'>İşlem Başarısız.</div>";
             }
-        } else {
+        }
+        else {
             echo "<div class='alert alert-danger'>Hisse Fiyatı Değişti</div>";
         }
     } else {
@@ -858,17 +860,16 @@ if (g('islem') == 'hisse_sat_aktif_varlik') {
 }
 ///
 /*HİSSE BİLGİLERİ YÜKLEME*/
-///
-$link = "http://bigpara.hurriyet.com.tr/borsa/canli-borsa/";
-$icerik = file_get_contents($link);
-$icerik = preg_replace('~[\r\n]~', '', $icerik);
-$icerik = preg_replace('~[ ]~', '', $icerik);
-///
-$h_td_sembol = array();
-$h_td_sembol = ara('target="_blank">', '</a>', $icerik);
-///
 if (g('islem') == 'tablo_bilgi_al') {
-
+///
+    $link = "http://bigpara.hurriyet.com.tr/borsa/canli-borsa/";
+    $icerik = file_get_contents($link);
+    $icerik = preg_replace('~[\r\n]~', '', $icerik);
+    $icerik = preg_replace('~[ ]~', '', $icerik);
+///
+    $h_td_sembol = array();
+    $h_td_sembol = ara('target="_blank">', '</a>', $icerik);
+///
     $h_td_sembol = ara('target="_blank">', '</a>', $icerik);//hisse adlarının dizisi[0] - [99] arası 100 hisse
     $tum_hisse_dizileri = array();
 
@@ -900,6 +901,15 @@ if (g('islem') == 'tablo_bilgi_al') {
     echo json_encode($tum_hisse_dizileri);
 }
 if (g('islem') == 'tablo_yukselen_dusen') {
+    ///
+    $link = "http://bigpara.hurriyet.com.tr/borsa/canli-borsa/";
+    $icerik = file_get_contents($link);
+    $icerik = preg_replace('~[\r\n]~', '', $icerik);
+    $icerik = preg_replace('~[ ]~', '', $icerik);
+///
+    $h_td_sembol = array();
+    $h_td_sembol = ara('target="_blank">', '</a>', $icerik);
+///
     $h_td_sembol = ara('target="_blank">', '</a>', $icerik);//hisse adlarının dizisi[0] - [99] arası 100 hisse
     $tum_hisse_dizileri = array();
 
@@ -917,6 +927,5 @@ if (g('islem') == 'tablo_yukselen_dusen') {
     echo json_encode($sorted);
     //echo "</pre>";
 }
-
 
 ?>

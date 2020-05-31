@@ -10,7 +10,7 @@ include "inc/header.php";
                 </div>
                 <div class="panel-body">
                     <!--ALERT-->
-                    <div id="ygirisAlert"></div>
+                    <div id="girisAlert"></div>
 
                     <!--ALERT-->
                     <form  id="frmSignIn" method="post" >
