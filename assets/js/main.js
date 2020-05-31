@@ -38,15 +38,19 @@ $("#btnfrmKayit").click(function () {
 
 });
 ///
-$("#profil_resim_kaydet_btn").click(function () {
-
+$("#but_upload").click(function () {
+    var fd = new FormData();
+    var files = $('#file')[0].files[0];
+    fd.append('file', files);
     $.ajax({
-            type: 'POST',
             url: 'settings/islem.php?islem=profil_resim_kayit',
-            data: 0,
+            type: 'post',
+            data: fd,
+            contentType: false,
+            processData: false,
             success: function (cevap) {
                 $("#profil_resim_Alert").html(cevap).hide().fadeIn(700);
-                }
+            }
         }
     );
 })

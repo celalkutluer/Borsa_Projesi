@@ -219,27 +219,30 @@ if (g('islem') == 'profil_resim_kayit') {
                 ///
                 $eskiresim = "../" . $kul_resim['kul_Resim'];
                 ///
-                if ($kul_resim['kul_Resim'] != 'img/logged-user.jpg') {
-                    $ekle_resim = $db->prepare("UPDATE `kullanicilar` SET `kul_Resim`='" . $vtyol . "' WHERE `kul_Id`=?");
-                    $ekleme_resim = $ekle_resim->execute(array($_SESSION['kul_id']));
-                    if ($ekleme_resim) {
-                        unlink($eskiresim);
-                        echo "<div class='alert alert-success'>Resim Güncelleme gerçekleştirildi.</div><meta http-equiv='refresh' content='1; url=profil.php'>";
+                $ekle_res = $db->prepare("UPDATE `kullanicilar` SET `kul_Resim`='" . $vtyol . "' WHERE `kul_Id`=?");
+                $ekleme_res = $ekle_res->execute(array($_SESSION['kul_id']));
+                if ($ekleme_res) {
+                    echo "<div class='alert alert-success'>Resim Güncelleme gerçekleştirildi.</div>";
+                    ///
+                    $ekle_log = $db->prepare("INSERT INTO log(log_kul_id, log_eylem, log_aciklama) VALUES ('" . $_SESSION['kul_id'] . "','Profil Resim Değiştirme','" . $_SESSION['kul_id'] . " -Nolu kullanıcı " . $_SESSION['isim'] . " " . $_SESSION['soyisim'] . ", resmini değiştirdi.')");
+                    $ekleme_log = $ekle_log->execute(array());
+                    if ($ekleme_log) {
+                        echo "<div class='alert alert-success'>Log Ekleme İşlemi Tamamlandı.</div>";
                     } else {
-                        echo "<div class='alert alert-danger'>Resim Güncelleme işlemi sırasında bir hata meydana geldi</div>";
+                        echo "<div class='alert alert-danger'>Log Kayıt İşlemi Başarısız.</div>";
                     }
+                    ///
+                } else {
+                    echo "<div class='alert alert-danger'>Resim Güncelleme işlemi sırasında bir hata meydana geldi</div>";
                 }
-                else {
-                    $ekle_res = $db->prepare("UPDATE `kullanicilar` SET `kul_Resim`='" . $vtyol . "' WHERE `kul_Id`=?");
-                    $ekleme_res = $ekle_res->execute(array($_SESSION['kul_id']));
+                ///
+                if ($kul_resim['kul_Resim'] != 'img/logged-user.jpg') {
                     if ($ekleme_res) {
-                        echo "<div class='alert alert-success'>Resim Güncelleme gerçekleştirildi.</div>";
-                    } else {
-                        echo "<div class='alert alert-danger'>Resim Güncelleme işlemi sırasında bir hata meydana geldi</div>";
+                        unlink($eskiresim);
                     }
                 }
             } else {
-                echo "<div class='alert alert-warning'>Personel Resmi Yüklenirken Bir Hata Oluştu.</div>";
+                echo "<div class='alert alert-warning'>Resim Yüklenirken Bir Hata Oluştu.</div>";
             }
         }
     } else {
