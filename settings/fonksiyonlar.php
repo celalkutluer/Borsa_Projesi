@@ -153,7 +153,7 @@ function resimyukle($postisim, $yeniisim, $yol)
         $foo->allowed = array('image/*');
         $foo->file_new_name_body = $yeniisim;
         $foo->image_resize = true;
-        $foo->image_x = 500;
+        $foo->image_x = 200;
         $foo->image_ratio_y = true;
         $foo->Process($yol);
         if ($foo->processed) {

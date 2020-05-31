@@ -24,6 +24,7 @@
 // | of the script so other people can use them as well.                    |
 // | This script is free to use, don't abuse.                               |
 // +------------------------------------------------------------------------+
+error_reporting(E_ALL ^ E_NOTICE);
 
 
 /**
