@@ -138,7 +138,7 @@ include "inc/header.php";
                                 </div>
                             </div>
                             <div class="col-sm-4 text-right">
-                                <button type="button" type="submit" id="btnfrmKayit" class="btn btn-primary btn-block">Kayıt</button>
+                                <button type="button" id="btnfrmKayit" class="btn btn-primary btn-block">Kayıt</button>
                             </div>
                         </div>
                     </form>

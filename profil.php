@@ -51,7 +51,7 @@ kullanicikontrol();
                                 <div class="post-info">
                                     <div class="text-center">Son 5 Online Olunan Tarih</div>
                                     <?php
-                                    //
+                                    /**/
                                     $sayi = 0;
                                     $veri_tarih = $db->prepare('SELECT log_zaman FROM log WHERE log_kul_id=? and log_eylem="Giriş" ORDER BY log_zaman DESC LIMIT 5');
                                     $veri_tarih->execute(array($_SESSION['kul_id']));
@@ -60,7 +60,7 @@ kullanicikontrol();
                                         echo "<div class='text-center'>" . (new \DateTime($tarih['log_zaman']))->format('d-m-Y H:i:s') . PHP_EOL . "</div>";
                                         $sayi++;
                                     }
-                                    //
+                                    /**/
                                     ?>
                                 </div>
                             </li>
