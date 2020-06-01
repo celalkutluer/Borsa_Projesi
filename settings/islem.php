@@ -1,6 +1,8 @@
 <?php include "baglantilar.php";
 require_once "class.upload.php";
 include "fonksiyonlar.php";
+include('../smtp/PHPMailerAutoload.php');
+
 if (g('islem') == 'giris') {
     $eposta = p('eposta');
     $sifre = p('sifre');
@@ -23,50 +25,55 @@ if (g('islem') == 'giris') {
             setcookie("eposta", $eposta, strtotime("-7 day"));
             setcookie("sifre", $sifre, strtotime("-7 day"));
         }
-        $veri = $db->prepare('SELECT kul_Id, kul_Ad, kul_Soyad, kul_Eposta, kul_Bakiye, kul_Sifre,kul_Yetki,kul_Pasif_Durum,kul_Pasif_Tarih,kul_Pasif_Sure FROM kullanicilar WHERE kul_Eposta=? AND kul_Sifre=?');
-        $veri->execute(array($eposta, md5($sifre)));
+        $veri = $db->prepare("SELECT kul_Id, kul_Ad, kul_Soyad, kul_Eposta, kul_Bakiye,kul_Eposta_Dogrulama, kul_Sifre,kul_Yetki,kul_Pasif_Durum,kul_Pasif_Tarih,kul_Pasif_Sure FROM kullanicilar WHERE kul_Eposta='" . $eposta . "' AND (kul_Sifre='" . md5($sifre). "' OR kul_Sifre_yeni='" . $sifre . "')");
+        $veri->execute(array());
         $v = $veri->fetchAll(PDO::FETCH_ASSOC);
         $say = $veri->rowCount();
         foreach ($v as $ykul_bilgileri) ;
         if ($say) {
-            if ($ykul_bilgileri['kul_Yetki'] == '1' || $ykul_bilgileri['kul_Yetki'] == '0') {
-                if ($ykul_bilgileri['kul_Pasif_Durum'] == '0') {
-                    $bir = date_format(date_modify(date_create((new \DateTime())->format('Y-m-d H:i:s')), "+1 hours"), "d-m-Y H:i:s");
-                    $datem = date_create($ykul_bilgileri['kul_Pasif_Tarih']);
-                    $sure = "+" . $ykul_bilgileri['kul_Pasif_Sure'] . " days";
-                    date_modify($datem, $sure);
-                    $iki = date_format($datem, "d-m-Y H:i:s");
-                    if (strtotime($iki) > strtotime($bir)) {
-                        echo "<div class='alert alert-danger'>Hesabınız Yönetici tarafından pasife alınmıştır. </div>";
-                        echo "<div class='alert alert-danger'> " . $iki . " den önce giriş yapamazsınız.</div>";
-                        echo "<div class='alert alert-danger'>Şu anki zaman :" . $bir . "</div>";
+            if ($ykul_bilgileri['kul_Eposta_Dogrulama'] == "1") {
+                if ($ykul_bilgileri['kul_Yetki'] == '1' || $ykul_bilgileri['kul_Yetki'] == '0') {
+                    if ($ykul_bilgileri['kul_Pasif_Durum'] == '0') {
+                        $bir = date_format(date_modify(date_create((new \DateTime())->format('Y-m-d H:i:s')), "+1 hours"), "d-m-Y H:i:s");
+                        $datem = date_create($ykul_bilgileri['kul_Pasif_Tarih']);
+                        $sure = "+" . $ykul_bilgileri['kul_Pasif_Sure'] . " days";
+                        date_modify($datem, $sure);
+                        $iki = date_format($datem, "d-m-Y H:i:s");
+                        if (strtotime($iki) > strtotime($bir)) {
+                            echo "<div class='alert alert-danger'>Hesabınız Yönetici tarafından pasife alınmıştır. </div>";
+                            echo "<div class='alert alert-danger'> " . $iki . " den önce giriş yapamazsınız.</div>";
+                            echo "<div class='alert alert-danger'>Şu anki zaman :" . $bir . "</div>";
+                        } else {
+                            $kul_gun = $db->prepare("UPDATE kullanicilar SET kul_Pasif_Durum='1' WHERE kul_Id=?");
+                            $kul_gunce = $kul_gun->execute(array($ykul_bilgileri['kul_Id']));
+                            $ekl_log = $db->prepare("INSERT INTO log(log_kul_id, log_eylem, log_aciklama) VALUES ('" . $ykul_bilgileri['kul_Id'] . "','Pasif Süre Dolması','" . $ykul_bilgileri['kul_Id'] . " -Nolu kullanıcı " . $ykul_bilgileri['kul_Ad'] . " " . $ykul_bilgileri['kul_Soyad'] . ", pasif kaldığı sürenin dolması nedeniyle aktif duruma getirildi.')");
+                            $eklem_log = $ekl_log->execute(array());
+                        }
                     } else {
-                        $kul_gun = $db->prepare("UPDATE kullanicilar SET kul_Pasif_Durum='1' WHERE kul_Id=?");
-                        $kul_gunce = $kul_gun->execute(array($ykul_bilgileri['kul_Id']));
-                        $ekl_log = $db->prepare("INSERT INTO log(log_kul_id, log_eylem, log_aciklama) VALUES ('" . $ykul_bilgileri['kul_Id'] . "','Pasif Süre Dolması','" . $ykul_bilgileri['kul_Id'] . " -Nolu kullanıcı " . $ykul_bilgileri['kul_Ad'] . " " . $ykul_bilgileri['kul_Soyad'] . ", pasif kaldığı sürenin dolması nedeniyle aktif duruma getirildi.')");
-                        $eklem_log = $ekl_log->execute(array());
+                        $_SESSION['isim'] = $ykul_bilgileri['kul_Ad'];
+                        $_SESSION['soyisim'] = $ykul_bilgileri['kul_Soyad'];
+                        $_SESSION['eposta'] = $ykul_bilgileri['kul_Eposta'];
+                        $_SESSION['yetki'] = $ykul_bilgileri['kul_Yetki'];
+                        $_SESSION['bakiye'] = $ykul_bilgileri['kul_Bakiye'];
+                        $_SESSION['kul_id'] = $ykul_bilgileri['kul_Id'];
+                        echo "<div class='alert alert-success'>Giriş Başarılı Lütfen Bekleyiniz</div><meta http-equiv='refresh' content='1; url=index.php'>";
+                        $kul_gunce = $db->prepare("UPDATE kullanicilar SET kul_Son_Giris_Tar=CURRENT_TIMESTAMP WHERE kul_Id=?");
+                        $kul_guncellemem = $kul_gunce->execute(array($ykul_bilgileri['kul_Id']));
+                        $ekle_log = $db->prepare("INSERT INTO log(log_kul_id, log_eylem, log_aciklama) VALUES ('" . $ykul_bilgileri['kul_Id'] . "','Giriş','" . $ykul_bilgileri['kul_Id'] . " -Nolu kullanıcı " . $ykul_bilgileri['kul_Ad'] . " " . $ykul_bilgileri['kul_Soyad'] . ", " . $_SERVER['REMOTE_ADDR'] . " ip adresi üzerinden giriş yaptı.')");
+                        $ekleme_log = $ekle_log->execute(array());
+                        if ($ekleme_log) {
+                            echo "<div class='alert alert-success'>Log Ekleme İşlemi Tamamlandı.</div>";
+                        } else {
+                            echo "<div class='alert alert-danger'>Log Kayıt İşlemi Başarısız.</div>";
+                        }
                     }
                 } else {
-                    $_SESSION['isim'] = $ykul_bilgileri['kul_Ad'];
-                    $_SESSION['soyisim'] = $ykul_bilgileri['kul_Soyad'];
-                    $_SESSION['eposta'] = $ykul_bilgileri['kul_Eposta'];
-                    $_SESSION['yetki'] = $ykul_bilgileri['kul_Yetki'];
-                    $_SESSION['bakiye'] = $ykul_bilgileri['kul_Bakiye'];
-                    $_SESSION['kul_id'] = $ykul_bilgileri['kul_Id'];
-                    echo "<div class='alert alert-success'>Giriş Başarılı Lütfen Bekleyiniz</div><meta http-equiv='refresh' content='1; url=index.php'>";
-                    $kul_gunce = $db->prepare("UPDATE kullanicilar SET kul_Son_Giris_Tar=CURRENT_TIMESTAMP WHERE kul_Id=?");
-                    $kul_guncellemem = $kul_gunce->execute(array($ykul_bilgileri['kul_Id']));
-                    $ekle_log = $db->prepare("INSERT INTO log(log_kul_id, log_eylem, log_aciklama) VALUES ('" . $ykul_bilgileri['kul_Id'] . "','Giriş','" . $ykul_bilgileri['kul_Id'] . " -Nolu kullanıcı " . $ykul_bilgileri['kul_Ad'] . " " . $ykul_bilgileri['kul_Soyad'] . ", " . $_SERVER['REMOTE_ADDR'] . " ip adresi üzerinden giriş yaptı.')");
-                    $ekleme_log = $ekle_log->execute(array());
-                    if ($ekleme_log) {
-                        echo "<div class='alert alert-success'>Log Ekleme İşlemi Tamamlandı.</div>";
-                    } else {
-                        echo "<div class='alert alert-danger'>Log Kayıt İşlemi Başarısız.</div>";
-                    }
+                    echo "<div class='alert alert-warning'>Giriş yetkiniz bulunmamaktadır.</div>";
                 }
             } else {
-                echo "<div class='alert alert-warning'>Giriş yetkiniz bulunmamaktadır.</div>";
+                echo "<div class='alert alert-warning'>Üyelik Doğrulama işlemini Yapmadığınız Tepit Edildi. E-posta Adresinize Gelen Kodu Girerek Üyeliğinizi Aktif Edin</div><meta http-equiv='refresh' content='2; url=kayit-dogrulama.php'>";
             }
+
         } else {
             echo "<div class='alert alert-warning'>Böyle Bir Kullanıcı Bulunmamaktadır. Lütfen Kayit olun</div><meta http-equiv='refresh' content='1; url=kayit.php'>";
         }
@@ -89,6 +96,7 @@ if (g('islem') == 'kayit') {
     $toplam = p('frmKayittoplam');
     $dkodu = p('frmKayitdkodu');
     $Sozlesme = p('frmKayitSozlesme');
+    $yas=date_diff(date_create($Dogum_tar), date_create('today'))->y;
     if (empty($Ad)) {
         echo "<div class='alert alert-warning'>Lütfen Adınızı giriniz.</div>";
     } else if (empty($Soyad)) {
@@ -109,7 +117,10 @@ if (g('islem') == 'kayit') {
         echo "<div class='alert alert-warning'>Doğrulama kodunuz hatalı.</div>";
     } elseif (!filter_var($Email, FILTER_VALIDATE_EMAIL)) {
         echo "<div class='alert alert-warning'>Eposta adresi hatalı.</div>";
-    } else {
+    } elseif ($yas<=18) {
+        echo "<div class='alert alert-warning'>18 Yaşından Küçüksünüz Bulaşmayın Bu İşlere</div>";
+    }
+    else {
         $veri1 = $db->prepare('SELECT kul_Eposta FROM kullanicilar WHERE kul_Eposta=?');
         $veri1->execute(array($Email));
         $v1 = $veri1->fetchAll(PDO::FETCH_ASSOC);
@@ -122,7 +133,6 @@ if (g('islem') == 'kayit') {
             if ($ekleme) {
                 $html = "<strong>Üyeliğiniz oluşturulmuştur. Doğrulama Kodunuz : </strong>" . $otp;
 
-                include('../smtp/PHPMailerAutoload.php');
                 $mail = new PHPMailer(true);
                 $mail->isSMTP();
                 $mail->Host = "smtp.gmail.com";
@@ -172,11 +182,9 @@ if (g('islem') == 'kodD') {
     /**/
     if (empty(p('kod'))) {
         echo "<div class='alert alert-warning'>Lütfen Doğrulama Kodunuzu Giriniz.</div>";
-    }
-    elseif (!is_numeric(p('kod'))){
+    } elseif (!is_numeric(p('kod'))) {
         echo "<div class='alert alert-warning'>Lütfen Doğrulama Kodunuzu Sayısal Olarak Giriniz.</div>";
-    }
-    else {
+    } else {
         $veri_kod = $db->prepare('SELECT kul_Id,kul_eposta,kul_eposta_dogrulama_kod,`kul_Eposta_Dogrulama` FROM kullanicilar WHERE kul_eposta_dogrulama_kod=? and `kul_Eposta_Dogrulama`="0" limit 1');
         $veri_kod->execute(array(p('kod')));
         $v_kod = $veri_kod->fetchAll(PDO::FETCH_ASSOC);
@@ -192,6 +200,88 @@ if (g('islem') == 'kodD') {
             }
         } else {
             echo "<div class='alert alert-danger'>Bu kod için doğrulanacak bir kullanıcı bulunamadı</div>";
+        }
+    }
+}
+if (g('islem') == 'kodDt') {
+
+    $veri = $db->prepare('SELECT kul_Id,kul_Eposta,kul_Eposta_Dogrulama_Kod FROM kullanicilar WHERE kul_Eposta=? and kul_Eposta_Dogrulama="0"');
+    $veri->execute(array(p('kodt')));
+    $v = $veri->fetchAll(PDO::FETCH_ASSOC);
+    $say = $veri->rowCount();
+    foreach ($v as $kul_bilgileri) ;
+    if ($say) {
+        if (empty(p('kodt'))) {
+            echo "<div class='alert alert-warning'>Lütfen Eposta Adresinizi Giriniz.</div>";
+        } elseif (!filter_var(p('kodt'), FILTER_VALIDATE_EMAIL)) {
+            echo "<div class='alert alert-warning'>Girilen Eposta Adresi Hatalı.</div>";
+        } else {
+            $html = "<strong>Üyeliğiniz oluşturulmuştur. Doğrulama Kodunuz : </strong>" . $kul_bilgileri['kul_Eposta_Dogrulama_Kod'];
+
+            $mail = new PHPMailer(true);
+            $mail->isSMTP();
+            $mail->Host = "smtp.gmail.com";
+            $mail->Port = 587;
+            $mail->SMTPSecure = "tls";
+            $mail->SMTPAuth = true;
+            $mail->Username = "borsayatirimfantaziligi@gmail.com";
+            $mail->Password = "Aa123456789.";
+            $mail->SetFrom(p('kodt'));
+            $mail->addAddress(p('kodt'));
+            $mail->IsHTML(true);
+            $mail->Subject = "Uyelik Dogrulama";
+            $mail->Body = $html;
+            $mail->SMTPOptions = array('ssl' => array(
+                'verify_peer' => false,
+                'verify_peer_name' => false,
+                'allow_self_signed' => false
+            ));
+            if ($mail->send()) {
+                echo "<div class='alert alert-success'>E-posta adresinize doğrulama kodu gönderildi.</div>";
+            } else {
+                echo "<div class='alert alert-danger'>E-posta adresinize doğrulama kodu gönderildilemedi.</div>";
+            }
+        }
+    } else {
+        echo "<div class='alert alert-danger'>Böyle Bir Kullanıcı Yok veya Doğrulama İşlemi Tamamlanmış</div>";
+    }
+}
+if (g('islem') == 'sif_u') {
+    $veri = $db->prepare('SELECT kul_Id,kul_Eposta FROM kullanicilar WHERE kul_Eposta=?');
+    $veri->execute(array(p('sif_u_eposta')));
+    $v = $veri->fetchAll(PDO::FETCH_ASSOC);
+    $say = $veri->rowCount();
+    foreach ($v as $kul_bilgileri) ;
+    if ($say) {
+        $otp = rand(10000000, 99999999);
+        /**/
+        $ekle_yeni_Sif = $db->prepare("UPDATE `kullanicilar` SET `kul_Sifre_yeni`='" . $otp . "' WHERE `kul_Id`=?");
+        $ekleme_yeni_Sif = $ekle_yeni_Sif->execute(array($kul_bilgileri['kul_Id']));
+        /**/
+        $html = "<strong> Lütfen Şifrenizi Sitemize Girer Girmez Sıfırlayın . Yeni Şifreniz : </strong>" . $otp;
+
+        $mail = new PHPMailer(true);
+        $mail->isSMTP();
+        $mail->Host = "smtp.gmail.com";
+        $mail->Port = 587;
+        $mail->SMTPSecure = "tls";
+        $mail->SMTPAuth = true;
+        $mail->Username = "borsayatirimfantaziligi@gmail.com";
+        $mail->Password = "Aa123456789.";
+        $mail->SetFrom(p('sif_u_eposta'));
+        $mail->addAddress(p('sif_u_eposta'));
+        $mail->IsHTML(true);
+        $mail->Subject = "Uyelik Dogrulama";
+        $mail->Body = $html;
+        $mail->SMTPOptions = array('ssl' => array(
+            'verify_peer' => false,
+            'verify_peer_name' => false,
+            'allow_self_signed' => false
+        ));
+        if ($mail->send()) {
+            echo "<div class='alert alert-success'>E-posta adresinize doğrulama kodu gönderildi.</div>";
+        } else {
+            echo "<div class='alert alert-danger'>E-posta adresinize doğrulama kodu gönderildilemedi.</div>";
         }
     }
 }
@@ -510,7 +600,7 @@ if (g('islem') == 'profil_sifre_kaydet') {
     } elseif ($sifre != $sifre_tekrar) {
         echo "<div class='alert alert-warning'>Şifreler Uyumsuz.</div>";
     } else {
-        $kul_gunce_Sifre = $db->prepare("UPDATE kullanicilar SET kul_Sifre='" . md5($sifre) . "' WHERE kul_Id=?");
+        $kul_gunce_Sifre = $db->prepare("UPDATE kullanicilar SET kul_Sifre='" . md5($sifre) . "',kul_Sifre_yeni=null WHERE kul_Id=?");
         $kul_guncellem_Sifre = $kul_gunce_Sifre->execute(array($_SESSION['kul_id']));
         if ($kul_guncellem_Sifre) {
             echo "<div class='alert alert-success'>Şifre Değişikliği İşleminiz Gerçekleşti.</div><meta http-equiv='refresh' content='1; url=profil.php'>";

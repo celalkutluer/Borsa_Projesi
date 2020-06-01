@@ -241,28 +241,31 @@ kullanicikontrol();
                         $v_aktif_varlik = $veri_aktif_varlik->fetchAll(PDO::FETCH_ASSOC);
                         $say_aktif_varlik = $veri_aktif_varlik->rowCount();
                         ////
-                        $satilmayan_fiyat = 0;
-                        $satilmayan_son_deger = 0;
-                        /////////////
-                        foreach ($v_aktif_varlik as $aktif_varlik) {
-                            ////
-                            $aktif_varlik_fiyat = round(($aktif_varlik['alim_hisse_toplam_tutar'] / $aktif_varlik['alim_hisse_lot']), 2);
-                            $satilmayan_fiyat = $satilmayan_fiyat + round(($aktif_varlik_fiyat * $aktif_varlik['alim_lot_satilmayan']), 2);
-                            //
-                            $son_deger = round(bakiye_son($aktif_varlik['alim_hisse_sembol']), 2);
-                            $satilmayan_son_deger = $satilmayan_son_deger + round((($son_deger * $aktif_varlik['alim_lot_satilmayan']) - ($son_deger * $aktif_varlik['alim_lot_satilmayan']) * ($komisyon - 1)), 2);
-                            ///
+                        if($say_aktif_varlik>0){
+                            $satilmayan_fiyat = 0;
+                            $satilmayan_son_deger = 0;
+                            /////////////
+                            foreach ($v_aktif_varlik as $aktif_varlik) {
+                                ////
+                                $aktif_varlik_fiyat = round(($aktif_varlik['alim_hisse_toplam_tutar'] / $aktif_varlik['alim_hisse_lot']), 2);
+                                $satilmayan_fiyat = $satilmayan_fiyat + round(($aktif_varlik_fiyat * $aktif_varlik['alim_lot_satilmayan']), 2);
+                                //
+                                $son_deger = round(bakiye_son($aktif_varlik['alim_hisse_sembol']), 2);
+                                $satilmayan_son_deger = $satilmayan_son_deger + round((($son_deger * $aktif_varlik['alim_lot_satilmayan']) - ($son_deger * $aktif_varlik['alim_lot_satilmayan']) * ($komisyon - 1)), 2);
+                                ///
+                            }
+                            $toplam_varlik_kar = round((($satilmayan_son_deger / $satilmayan_fiyat) - 1), 5);
+                            echo "<h3 class='";
+                            if ($toplam_varlik_kar > 0) {
+                                echo "fa fa-arrow-up";
+                            } elseif ($toplam_varlik_kar == 0) {
+                                echo "fa fa-minus";
+                            } else {
+                                echo "fa fa-arrow-down";
+                            }
+                            echo " '> " . $toplam_varlik_kar;
                         }
-                        $toplam_varlik_kar = round((($satilmayan_son_deger / $satilmayan_fiyat) - 1), 5);
-                        echo "<h3 class='";
-                        if ($toplam_varlik_kar > 0) {
-                            echo "fa fa-arrow-up";
-                        } elseif ($toplam_varlik_kar == 0) {
-                            echo "fa fa-minus";
-                        } else {
-                            echo "fa fa-arrow-down";
-                        }
-                        echo " '> " . $toplam_varlik_kar . " %</h3>
+                        echo " %</h3>
                         <p>Elimdeki Lotların Kar-Zarar Durumu</p>
                     </li>";
                         ?>
@@ -272,8 +275,13 @@ kullanicikontrol();
                             $veri_profil_aylik_kar = $db->prepare('SELECT sum(`satim_kar_zarar`) as durum,sum(`satim_hisse_toplam_tutar`) as toplam FROM `satim` WHERE satim_zaman between DATE_SUB(DATE_SUB(CURDATE(), INTERVAL 1 MONTH), INTERVAL -1 DAY) and DATE_SUB(CURDATE(), INTERVAL -1 DAY) and `satim_kul_id`=?');
                             $veri_profil_aylik_kar->execute(array($_SESSION['kul_id']));
                             $v_profil_aylik_kar = $veri_profil_aylik_kar->fetchAll(PDO::FETCH_ASSOC);
+                            $say_profil_aylik_kar = $veri_profil_aylik_kar->rowCount();
                             foreach ($v_profil_aylik_kar as $profil_aylik_kar) ;
-                            echo round(($profil_aylik_kar['durum'] / ($profil_aylik_kar['toplam'] - $profil_aylik_kar['durum'])), 5) . " %</h3>
+
+                            if($say_profil_aylik_kar>0&&($profil_aylik_kar['toplam'] - $profil_aylik_kar['durum'])!=0){
+                                echo round(($profil_aylik_kar['durum'] / ($profil_aylik_kar['toplam'] - $profil_aylik_kar['durum'])), 5);
+                            }
+                            echo " %</h3>
                         <p>Son 1 aydaki Kar-Zarar Durumum</p>
                     </li>";
                             ?>
@@ -283,8 +291,10 @@ kullanicikontrol();
                             $veri_profil_aylik_kar = $db->prepare('SELECT sum(`satim_kar_zarar`) as durum,sum(`satim_hisse_toplam_tutar`) as toplam FROM `satim` WHERE satim_zaman between DATE_SUB(DATE_SUB(CURDATE(), INTERVAL 1 MONTH), INTERVAL -1 DAY) and DATE_SUB(CURDATE(), INTERVAL -1 DAY) and `satim_kul_id`=?');
                             $veri_profil_aylik_kar->execute(array($_SESSION['kul_id']));
                             $v_profil_aylik_kar = $veri_profil_aylik_kar->fetchAll(PDO::FETCH_ASSOC);
+
                             foreach ($v_profil_aylik_kar as $profil_aylik_kar) ;
-                            echo round(($profil_aylik_kar['durum'] / ($profil_aylik_kar['toplam'] - $profil_aylik_kar['durum'])), 5) . " %</h3>
+                            if(($profil_aylik_kar['toplam'] - $profil_aylik_kar['durum'])!=0){echo round(($profil_aylik_kar['durum'] / ($profil_aylik_kar['toplam'] - $profil_aylik_kar['durum'])), 5) ;}
+                             echo  " %</h3>
                         <p>Genel Kar-Zarar Durumum</p>
                     </li>";
                             ?>

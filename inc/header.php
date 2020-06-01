@@ -3,7 +3,7 @@ include "settings/baglantilar.php";
 include "settings/fonksiyonlar.php";
 
 if (isset($_SESSION['yetki'])) {
-    $bakiye_sorgula = $db->prepare('SELECT kul_bakiye FROM kullanicilar WHERE kul_id=?');
+    $bakiye_sorgula = $db->prepare('SELECT kul_bakiye,kul_Sifre_yeni FROM kullanicilar WHERE kul_id=?');
     $bakiye_sorgula->execute(array($_SESSION['kul_id']));
     $v = $bakiye_sorgula->fetchAll(PDO::FETCH_ASSOC);
     foreach ($v as $kul_bilgilerim) ;
@@ -166,8 +166,14 @@ if (isset($_SESSION['yetki'])) {
                                             </li>
                                             <li>
                                                 <a class='nav-link '>BAKİYENİZ : " . $_SESSION['bakiye'] . " &#x20BA;</a>
-                                            </li>
-                                            <li>
+                                            </li>";
+                                if ($kul_bilgilerim['kul_Sifre_yeni'] != null) {
+                                    echo "<li>
+                                                <a class='nav-link '>LÜTFEN ŞİFRENİZİ GÜNCELLEYİN!</a>
+                                            </li>";
+                                }
+
+                                echo "<li>
                                                 <a role='menuitem' tabindex='-1' href='settings/islem.php?islem=cikis'>
                                                 <i class='fa fa-power-off'></i> Çıkış</a>
                                             </li>";

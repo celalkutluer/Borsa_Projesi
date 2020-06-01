@@ -38,6 +38,29 @@ $("#btnKodD").click(function () {
         }
     });
 });
+$("#btnKodt").click(function () {
+    $('#btnKodt').attr('disabled', true);
+    var kodt =document.getElementById('kodt').value;
+    $.ajax({
+        type: 'POST',
+        url: 'settings/islem.php?islem=kodDt',
+        data: {'kodt': kodt },
+        success: function (cevap) {
+            $("#kodt_alert").html(cevap).hide().fadeIn(700);
+        }
+    });
+});
+$("#btnSifre_Unuttum").click(function () {
+    var sif_u_eposta =document.getElementById('sif_u_eposta').value;
+    $.ajax({
+        type: 'POST',
+        url: 'settings/islem.php?islem=sif_u',
+        data: {'sif_u_eposta': sif_u_eposta },
+        success: function (cevap) {
+            $("#sif_u_alert").html(cevap).hide().fadeIn(700);
+        }
+    });
+});
 $("#but_upload").click(function () {
     var fd = new FormData();
     var files = $('#file')[0].files[0];
