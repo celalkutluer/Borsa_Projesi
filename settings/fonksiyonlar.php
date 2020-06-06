@@ -1,4 +1,7 @@
-<?php function ara($bas, $son, $yazi)
+<?php
+include_once "baglantilar.php";
+
+function ara($bas, $son, $yazi)
 {
     @preg_match_all('/' . preg_quote($bas, '/') . '(.*?)' . preg_quote($son, '/') . '/i', $yazi, $m);
     return @$m[1];
@@ -26,6 +29,21 @@ function p($par)
     $par = htmlspecialchars(addslashes(trim($_POST[$par])));
     return $par;
 }
+function kelime_kontrol($par)
+{
+    Global $db;
+    $veri = $db->prepare('SELECT kelime FROM `yasakli_kelimeler`');
+    $veri->execute(array($par));
+    $v = $veri->fetchAll(PDO::FETCH_ASSOC);
+    $i=0;
+    foreach ($v as $kelimeler) {
+        if(strstr($par,$kelimeler['kelime'])){
+            $i++;
+        }
+    }
+    return $i;
+}
+
 /*SESSİON*/
 function s($par)
 {

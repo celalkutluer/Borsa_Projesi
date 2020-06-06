@@ -29,22 +29,28 @@ $("#btnfrmKayit").click(function () {
 });
 $("#btnKodD").click(function () {
     var kod =document.getElementById('kod').value;
+    var dkodu =document.getElementById('kod_dkodu').value;
+    var toplam =document.getElementById('kod_dogrulama_input').value;
+
     $.ajax({
         type: 'POST',
         url: 'settings/islem.php?islem=kodD',
-        data: {'kod': kod },
+        data: {'kod': kod,dkodu:dkodu,toplam:toplam },
         success: function (cevap) {
             $("#kod_alert").html(cevap).hide().fadeIn(700);
         }
     });
 });
 $("#btnKodt").click(function () {
-    $('#btnKodt').attr('disabled', true);
+    /*$('#btnKodt').attr('disabled', true);*/
     var kodt =document.getElementById('kodt').value;
+    var dkodu =document.getElementById('kodt_dkodu').value;
+    var toplam =document.getElementById('kodt_dogrulama_input').value;
+
     $.ajax({
         type: 'POST',
         url: 'settings/islem.php?islem=kodDt',
-        data: {'kodt': kodt },
+        data: {'kodt': kodt ,dkodu:dkodu,toplam:toplam},
         success: function (cevap) {
             $("#kodt_alert").html(cevap).hide().fadeIn(700);
         }
@@ -52,10 +58,12 @@ $("#btnKodt").click(function () {
 });
 $("#btnSifre_Unuttum").click(function () {
     var sif_u_eposta =document.getElementById('sif_u_eposta').value;
+    var dkodu =document.getElementById('kodsif_dkodu').value;
+    var toplam =document.getElementById('kodsif_dogrulama_input').value;
     $.ajax({
         type: 'POST',
         url: 'settings/islem.php?islem=sif_u',
-        data: {'sif_u_eposta': sif_u_eposta },
+        data: {'sif_u_eposta': sif_u_eposta ,dkodu:dkodu,toplam:toplam},
         success: function (cevap) {
             $("#sif_u_alert").html(cevap).hide().fadeIn(700);
         }
@@ -208,6 +216,12 @@ function Tablo_veri_cek() {
         }
     });
 }
+function disableElement(id){
+    $('#'+id).attr('disabled', false);
+    /*$().prop('disabled', false);*/
+}
+
+setTimeout(disableElement, 5*60*1000);
 $(document).ready(function () {
     setInterval(Tablo_veri_cek, 60000);/*60 saniyede bir otomatik güncelleme*/
     $('#profil_form_bilgi').on('input change', function () {

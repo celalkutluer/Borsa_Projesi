@@ -27,6 +27,7 @@ yoneticikontrol();
                                 <th>Son Giriş Tarihi</th>
                                 <th class="hidden-xs">Üyelik Tarihi</th>
                                 <th class="hidden-xs">Pasife Al</th>
+                                <th class="hidden-xs">Yetki Ver</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -51,7 +52,10 @@ yoneticikontrol();
                                             <td><?php echo (new \DateTime($tum_kullanicilar['kul_Son_Giris_Tar']))->format('d-m-Y H:i:s') . PHP_EOL; ?></td>
                                             <td class="center hidden-xs"><?php echo (new \DateTime($tum_kullanicilar['kul_Uyelik_Tarih']))->format('d-m-Y H:i:s') . PHP_EOL; ?></td>
                                             <td class="center hidden-xs">
-                                                <button id='btn_' type='button' class="btn btn-warning" <?php echo "onclick=".chr(34)."pasife_al_btn("."'".$sayi."'".")".chr(34); if($tum_kullanicilar['kul_Pasif_Durum']=='0'){ echo "disabled";} ?> >PASİF AL</button>
+                                                <button id='btn_' type='button' class="btn btn-warning" <?php echo "onclick=".chr(34)."pasife_al_btn("."'".$sayi."'".")".chr(34); if($tum_kullanicilar['kul_Pasif_Durum']=='0'){ echo "disabled";} ?> >Pasife Al</button>
+                                            </td>
+                                            <td class="center hidden-xs">
+                                                <button id='btn_yetki_' type='button' class="btn btn-success" <?php echo "onclick=".chr(34)."yetki_ver_btn("."'".$sayi."'".")".chr(34); if($tum_kullanicilar['kul_Id'] == $_SESSION['kul_id']){ echo "disabled";} ?> >Yöneticilik Al/Ver</button>
                                             </td>
                                         </tr>
                                         <?php
@@ -71,6 +75,19 @@ yoneticikontrol();
                                 $.ajax({
                                         type: 'POST',
                                         url: 'settings/islem.php?islem=pasife_al',
+                                        data: { id: id},
+                                        success: function (cevap) {
+                                            $("#kullanici_alert").html(cevap).hide().fadeIn(700);
+                                        }
+                                    }
+                                );
+                            }
+                            function yetki_ver_btn(no)
+                            {
+                                var id=document.getElementById('kullanici_id_'+no).innerText;
+                                $.ajax({
+                                        type: 'POST',
+                                        url: 'settings/islem.php?islem=yetki_ver',
                                         data: { id: id},
                                         success: function (cevap) {
                                             $("#kullanici_alert").html(cevap).hide().fadeIn(700);

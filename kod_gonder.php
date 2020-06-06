@@ -4,20 +4,18 @@
         <div class="center-sign">
             <div class="panel panel-sign">
                 <div class="panel-title-sign mt-xl text-right">
-                    <h2 class="title text-uppercase text-weight-bold m-none">Doğrula</h2>
+                    <h2 class="title text-uppercase text-weight-bold m-none">Doğrula veya Tekrar Kod Gönder</h2>
                 </div>
                 <div class="panel">
+
                     <div class="panel-body">
                         <!--ALERT-->
-                        <div id='kod_alert'></div>
+                        <div id='kodt_alert'></div>
                         <!--ALERT-->
-                        <form id="frmD" class='mb-4' novalidate='novalidate'>
-                            <div class="clearfix">
-                                <a href="kod_gonder.php" class="pull-right">Kod Gelmedi mi?</a>
-                            </div>
+                        <form id="frmDt" class='mb-4' novalidate='novalidate'>
                             <div class="form-group mb-lg">
-                                <label>Doğrulama Kodu</label>
-                                <input type="text" id='kod' name="kod" class="form-control input-lg" required/>
+                                <label>Eposta Adresi</label>
+                                <input type="text" id='kodt' name="eposta_kod" class="form-control input-lg" required/>
                             </div>
                             <div class="form-group mb-lg">
                                 <div class="clearfix">
@@ -33,11 +31,11 @@
                                         ?>
                                     </label>
                                     <label class="pull-right"></label>
-                                    <input id="kod_dogrulama_input" class="form-control form-control-lg" type="hidden"
+                                    <input id="kodt_dogrulama_input" class="form-control form-control-lg" type="hidden"
                                            value="<?php echo $y; ?>" name="toplam">
                                 </div>
                                 <div class="input-group input-group-icon">
-                                    <input name="dkodu" id="kod_dkodu" type="text" class="form-control input-lg"/>
+                                    <input name="dkodu" id="kodt_dkodu" type="text" class="form-control input-lg"/>
                                     <span class="input-group-addon">
 										<span class="icon icon-lg">
 											<i class="fa fa-lock"></i>
@@ -45,9 +43,9 @@
 									</span>
                                 </div>
                             </div>
-                            <div class="row">
+                            <div class="form-group mb-lg">
                                 <div class="col-sm-12 text-right">
-                                    <button type="button" id="btnKodD" class="btn btn-primary btn-block">Doğrula
+                                    <button type="button" id="btnKodt" class="btn btn-primary btn-block">Tekrar Kod Gönder
                                     </button>
                                 </div>
                             </div>

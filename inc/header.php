@@ -169,7 +169,7 @@ if (isset($_SESSION['yetki'])) {
                                             </li>";
                                 if ($kul_bilgilerim['kul_Sifre_yeni'] != null) {
                                     echo "<li>
-                                                <a class='nav-link '>LÜTFEN ŞİFRENİZİ GÜNCELLEYİN!</a>
+                                                <a class='nav-link' title='Siz veya Birbaşkası tarafından eposta adresiniz kullanılarak şifre sıfırlama talebinde bulunuldu. Litfen Şifrenizi Değiştirin'>LÜTFEN ŞİFRENİZİ GÜNCELLEYİN!</a>
                                             </li>";
                                 }
 

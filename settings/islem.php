@@ -18,14 +18,15 @@ if (g('islem') == 'giris') {
         echo "<div class='alert alert-warning'>Doğrulama kodunuz hatalı.</div>";
     } else {
         if (isset($_POST['rememberme'])) {
-            setcookie("eposta", $eposta, strtotime("+7 day"));
-            setcookie("sifre", $sifre, strtotime("+7 day"));
+            setcookie('eposta', $eposta, strtotime("+7 day"), '/');
+            setcookie('sifre', $sifre, strtotime("+7 day"), '/');
+
             echo "<div class='alert alert-info'>Sizi Hatırlayacağız...</div>";
         } else {
-            setcookie("eposta", $eposta, strtotime("-7 day"));
-            setcookie("sifre", $sifre, strtotime("-7 day"));
+            setcookie('eposta', '_', time() - 1);
+            setcookie('sifre', '_', time() - 1);
         }
-        $veri = $db->prepare("SELECT kul_Id, kul_Ad, kul_Soyad, kul_Eposta, kul_Bakiye,kul_Eposta_Dogrulama, kul_Sifre,kul_Yetki,kul_Pasif_Durum,kul_Pasif_Tarih,kul_Pasif_Sure FROM kullanicilar WHERE kul_Eposta='" . $eposta . "' AND (kul_Sifre='" . md5($sifre). "' OR kul_Sifre_yeni='" . $sifre . "')");
+        $veri = $db->prepare("SELECT kul_Id, kul_Ad, kul_Soyad, kul_Eposta, kul_Bakiye,kul_Eposta_Dogrulama, kul_Sifre,kul_Yetki,kul_Pasif_Durum,kul_Pasif_Tarih,kul_Pasif_Sure FROM kullanicilar WHERE kul_Eposta='" . $eposta . "' AND (kul_Sifre='" . md5($sifre) . "' OR kul_Sifre_yeni='" . $sifre . "')");
         $veri->execute(array());
         $v = $veri->fetchAll(PDO::FETCH_ASSOC);
         $say = $veri->rowCount();
@@ -96,7 +97,7 @@ if (g('islem') == 'kayit') {
     $toplam = p('frmKayittoplam');
     $dkodu = p('frmKayitdkodu');
     $Sozlesme = p('frmKayitSozlesme');
-    $yas=date_diff(date_create($Dogum_tar), date_create('today'))->y;
+    $yas = date_diff(date_create($Dogum_tar), date_create('today'))->y;
     if (empty($Ad)) {
         echo "<div class='alert alert-warning'>Lütfen Adınızı giriniz.</div>";
     } else if (empty($Soyad)) {
@@ -117,22 +118,126 @@ if (g('islem') == 'kayit') {
         echo "<div class='alert alert-warning'>Doğrulama kodunuz hatalı.</div>";
     } elseif (!filter_var($Email, FILTER_VALIDATE_EMAIL)) {
         echo "<div class='alert alert-warning'>Eposta adresi hatalı.</div>";
-    } elseif ($yas<=18) {
+    } elseif ($yas <= 18) {
         echo "<div class='alert alert-warning'>18 Yaşından Küçüksünüz Bulaşmayın Bu İşlere</div>";
-    }
-    else {
-        $veri1 = $db->prepare('SELECT kul_Eposta FROM kullanicilar WHERE kul_Eposta=?');
-        $veri1->execute(array($Email));
-        $v1 = $veri1->fetchAll(PDO::FETCH_ASSOC);
-        $say1 = $veri1->rowCount();
-        foreach ($v1 as $kul_kayit) ;
-        if (!$say1) {
-            $otp = rand(100000, 999999);
-            $ekle = $db->prepare("INSERT INTO kullanicilar(kul_Ad, kul_Soyad, kul_Eposta,kul_Eposta_Dogrulama_Kod, kul_CepNo, kul_DogumTar, kul_Sifre) VALUES ('" . $Ad . "','" . $Soyad . "','" . $Email . "','" . $otp . "','" . $CepTelNo . "','" . $Dogum_tar . "','" . md5($Sifre) . "')");
-            $ekleme = $ekle->execute(array());
-            if ($ekleme) {
-                $html = "<strong>Üyeliğiniz oluşturulmuştur. Doğrulama Kodunuz : </strong>" . $otp;
+    } else {
+        if (kelime_kontrol($Ad) == 0 && kelime_kontrol($Soyad) == 0) {
+            $veri1 = $db->prepare('SELECT kul_Eposta FROM kullanicilar WHERE kul_Eposta=?');
+            $veri1->execute(array($Email));
+            $v1 = $veri1->fetchAll(PDO::FETCH_ASSOC);
+            $say1 = $veri1->rowCount();
+            foreach ($v1 as $kul_kayit) ;
+            if (!$say1) {
+                $otp = rand(100000, 999999);
+                $ekle = $db->prepare("INSERT INTO kullanicilar(kul_Ad, kul_Soyad, kul_Eposta,kul_Eposta_Dogrulama_Kod, kul_CepNo, kul_DogumTar, kul_Sifre) VALUES ('" . $Ad . "','" . $Soyad . "','" . $Email . "','" . $otp . "','" . $CepTelNo . "','" . $Dogum_tar . "','" . md5($Sifre) . "')");
+                $ekleme = $ekle->execute(array());
+                if ($ekleme) {
+                    $html = "<strong>Üyeliğiniz oluşturulmuştur. Doğrulama Kodunuz : </strong>" . $otp;
 
+                    $mail = new PHPMailer(true);
+                    $mail->isSMTP();
+                    $mail->Host = "smtp.gmail.com";
+                    $mail->Port = 587;
+                    $mail->SMTPSecure = "tls";
+                    $mail->SMTPAuth = true;
+                    $mail->Username = "borsayatirimfantaziligi@gmail.com";
+                    $mail->Password = "Aa123456789.";
+                    $mail->SetFrom($Email);
+                    $mail->addAddress($Email);
+                    $mail->IsHTML(true);
+                    $mail->Subject = "Uyelik Dogrulama";
+                    $mail->Body = $html;
+                    $mail->SMTPOptions = array('ssl' => array(
+                        'verify_peer' => false,
+                        'verify_peer_name' => false,
+                        'allow_self_signed' => false
+                    ));
+                    if ($mail->send()) {
+                        echo "<div class='alert alert-success'>E-posta adresinize doğrulama kodu gönderildi.</div>";
+                    } else {
+                        echo "<div class='alert alert-danger'>E-posta adresinize doğrulama kodu gönderildilemedi.</div>";
+                    }
+                    /**/
+                    echo "<div class='alert alert-success'>Kayit işleminiz başarı ile gerçekleştirildi.</div><meta http-equiv='refresh' content='3; url=kayit-dogrulama.php'>";
+                    $veri_log = $db->prepare('SELECT kul_id FROM kullanicilar WHERE kul_Eposta=?');
+                    $veri_log->execute(array($Email));
+                    $v_log = $veri_log->fetchAll(PDO::FETCH_ASSOC);
+                    foreach ($v_log as $kul_kayit_log) ;
+                    $ekle_log = $db->prepare("INSERT INTO log(log_kul_id, log_eylem, log_aciklama) VALUES ('" . $kul_kayit_log['kul_id'] . "','Üyelik Kaydı','" . $kul_kayit_log['kul_id'] . " -Nolu kullanıcı " . $Ad . " " . $Soyad . ", " . $_SERVER['REMOTE_ADDR'] . " ip adresi üzerinden " . $Email . " e-posta adresi ile üyelik başvurusunda bulundu.')");
+                    $ekleme_log = $ekle_log->execute(array());
+                    if ($ekleme_log) {
+                        echo "<div class='alert alert-success'>Log Ekleme İşlemi Tamamlandı.</div>";
+                    } else {
+                        echo "<div class='alert alert-danger'>Log Kayıt İşlemi Başarısız.</div>";
+                    }
+                } else {
+                    echo "<div class='alert alert-danger'>Kayit işlemi sırasında bir hata meydana geldi</div>";
+                }
+            } else {
+                echo "<div class='alert alert-info'>Eposta adresinize tanımlı üyelik mevcut. Lütfen Giriş yapınız.</div><meta http-equiv='refresh' content='1; url=giris.php'>";
+            }
+        } else {
+            echo "<div class='alert alert-warning'>Yasaklı Kelimeler Bulundu.</div>";
+        }
+    }
+}
+if (g('islem') == 'kodD') {
+    $toplam = p('toplam');
+    $dkodu = p('dkodu');
+    if ($toplam != md5($dkodu)) {
+        echo "<div class='alert alert-warning'>Doğrulama kodunuz hatalı.</div>";
+    } else {
+        /**/
+        if (empty(p('kod'))) {
+            echo "<div class='alert alert-warning'>Lütfen Doğrulama Kodunuzu Giriniz.</div>";
+        } elseif (!is_numeric(p('kod'))) {
+            echo "<div class='alert alert-warning'>Lütfen Doğrulama Kodunuzu Sayısal Olarak Giriniz.</div>";
+        } else {
+            $veri_kod = $db->prepare('SELECT kul_Id,kul_eposta,kul_eposta_dogrulama_kod,`kul_Eposta_Dogrulama` FROM kullanicilar WHERE kul_eposta_dogrulama_kod=? and `kul_Eposta_Dogrulama`="0" limit 1');
+            $veri_kod->execute(array(p('kod')));
+            $v_kod = $veri_kod->fetchAll(PDO::FETCH_ASSOC);
+            $say_kod = $veri_kod->rowCount();
+            if ($say_kod > 0) {
+                foreach ($v_kod as $kullanici_kod) ;
+                $guncelle_kod = $db->prepare('UPDATE kullanicilar SET kul_eposta_dogrulama="1" WHERE kul_Id=?');
+                $guncelleme_kod = $guncelle_kod->execute(array($kullanici_kod['kul_Id']));
+                if ($guncelleme_kod) {
+                    echo "<div class='alert alert-success'>E-mail adresiniz onaylanmıştır.</div><meta http-equiv='refresh' content='1; url=giris.php'>";
+                } else {
+                    echo "<div class='alert alert-danger'>E-mail doğrulama başarısız.</div>";
+                }
+            } else {
+                echo "<div class='alert alert-danger'>Bu kod için doğrulanacak bir kullanıcı bulunamadı</div>";
+            }
+        }
+    }
+
+}
+if (g('islem') == 'kodDt') {
+    $toplam = p('toplam');
+    $dkodu = p('dkodu');
+    if ($toplam != md5($dkodu)) {
+        echo "<div class='alert alert-warning'>Doğrulama kodunuz hatalı.</div>";
+    } else {
+        $veri = $db->prepare('SELECT kul_Id,kul_Eposta,kul_Eposta_Dogrulama_Kod,TIME_TO_SEC(timeDIFF(CURRENT_TIMESTAMP() , `kul_kod_zaman`)) as saniye FROM kullanicilar WHERE kul_Eposta=? and kul_Eposta_Dogrulama="0"');
+        $veri->execute(array(p('kodt')));
+        $v = $veri->fetchAll(PDO::FETCH_ASSOC);
+        $say = $veri->rowCount();
+        foreach ($v as $kul_bilgileri) ;
+        if ($say) {
+            if (empty(p('kodt'))) {
+                echo "<div class='alert alert-warning'>Lütfen Eposta Adresinizi Giriniz.</div>";
+            } elseif (!filter_var(p('kodt'), FILTER_VALIDATE_EMAIL)) {
+                echo "<div class='alert alert-warning'>Girilen Eposta Adresi Hatalı.</div>";
+            } elseif ((300 - $kul_bilgileri['saniye']) > 0) {
+                echo "<div class='alert alert-warning'>Kod Gönderimi 5 dakikada bir yapılmaktadır. Lütfen Bekleyiniz</div>";
+                echo '<script type="text/javascript"> setTimeout(disableElement("btnKodt"), ' . (300 - $kul_bilgileri['saniye']) . '*1000);  </script>';
+            } else {
+                $html = "<strong>Üyeliğiniz oluşturulmuştur. Doğrulama Kodunuz : </strong>" . $kul_bilgileri['kul_Eposta_Dogrulama_Kod'];
+                /**/
+                $ekle_yeni_ = $db->prepare("UPDATE `kullanicilar` SET kul_kod_zaman=CURRENT_TIMESTAMP() WHERE `kul_Id`=?");
+                $ekleme_yeni_ = $ekle_yeni_->execute(array($kul_bilgileri['kul_Id']));
+                /**/
                 $mail = new PHPMailer(true);
                 $mail->isSMTP();
                 $mail->Host = "smtp.gmail.com";
@@ -141,8 +246,8 @@ if (g('islem') == 'kayit') {
                 $mail->SMTPAuth = true;
                 $mail->Username = "borsayatirimfantaziligi@gmail.com";
                 $mail->Password = "Aa123456789.";
-                $mail->SetFrom($Email);
-                $mail->addAddress($Email);
+                $mail->SetFrom(p('kodt'));
+                $mail->addAddress(p('kodt'));
                 $mail->IsHTML(true);
                 $mail->Subject = "Uyelik Dogrulama";
                 $mail->Body = $html;
@@ -156,132 +261,61 @@ if (g('islem') == 'kayit') {
                 } else {
                     echo "<div class='alert alert-danger'>E-posta adresinize doğrulama kodu gönderildilemedi.</div>";
                 }
-                /**/
-                echo "<div class='alert alert-success'>Kayit işleminiz başarı ile gerçekleştirildi.</div><meta http-equiv='refresh' content='3; url=kayit-dogrulama.php'>";
-                $veri_log = $db->prepare('SELECT kul_id FROM kullanicilar WHERE kul_Eposta=?');
-                $veri_log->execute(array($Email));
-                $v_log = $veri_log->fetchAll(PDO::FETCH_ASSOC);
-                foreach ($v_log as $kul_kayit_log) ;
-                $ekle_log = $db->prepare("INSERT INTO log(log_kul_id, log_eylem, log_aciklama) VALUES ('" . $kul_kayit_log['kul_id'] . "','Üyelik Kaydı','" . $kul_kayit_log['kul_id'] . " -Nolu kullanıcı " . $Ad . " " . $Soyad . ", " . $_SERVER['REMOTE_ADDR'] . " ip adresi üzerinden " . $Email . " e-posta adresi ile üyelik başvurusunda bulundu.')");
-                $ekleme_log = $ekle_log->execute(array());
-                if ($ekleme_log) {
-                    echo "<div class='alert alert-success'>Log Ekleme İşlemi Tamamlandı.</div>";
-                } else {
-                    echo "<div class='alert alert-danger'>Log Kayıt İşlemi Başarısız.</div>";
-                }
-            } else {
-                echo "<div class='alert alert-danger'>Kayit işlemi sırasında bir hata meydana geldi</div>";
             }
         } else {
-            echo "<div class='alert alert-info'>Eposta adresinize tanımlı üyelik mevcut. Lütfen Giriş yapınız.</div><meta http-equiv='refresh' content='1; url=giris.php'>";
+            echo "<div class='alert alert-danger'>Böyle Bir Kullanıcı Yok veya Doğrulama İşlemi Tamamlanmış</div>";
         }
-    }
-}
-if (g('islem') == 'kodD') {
-
-    /**/
-    if (empty(p('kod'))) {
-        echo "<div class='alert alert-warning'>Lütfen Doğrulama Kodunuzu Giriniz.</div>";
-    } elseif (!is_numeric(p('kod'))) {
-        echo "<div class='alert alert-warning'>Lütfen Doğrulama Kodunuzu Sayısal Olarak Giriniz.</div>";
-    } else {
-        $veri_kod = $db->prepare('SELECT kul_Id,kul_eposta,kul_eposta_dogrulama_kod,`kul_Eposta_Dogrulama` FROM kullanicilar WHERE kul_eposta_dogrulama_kod=? and `kul_Eposta_Dogrulama`="0" limit 1');
-        $veri_kod->execute(array(p('kod')));
-        $v_kod = $veri_kod->fetchAll(PDO::FETCH_ASSOC);
-        $say_kod = $veri_kod->rowCount();
-        if ($say_kod > 0) {
-            foreach ($v_kod as $kullanici_kod) ;
-            $guncelle_kod = $db->prepare('UPDATE kullanicilar SET kul_eposta_dogrulama="1" WHERE kul_Id=?');
-            $guncelleme_kod = $guncelle_kod->execute(array($kullanici_kod['kul_Id']));
-            if ($guncelleme_kod) {
-                echo "<div class='alert alert-success'>E-mail adresiniz onaylanmıştır.</div><meta http-equiv='refresh' content='1; url=giris.php'>";
-            } else {
-                echo "<div class='alert alert-danger'>E-mail doğrulama başarısız.</div>";
-            }
-        } else {
-            echo "<div class='alert alert-danger'>Bu kod için doğrulanacak bir kullanıcı bulunamadı</div>";
-        }
-    }
-}
-if (g('islem') == 'kodDt') {
-
-    $veri = $db->prepare('SELECT kul_Id,kul_Eposta,kul_Eposta_Dogrulama_Kod FROM kullanicilar WHERE kul_Eposta=? and kul_Eposta_Dogrulama="0"');
-    $veri->execute(array(p('kodt')));
-    $v = $veri->fetchAll(PDO::FETCH_ASSOC);
-    $say = $veri->rowCount();
-    foreach ($v as $kul_bilgileri) ;
-    if ($say) {
-        if (empty(p('kodt'))) {
-            echo "<div class='alert alert-warning'>Lütfen Eposta Adresinizi Giriniz.</div>";
-        } elseif (!filter_var(p('kodt'), FILTER_VALIDATE_EMAIL)) {
-            echo "<div class='alert alert-warning'>Girilen Eposta Adresi Hatalı.</div>";
-        } else {
-            $html = "<strong>Üyeliğiniz oluşturulmuştur. Doğrulama Kodunuz : </strong>" . $kul_bilgileri['kul_Eposta_Dogrulama_Kod'];
-
-            $mail = new PHPMailer(true);
-            $mail->isSMTP();
-            $mail->Host = "smtp.gmail.com";
-            $mail->Port = 587;
-            $mail->SMTPSecure = "tls";
-            $mail->SMTPAuth = true;
-            $mail->Username = "borsayatirimfantaziligi@gmail.com";
-            $mail->Password = "Aa123456789.";
-            $mail->SetFrom(p('kodt'));
-            $mail->addAddress(p('kodt'));
-            $mail->IsHTML(true);
-            $mail->Subject = "Uyelik Dogrulama";
-            $mail->Body = $html;
-            $mail->SMTPOptions = array('ssl' => array(
-                'verify_peer' => false,
-                'verify_peer_name' => false,
-                'allow_self_signed' => false
-            ));
-            if ($mail->send()) {
-                echo "<div class='alert alert-success'>E-posta adresinize doğrulama kodu gönderildi.</div>";
-            } else {
-                echo "<div class='alert alert-danger'>E-posta adresinize doğrulama kodu gönderildilemedi.</div>";
-            }
-        }
-    } else {
-        echo "<div class='alert alert-danger'>Böyle Bir Kullanıcı Yok veya Doğrulama İşlemi Tamamlanmış</div>";
     }
 }
 if (g('islem') == 'sif_u') {
-    $veri = $db->prepare('SELECT kul_Id,kul_Eposta FROM kullanicilar WHERE kul_Eposta=?');
-    $veri->execute(array(p('sif_u_eposta')));
-    $v = $veri->fetchAll(PDO::FETCH_ASSOC);
-    $say = $veri->rowCount();
-    foreach ($v as $kul_bilgileri) ;
-    if ($say) {
-        $otp = rand(10000000, 99999999);
-        /**/
-        $ekle_yeni_Sif = $db->prepare("UPDATE `kullanicilar` SET `kul_Sifre_yeni`='" . $otp . "' WHERE `kul_Id`=?");
-        $ekleme_yeni_Sif = $ekle_yeni_Sif->execute(array($kul_bilgileri['kul_Id']));
-        /**/
-        $html = "<strong> Lütfen Şifrenizi Sitemize Girer Girmez Sıfırlayın . Yeni Şifreniz : </strong>" . $otp;
+    $toplam = p('toplam');
+    $dkodu = p('dkodu');
+    if ($toplam != md5($dkodu)) {
+        echo "<div class='alert alert-warning'>Doğrulama kodunuz hatalı.</div>";
+    } else {
+        $veri = $db->prepare('SELECT kul_Id,kul_Eposta,TIME_TO_SEC(timeDIFF(CURRENT_TIMESTAMP() , `kul_kod_zaman`)) as saniye FROM kullanicilar WHERE kul_Eposta=?');
+        $veri->execute(array(p('sif_u_eposta')));
+        $v = $veri->fetchAll(PDO::FETCH_ASSOC);
+        $say = $veri->rowCount();
+        foreach ($v as $kul_bilgileri) ;
+        if ($say) {
+            if ((300 - $kul_bilgileri['saniye']) > 0) {
+                echo "<div class='alert alert-warning'>Şifre Gönderimi 5 dakikada bir yapılmaktadır. Lütfen Bekleyiniz</div>";
+            } else {
+                $otp = rand(10000000, 99999999);
+                /**/
+                $ekle_yeni_Sif = $db->prepare("UPDATE `kullanicilar` SET `kul_Sifre_yeni`='" . $otp . "',kul_kod_zaman=CURRENT_TIMESTAMP() WHERE `kul_Id`=?");
+                $ekleme_yeni_Sif = $ekle_yeni_Sif->execute(array($kul_bilgileri['kul_Id']));
+                /**/
+                $html = "<strong> Lütfen Şifrenizi Sitemize Girer Girmez Sıfırlayın . Yeni Şifreniz : </strong>" . $otp;
 
-        $mail = new PHPMailer(true);
-        $mail->isSMTP();
-        $mail->Host = "smtp.gmail.com";
-        $mail->Port = 587;
-        $mail->SMTPSecure = "tls";
-        $mail->SMTPAuth = true;
-        $mail->Username = "borsayatirimfantaziligi@gmail.com";
-        $mail->Password = "Aa123456789.";
-        $mail->SetFrom(p('sif_u_eposta'));
-        $mail->addAddress(p('sif_u_eposta'));
-        $mail->IsHTML(true);
-        $mail->Subject = "Uyelik Dogrulama";
-        $mail->Body = $html;
-        $mail->SMTPOptions = array('ssl' => array(
-            'verify_peer' => false,
-            'verify_peer_name' => false,
-            'allow_self_signed' => false
-        ));
-        if ($mail->send()) {
-            echo "<div class='alert alert-success'>E-posta adresinize doğrulama kodu gönderildi.</div>";
+                $mail = new PHPMailer(true);
+                $mail->isSMTP();
+                $mail->Host = "smtp.gmail.com";
+                $mail->Port = 587;
+                $mail->SMTPSecure = "tls";
+                $mail->SMTPAuth = true;
+                $mail->Username = "borsayatirimfantaziligi@gmail.com";
+                $mail->Password = "Aa123456789.";
+                $mail->SetFrom(p('sif_u_eposta'));
+                $mail->addAddress(p('sif_u_eposta'));
+                $mail->IsHTML(true);
+                $mail->Subject = "Uyelik Dogrulama";
+                $mail->Body = $html;
+                $mail->SMTPOptions = array('ssl' => array(
+                    'verify_peer' => false,
+                    'verify_peer_name' => false,
+                    'allow_self_signed' => false
+                ));
+                if ($mail->send()) {
+                    echo "<div class='alert alert-success'>E-posta adresinize doğrulama kodu gönderildi.</div>";
+                } else {
+                    echo "<div class='alert alert-danger'>E-posta adresinize doğrulama kodu gönderildilemedi.</div>";
+                }
+            }
+
         } else {
-            echo "<div class='alert alert-danger'>E-posta adresinize doğrulama kodu gönderildilemedi.</div>";
+            echo "<div class='alert alert-warning'>Girilen E-posta adresi Hatalı</div>";
         }
     }
 }
@@ -337,6 +371,7 @@ if (g('islem') == 'lig_olustur') {
     } else if (empty($duyuru)) {
         echo "<div class='alert alert-warning'>Lütfen Lig Duyurusu Yazın.</div>";
     } else {
+
         $veri = $db->prepare('SELECT kul_lig_id,kul_Ad,kul_Soyad FROM kullanicilar WHERE kul_Id=?');
         $veri->execute(array($_SESSION['kul_id']));
         $v = $veri->fetchAll(PDO::FETCH_ASSOC);
@@ -348,25 +383,29 @@ if (g('islem') == 'lig_olustur') {
         $say = $veri->rowCount();
         foreach ($v as $ligler) ;
         if (!$say) {
-            $ekle = $db->prepare("INSERT INTO ligler( lig_baslik, lig_duyuru, lig_bos_uyelik, lig_yonetici_id) VALUES ('" . $baslik . "','" . $duyuru . "',9,'" . $_SESSION['kul_id'] . "')");
-            $ekleme = $ekle->execute(array());
-            $veri = $db->prepare('SELECT lig_id FROM ligler WHERE lig_baslik=?');
-            $veri->execute(array($baslik));
-            $v = $veri->fetchAll(PDO::FETCH_ASSOC);
-            foreach ($v as $ligle) ;
-            $kul_gunce = $db->prepare("UPDATE kullanicilar SET kul_lig_id='" . $ligle['lig_id'] . "' WHERE kul_Id=?");
-            $kul_guncell = $kul_gunce->execute(array($_SESSION['kul_id']));
-            if ($ekleme || $kul_guncell) {
-                echo "<div class='alert alert-success'>Lig Kayıt İşleminiz Gerçekleşti.</div><meta http-equiv='refresh' content='1; url=ligler.php'>";
-                $ekle_log = $db->prepare("INSERT INTO log(log_kul_id, log_eylem, log_aciklama) VALUES ('" . $_SESSION['kul_id'] . "','Lig Oluşturma','" . $_SESSION['kul_id'] . " -Nolu kullanıcı " . $ligler['kul_Ad'] . " " . $ligler['kul_Soyad'] . " " . $ligle['lig_id'] . " nolu " . $baslik . " ligini oluşturdu.')");
-                $ekleme_log = $ekle_log->execute(array());
-                if ($ekleme_log) {
-                    echo "<div class='alert alert-success'>Log Ekleme İşlemi Tamamlandı.</div>";
+            if (kelime_kontrol($baslik) == 0 || kelime_kontrol($duyuru) == 0) {
+                $ekle = $db->prepare("INSERT INTO ligler( lig_baslik, lig_duyuru, lig_bos_uyelik, lig_yonetici_id) VALUES ('" . $baslik . "','" . $duyuru . "',9,'" . $_SESSION['kul_id'] . "')");
+                $ekleme = $ekle->execute(array());
+                $veri = $db->prepare('SELECT lig_id FROM ligler WHERE lig_baslik=?');
+                $veri->execute(array($baslik));
+                $v = $veri->fetchAll(PDO::FETCH_ASSOC);
+                foreach ($v as $ligle) ;
+                $kul_gunce = $db->prepare("UPDATE kullanicilar SET kul_lig_id='" . $ligle['lig_id'] . "' WHERE kul_Id=?");
+                $kul_guncell = $kul_gunce->execute(array($_SESSION['kul_id']));
+                if ($ekleme || $kul_guncell) {
+                    echo "<div class='alert alert-success'>Lig Kayıt İşleminiz Gerçekleşti.</div><meta http-equiv='refresh' content='1; url=ligler.php'>";
+                    $ekle_log = $db->prepare("INSERT INTO log(log_kul_id, log_eylem, log_aciklama) VALUES ('" . $_SESSION['kul_id'] . "','Lig Oluşturma','" . $_SESSION['kul_id'] . " -Nolu kullanıcı " . $ligler['kul_Ad'] . " " . $ligler['kul_Soyad'] . " " . $ligle['lig_id'] . " nolu " . $baslik . " ligini oluşturdu.')");
+                    $ekleme_log = $ekle_log->execute(array());
+                    if ($ekleme_log) {
+                        echo "<div class='alert alert-success'>Log Ekleme İşlemi Tamamlandı.</div>";
+                    } else {
+                        echo "<div class='alert alert-danger'>Log Kayıt İşlemi Başarısız.</div>";
+                    }
                 } else {
-                    echo "<div class='alert alert-danger'>Log Kayıt İşlemi Başarısız.</div>";
+                    echo "<div class='alert alert-danger'>Lig Kayıt İşlemi Başarısız oldu</div>";
                 }
             } else {
-                echo "<div class='alert alert-danger'>Lig Kayıt İşlemi Başarısız oldu</div>";
+                echo "<div class='alert alert-danger'>Lütfen Başka Lig başlığı veya Lig duyurusu Deneyiniz. Yasaklı kelimeler Bulunmuştur</div>";
             }
         } else {
             echo "<div class='alert alert-danger'>Girilen Lig Başlığı Mevcut. Başka Bir Lig Başlığı Deneyin.</div>";
@@ -404,19 +443,81 @@ if (g('islem') == 'lig_katil') {
         echo "<div class='alert alert-success'>Seçilen Ligde Boş Üyelik Mevcut Değil</div>";
     }
 }
+if (g('islem') == 'lig_yon_devret') {
+    $kul_id = p('kul_id');
+    $kul_lig_id = p('kul_lig_id');
+
+    /**/
+    $verim = $db->prepare('SELECT lig_id FROM ligler WHERE lig_id=?');
+    $verim->execute(array($kul_lig_id));
+    $vm = $verim->fetchAll(PDO::FETCH_ASSOC);
+    $say_m = $verim->rowCount();
+    foreach ($vm as $liglerim) ;
+    /**/
+    if ($say_m) {
+        $lig_gunce = $db->prepare("UPDATE ligler SET lig_yonetici_id='" . $kul_id . "' WHERE lig_Id=?");
+        $lig_guncellemem = $lig_gunce->execute(array($kul_lig_id));
+        if ($lig_guncellemem) {
+            echo "<div class='alert alert-success'>Lig devri İşleminiz Gerçekleşti.</div><meta http-equiv='refresh' content='1; url=ligim.php'>";
+        } else {
+            echo "<div class='alert alert-danger'>Lig devri İşleminiz Başarısız.</div>";
+        }
+        $ekle_log_Ad = $db->prepare("INSERT INTO log(log_kul_id, log_eylem, log_aciklama) VALUES ('" . $_SESSION['kul_id'] . "','Lig Yöneticilik Devri','" . $_SESSION['kul_id'] . " -Nolu kullanıcı " . $_SESSION['isim'] . " " . $_SESSION['soyisim'] . ", lig yöneticiliğini " . $kul_id . " id li üyeye devretti')");
+        $ekleme_log_Ad = $ekle_log_Ad->execute(array());
+        if ($ekleme_log_Ad) {
+            echo "<div class='alert alert-success'>Log Ekleme İşlemi Tamamlandı.</div>";
+        } else {
+            echo "<div class='alert alert-danger'>Log Kayıt İşlemi Başarısız.</div>";
+        }
+    } else {
+        echo "<div class='alert alert-warning'>Bu liğin yöneticisi değilsiniz</div>";
+    }
+}
+if (g('islem') == 'lig_uye_at') {
+    $kul_id = p('kul_id');
+    $kul_lig_id = p('kul_lig_id');
+
+    /**/
+    $verim = $db->prepare('SELECT lig_baslik,lig_bos_uyelik,lig_yonetici_id FROM ligler WHERE lig_Id=?');
+    $verim->execute(array($kul_lig_id));
+    $vm = $verim->fetchAll(PDO::FETCH_ASSOC);
+    foreach ($vm as $liglerim) ;
+    /**/
+    $lig_guncem = $db->prepare("UPDATE ligler SET lig_bos_uyelik='" . ($liglerim['lig_bos_uyelik'] + 1) . "' WHERE lig_Id=?");
+    $lig_guncelleme = $lig_guncem->execute(array($kul_lig_id));
+    $kul_gunce = $db->prepare("UPDATE kullanicilar SET kul_lig_id=null WHERE kul_Id=?");
+    $kul_guncellemem = $kul_gunce->execute(array($kul_id));
+    /**/
+    if ($kul_guncellemem) {
+        echo "<div class='alert alert-success'>Ligden çıkarma İşleminiz Gerçekleşti.</div><meta http-equiv='refresh' content='1; url=ligim.php'>";
+    } else {
+        echo "<div class='alert alert-danger'>Ligden çıkarma İşleminiz Başarısız.</div>";
+    }
+    $ekle_log_Ad = $db->prepare("INSERT INTO log(log_kul_id, log_eylem, log_aciklama) VALUES ('" . $_SESSION['kul_id'] . "','Ligden atma','" . $_SESSION['kul_id'] . " -Nolu kullanıcı " . $_SESSION['isim'] . " " . $_SESSION['soyisim'] . ", " . $liglerim['lig_yonetici_id'] . " id li yönetici tarafından " . $kul_id . " id li üye " . $liglerim['lig_baslik'] . " liginden çıkarıldı.')");
+    $ekleme_log_Ad = $ekle_log_Ad->execute(array());
+    if ($ekleme_log_Ad) {
+        echo "<div class='alert alert-success'>Log Ekleme İşlemi Tamamlandı.</div>";
+    } else {
+        echo "<div class='alert alert-danger'>Log Kayıt İşlemi Başarısız.</div>";
+    }
+
+}
 if (g('islem') == 'lig_ayril') {
     $veri = $db->prepare('SELECT kul_lig_id,kul_Ad,kul_Soyad FROM kullanicilar WHERE kul_Id=?');
     $veri->execute(array($_SESSION['kul_id']));
     $v = $veri->fetchAll(PDO::FETCH_ASSOC);
     foreach ($v as $kulla) ;
+    /**/
     $verim = $db->prepare('SELECT lig_baslik,lig_bos_uyelik,lig_yonetici_id FROM ligler WHERE lig_Id=?');
     $verim->execute(array($kulla['kul_lig_id']));
     $vm = $verim->fetchAll(PDO::FETCH_ASSOC);
     foreach ($vm as $liglerim) ;
+    /**/
     $lig_guncem = $db->prepare("UPDATE ligler SET lig_bos_uyelik='" . ($liglerim['lig_bos_uyelik'] + 1) . "' WHERE lig_Id=?");
     $lig_guncelleme = $lig_guncem->execute(array($kulla['kul_lig_id']));
     $kul_gunce = $db->prepare("UPDATE kullanicilar SET kul_lig_id=null WHERE kul_Id=?");
     $kul_guncellemem = $kul_gunce->execute(array($_SESSION['kul_id']));
+    /**/
     $veri_sonmu = $db->prepare('SELECT `kul_Id` FROM `kullanicilar` WHERE `kul_lig_id`=? order by `kul_Uyelik_Tarih` ASC LIMIT 1');
     $veri_sonmu->execute(array($kulla['kul_lig_id']));
     $v_sonmu = $veri_sonmu->fetchAll(PDO::FETCH_ASSOC);
@@ -473,6 +574,50 @@ if (g('islem') == 'pasife_al') {
     } else {
         echo "<div class='alert alert-success'>Kullanıcı Pasife Alma İşleminiz Başarısız oldu</div>";
     }
+}
+if (g('islem') == 'yetki_ver') {
+    $id = p('id');
+/**/
+    $veri_k = $db->prepare('SELECT kul_Yetki FROM `kullanicilar` WHERE `kul_Id`=?');
+    $veri_k->execute(array($id));
+    $v_k = $veri_k->fetchAll(PDO::FETCH_ASSOC);
+    foreach ($v_k as $k) ;
+    /**/
+    if($k['kul_Yetki']==1){
+        $kul_gunce = $db->prepare("UPDATE kullanicilar SET kul_Yetki='0' WHERE kul_Id=?");
+        $kul_guncellemem = $kul_gunce->execute(array($id));
+
+        if ($kul_guncellemem) {
+            echo "<div class='alert alert-success'>Kullanıcı Yetki Alma İşleminiz Gerçekleşti.</div><meta http-equiv='refresh' content='1; url=kullanicilar.php'>";
+            $ekle_log = $db->prepare("INSERT INTO log(log_kul_id, log_eylem, log_aciklama) VALUES ('" . $id . "','Yönetici Yetkisi Alma','" . $_SESSION['kul_id'] . " -Nolu Yönetici ," . $id . " id li kullanıcının yönetici yetkisini aldı.')");
+            $ekleme_log = $ekle_log->execute(array());
+            if ($ekleme_log) {
+                echo "<div class='alert alert-success'>Log Ekleme İşlemi Tamamlandı.</div>";
+            } else {
+                echo "<div class='alert alert-danger'>Log Kayıt İşlemi Başarısız.</div>";
+            }
+        } else {
+            echo "<div class='alert alert-success'>Kullanıcı Yetki Alma İşleminiz Başarısız oldu</div>";
+        }
+    }
+    else{
+        $kul_gunce = $db->prepare("UPDATE kullanicilar SET kul_Yetki='1' WHERE kul_Id=?");
+        $kul_guncellemem = $kul_gunce->execute(array($id));
+
+        if ($kul_guncellemem) {
+            echo "<div class='alert alert-success'>Kullanıcı Yetki Verme İşleminiz Gerçekleşti.</div><meta http-equiv='refresh' content='1; url=kullanicilar.php'>";
+            $ekle_log = $db->prepare("INSERT INTO log(log_kul_id, log_eylem, log_aciklama) VALUES ('" . $id . "','Yönetici Yetkisi Verme','" . $_SESSION['kul_id'] . " -Nolu Yönetici ," . $id . " id li kullanıcıya yönetici yetkisi verdi.')");
+            $ekleme_log = $ekle_log->execute(array());
+            if ($ekleme_log) {
+                echo "<div class='alert alert-success'>Log Ekleme İşlemi Tamamlandı.</div>";
+            } else {
+                echo "<div class='alert alert-danger'>Log Kayıt İşlemi Başarısız.</div>";
+            }
+        } else {
+            echo "<div class='alert alert-success'>Kullanıcı Yetki Verme İşleminiz Başarısız oldu</div>";
+        }
+    }
+
 }
 if (g('islem') == 'profil_bilgi_kaydet') {
     $profilAd = p('profilAd');
@@ -853,5 +998,5 @@ if (g('islem') == 'tablo_yukselen_dusen') {
     $sorted = val_sort($tum_hisse_dizileri, 1);/*1=yuzde*/
     echo json_encode($sorted);
 }
-/* require '../vendor/autoload.php'; $email = new \SendGrid\Mail\Mail(); $email->setFrom("celalkutluer@gmail.com", "Celal KUTLUER"); $email->setSubject("Üyelik Hakkında"); $email->addTo($Email, $Ad . " " . $Soyad); $email->addContent( "text/html", "<strong >Üyeliğiniz oluşturulmuştur.</strong></br> <a href= 'kayit-dogrulama.php?dogrulama=" . sha1(md5($Email)) . "'> Eposta adresinizi doğrulamak için tıklayınız. </a>" ); $key = ''; /* $sendgrid = new \SendGrid($key); try { $response = $sendgrid->send($email); if($response->statusCode()=="202"){ echo "<div class='alert alert-success'>Kayit işleminiz başarı ile gerçekleştirildi. E-posta adresinize doğrulama kodu gönderildi.</div>"; } } catch (Exception $e) { echo 'Caught exception: '. $e->getMessage() ."\n"; }*/
+
 ?>

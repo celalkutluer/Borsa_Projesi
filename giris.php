@@ -32,7 +32,7 @@ include "inc/header.php";
                                 <a href="sifremi-unuttum.php" class="pull-right">Şifreni mi unuttun?</a>
                             </div>
                             <div class="input-group input-group-icon">
-                                <input name="sifre" type="password" class="form-control input-lg"/>
+                                <input name="sifre" type="password" class="form-control input-lg" <?php if( isset($_COOKIE['sifre'])){  echo "value='".$_COOKIE['sifre']."'"; } ?>/>
                                 <span class="input-group-addon">
 										<span class="icon icon-lg">
 											<i class="fa fa-lock"></i>

@@ -21,6 +21,32 @@ include "inc/header.php";
                             <input type="text" id="sif_u_eposta" value="" class="form-control form-control-lg" required>
                         </div>
                         <div class="form-group mb-lg">
+                            <div class="clearfix">
+                                <?php
+                                $s1 = rand(1, 9);
+                                $s2 = rand(1, 9);
+                                $t = $s1 + $s2;
+                                $y = md5($t);
+                                ?>
+                                <label class="pull-left" id="giris_dogrulama_text">
+                                    <?php
+                                    echo "$s1+$s2 sayılarının toplamını giriniz.";
+                                    ?>
+                                </label>
+                                <label class="pull-right"></label>
+                                <input id="kodsif_dogrulama_input" class="form-control form-control-lg" type="hidden"
+                                       value="<?php echo $y; ?>" name="toplam">
+                            </div>
+                            <div class="input-group input-group-icon">
+                                <input name="dkodu" id="kodsif_dkodu" type="text" class="form-control input-lg"/>
+                                <span class="input-group-addon">
+										<span class="icon icon-lg">
+											<i class="fa fa-lock"></i>
+										</span>
+									</span>
+                            </div>
+                        </div>
+                        <div class="form-group mb-lg">
                             <button type="button" id="btnSifre_Unuttum"
                                     class="btn btn-primary btn-modern btn-lg btn-block">Gönder
                             </button>
