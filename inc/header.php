@@ -95,6 +95,8 @@ if (isset($_SESSION['yetki'])) {
                                                             Kayıtları</a></li>
                                                     <li><a href='mali_durum.php' class='dropdown-item'>Mali Durum</a>
                                                     </li>
+                                                    <li><a href='mesajlar.php' class='dropdown-item'>Mesajlar</a>
+                                                    </li>
                                                 </ul>
                                             </li>";
                                 } else {
@@ -180,6 +182,11 @@ if (isset($_SESSION['yetki'])) {
                             } else {
                             }
                             ?>
+                            <li>
+                                <a class="nav-link" href="iletisim.php">
+                                    İletişim
+                                </a>
+                            </li>
                         </ul>
                     </nav>
                 </div>

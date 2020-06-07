@@ -333,7 +333,8 @@ $komisyon = 1.003; ?>
                         } ?>
                     </tbody>
                 </table>
-                <script type="text/javascript"> function alim_btn_func(no) {
+                <script type="text/javascript">
+                    function alim_btn_func(no) {
                         var data = {
                             'sembol': document.getElementById('hisse_alim_form_sembol_' + no).innerText,
                             'alis_tutar': document.getElementById('hisse_deger_alim_' + no).innerText,
@@ -351,7 +352,6 @@ $komisyon = 1.003; ?>
                             }
                         });
                     }
-
                     function satim_btn_func(no) {
                         var data = {
                             'sembol': document.getElementById('hisse_sat_form_sembol_' + no).innerText,
@@ -369,7 +369,8 @@ $komisyon = 1.003; ?>
                                 $("#hisse_sat_alert").html(cevap).hide().fadeIn(700);
                             }
                         });
-                    } </script>
+                    }
+                </script>
             </div>
         </section>
     </section>

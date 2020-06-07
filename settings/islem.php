@@ -319,6 +319,67 @@ if (g('islem') == 'sif_u') {
         }
     }
 }
+if (g('islem') == 'iletisim') {
+    $i_Ad = p('i_Ad');
+    $i_Soyad = p('i_Soyad');
+    $i_Email = p('i_Email');
+    $i_Txt = p('i_Txt');
+    $i_dkodu = p('i_dkodu');
+    $i_toplam = p('i_toplam');
+
+    if ($i_toplam != md5($i_dkodu)) {
+        echo "<div class='alert alert-warning'>Doğrulama kodunuz hatalı.</div>";
+    } else {
+        /**/
+        if (empty($i_Ad)) {
+            echo "<div class='alert alert-warning'>Lütfen İsminizi Giriniz.</div>";
+        } elseif (empty($i_Soyad)) {
+            echo "<div class='alert alert-warning'>Lütfen Soyisminizi Giriniz..</div>";
+        } elseif (empty($i_Email)) {
+            echo "<div class='alert alert-warning'>Lütfen Eposta Adresinizi Giriniz..</div>";
+        } elseif (empty($i_Txt)) {
+            echo "<div class='alert alert-warning'>Lütfen Mesajınızı Giriniz..</div>";
+        } elseif (!filter_var($i_Email, FILTER_VALIDATE_EMAIL)) {
+            echo "<div class='alert alert-warning'>Lütfen Eposta Adresinizi Doğru Giriniz..</div>";
+        } else {
+            $veri = $db->prepare('SELECT kul_Id,kul_Eposta FROM kullanicilar WHERE kul_Eposta=?');
+            $veri->execute(array($i_Email));
+            $v = $veri->fetchAll(PDO::FETCH_ASSOC);
+            $say = $veri->rowCount();
+            foreach ($v as $kul) ;
+            /**/
+            $verimsj = $db->prepare('SELECT TIME_TO_SEC(timeDIFF(CURRENT_TIMESTAMP() , `msj_zaman`)) as saniye FROM `mesajlar` WHERE `msj_eposta`=? ORDER BY `msj_zaman` DESC LIMIT 1');
+            $verimsj->execute(array($i_Email));
+            $vmsj = $verimsj->fetchAll(PDO::FETCH_ASSOC);
+            $saymsj = $verimsj->rowCount();
+            foreach ($vmsj as $msj) ;
+            /**/
+            if ($saymsj && (300 - $msj['saniye']) > 0) {
+                echo "<div class='alert alert-warning'>Bir kişi enfazla 5 dk da bir mesaj gönderebilir. Lütfen bekleyiniz.</div>";
+            } else {
+                if ($say) {
+                    $ekle = $db->prepare("INSERT INTO mesajlar (msj_ad , msj_soyad , msj_eposta , msj_text , msj_kul_id) VALUES ('" . $i_Ad . "','" . $i_Soyad . "','" . $i_Email . "','" . $i_Txt . "','" . $kul['kul_Id'] . "')");
+                    $ekleme = $ekle->execute(array());
+                    if ($ekleme) {
+                        echo "<div class='alert alert-success'>Mesajınız Sistem Yöneticilerimize gönderildi. Vakit Ayırdığınız İçin Teşekkür Ederiz.</div>";
+                    } else {
+                        echo "<div class='alert alert-danger'>Mesajınız gönderilemedi</div>";
+                    }
+                } else {
+                    $ekle = $db->prepare("INSERT INTO mesajlar (msj_ad , msj_soyad , msj_eposta , msj_text ) VALUES ('" . $i_Ad . "','" . $i_Soyad . "','" . $i_Email . "','" . $i_Txt . "')");
+                    $ekleme = $ekle->execute(array());
+                    if ($ekleme) {
+                        echo "<div class='alert alert-success'>Mesajınız Sistem Yöneticilerimize gönderildi. Vakit Ayırdığınız İçin Teşekkür Ederiz.</div>";
+                    } else {
+                        echo "<div class='alert alert-danger'>Mesajınız gönderilemedi</div>";
+                    }
+                }
+            }
+
+        }
+    }
+
+}
 if (g('islem') == 'profil_resim_kayit') {
     if ($_FILES['file']['name'] != "") {
         $name = $_FILES['file']['name'];
@@ -577,13 +638,13 @@ if (g('islem') == 'pasife_al') {
 }
 if (g('islem') == 'yetki_ver') {
     $id = p('id');
-/**/
+    /**/
     $veri_k = $db->prepare('SELECT kul_Yetki FROM `kullanicilar` WHERE `kul_Id`=?');
     $veri_k->execute(array($id));
     $v_k = $veri_k->fetchAll(PDO::FETCH_ASSOC);
     foreach ($v_k as $k) ;
     /**/
-    if($k['kul_Yetki']==1){
+    if ($k['kul_Yetki'] == 1) {
         $kul_gunce = $db->prepare("UPDATE kullanicilar SET kul_Yetki='0' WHERE kul_Id=?");
         $kul_guncellemem = $kul_gunce->execute(array($id));
 
@@ -599,8 +660,7 @@ if (g('islem') == 'yetki_ver') {
         } else {
             echo "<div class='alert alert-success'>Kullanıcı Yetki Alma İşleminiz Başarısız oldu</div>";
         }
-    }
-    else{
+    } else {
         $kul_gunce = $db->prepare("UPDATE kullanicilar SET kul_Yetki='1' WHERE kul_Id=?");
         $kul_guncellemem = $kul_gunce->execute(array($id));
 
@@ -616,6 +676,49 @@ if (g('islem') == 'yetki_ver') {
         } else {
             echo "<div class='alert alert-success'>Kullanıcı Yetki Verme İşleminiz Başarısız oldu</div>";
         }
+    }
+
+}
+if (g('islem') == 'mesaj_okundu') {
+    $id = p('id');
+    /**/
+    $msj_gunce = $db->prepare("UPDATE  mesajlar  SET  msj_okundumu ='1', msj_okuyan_id =? WHERE  msj_id =?");
+    $msj_guncellemem = $msj_gunce->execute(array($_SESSION['kul_id'],$id));
+    if ($msj_guncellemem) {
+        echo "<div class='alert alert-success'>Mesaj okuma İşleminiz Gerçekleşti.</div><meta http-equiv='refresh' content='1; url=mesajlar.php'>";
+
+    } else {
+        echo "<div class='alert alert-success'>Mesaj okuma İşleminiz Başarısız oldu</div>";
+    }
+}
+if (g('islem') == 'mesaj_cevap') {
+    $eposta = p('eposta');
+    $mesaj_text = p('mesaj_text');
+/**/
+
+    $mail = new PHPMailer(true);
+    $mail->isSMTP();
+    $mail->Host = "smtp.gmail.com";
+    $mail->Port = 587;
+    $mail -> charSet = "UTF-8";
+    $mail->SMTPSecure = "tls";
+    $mail->SMTPAuth = true;
+    $mail->Username = "borsayatirimfantaziligi@gmail.com";
+    $mail->Password = "Aa123456789.";
+    $mail->SetFrom($eposta);
+    $mail->addAddress($eposta);
+    $mail->IsHTML(true);
+    $mail->Subject = "Iletisim Sayfamiza Yazmis oldugunuz mesajiniz hakkinda.";
+    $mail->Body = $mesaj_text;
+    $mail->SMTPOptions = array('ssl' => array(
+        'verify_peer' => false,
+        'verify_peer_name' => false,
+        'allow_self_signed' => false
+    ));
+    if ($mail->send()) {
+        echo "<div class='alert alert-success'>E-posta gönderildi.</div>";
+    } else {
+        echo "<div class='alert alert-danger'>E-posta gönderilemedi.</div>";
     }
 
 }

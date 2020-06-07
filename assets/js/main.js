@@ -69,6 +69,22 @@ $("#btnSifre_Unuttum").click(function () {
         }
     });
 });
+$("#iletisim_btn").click(function () {
+    var i_Ad =document.getElementById('iletisim_Ad').value;
+    var i_Soyad =document.getElementById('iletisim_Soyad').value;
+    var i_Email =document.getElementById('iletisim_Email').value;
+    var i_Txt =document.getElementById('iletisim_text').value;
+    var i_dkodu =document.getElementById('iletisim_dkodu').value;
+    var i_toplam =document.getElementById('iletisim_toplam').value;
+    $.ajax({
+        type: 'POST',
+        url: 'settings/islem.php?islem=iletisim',
+        data: {i_Ad:i_Ad,i_Soyad:i_Soyad,i_Email:i_Email,i_Txt:i_Txt,i_dkodu:i_dkodu,i_toplam:i_toplam },
+        success: function (cevap) {
+            $("#iletisim_alert").html(cevap).hide().fadeIn(700);
+        }
+    });
+});
 $("#but_upload").click(function () {
     var fd = new FormData();
     var files = $('#file')[0].files[0];
