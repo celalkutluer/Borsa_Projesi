@@ -112,8 +112,10 @@ kullanicikontrol();
                                     <div class="form-group">
                                         <label class="col-md-3 control-label" for="profilCepNo">Cep Telefonu</label>
                                         <div class="col-md-8">
-                                            <input type="text" class="form-control" id="profilCepNo"
-                                                   value="<?php echo $profil['kul_CepNo']; ?>">
+                                           <!-- <input type="text" class="form-control" id="profilCepNo"
+                                                   value="">-->
+                                            <input id="profilCepNo" name="profilCepNo"  class="phone form-control" type="text"
+                                                   maxlength="15" value="<?php echo $profil['kul_CepNo']; ?>" />
                                         </div>
                                     </div>
                                     <div class="form-group">

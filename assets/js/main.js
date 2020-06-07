@@ -222,6 +222,7 @@ function disableElement(id){
 }
 
 setTimeout(disableElement, 5*60*1000);
+
 $(document).ready(function () {
     setInterval(Tablo_veri_cek, 60000);/*60 saniyede bir otomatik güncelleme*/
     $('#profil_form_bilgi').on('input change', function () {
@@ -229,5 +230,30 @@ $(document).ready(function () {
     });
     $('#profil_form_sifre').on('input change', function () {
         $('#profil_sifre_kaydet_btn').attr('disabled', false);
+    });
+    $("input.phone").keyup(function() {
+        var val = $(this).val();
+        var bas = val.length > 15 ? val.substr(0,15) : val;
+        var son = val.length > 15 ? val.substr(15,val.length) : "";
+        val = val.length > 15 ? String(bas.replace(/[\D]/g, '')) +
+            String(son.replace(/[^0-9\s\-]/g, '')) : String(val.replace(/[\D]/g,
+            ''));
+        var str = "";
+        if(val.length == 11) {
+            str = "(" + val.substr(0,3) + ") " + val.substr(3,3) + " " +
+                val.substr(6,2) + " " + val.substr(8,2) + " - " +
+                val.substr(10,val.length);
+        } else if(val.length >= 8) {
+            str = "(" + val.substr(0,3) + ") " + val.substr(3,3) + " " +
+                val.substr(6,2) + " " + val.substr(8,val.length);
+        } else if(val.length >=6) {
+            str = "(" + val.substr(0,3) + ") " + val.substr(3,3) + " " +
+                val.substr(6,val.length);
+        } else if(val.length >=3) {
+            str = "(" + val.substr(0,3) + ") " + val.substr(3,val.length);
+        } else {
+            str = val;
+        }
+        $(this).val(str);
     });
 });

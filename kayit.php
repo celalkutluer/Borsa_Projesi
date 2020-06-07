@@ -49,7 +49,10 @@ include "inc/header.php";
                                 </div>
                                 <div class="col-sm-6 mb-lg">
                                     <label>Cep Telefon No</label>
-                                    <input id="frmKayitCepTelNo" name="frmKayitCepTelNo" type="text" data-plugin-masked-input data-input-mask="(999) 999-9999" placeholder="(555) 555-5555" class="form-control input-lg" />
+                                    <!--<input id="frmKayitCepTelNo" name="frmKayitCepTelNo" type="text" data-plugin-masked-input data-input-mask="(999) 999-9999"
+                                           placeholder="(555) 555-5555" class="form-control input-lg" />-->
+                                    <input id="frmKayitCepTelNo" name="frmKayitCepTelNo"  class="phone form-control input-lg" type="text"
+                                           maxlength="15"  />
                                 </div>
                             </div>
                         </div>
