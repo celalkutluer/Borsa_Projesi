@@ -4,7 +4,7 @@
         <div class="center-sign">
             <div class="panel panel-sign">
                 <div class="panel-title-sign mt-xl text-right">
-                    <h2 class="title text-uppercase text-weight-bold m-none">Doğrula veya Tekrar Kod Gönder</h2>
+                    <h2 class="title text-uppercase text-weight-bold m-none">Tekrar Kod Gönder</h2>
                 </div>
                 <div class="panel">
 
