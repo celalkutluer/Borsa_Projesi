@@ -45,8 +45,8 @@ if (isset($_SESSION['yetki'])) {
     <!-- Specific Page Vendor CSS -->
     <link rel="stylesheet" href="assets/vendor/jquery-ui/jquery-ui.css"/>
     <link rel="stylesheet" href="assets/vendor/jquery-ui/jquery-ui.theme.css"/>
-    <link rel="stylesheet" href="assets/vendor/bootstrap-multiselect/bootstrap-multiselect.css"/>
-    <link rel="stylesheet" href="assets/vendor/morris.js/morris.css"/>
+    <!-- <link rel="stylesheet" href="assets/vendor/bootstrap-multiselect/bootstrap-multiselect.css"/>-->
+    <!-- <link rel="stylesheet" href="assets/vendor/morris.js/morris.css"/>-->
     <link rel="stylesheet" href="assets/vendor/select2/css/select2.css"/>
     <link rel="stylesheet" href="assets/vendor/select2-bootstrap-theme/select2-bootstrap.min.css"/>
     <link rel="stylesheet" href="assets/vendor/pnotify/pnotify.custom.css"/>
@@ -136,6 +136,11 @@ if (isset($_SESSION['yetki'])) {
                                     Liderlik
                                 </a>
                             </li>
+                                                        <li>
+                                <a class="nav-link" href="iletisim.php">
+                                    İletişim
+                                </a>
+                            </li>
                         </ul>
                         <ul class="nav navbar-nav nav-pills ml-auto" id="mainNav">
                             <?php
@@ -182,11 +187,6 @@ if (isset($_SESSION['yetki'])) {
                             } else {
                             }
                             ?>
-                            <li>
-                                <a class="nav-link" href="iletisim.php">
-                                    İletişim
-                                </a>
-                            </li>
                         </ul>
                     </nav>
                 </div>

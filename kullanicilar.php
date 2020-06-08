@@ -25,9 +25,9 @@ yoneticikontrol();
                                 <th>E-Posta</th>
                                 <th>Yetki</th>
                                 <th>Son Giriş Tarihi</th>
-                                <th class="hidden-xs">Üyelik Tarihi</th>
-                                <th class="hidden-xs">Pasife Al</th>
-                                <th class="hidden-xs">Yetki Ver</th>
+                                <th>Üyelik Tarihi</th>
+                                <th>Pasife Al</th>
+                                <th>Yetki Ver</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -50,12 +50,12 @@ yoneticikontrol();
                                             <td><?php echo $tum_kullanicilar['kul_Eposta']; ?></td>
                                             <td><?php if ($tum_kullanicilar['kul_Yetki'] == 1) echo "Yönetici"; else echo "Yatırımcı"; ?></td>
                                             <td><?php echo (new \DateTime($tum_kullanicilar['kul_Son_Giris_Tar']))->format('d-m-Y H:i:s') . PHP_EOL; ?></td>
-                                            <td class="center hidden-xs"><?php echo (new \DateTime($tum_kullanicilar['kul_Uyelik_Tarih']))->format('d-m-Y H:i:s') . PHP_EOL; ?></td>
-                                            <td class="center hidden-xs">
-                                                <button id='btn_' type='button' class="btn btn-warning" <?php echo "onclick=".chr(34)."pasife_al_btn("."'".$sayi."'".")".chr(34); if($tum_kullanicilar['kul_Pasif_Durum']=='0'){ echo "disabled";} ?> >Pasife Al</button>
+                                            <td class="center"><?php echo (new \DateTime($tum_kullanicilar['kul_Uyelik_Tarih']))->format('d-m-Y H:i:s') . PHP_EOL; ?></td>
+                                            <td class="center">
+                                                <button id='btn_' type='button' class="btn btn-<?php if ($tum_kullanicilar['kul_Pasif_Durum']=='0') echo "info"; else echo "warning"; ?>" <?php echo "onclick=".chr(34)."pasife_al_btn("."'".$sayi."'".")".chr(34); if($tum_kullanicilar['kul_Pasif_Durum']=='0'){ echo "disabled";} ?> >Pasife Al</button>
                                             </td>
-                                            <td class="center hidden-xs">
-                                                <button id='btn_yetki_' type='button' class="btn btn-success" <?php echo "onclick=".chr(34)."yetki_ver_btn("."'".$sayi."'".")".chr(34); if($tum_kullanicilar['kul_Id'] == $_SESSION['kul_id']){ echo "disabled";} ?> >Yöneticilik Al/Ver</button>
+                                            <td class="center">
+                                                <button id='btn_yetki_' type='button' class="btn btn-<?php if ($tum_kullanicilar['kul_Yetki'] == 1) echo "danger"; else echo "success"; ?>" <?php echo "onclick=".chr(34)."yetki_ver_btn("."'".$sayi."'".")".chr(34); if($tum_kullanicilar['kul_Id'] == $_SESSION['kul_id']){ echo "disabled";} ?> >Yöneticilik<?php if ($tum_kullanicilar['kul_Yetki'] == 1) echo "ten Al"; else echo " Ver"; ?></button>
                                             </td>
                                         </tr>
                                         <?php

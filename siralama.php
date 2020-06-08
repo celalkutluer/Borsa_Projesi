@@ -48,7 +48,7 @@ include "inc/header.php";
                                                     <tbody>
                                                     <?php
                                                     $sayi=0;
-                                                    $veri_gunluk_kul_sira = $db->prepare('SELECT UPPER(kullanicilar.kul_Ad) AS AD,UPPER(kullanicilar.kul_Soyad) AS SOYAD, SUM(satim.satim_kar_zarar) AS DURUM FROM satim INNER JOIN kullanicilar ON kullanicilar.kul_Id = satim.satim_kul_id WHERE satim_zaman between CURDATE() and DATE_SUB(CURDATE(), INTERVAL -1 DAY) GROUP BY satim_kul_id ORDER BY satim_kar_zarar DESC LIMIT 10');
+                                                    $veri_gunluk_kul_sira = $db->prepare('SELECT UPPER(kullanicilar.kul_Ad) AS AD, UPPER(kullanicilar.kul_Soyad) AS SOYAD, SUM(satim.satim_kar_zarar) AS DURUM FROM satim INNER JOIN kullanicilar ON kullanicilar.kul_Id = satim.satim_kul_id WHERE satim_zaman between CURDATE() and DATE_SUB(CURDATE(), INTERVAL -1 DAY) GROUP BY satim_kul_id ORDER BY durum DESC LIMIT 10');
                                                     $veri_gunluk_kul_sira->execute(array());
                                                     $v_gunluk_kul_sira = $veri_gunluk_kul_sira->fetchAll(PDO::FETCH_ASSOC);
                                                     $say_gunluk_kul_sira = $veri_gunluk_kul_sira->rowCount();
@@ -87,9 +87,7 @@ include "inc/header.php";
                                                     <?php
                                                     $sayi=0;
                                                     $veri_gunluk_kul_sira = $db->prepare('
-SELECT UPPER(kullanicilar.kul_Ad) AS AD,UPPER(kullanicilar.kul_Soyad) AS SOYAD, SUM(satim.satim_kar_zarar) AS DURUM FROM satim 
-INNER JOIN kullanicilar ON kullanicilar.kul_Id = satim.satim_kul_id 
-WHERE satim_zaman between DATE_SUB(DATE_SUB(CURDATE(), INTERVAL 1 WEEK), INTERVAL -1 DAY) and DATE_SUB(CURDATE(), INTERVAL -1 DAY) GROUP BY satim_kul_id ORDER BY satim_kar_zarar DESC LIMIT 10');
+SELECT UPPER(kullanicilar.kul_Ad) AS AD, UPPER(kullanicilar.kul_Soyad) AS SOYAD, SUM(satim.satim_kar_zarar) AS DURUM FROM satim INNER JOIN kullanicilar ON kullanicilar.kul_Id = satim.satim_kul_id WHERE satim_zaman between DATE_SUB(DATE_SUB(CURDATE(), INTERVAL 1 WEEK), INTERVAL -1 DAY) and DATE_SUB(CURDATE(), INTERVAL -1 DAY) GROUP BY satim_kul_id ORDER BY durum DESC LIMIT 10');
                                                     $veri_gunluk_kul_sira->execute(array());
                                                     $v_gunluk_kul_sira = $veri_gunluk_kul_sira->fetchAll(PDO::FETCH_ASSOC);
                                                     $say_gunluk_kul_sira = $veri_gunluk_kul_sira->rowCount();
@@ -128,9 +126,15 @@ WHERE satim_zaman between DATE_SUB(DATE_SUB(CURDATE(), INTERVAL 1 WEEK), INTERVA
                                                     <?php
                                                     $sayi=0;
                                                     $veri_gunluk_kul_sira = $db->prepare('
-SELECT UPPER(kullanicilar.kul_Ad) AS AD,UPPER(kullanicilar.kul_Soyad) AS SOYAD, SUM(satim.satim_kar_zarar) AS DURUM FROM satim 
+SELECT UPPER(kullanicilar.kul_Ad) AS AD,
+UPPER(kullanicilar.kul_Soyad) AS SOYAD, 
+SUM(satim.satim_kar_zarar) AS DURUM 
+FROM satim 
 INNER JOIN kullanicilar ON kullanicilar.kul_Id = satim.satim_kul_id 
-WHERE satim_zaman between DATE_SUB(DATE_SUB(CURDATE(), INTERVAL 1 MONTH), INTERVAL -1 DAY) and DATE_SUB(CURDATE(), INTERVAL -1 DAY) GROUP BY satim_kul_id ORDER BY satim_kar_zarar DESC LIMIT 10');
+WHERE satim_zaman
+between DATE_SUB(DATE_SUB(CURDATE(), INTERVAL 1 MONTH), INTERVAL -1 DAY) and DATE_SUB(CURDATE(), INTERVAL -1 DAY)
+GROUP BY satim_kul_id 
+ORDER BY durum DESC LIMIT 10');
                                                     $veri_gunluk_kul_sira->execute(array());
                                                     $v_gunluk_kul_sira = $veri_gunluk_kul_sira->fetchAll(PDO::FETCH_ASSOC);
                                                     $say_gunluk_kul_sira = $veri_gunluk_kul_sira->rowCount();
@@ -169,10 +173,7 @@ WHERE satim_zaman between DATE_SUB(DATE_SUB(CURDATE(), INTERVAL 1 MONTH), INTERV
                                                     <?php
                                                     $sayi=0;
                                                     $veri_gunluk_kul_sira = $db->prepare('
-SELECT UPPER(kullanicilar.kul_Ad) AS AD,UPPER(kullanicilar.kul_Soyad) AS SOYAD, SUM(satim.satim_kar_zarar) AS DURUM FROM satim 
-INNER JOIN kullanicilar ON kullanicilar.kul_Id = satim.satim_kul_id 
-WHERE satim_zaman between DATE_SUB(DATE_SUB(CURDATE(), INTERVAL 1 YEAR), INTERVAL -1 DAY) and DATE_SUB(CURDATE(), INTERVAL -1 DAY) 
-GROUP BY satim_kul_id ORDER BY satim_kar_zarar DESC LIMIT 10');
+SELECT UPPER(kullanicilar.kul_Ad) AS AD, UPPER(kullanicilar.kul_Soyad) AS SOYAD, SUM(satim.satim_kar_zarar) AS DURUM FROM satim INNER JOIN kullanicilar ON kullanicilar.kul_Id = satim.satim_kul_id WHERE satim_zaman between DATE_SUB(DATE_SUB(CURDATE(), INTERVAL 1 YEAR), INTERVAL -1 DAY) and DATE_SUB(CURDATE(), INTERVAL -1 DAY) GROUP BY satim_kul_id ORDER BY durum DESC LIMIT 10');
                                                     $veri_gunluk_kul_sira->execute(array());
                                                     $v_gunluk_kul_sira = $veri_gunluk_kul_sira->fetchAll(PDO::FETCH_ASSOC);
                                                     $say_gunluk_kul_sira = $veri_gunluk_kul_sira->rowCount();
@@ -300,7 +301,17 @@ GROUP BY satim_kul_id ORDER BY satim_kar_zarar DESC LIMIT 10');
                                                     <tbody>
                                                     <?php
                                                     $sayi=0;
-                                                    $veri_lig_genel_sira = $db->prepare('SELECT UPPER(ligler.lig_baslik) AS LIG, SUM(satim.satim_kar_zarar) AS DURUM FROM satim INNER JOIN kullanicilar ON kullanicilar.kul_Id = satim.satim_kul_id INNER JOIN ligler ON ligler.lig_id = kullanicilar.kul_lig_id WHERE satim_zaman between DATE_SUB(DATE_SUB(CURDATE(), INTERVAL 1 YEAR), INTERVAL -1 DAY) and DATE_SUB(CURDATE(), INTERVAL -1 DAY) GROUP BY ligler.lig_id ORDER BY durum DESC LIMIT 10');
+                                                    $veri_lig_genel_sira = $db->prepare('
+SELECT 
+UPPER(ligler.lig_baslik) AS LIG, 
+SUM(satim.satim_kar_zarar) AS DURUM 
+FROM satim 
+INNER JOIN kullanicilar ON kullanicilar.kul_Id = satim.satim_kul_id 
+INNER JOIN ligler ON ligler.lig_id = kullanicilar.kul_lig_id 
+WHERE satim_zaman
+between DATE_SUB(DATE_SUB(CURDATE(), INTERVAL 1 YEAR), INTERVAL -1 DAY) and DATE_SUB(CURDATE(), INTERVAL -1 DAY) 
+GROUP BY ligler.lig_id 
+ORDER BY durum DESC LIMIT 10');
                                                     $veri_lig_genel_sira->execute(array());
                                                     $v_lig_genel_sira = $veri_lig_genel_sira->fetchAll(PDO::FETCH_ASSOC);
                                                     $say_lig_genel_sira = $veri_lig_genel_sira->rowCount();

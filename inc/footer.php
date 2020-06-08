@@ -58,7 +58,7 @@
 <script src="assets/js/theme.init.js"></script>
 
 <!-- Current Page Vendor and Views -->
-<script src=assets/"vendor/rs-plugin/js/jquery.themepunch.tools.min.js"></script>
+<!--<script src=assets/"vendor/rs-plugin/js/jquery.themepunch.tools.min.js"></script> -->
 <script src="assets/vendor/rs-plugin/js/jquery.themepunch.revolution.min.js"></script>
 
 <!-- Current Page Vendor and Views -->

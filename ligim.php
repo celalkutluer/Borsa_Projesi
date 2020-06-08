@@ -88,7 +88,7 @@ kullanicikontrol();
                                             </td>
 
                                             <td class='text-center' id='devret'>
-                                                <button class='btn btn-primary'
+                                                <button class='btn btn-info'
                                                         onclick="devret_btn('<?php echo $sayi; ?>')"
                                                     <?php
 
@@ -102,7 +102,7 @@ kullanicikontrol();
                                                 </button>
                                             </td>
                                             <td class='text-center' id='at'>
-                                                <button class='btn btn-primary' onclick="at_btn('<?php echo $sayi; ?>')"
+                                                <button class='btn btn-danger' onclick="at_btn('<?php echo $sayi; ?>')"
                                                     <?php
                                                     if ($lig_yon['lig_yonetici_id'] == $_SESSION['kul_id']&&$_SESSION['kul_id']!=$lig['id']) {
                                                     } else {
