@@ -1,4 +1,13 @@
-<?php include "inc/header.php";
+<?php
+/**
+ * PhpStorm ile oluşturulmuştur.
+ * Yazar            : CELALKUTLUER
+ * Test Eden        : CELALKUTLUER
+ * Hata Ayıklayan   : CELALKUTLUER
+ * Date: 09.06.2020
+ * Time: 20:00
+ */
+include "inc/header.php";
 $link = "http://bigpara.hurriyet.com.tr/borsa/canli-borsa/";
 $icerik = file_get_contents($link);
 $icerik = preg_replace('~[\r\n]~', '', $icerik);
@@ -6,7 +15,8 @@ $icerik = preg_replace('~[ ]~', '', $icerik);
 $h_td_sembol = array();
 $h_td_sembol = ara('target="_blank">', '</a>', $icerik);/*hisse adlarının dizisi[0] - [99] arası 100 hisse*/
 $tum_hisse_dizileri = array();
-$komisyon = 1.003; ?>
+$komisyon = sabit_getir("komisyon");
+?>
 <section role="main" class="content-body">
     <section class="section bg-color-quy">
         <section class="section bg-color-quaternary custom-padding-4 border-0 my-0">

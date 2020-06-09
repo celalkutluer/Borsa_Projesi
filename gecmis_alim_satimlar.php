@@ -1,8 +1,15 @@
 <?php
+/**
+ * PhpStorm ile oluşturulmuştur.
+ * Yazar            : CELALKUTLUER
+ * Test Eden        : CELALKUTLUER
+ * Hata Ayıklayan   : CELALKUTLUER
+ * Date: 09.06.2020
+ * Time: 20:00
+ */
 include "inc/header.php";
 kullanicikontrol();
 ?>
-
     <section role="main" class="content-body">
         <div class="conteiner">
             <div class="col-md">
@@ -95,7 +102,4 @@ kullanicikontrol();
             </div>
         </div>
     </section>
-    <!--KODLAR BURAYA-->
-
-
 <?php include "inc/footer.php"; ?>

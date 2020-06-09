@@ -1,4 +1,12 @@
 <?php
+/**
+ * PhpStorm ile oluşturulmuştur.
+ * Yazar            : CELALKUTLUER
+ * Test Eden        : CELALKUTLUER
+ * Hata Ayıklayan   : CELALKUTLUER
+ * Date: 09.06.2020
+ * Time: 20:00
+ */
 include "inc/header.php";
 yoneticikontrol();
 ?>
@@ -16,7 +24,7 @@ yoneticikontrol();
                         <table class="table table-bordered table-striped mb-none" id="datatable-default">
                             <thead>
                             <tr>
-                                <th>Sıra</th>
+                                <th>#</th>
                                 <th>Log Id</th>
                                 <th>Ad</th>
                                 <th>Soyad</th>
@@ -63,7 +71,4 @@ yoneticikontrol();
             </div>
         </div>
     </section>
-    <!--KODLAR BURAYA-->
-
-
 <?php include "inc/footer.php"; ?>

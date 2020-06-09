@@ -1,7 +1,14 @@
 <?php
+/**
+ * PhpStorm ile oluşturulmuştur.
+ * Yazar            : CELALKUTLUER
+ * Test Eden        : CELALKUTLUER
+ * Hata Ayıklayan   : CELALKUTLUER
+ * Date: 09.06.2020
+ * Time: 20:00
+ */
 include "inc/header.php";
 ?>
-
     <section class="body-sign">
         <div class="center-sign">
             <div class="panel panel-sign">
@@ -83,5 +90,4 @@ include "inc/header.php";
             </div>
         </div>
     </section>
-
 <?php include "inc/footer.php"; ?>

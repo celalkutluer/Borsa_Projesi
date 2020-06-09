@@ -1,9 +1,16 @@
 <?php
+/**
+ * PhpStorm ile oluşturulmuştur.
+ * Yazar            : CELALKUTLUER
+ * Test Eden        : CELALKUTLUER
+ * Hata Ayıklayan   : CELALKUTLUER
+ * Date: 09.06.2020
+ * Time: 20:00
+ */
 include "inc/header.php";
 kullanicikontrol();
-$komisyon = 1.003;
+$komisyon = sabit_getir("komisyon");
 ?>
-
     <section role="main" class="content-body">
         <div class="conteiner">
             <div class="col-md">
@@ -182,7 +189,4 @@ $komisyon = 1.003;
             </div>
         </div>
     </section>
-    <!--KODLAR BURAYA-->
-
-
 <?php include "inc/footer.php"; ?>

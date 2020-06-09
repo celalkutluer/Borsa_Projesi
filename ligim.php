@@ -1,4 +1,12 @@
 <?php
+/**
+ * PhpStorm ile oluşturulmuştur.
+ * Yazar            : CELALKUTLUER
+ * Test Eden        : CELALKUTLUER
+ * Hata Ayıklayan   : CELALKUTLUER
+ * Date: 09.06.2020
+ * Time: 20:00
+ */
 include "inc/header.php";
 kullanicikontrol();
 ?>
@@ -156,6 +164,4 @@ kullanicikontrol();
             </div>
         </div>
     </section>
-    <!--KODLAR BURAYA-->
-
 <?php include "inc/footer.php"; ?>

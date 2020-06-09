@@ -1,6 +1,15 @@
 <?php
+/**
+ * PhpStorm ile oluşturulmuştur.
+ * Yazar            : CELALKUTLUER
+ * Test Eden        : CELALKUTLUER
+ * Hata Ayıklayan   : CELALKUTLUER
+ * Date: 09.06.2020
+ * Time: 20:00
+ */
 include "inc/header.php";
-$komisyon = 1.003;
+
+$komisyon = sabit_getir("komisyon");
 kullanicikontrol();
 ?>
 <section role="main" class="content-body">
@@ -51,7 +60,6 @@ kullanicikontrol();
                                 <div class="post-info">
                                     <div class="text-center">Son 5 Online Olunan Tarih</div>
                                     <?php
-                                    /**/
                                     $sayi = 0;
                                     $veri_tarih = $db->prepare('SELECT log_zaman FROM log WHERE log_kul_id=? and log_eylem="Giriş" ORDER BY log_zaman DESC LIMIT 5');
                                     $veri_tarih->execute(array($_SESSION['kul_id']));
@@ -60,7 +68,6 @@ kullanicikontrol();
                                         echo "<div class='text-center'>" . (new \DateTime($tarih['log_zaman']))->format('d-m-Y H:i:s') . PHP_EOL . "</div>";
                                         $sayi++;
                                     }
-                                    /**/
                                     ?>
                                 </div>
                             </li>
@@ -112,8 +119,6 @@ kullanicikontrol();
                                     <div class="form-group">
                                         <label class="col-md-3 control-label" for="profilCepNo">Cep Telefonu</label>
                                         <div class="col-md-8">
-                                           <!-- <input type="text" class="form-control" id="profilCepNo"
-                                                   value="">-->
                                             <input id="profilCepNo" name="profilCepNo"  class="phone form-control" type="text"
                                                    maxlength="15" value="<?php echo $profil['kul_CepNo']; ?>" />
                                         </div>
@@ -236,25 +241,22 @@ kullanicikontrol();
                     </li>
                     <li class="warning">
                         <?php
-                        //
                         $sayi = 0;
                         $veri_aktif_varlik = $db->prepare('SELECT * FROM `alim` WHERE `alim_kul_id`=? and alim_lot_satilmayan>0 order by alim_lot_satilmayan desc ');
                         $veri_aktif_varlik->execute(array($_SESSION['kul_id']));
                         $v_aktif_varlik = $veri_aktif_varlik->fetchAll(PDO::FETCH_ASSOC);
                         $say_aktif_varlik = $veri_aktif_varlik->rowCount();
-                        ////
+                        /**/
                         if($say_aktif_varlik>0){
                             $satilmayan_fiyat = 0;
                             $satilmayan_son_deger = 0;
-                            /////////////
+                            /**/
                             foreach ($v_aktif_varlik as $aktif_varlik) {
-                                ////
                                 $aktif_varlik_fiyat = round(($aktif_varlik['alim_hisse_toplam_tutar'] / $aktif_varlik['alim_hisse_lot']), 2);
                                 $satilmayan_fiyat = $satilmayan_fiyat + round(($aktif_varlik_fiyat * $aktif_varlik['alim_lot_satilmayan']), 2);
-                                //
+                                /**/
                                 $son_deger = round(bakiye_son($aktif_varlik['alim_hisse_sembol']), 2);
                                 $satilmayan_son_deger = $satilmayan_son_deger + round((($son_deger * $aktif_varlik['alim_lot_satilmayan']) - ($son_deger * $aktif_varlik['alim_lot_satilmayan']) * ($komisyon - 1)), 2);
-                                ///
                             }
                             $toplam_varlik_kar = round((($satilmayan_son_deger / $satilmayan_fiyat) - 1), 5);
                             echo "<h3 class='";
@@ -303,8 +305,6 @@ kullanicikontrol();
                 </ul>
             </div>
         </div>
-        <!-- end: page -->
-
     </div>
 </section>
 <?php include "inc/footer.php"; ?>

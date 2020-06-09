@@ -1,4 +1,12 @@
 <?php
+/**
+ * PhpStorm ile oluşturulmuştur.
+ * Yazar            : CELALKUTLUER
+ * Test Eden        : CELALKUTLUER
+ * Hata Ayıklayan   : CELALKUTLUER
+ * Date: 09.06.2020
+ * Time: 20:00
+ */
 include "inc/header.php";
 yoneticikontrol();
 ?>
@@ -114,7 +122,6 @@ yoneticikontrol();
                                     }
                                 }
                             }
-
                             mesajlar();
                             ?>
                             </tbody>
@@ -132,7 +139,6 @@ yoneticikontrol();
                                     }
                                 );
                             }
-
                             function msj_cvp(no) {
                                 var eposta = document.getElementById('msj_eposta_' + no).innerText;
                                 var mesaj_text  = document.getElementById('msj_text_' + no).value;
@@ -151,7 +157,4 @@ yoneticikontrol();
             </div>
         </div>
     </section>
-    <!--KODLAR BURAYA-->
-
-
 <?php include "inc/footer.php"; ?>

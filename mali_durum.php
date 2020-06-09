@@ -1,4 +1,12 @@
 <?php
+/**
+ * PhpStorm ile oluşturulmuştur.
+ * Yazar            : CELALKUTLUER
+ * Test Eden        : CELALKUTLUER
+ * Hata Ayıklayan   : CELALKUTLUER
+ * Date: 09.06.2020
+ * Time: 20:00
+ */
 include "inc/header.php";
 yoneticikontrol();
 ?>
@@ -33,7 +41,9 @@ yoneticikontrol();
                                 $v = $veri->fetchAll(pdo::FETCH_ASSOC);
                                 $say = $veri->rowCount();
                                 if ($say) {
-                                foreach ($v as $tum_alimlar) {
+                                foreach ($v
+
+                                as $tum_alimlar) {
                                 ?>
                             <tr>
                                 <td>1</td>
@@ -41,11 +51,11 @@ yoneticikontrol();
                                 <td><?php echo $tum_alimlar['adet']; ?></td>
                                 <td class="center"><?php echo $tum_alimlar['toplam']; ?><span>&#x20BA;</span></td>
                                 <?php
-                            }
-                            }
-                            }
+                                }
+                                }
+                                }
                                 alimlar();
-                            ?>
+                                ?>
                             </tr>
                             <tr>
                                 <?php
@@ -57,7 +67,9 @@ yoneticikontrol();
                                 $v = $veri->fetchAll(pdo::FETCH_ASSOC);
                                 $say = $veri->rowCount();
                                 if ($say) {
-                                foreach ($v as $tum_satimlar) {
+                                foreach ($v
+
+                                as $tum_satimlar) {
                                 ?>
                             <tr>
                                 <td>2</td>
@@ -78,7 +90,4 @@ yoneticikontrol();
             </div>
         </div>
     </section>
-    <!--KODLAR BURAYA-->
-
-
 <?php include "inc/footer.php"; ?>

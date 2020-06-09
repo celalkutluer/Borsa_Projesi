@@ -1,4 +1,12 @@
 <?php
+/**
+ * PhpStorm ile oluşturulmuştur.
+ * Yazar            : CELALKUTLUER
+ * Test Eden        : CELALKUTLUER
+ * Hata Ayıklayan   : CELALKUTLUER
+ * Date: 09.06.2020
+ * Time: 20:00
+ */
 include "settings/baglantilar.php";
 include "settings/fonksiyonlar.php";
 
@@ -66,7 +74,7 @@ if (isset($_SESSION['yetki'])) {
     <!-- Head Libs -->
     <script src="assets/vendor/modernizr/modernizr.js"></script>
     <style>
-        img{ border:2px solid #999; -webkit-border-radius:8px; -moz-border-radius:8px; border-radius:8px;}
+        img{ solid #999; -webkit-border-radius:8px; -moz-border-radius:8px; border-radius:8px;}
     </style>
 </head>
 <body>

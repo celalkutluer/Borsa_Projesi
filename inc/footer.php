@@ -1,3 +1,12 @@
+<?php
+/**
+ * PhpStorm ile oluşturulmuştur.
+ * Yazar            : CELALKUTLUER
+ * Test Eden        : CELALKUTLUER
+ * Hata Ayıklayan   : CELALKUTLUER
+ * Date: 09.06.2020
+ * Time: 20:00
+ */?>
 </section>
 
 <footer id="footer" class="footer-reveal custom-bg-color-1 footer-reveal border-top-0 m-0">
@@ -41,8 +50,6 @@
     })});
     </script>
 </footer>
-
-
 <!-- Vendor -->
 <script
         src="https://code.jquery.com/jquery-3.4.1.min.js"

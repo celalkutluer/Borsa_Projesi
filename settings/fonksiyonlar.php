@@ -1,4 +1,12 @@
 <?php
+/**
+ * PhpStorm ile oluşturulmuştur.
+ * Yazar            : CELALKUTLUER
+ * Test Eden        : CELALKUTLUER
+ * Hata Ayıklayan   : CELALKUTLUER
+ * Date: 09.06.2020
+ * Time: 20:00
+ */
 include_once "baglantilar.php";
 
 function ara($bas, $son, $yazi)
@@ -43,7 +51,6 @@ function kelime_kontrol($par)
     }
     return $i;
 }
-
 /*SESSİON*/
 function s($par)
 {
@@ -184,4 +191,16 @@ function NumarayiFormatla($TelefonNumarasi)
     }
     return $TelefonNumarasi;
 }
+/**/
+function sabit_getir($par)
+{
+    Global $db;
+    $veri = $db->prepare('SELECT `sabit_deger` as deger FROM `sabitler` WHERE `sabit_ad`=?');
+    $veri->execute(array($par));
+    $v = $veri->fetchAll(PDO::FETCH_ASSOC);
+    foreach ($v as $sabit) ;
+
+    return $sabit['deger'];
+}
+
 ?>

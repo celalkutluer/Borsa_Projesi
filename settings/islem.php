@@ -1,4 +1,13 @@
-<?php include "baglantilar.php";
+<?php
+/**
+ * PhpStorm ile oluşturulmuştur.
+ * Yazar            : CELALKUTLUER
+ * Test Eden        : CELALKUTLUER
+ * Hata Ayıklayan   : CELALKUTLUER
+ * Date: 09.06.2020
+ * Time: 20:00
+ */
+include "baglantilar.php";
 require_once "class.upload.php";
 include "fonksiyonlar.php";
 include('../smtp/PHPMailerAutoload.php');
