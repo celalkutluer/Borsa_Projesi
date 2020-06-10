@@ -29,9 +29,8 @@ if (g('islem') == 'giris') {
         if (isset($_POST['rememberme'])) {
             setcookie('eposta', $eposta, strtotime("+7 day"), '/');
             setcookie('sifre', $sifre, strtotime("+7 day"), '/');
-
-            echo "<div class='alert alert-info'>Sizi Hatırlayacağız...</div>";
-        } else {
+        }
+        else {
             setcookie('eposta', '_', time() - 1);
             setcookie('sifre', '_', time() - 1);
         }
@@ -45,6 +44,7 @@ if (g('islem') == 'giris') {
                 if ($ykul_bilgileri['kul_Yetki'] == '1' || $ykul_bilgileri['kul_Yetki'] == '0') {
                     if ($ykul_bilgileri['kul_Pasif_Durum'] == '0') {
                         $bir = date_format(date_modify(date_create((new \DateTime())->format('Y-m-d H:i:s')), "+1 hours"), "d-m-Y H:i:s");
+                        /**/
                         $datem = date_create($ykul_bilgileri['kul_Pasif_Tarih']);
                         $sure = "+" . $ykul_bilgileri['kul_Pasif_Sure'] . " days";
                         date_modify($datem, $sure);
@@ -56,6 +56,7 @@ if (g('islem') == 'giris') {
                         } else {
                             $kul_gun = $db->prepare("UPDATE kullanicilar SET kul_Pasif_Durum='1' WHERE kul_Id=?");
                             $kul_gunce = $kul_gun->execute(array($ykul_bilgileri['kul_Id']));
+                            /**/
                             $ekl_log = $db->prepare("INSERT INTO log(log_kul_id, log_eylem, log_aciklama) VALUES ('" . $ykul_bilgileri['kul_Id'] . "','Pasif Süre Dolması','" . $ykul_bilgileri['kul_Id'] . " -Nolu kullanıcı " . $ykul_bilgileri['kul_Ad'] . " " . $ykul_bilgileri['kul_Soyad'] . ", pasif kaldığı sürenin dolması nedeniyle aktif duruma getirildi.')");
                             $eklem_log = $ekl_log->execute(array());
                         }
@@ -72,9 +73,9 @@ if (g('islem') == 'giris') {
                         $ekle_log = $db->prepare("INSERT INTO log(log_kul_id, log_eylem, log_aciklama) VALUES ('" . $ykul_bilgileri['kul_Id'] . "','Giriş','" . $ykul_bilgileri['kul_Id'] . " -Nolu kullanıcı " . $ykul_bilgileri['kul_Ad'] . " " . $ykul_bilgileri['kul_Soyad'] . ", " . $_SERVER['REMOTE_ADDR'] . " ip adresi üzerinden giriş yaptı.')");
                         $ekleme_log = $ekle_log->execute(array());
                         if ($ekleme_log) {
-                            echo "<div class='alert alert-success'>Log Ekleme İşlemi Tamamlandı.</div>";
+                           /* echo "<div class='alert alert-success'>Log Ekleme İşlemi Tamamlandı.</div>";*/
                         } else {
-                            echo "<div class='alert alert-danger'>Log Kayıt İşlemi Başarısız.</div>";
+                            /*echo "<div class='alert alert-danger'>Log Kayıt İşlemi Başarısız.</div>";*/
                         }
                     }
                 } else {
@@ -128,7 +129,7 @@ if (g('islem') == 'kayit') {
     } elseif (!filter_var($Email, FILTER_VALIDATE_EMAIL)) {
         echo "<div class='alert alert-warning'>Eposta adresi hatalı.</div>";
     } elseif ($yas <= 18) {
-        echo "<div class='alert alert-warning'>18 Yaşından Küçüksünüz Bulaşmayın Bu İşlere</div>";
+        echo "<div class='alert alert-warning'>18 Yaşından Küçüksünüz Bulaşmayın Bu İşlere...</div>";
     } else {
         if (kelime_kontrol($Ad) == 0 && kelime_kontrol($Soyad) == 0) {
             $veri1 = $db->prepare('SELECT kul_Eposta FROM kullanicilar WHERE kul_Eposta=?');
@@ -172,12 +173,13 @@ if (g('islem') == 'kayit') {
                     $veri_log->execute(array($Email));
                     $v_log = $veri_log->fetchAll(PDO::FETCH_ASSOC);
                     foreach ($v_log as $kul_kayit_log) ;
+                    /**/
                     $ekle_log = $db->prepare("INSERT INTO log(log_kul_id, log_eylem, log_aciklama) VALUES ('" . $kul_kayit_log['kul_id'] . "','Üyelik Kaydı','" . $kul_kayit_log['kul_id'] . " -Nolu kullanıcı " . $Ad . " " . $Soyad . ", " . $_SERVER['REMOTE_ADDR'] . " ip adresi üzerinden " . $Email . " e-posta adresi ile üyelik başvurusunda bulundu.')");
                     $ekleme_log = $ekle_log->execute(array());
                     if ($ekleme_log) {
-                        echo "<div class='alert alert-success'>Log Ekleme İşlemi Tamamlandı.</div>";
+                       /* echo "<div class='alert alert-success'>Log Ekleme İşlemi Tamamlandı.</div>";*/
                     } else {
-                        echo "<div class='alert alert-danger'>Log Kayıt İşlemi Başarısız.</div>";
+                       /* echo "<div class='alert alert-danger'>Log Kayıt İşlemi Başarısız.</div>";*/
                     }
                 } else {
                     echo "<div class='alert alert-danger'>Kayit işlemi sırasında bir hata meydana geldi</div>";
@@ -221,7 +223,7 @@ if (g('islem') == 'kodD') {
         }
     }
 
-}
+}/*kod doğrulama*/
 if (g('islem') == 'kodDt') {
     $toplam = p('toplam');
     $dkodu = p('dkodu');
@@ -275,7 +277,7 @@ if (g('islem') == 'kodDt') {
             echo "<div class='alert alert-danger'>Böyle Bir Kullanıcı Yok veya Doğrulama İşlemi Tamamlanmış</div>";
         }
     }
-}
+}/*kod doğrulama tekrar kod gönderim*/
 if (g('islem') == 'sif_u') {
     $toplam = p('toplam');
     $dkodu = p('dkodu');
@@ -327,7 +329,7 @@ if (g('islem') == 'sif_u') {
             echo "<div class='alert alert-warning'>Girilen E-posta adresi Hatalı</div>";
         }
     }
-}
+}/*şifremi unuttum alanı*/
 if (g('islem') == 'iletisim') {
     $i_Ad = p('i_Ad');
     $i_Soyad = p('i_Soyad');
@@ -413,9 +415,9 @@ if (g('islem') == 'profil_resim_kayit') {
                     $ekle_log = $db->prepare("INSERT INTO log(log_kul_id, log_eylem, log_aciklama) VALUES ('" . $_SESSION['kul_id'] . "','Profil Resim Değiştirme','" . $_SESSION['kul_id'] . " -Nolu kullanıcı " . $_SESSION['isim'] . " " . $_SESSION['soyisim'] . ", resmini değiştirdi.')");
                     $ekleme_log = $ekle_log->execute(array());
                     if ($ekleme_log) {
-                        echo "<div class='alert alert-success'>Log Ekleme İşlemi Tamamlandı.</div>";
+                      /*  echo "<div class='alert alert-success'>Log Ekleme İşlemi Tamamlandı.</div>";*/
                     } else {
-                        echo "<div class='alert alert-danger'>Log Kayıt İşlemi Başarısız.</div>";
+                        /*echo "<div class='alert alert-danger'>Log Kayıt İşlemi Başarısız.</div>";*/
                     }
                 } else {
                     echo "<div class='alert alert-danger'>Resim Güncelleme işlemi sırasında bir hata meydana geldi</div>";
@@ -467,9 +469,9 @@ if (g('islem') == 'lig_olustur') {
                     $ekle_log = $db->prepare("INSERT INTO log(log_kul_id, log_eylem, log_aciklama) VALUES ('" . $_SESSION['kul_id'] . "','Lig Oluşturma','" . $_SESSION['kul_id'] . " -Nolu kullanıcı " . $ligler['kul_Ad'] . " " . $ligler['kul_Soyad'] . " " . $ligle['lig_id'] . " nolu " . $baslik . " ligini oluşturdu.')");
                     $ekleme_log = $ekle_log->execute(array());
                     if ($ekleme_log) {
-                        echo "<div class='alert alert-success'>Log Ekleme İşlemi Tamamlandı.</div>";
+                        /*echo "<div class='alert alert-success'>Log Ekleme İşlemi Tamamlandı.</div>";*/
                     } else {
-                        echo "<div class='alert alert-danger'>Log Kayıt İşlemi Başarısız.</div>";
+                       /* echo "<div class='alert alert-danger'>Log Kayıt İşlemi Başarısız.</div>";*/
                     }
                 } else {
                     echo "<div class='alert alert-danger'>Lig Kayıt İşlemi Başarısız oldu</div>";
@@ -502,9 +504,9 @@ if (g('islem') == 'lig_katil') {
             $ekle_log = $db->prepare("INSERT INTO log(log_kul_id, log_eylem, log_aciklama) VALUES ('" . $_SESSION['kul_id'] . "','Lig Giriş','" . $_SESSION['kul_id'] . " -Nolu kullanıcı " . $ligler['kul_Ad'] . " " . $ligler['kul_Soyad'] . " " . $ligle['lig_id'] . " nolu " . $baslik . " ligine katıldı')");
             $ekleme_log = $ekle_log->execute(array());
             if ($ekleme_log) {
-                echo "<div class='alert alert-success'>Log Ekleme İşlemi Tamamlandı.</div>";
+               /* echo "<div class='alert alert-success'>Log Ekleme İşlemi Tamamlandı.</div>";*/
             } else {
-                echo "<div class='alert alert-danger'>Log Kayıt İşlemi Başarısız.</div>";
+               /* echo "<div class='alert alert-danger'>Log Kayıt İşlemi Başarısız.</div>";*/
             }
         } else {
             echo "<div class='alert alert-success'>ok</div>";
@@ -535,9 +537,9 @@ if (g('islem') == 'lig_yon_devret') {
         $ekle_log_Ad = $db->prepare("INSERT INTO log(log_kul_id, log_eylem, log_aciklama) VALUES ('" . $_SESSION['kul_id'] . "','Lig Yöneticilik Devri','" . $_SESSION['kul_id'] . " -Nolu kullanıcı " . $_SESSION['isim'] . " " . $_SESSION['soyisim'] . ", lig yöneticiliğini " . $kul_id . " id li üyeye devretti')");
         $ekleme_log_Ad = $ekle_log_Ad->execute(array());
         if ($ekleme_log_Ad) {
-            echo "<div class='alert alert-success'>Log Ekleme İşlemi Tamamlandı.</div>";
+          /*  echo "<div class='alert alert-success'>Log Ekleme İşlemi Tamamlandı.</div>";*/
         } else {
-            echo "<div class='alert alert-danger'>Log Kayıt İşlemi Başarısız.</div>";
+          /*  echo "<div class='alert alert-danger'>Log Kayıt İşlemi Başarısız.</div>";*/
         }
     } else {
         echo "<div class='alert alert-warning'>Bu liğin yöneticisi değilsiniz</div>";
@@ -566,9 +568,9 @@ if (g('islem') == 'lig_uye_at') {
     $ekle_log_Ad = $db->prepare("INSERT INTO log(log_kul_id, log_eylem, log_aciklama) VALUES ('" . $_SESSION['kul_id'] . "','Ligden atma','" . $_SESSION['kul_id'] . " -Nolu kullanıcı " . $_SESSION['isim'] . " " . $_SESSION['soyisim'] . ", " . $liglerim['lig_yonetici_id'] . " id li yönetici tarafından " . $kul_id . " id li üye " . $liglerim['lig_baslik'] . " liginden çıkarıldı.')");
     $ekleme_log_Ad = $ekle_log_Ad->execute(array());
     if ($ekleme_log_Ad) {
-        echo "<div class='alert alert-success'>Log Ekleme İşlemi Tamamlandı.</div>";
+        /*echo "<div class='alert alert-success'>Log Ekleme İşlemi Tamamlandı.</div>";*/
     } else {
-        echo "<div class='alert alert-danger'>Log Kayıt İşlemi Başarısız.</div>";
+       /* echo "<div class='alert alert-danger'>Log Kayıt İşlemi Başarısız.</div>";*/
     }
 
 }
@@ -603,9 +605,9 @@ if (g('islem') == 'lig_ayril') {
         $ekle_log_lig_sil = $db->prepare("INSERT INTO log(log_kul_id, log_eylem, log_aciklama) VALUES ('" . $_SESSION['kul_id'] . "','Lig Silme','" . $_SESSION['kul_id'] . " -Nolu kullanıcı " . $kulla['kul_Ad'] . " " . $kulla['kul_Soyad'] . " " . $kulla['kul_lig_id'] . " nolu " . $liglerim['lig_baslik'] . " liginden ayrıldı. Ligin son üyesi olduğundan lig silindi')");
         $ekleme_log_lig_sil = $ekle_log_lig_sil->execute(array());
         if ($ekleme_log_lig_sil) {
-            echo "<div class='alert alert-success'>Log Ekleme İşlemi Tamamlandı.</div>";
+            /*echo "<div class='alert alert-success'>Log Ekleme İşlemi Tamamlandı.</div>";*/
         } else {
-            echo "<div class='alert alert-danger'>Log Kayıt İşlemi Başarısız.</div>";
+           /* echo "<div class='alert alert-danger'>Log Kayıt İşlemi Başarısız.</div>";*/
         }
     }
     if ($kul_guncellemem && $lig_guncelleme) {
@@ -613,9 +615,9 @@ if (g('islem') == 'lig_ayril') {
         $ekle_log = $db->prepare("INSERT INTO log(log_kul_id, log_eylem, log_aciklama) VALUES ('" . $_SESSION['kul_id'] . "','Lig Çıkış','" . $_SESSION['kul_id'] . " -Nolu kullanıcı " . $kulla['kul_Ad'] . " " . $kulla['kul_Soyad'] . " " . $kulla['kul_lig_id'] . " nolu " . $liglerim['lig_baslik'] . " liginden ayrıldı')");
         $ekleme_log = $ekle_log->execute(array());
         if ($ekleme_log) {
-            echo "<div class='alert alert-success'>Log Ekleme İşlemi Tamamlandı.</div>";
+            /*echo "<div class='alert alert-success'>Log Ekleme İşlemi Tamamlandı.</div>";*/
         } else {
-            echo "<div class='alert alert-danger'>Log Kayıt İşlemi Başarısız.</div>";
+           /* echo "<div class='alert alert-danger'>Log Kayıt İşlemi Başarısız.</div>";*/
         }
     } else {
         echo "<div class='alert alert-success'>Lig Ayrılma İşleminiz Başarısız oldu</div>";
@@ -637,9 +639,9 @@ if (g('islem') == 'pasife_al') {
         $ekle_log = $db->prepare("INSERT INTO log(log_kul_id, log_eylem, log_aciklama) VALUES ('" . $id . "','Pasife Alma','" . $_SESSION['kul_id'] . " -Nolu Yönetici ," . $id . " nolu Kullanıcı olan " . $kullanicilar['kul_Ad'] . "" . $kullanicilar['kul_Soyad'] . " i" . $kullanicilar['kul_Pasif_Tarih'] . " de " . $kullanicilar['kul_Pasif_Sure'] . " günlüğüne pasife aldı')");
         $ekleme_log = $ekle_log->execute(array());
         if ($ekleme_log) {
-            echo "<div class='alert alert-success'>Log Ekleme İşlemi Tamamlandı.</div>";
+            /*echo "<div class='alert alert-success'>Log Ekleme İşlemi Tamamlandı.</div>";*/
         } else {
-            echo "<div class='alert alert-danger'>Log Kayıt İşlemi Başarısız.</div>";
+           /* echo "<div class='alert alert-danger'>Log Kayıt İşlemi Başarısız.</div>";*/
         }
     } else {
         echo "<div class='alert alert-success'>Kullanıcı Pasife Alma İşleminiz Başarısız oldu</div>";
@@ -662,9 +664,9 @@ if (g('islem') == 'yetki_ver') {
             $ekle_log = $db->prepare("INSERT INTO log(log_kul_id, log_eylem, log_aciklama) VALUES ('" . $id . "','Yönetici Yetkisi Alma','" . $_SESSION['kul_id'] . " -Nolu Yönetici ," . $id . " id li kullanıcının yönetici yetkisini aldı.')");
             $ekleme_log = $ekle_log->execute(array());
             if ($ekleme_log) {
-                echo "<div class='alert alert-success'>Log Ekleme İşlemi Tamamlandı.</div>";
+               /* echo "<div class='alert alert-success'>Log Ekleme İşlemi Tamamlandı.</div>";*/
             } else {
-                echo "<div class='alert alert-danger'>Log Kayıt İşlemi Başarısız.</div>";
+               /* echo "<div class='alert alert-danger'>Log Kayıt İşlemi Başarısız.</div>";*/
             }
         } else {
             echo "<div class='alert alert-success'>Kullanıcı Yetki Alma İşleminiz Başarısız oldu</div>";
@@ -678,9 +680,9 @@ if (g('islem') == 'yetki_ver') {
             $ekle_log = $db->prepare("INSERT INTO log(log_kul_id, log_eylem, log_aciklama) VALUES ('" . $id . "','Yönetici Yetkisi Verme','" . $_SESSION['kul_id'] . " -Nolu Yönetici ," . $id . " id li kullanıcıya yönetici yetkisi verdi.')");
             $ekleme_log = $ekle_log->execute(array());
             if ($ekleme_log) {
-                echo "<div class='alert alert-success'>Log Ekleme İşlemi Tamamlandı.</div>";
+              /*  echo "<div class='alert alert-success'>Log Ekleme İşlemi Tamamlandı.</div>";*/
             } else {
-                echo "<div class='alert alert-danger'>Log Kayıt İşlemi Başarısız.</div>";
+              /*  echo "<div class='alert alert-danger'>Log Kayıt İşlemi Başarısız.</div>";*/
             }
         } else {
             echo "<div class='alert alert-success'>Kullanıcı Yetki Verme İşleminiz Başarısız oldu</div>";
@@ -766,9 +768,9 @@ if (g('islem') == 'profil_bilgi_kaydet') {
             $ekle_log_Ad = $db->prepare("INSERT INTO log(log_kul_id, log_eylem, log_aciklama) VALUES ('" . $_SESSION['kul_id'] . "','Profil Bilgi Güncelleme','" . $_SESSION['kul_id'] . " -Nolu kullanıcı " . $profil['kul_Ad'] . " " . $profil['kul_Soyad'] . ", ismini " . $profilAd . " olarak değiştirdi')");
             $ekleme_log_Ad = $ekle_log_Ad->execute(array());
             if ($ekleme_log_Ad) {
-                echo "<div class='alert alert-success'>Log Ekleme İşlemi Tamamlandı.</div>";
+                /*echo "<div class='alert alert-success'>Log Ekleme İşlemi Tamamlandı.</div>";*/
             } else {
-                echo "<div class='alert alert-danger'>Log Kayıt İşlemi Başarısız.</div>";
+                /*echo "<div class='alert alert-danger'>Log Kayıt İşlemi Başarısız.</div>";*/
             }
         }
         if ($profil['kul_Soyad'] != $profilSoyad) {
@@ -782,9 +784,9 @@ if (g('islem') == 'profil_bilgi_kaydet') {
             $ekle_log_Soyad = $db->prepare("INSERT INTO log(log_kul_id, log_eylem, log_aciklama) VALUES ('" . $_SESSION['kul_id'] . "','Profil Bilgi Güncelleme','" . $_SESSION['kul_id'] . " -Nolu kullanıcı " . $profil['kul_Ad'] . " " . $profil['kul_Soyad'] . ", soyadını " . $profilSoyad . " olarak değiştirdi')");
             $ekleme_log_Soyad = $ekle_log_Soyad->execute(array());
             if ($ekleme_log_Soyad) {
-                echo "<div class='alert alert-success'>Log Ekleme İşlemi Tamamlandı.</div>";
+               /* echo "<div class='alert alert-success'>Log Ekleme İşlemi Tamamlandı.</div>";*/
             } else {
-                echo "<div class='alert alert-danger'>Log Kayıt İşlemi Başarısız.</div>";
+               /* echo "<div class='alert alert-danger'>Log Kayıt İşlemi Başarısız.</div>";*/
             }
         }
         if ($profil['kul_Eposta'] != $profilEposta) {
@@ -804,9 +806,9 @@ if (g('islem') == 'profil_bilgi_kaydet') {
                 $ekle_log_Eposta = $db->prepare("INSERT INTO log(log_kul_id, log_eylem, log_aciklama) VALUES ('" . $_SESSION['kul_id'] . "','Profil Bilgi Güncelleme','" . $_SESSION['kul_id'] . " -Nolu kullanıcı " . $profil['kul_Ad'] . " " . $profil['kul_Soyad'] . ", " . $profil['kul_Eposta'] . " eposta adresini " . $profilEposta . " olarak değiştirdi')");
                 $ekleme_log_Eposta = $ekle_log_Eposta->execute(array());
                 if ($ekleme_log_Eposta) {
-                    echo "<div class='alert alert-success'>Log Ekleme İşlemi Tamamlandı.</div>";
+                   /* echo "<div class='alert alert-success'>Log Ekleme İşlemi Tamamlandı.</div>";*/
                 } else {
-                    echo "<div class='alert alert-danger'>Log Kayıt İşlemi Başarısız.</div>";
+                  /*  echo "<div class='alert alert-danger'>Log Kayıt İşlemi Başarısız.</div>";*/
                 }
             } else {
                 echo "<div class='alert alert-danger'>Girilen e-posta adresi başka bir kullanıcımız tarafından kullanılmakta.</div>";
@@ -823,9 +825,9 @@ if (g('islem') == 'profil_bilgi_kaydet') {
             $ekle_log_Eposta = $db->prepare("INSERT INTO log(log_kul_id, log_eylem, log_aciklama) VALUES ('" . $_SESSION['kul_id'] . "','Profil Bilgi Güncelleme','" . $_SESSION['kul_id'] . " -Nolu kullanıcı " . $profil['kul_Ad'] . " " . $profil['kul_Soyad'] . ", " . $profil['kul_CepNo'] . " cep numarasını " . $profilCepNo . " olarak değiştirdi')");
             $ekleme_log_Eposta = $ekle_log_Eposta->execute(array());
             if ($ekleme_log_Eposta) {
-                echo "<div class='alert alert-success'>Log Ekleme İşlemi Tamamlandı.</div>";
+               /* echo "<div class='alert alert-success'>Log Ekleme İşlemi Tamamlandı.</div>";*/
             } else {
-                echo "<div class='alert alert-danger'>Log Kayıt İşlemi Başarısız.</div>";
+              /*  echo "<div class='alert alert-danger'>Log Kayıt İşlemi Başarısız.</div>";*/
             }
         }
         if ($profil['kul_DogumTar'] != $profilDogumTar) {
@@ -839,9 +841,9 @@ if (g('islem') == 'profil_bilgi_kaydet') {
             $ekle_log_DogumTar = $db->prepare("INSERT INTO log(log_kul_id, log_eylem, log_aciklama) VALUES ('" . $_SESSION['kul_id'] . "','Profil Bilgi Güncelleme','" . $_SESSION['kul_id'] . " -Nolu kullanıcı " . $profil['kul_Ad'] . " " . $profil['kul_Soyad'] . ", " . $profil['kul_DogumTar'] . " doğum tarihini " . $profilDogumTar . " olarak değiştirdi')");
             $ekleme_log_DogumTar = $ekle_log_DogumTar->execute(array());
             if ($ekleme_log_DogumTar) {
-                echo "<div class='alert alert-success'>Log Ekleme İşlemi Tamamlandı.</div>";
+             /*   echo "<div class='alert alert-success'>Log Ekleme İşlemi Tamamlandı.</div>";*/
             } else {
-                echo "<div class='alert alert-danger'>Log Kayıt İşlemi Başarısız.</div>";
+               /* echo "<div class='alert alert-danger'>Log Kayıt İşlemi Başarısız.</div>";*/
             }
         }
     }
@@ -867,9 +869,9 @@ if (g('islem') == 'profil_sifre_kaydet') {
         $ekle_log_Sifre = $db->prepare("INSERT INTO log(log_kul_id, log_eylem, log_aciklama) VALUES ('" . $_SESSION['kul_id'] . "','Profil Şifre Güncelleme','" . $_SESSION['kul_id'] . " -Nolu kullanıcı " . $_SESSION['isim'] . " " . $_SESSION['soyisim'] . ", şifresini değiştirdi')");
         $ekleme_log_Sifre = $ekle_log_Sifre->execute(array());
         if ($ekleme_log_Sifre) {
-            echo "<div class='alert alert-success'>Log Ekleme İşlemi Tamamlandı.</div>";
+            /*echo "<div class='alert alert-success'>Log Ekleme İşlemi Tamamlandı.</div>";*/
         } else {
-            echo "<div class='alert alert-danger'>Log Kayıt İşlemi Başarısız.</div>";
+          /*  echo "<div class='alert alert-danger'>Log Kayıt İşlemi Başarısız.</div>";*/
         }
     }
 }
@@ -912,9 +914,9 @@ if (g('islem') == 'hisse_satin_al') {
                 $logekle = $db->prepare("INSERT INTO log(log_kul_id, log_eylem, log_aciklama) VALUES ('" . $hisse_satin_al_kul_id . "','Hisse Alım','" . $hisse_satin_al_kul_id . " -Nolu kullanıcı " . $kul_bilgilerim['kul_Ad'] . " " . $kul_bilgilerim['kul_Soyad'] . " " . $hisse_satin_al_sembol . " hissesini " . $hisse_satin_al_tutar . " TL tutardan " . $hisse_satin_al_miktar . " adet aldı. Bu işlem için " . $hisse_satin_al_komisyon . " TL komisyon ile " . $hisse_satin_al_toplam . " TL toplam tutar ödedi.')");
                 $logekleme = $logekle->execute(array());
                 if ($logekleme) {
-                    echo "<div class='alert alert-success'>Log Ekleme İşlemi Tamamlandı.</div>";
+                  /*  echo "<div class='alert alert-success'>Log Ekleme İşlemi Tamamlandı.</div>";*/
                 } else {
-                    echo "<div class='alert alert-danger'>Log Kayıt İşlemi Başarısız.</div>";
+                   /* echo "<div class='alert alert-danger'>Log Kayıt İşlemi Başarısız.</div>";*/
                 }
             } else {
                 echo "<div class='alert alert-danger'>Bir Hata Meydana Geldi.</div>";
@@ -983,9 +985,9 @@ if (g('islem') == 'hisse_sat') {
                 $ekle = $db->prepare("INSERT INTO log(log_kul_id, log_eylem, log_aciklama) VALUES ('" . $hisse_sat_kul_id . "','Hisse Satım','" . $hisse_sat_kul_id . " -Nolu kullanıcı " . $kul_bilgilerim['kul_Ad'] . " " . $kul_bilgilerim['kul_Soyad'] . " " . $hisse_sat_sembol . " hissesini " . $hisse_sat_tutar . " TL tutardan " . $hisse_sat_miktar . " adet sattı. Bu işlem için " . $hisse_sat_komisyon . " TL komisyon ödedi. " . $hisse_sat_toplam . " TL toplam tutar aldı.')");
                 $ekleme = $ekle->execute(array());
                 if ($ekleme) {
-                    echo "<div class='alert alert-success'>Log Ekleme İşlemi Tamamlandı.</div>";
+                   /* echo "<div class='alert alert-success'>Log Ekleme İşlemi Tamamlandı.</div>";*/
                 } else {
-                    echo "<div class='alert alert-danger'>Log Kayıt İşlemi Başarısız.</div>";
+                  /*  echo "<div class='alert alert-danger'>Log Kayıt İşlemi Başarısız.</div>";*/
                 }
             } else {
                 echo "<div class='alert alert-danger'>İşlem Başarısız.</div>";
@@ -1054,9 +1056,9 @@ if (g('islem') == 'hisse_sat_aktif_varlik') {
                 $ekle = $db->prepare("INSERT INTO log(log_kul_id, log_eylem, log_aciklama) VALUES ('" . $hisse_sat_kul_id . "','Hisse Satım','" . $hisse_sat_kul_id . " -Nolu kullanıcı " . $kul_bilgilerim['kul_Ad'] . " " . $kul_bilgilerim['kul_Soyad'] . " " . $hisse_sat_sembol . " hissesini " . $hisse_sat_tutar . " TL tutardan " . $hisse_sat_miktar . " adet sattı. Bu işlem için " . $hisse_sat_komisyon . " TL komisyon ödedi. " . $hisse_sat_toplam . " TL toplam tutar aldı.')");
                 $ekleme = $ekle->execute(array());
                 if ($ekleme) {
-                    echo "<div class='alert alert-success'>Log Ekleme İşlemi Tamamlandı.</div>";
+                   /* echo "<div class='alert alert-success'>Log Ekleme İşlemi Tamamlandı.</div>";*/
                 } else {
-                    echo "<div class='alert alert-danger'>Log Kayıt İşlemi Başarısız.</div>";
+                   /* echo "<div class='alert alert-danger'>Log Kayıt İşlemi Başarısız.</div>";*/
                 }
             } else {
                 echo "<div class='alert alert-danger'>İşlem Başarısız.</div>";

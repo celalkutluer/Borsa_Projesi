@@ -214,7 +214,7 @@ VALUES ('" . $kul_id . "','".$odul."','" . ($sayi + 1) . "','".$durum."','".$isl
     /*LOG KAYDINA*/
     $ekle_log = $db->prepare("INSERT INTO log(log_kul_id, log_eylem, log_aciklama) 
 VALUES ('" .$kul_id . "','Ödül_".$islem."','" . $kul_id . " -Nolu kullanıcı üstün bir başarı göstererek ".$islem." sıralamasında ".($sayi + 1).".
- olarak ".$odul." ödül kazandı')");
+ olarak ".$odul." TL ödül kazandı')");
     $ekle_log->execute(array());
 }
 ?>
