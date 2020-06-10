@@ -692,7 +692,7 @@ if (g('islem') == 'mesaj_okundu') {
     $id = p('id');
     /**/
     $msj_gunce = $db->prepare("UPDATE  mesajlar  SET  msj_okundumu ='1', msj_okuyan_id =? WHERE  msj_id =?");
-    $msj_guncellemem = $msj_gunce->execute(array($_SESSION['kul_id'],$id));
+    $msj_guncellemem = $msj_gunce->execute(array($_SESSION['kul_id'], $id));
     if ($msj_guncellemem) {
         echo "<div class='alert alert-success'>Mesaj okuma İşleminiz Gerçekleşti.</div><meta http-equiv='refresh' content='1; url=mesajlar.php'>";
 
@@ -703,13 +703,13 @@ if (g('islem') == 'mesaj_okundu') {
 if (g('islem') == 'mesaj_cevap') {
     $eposta = p('eposta');
     $mesaj_text = p('mesaj_text');
-/**/
+    /**/
 
     $mail = new PHPMailer(true);
     $mail->isSMTP();
     $mail->Host = "smtp.gmail.com";
     $mail->Port = 587;
-    $mail -> charSet = "UTF-8";
+    $mail->charSet = "UTF-8";
     $mail->SMTPSecure = "tls";
     $mail->SMTPAuth = true;
     $mail->Username = "borsayatirimfantaziligi@gmail.com";
@@ -872,7 +872,8 @@ if (g('islem') == 'profil_sifre_kaydet') {
             echo "<div class='alert alert-danger'>Log Kayıt İşlemi Başarısız.</div>";
         }
     }
-}  /*HİSSE AL-SAT*/
+}
+/*HİSSE AL-SAT*/
 if (g('islem') == 'hisse_satin_al') {
     $hisse_satin_al_kul_id = p('kul_id');
     $hisse_satin_al_sembol = p('sembol');
@@ -1066,7 +1067,8 @@ if (g('islem') == 'hisse_sat_aktif_varlik') {
     } else {
         echo "<div class='alert alert-danger'>Girilen Hisse Miktarı Portföyünüzde Bulunmamakta.</div>";
     }
-}  /*HİSSE BİLGİLERİ YÜKLEME*/
+}
+/*HİSSE BİLGİLERİ YÜKLEME*/
 if (g('islem') == 'tablo_bilgi_al') {
     $link = "http://bigpara.hurriyet.com.tr/borsa/canli-borsa/";
     $icerik = file_get_contents($link);
@@ -1110,5 +1112,231 @@ if (g('islem') == 'tablo_yukselen_dusen') {
     $sorted = val_sort($tum_hisse_dizileri, 1);/*1=yuzde*/
     echo json_encode($sorted);
 }
+/*ÖDÜL İŞLEMLERİ*/
+if (g('islem') == 'odul_sorgulama') {
+    /*ÖLÜL KULLANICI HAFTALIK*/
+    $veri_odul_kul_haf = $db->prepare('SELECT * FROM `oduller`WHERE `odul_zaman` between DATE_SUB(CURDATE(), INTERVAL 1 WEEK) 
+and CURRENT_TIMESTAMP and `odul_tur`="haftalik_kullanici"');
+    $veri_odul_kul_haf->execute(array());
+    $say_odul_kul_haf = $veri_odul_kul_haf->rowCount();
+    if ($say_odul_kul_haf==0) {
+        $sayi = 0;
+        $veri_hafta_kul_sira = $db->prepare('SELECT kullanicilar.kul_Id as id, kullanicilar.kul_Bakiye as bakiye , satim.satim_kar_zarar as durum 
+FROM satim INNER JOIN kullanicilar ON kullanicilar.kul_Id = satim.satim_kul_id WHERE satim_zaman 
+between DATE_SUB("' . date('Y-m-d H:i:s', strtotime('last Sunday')) . '", INTERVAL 1 WEEK) 
+and "' . date('Y-m-d H:i:s', strtotime('last Sunday')) . '" GROUP BY satim_kul_id ORDER BY satim.satim_kar_zarar DESC LIMIT 10');
+        $veri_hafta_kul_sira->execute(array());
+        $v_hafta_kul_sira = $veri_hafta_kul_sira->fetchAll(PDO::FETCH_ASSOC);
+        foreach ($v_hafta_kul_sira as $hafta_kul_sira) {
+            if ($sayi == 0) {
+                odul_yaz($hafta_kul_sira['id'],$sayi,'haftalik_kullanici',$hafta_kul_sira['bakiye'],800,$hafta_kul_sira['durum']);
+            } elseif ($sayi == 1) {
+                odul_yaz($hafta_kul_sira['id'],$sayi,'haftalik_kullanici',$hafta_kul_sira['bakiye'],400,$hafta_kul_sira['durum']);
+            } elseif ($sayi == 2) {
+                odul_yaz($hafta_kul_sira['id'],$sayi,'haftalik_kullanici',$hafta_kul_sira['bakiye'],200,$hafta_kul_sira['durum']);
+            } elseif ($sayi == 3 || $sayi == 4) {
+                odul_yaz($hafta_kul_sira['id'],$sayi,'haftalik_kullanici',$hafta_kul_sira['bakiye'],150,$hafta_kul_sira['durum']);
+            } else {
+                odul_yaz($hafta_kul_sira['id'],$sayi,'haftalik_kullanici',$hafta_kul_sira['bakiye'],100,$hafta_kul_sira['durum']);
+            }
+            $sayi++;
+        }
+    }
+    /*ÖDÜL KULLANICI AYLIK*/
+    $veri_odul_ay_kul = $db->prepare('SELECT * FROM `oduller`WHERE `odul_zaman` between DATE_SUB(CURDATE(), INTERVAL 1 MONTH) 
+and CURRENT_TIMESTAMP and `odul_tur`="aylik_kullanici"');
+    $veri_odul_ay_kul->execute(array());
+    $say_odul_ay_kul = $veri_odul_ay_kul->rowCount();
+    if ($say_odul_ay_kul==0) {
+        $sayi = 0;
+        $veri_ay_kul_sira = $db->prepare('SELECT kullanicilar.kul_Id as id, kullanicilar.kul_Bakiye as bakiye , satim.satim_kar_zarar as durum 
+FROM satim INNER JOIN kullanicilar ON kullanicilar.kul_Id = satim.satim_kul_id WHERE satim_zaman 
+between "' . (new \DateTime('first day of previous month 00:00:00', new DateTimeZone('UTC')))->format('Y-m-d H:i:s'). PHP_EOL . '" 
+and "' . date("Y-m-d H:i:s", strtotime("1 ".date("M Y", time()))) . '" GROUP BY satim_kul_id ORDER BY satim.satim_kar_zarar DESC LIMIT 10');
+        $veri_ay_kul_sira->execute(array());
+        $v_ay_kul_sira = $veri_ay_kul_sira->fetchAll(PDO::FETCH_ASSOC);
+        foreach ($v_ay_kul_sira as $ay_kul_sira) {
+            if ($sayi == 0) {
+
+                odul_yaz($ay_kul_sira['id'],$sayi,'aylik_kullanici',$ay_kul_sira['bakiye'],800,$ay_kul_sira['durum']);
+            } elseif ($sayi == 1) {
+                odul_yaz($ay_kul_sira['id'],$sayi,'aylik_kullanici',$ay_kul_sira['bakiye'],400,$ay_kul_sira['durum']);
+            } elseif ($sayi == 2) {
+                odul_yaz($ay_kul_sira['id'],$sayi,'aylik_kullanici',$ay_kul_sira['bakiye'],200,$ay_kul_sira['durum']);
+            } elseif ($sayi == 3 || $sayi == 4) {
+                odul_yaz($ay_kul_sira['id'],$sayi,'aylik_kullanici',$ay_kul_sira['bakiye'],150,$ay_kul_sira['durum']);
+            } else {
+                odul_yaz($ay_kul_sira['id'],$sayi,'aylik_kullanici',$ay_kul_sira['bakiye'],100,$ay_kul_sira['durum']);
+            }
+            $sayi++;
+        }
+    }
+    /*ÖDÜL HAFTALIK LİG*/
+    $veri_odul_haf_lig = $db->prepare('SELECT * FROM `oduller`WHERE `odul_zaman` between DATE_SUB(CURDATE(), INTERVAL 1 WEEK) 
+and CURRENT_TIMESTAMP and `odul_tur`="haftalik_lig"');
+    $veri_odul_haf_lig->execute(array());
+    $say_odul_haf_lig = $veri_odul_haf_lig->rowCount();
+    if ($say_odul_haf_lig==0) {
+        $sayi = 0;
+        $veri_hafta_lig_sira = $db->prepare('SELECT ligler.lig_id as l_id, ligler.lig_yonetici_id as l_y_id, SUM(satim.satim_kar_zarar) 
+AS durum FROM satim INNER JOIN kullanicilar ON kullanicilar.kul_Id = satim.satim_kul_id INNER JOIN ligler ON ligler.lig_id = kullanicilar.kul_lig_id 
+WHERE satim_zaman between DATE_SUB("' . date('Y-m-d H:i:s', strtotime('last Sunday')) . '", INTERVAL 1 WEEK) 
+and "' . date('Y-m-d H:i:s', strtotime('last Sunday')) . '" GROUP BY ligler.lig_id ORDER BY durum DESC LIMIT 10');
+        $veri_hafta_lig_sira->execute(array());
+        $v_hafta_lig_sira = $veri_hafta_lig_sira->fetchAll(PDO::FETCH_ASSOC);
+        foreach ($v_hafta_lig_sira as $hafta_lig_sira) {
+            /**/
+            if ($sayi == 0) {
+                $veri_kul = $db->prepare('SELECT `kul_Id` as id,`kul_Bakiye` as bakiye FROM `kullanicilar` WHERE `kul_lig_id`=?');
+                $veri_kul->execute(array($hafta_lig_sira['l_id']));
+                $v_kul = $veri_kul->fetchAll(PDO::FETCH_ASSOC);
+                foreach ($v_kul as $kul) {
+                    if ($kul['id'] == $hafta_lig_sira['l_y_id']) {
+                        odul_yaz($kul['id'],$sayi,'haftalik_lig',$kul['bakiye'],900,$hafta_lig_sira['durum']);
+                    }
+                    else{
+                        odul_yaz($kul['id'],$sayi,'haftalik_lig',$kul['bakiye'],800,$hafta_lig_sira['durum']);
+                    }
+                }
+            }
+            elseif ($sayi == 1) {
+                $veri_kul = $db->prepare('SELECT `kul_Id` as id,`kul_Bakiye` as bakiye FROM `kullanicilar` WHERE `kul_lig_id`=?');
+                $veri_kul->execute(array($hafta_lig_sira['l_id']));
+                $v_kul = $veri_kul->fetchAll(PDO::FETCH_ASSOC);
+                foreach ($v_kul as $kul) {
+                    if ($kul['id'] == $hafta_lig_sira['l_y_id']) {
+                        odul_yaz($kul['id'],$sayi,'haftalik_lig',$kul['bakiye'],500,$hafta_lig_sira['durum']);
+                    }
+                    else{
+                        odul_yaz($kul['id'],$sayi,'haftalik_lig',$kul['bakiye'],400,$hafta_lig_sira['durum']);
+                    }
+                }
+            }
+            elseif ($sayi == 2) {
+                $veri_kul = $db->prepare('SELECT `kul_Id` as id,`kul_Bakiye` as bakiye FROM `kullanicilar` WHERE `kul_lig_id`=?');
+                $veri_kul->execute(array($hafta_lig_sira['l_id']));
+                $v_kul = $veri_kul->fetchAll(PDO::FETCH_ASSOC);
+                foreach ($v_kul as $kul) {
+                    if ($kul['id'] == $hafta_lig_sira['l_y_id']) {
+                        odul_yaz($kul['id'],$sayi,'haftalik_lig',$kul['bakiye'],300,$hafta_lig_sira['durum']);
+                    }
+                    else{
+                        odul_yaz($kul['id'],$sayi,'haftalik_lig',$kul['bakiye'],200,$hafta_lig_sira['durum']);
+                    }
+                }
+            }
+            elseif ($sayi == 3 || $sayi == 4) {
+                $veri_kul = $db->prepare('SELECT `kul_Id` as id,`kul_Bakiye` as bakiye FROM `kullanicilar` WHERE `kul_lig_id`=?');
+                $veri_kul->execute(array($hafta_lig_sira['l_id']));
+                $v_kul = $veri_kul->fetchAll(PDO::FETCH_ASSOC);
+                foreach ($v_kul as $kul) {
+                    if ($kul['id'] == $hafta_lig_sira['l_y_id']) {
+                        odul_yaz($kul['id'],$sayi,'haftalik_lig',$kul['bakiye'],250,$hafta_lig_sira['durum']);
+                    }
+                    else{
+                        odul_yaz($kul['id'],$sayi,'haftalik_lig',$kul['bakiye'],150,$hafta_lig_sira['durum']);
+                    }
+                }
+            }
+            else {
+                $veri_kul = $db->prepare('SELECT `kul_Id` as id,`kul_Bakiye` as bakiye FROM `kullanicilar` WHERE `kul_lig_id`=?');
+                $veri_kul->execute(array($hafta_lig_sira['l_id']));
+                $v_kul = $veri_kul->fetchAll(PDO::FETCH_ASSOC);
+                foreach ($v_kul as $kul) {
+                    if ($kul['id'] == $hafta_lig_sira['l_y_id']) {
+                        odul_yaz($kul['id'],$sayi,'haftalik_lig',$kul['bakiye'],200,$hafta_lig_sira['durum']);
+                    }
+                    else{
+                        odul_yaz($kul['id'],$sayi,'haftalik_lig',$kul['bakiye'],100,$hafta_lig_sira['durum']);
+                    }
+                }
+            }
+            $sayi++;
+        }
+    }
+    /*ÖDÜL AYLIK LİG*/
+    $veri_odul_ay_lig = $db->prepare('SELECT * FROM `oduller`WHERE `odul_zaman` between DATE_SUB(CURDATE(), INTERVAL 1 MONTH) 
+and CURRENT_TIMESTAMP and `odul_tur`="aylik_lig"');
+    $veri_odul_ay_lig->execute(array());
+    $say_odul_ay_lig = $veri_odul_ay_lig->rowCount();
+    if ($say_odul_ay_lig==0) {
+        $sayi = 0;
+        $veri_ay_lig_sira = $db->prepare('SELECT ligler.lig_id as l_id, ligler.lig_yonetici_id as l_y_id, SUM(satim.satim_kar_zarar) 
+AS durum FROM satim INNER JOIN kullanicilar ON kullanicilar.kul_Id = satim.satim_kul_id INNER JOIN ligler ON ligler.lig_id = kullanicilar.kul_lig_id 
+WHERE satim_zaman between "' . (new \DateTime('first day of previous month 00:00:00', new DateTimeZone('UTC')))->format('Y-m-d H:i:s'). PHP_EOL . '" 
+and "' . date("Y-m-d H:i:s", strtotime("1 ".date("M Y", time()))) . '" GROUP BY ligler.lig_id ORDER BY durum DESC LIMIT 10');
+        $veri_ay_lig_sira->execute(array());
+        $v_ay_lig_sira = $veri_ay_lig_sira->fetchAll(PDO::FETCH_ASSOC);
+        foreach ($v_ay_lig_sira as $ay_lig_sira) {
+            if ($sayi == 0) {
+                $veri_kul = $db->prepare('SELECT `kul_Id` as id,`kul_Bakiye` as bakiye FROM `kullanicilar` WHERE `kul_lig_id`=?');
+                $veri_kul->execute(array($ay_lig_sira['l_id']));
+                $v_kul = $veri_kul->fetchAll(PDO::FETCH_ASSOC);
+                foreach ($v_kul as $kul) {
+                    if ($kul['id'] == $ay_lig_sira['l_y_id']) {
+                        odul_yaz($kul['id'],$sayi,'aylik_lig',$kul['bakiye'],900,$ay_lig_sira['durum']);
+                    }
+                    else{
+                        odul_yaz($kul['id'],$sayi,'aylik_lig',$kul['bakiye'],800,$ay_lig_sira['durum']);
+                    }
+                }
+            }
+            elseif ($sayi == 1) {
+                $veri_kul = $db->prepare('SELECT `kul_Id` as id,`kul_Bakiye` as bakiye FROM `kullanicilar` WHERE `kul_lig_id`=?');
+                $veri_kul->execute(array($ay_lig_sira['l_id']));
+                $v_kul = $veri_kul->fetchAll(PDO::FETCH_ASSOC);
+                foreach ($v_kul as $kul) {
+                    if ($kul['id'] == $ay_lig_sira['l_y_id']) {
+                        odul_yaz($kul['id'],$sayi,'aylik_lig',$kul['bakiye'],500,$ay_lig_sira['durum']);
+                    }
+                    else{
+                        odul_yaz($kul['id'],$sayi,'aylik_lig',$kul['bakiye'],400,$ay_lig_sira['durum']);
+                    }
+                }
+            }
+            elseif ($sayi == 2) {
+                $veri_kul = $db->prepare('SELECT `kul_Id` as id,`kul_Bakiye` as bakiye FROM `kullanicilar` WHERE `kul_lig_id`=?');
+                $veri_kul->execute(array($ay_lig_sira['l_id']));
+                $v_kul = $veri_kul->fetchAll(PDO::FETCH_ASSOC);
+                foreach ($v_kul as $kul) {
+                    if ($kul['id'] == $ay_lig_sira['l_y_id']) {
+                        odul_yaz($kul['id'],$sayi,'aylik_lig',$kul['bakiye'],300,$ay_lig_sira['durum']);
+                    }
+                    else{
+                        odul_yaz($kul['id'],$sayi,'aylik_lig',$kul['bakiye'],200,$ay_lig_sira['durum']);
+                    }
+                }
+            }
+            elseif ($sayi == 3 || $sayi == 4) {
+                $veri_kul = $db->prepare('SELECT `kul_Id` as id,`kul_Bakiye` as bakiye FROM `kullanicilar` WHERE `kul_lig_id`=?');
+                $veri_kul->execute(array($ay_lig_sira['l_id']));
+                $v_kul = $veri_kul->fetchAll(PDO::FETCH_ASSOC);
+                foreach ($v_kul as $kul) {
+                    if ($kul['id'] == $ay_lig_sira['l_y_id']) {
+                        odul_yaz($kul['id'],$sayi,'aylik_lig',$kul['bakiye'],250,$ay_lig_sira['durum']);
+                    }
+                    else{
+                        odul_yaz($kul['id'],$sayi,'aylik_lig',$kul['bakiye'],150,$ay_lig_sira['durum']);
+                    }
+                }
+            }
+            else {
+                $veri_kul = $db->prepare('SELECT `kul_Id` as id,`kul_Bakiye` as bakiye FROM `kullanicilar` WHERE `kul_lig_id`=?');
+                $veri_kul->execute(array($ay_lig_sira['l_id']));
+                $v_kul = $veri_kul->fetchAll(PDO::FETCH_ASSOC);
+                foreach ($v_kul as $kul) {
+                    if ($kul['id'] == $ay_lig_sira['l_y_id']) {
+                        odul_yaz($kul['id'],$sayi,'aylik_lig',$kul['bakiye'],200,$ay_lig_sira['durum']);
+                    }
+                    else{
+                        odul_yaz($kul['id'],$sayi,'aylik_lig',$kul['bakiye'],100,$ay_lig_sira['durum']);
+                    }
+                }
+            }
+            $sayi++;
+        }
+    }
+}
+
 
 ?>

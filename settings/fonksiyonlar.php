@@ -202,5 +202,19 @@ function sabit_getir($par)
 
     return $sabit['deger'];
 }
-
+function odul_yaz($kul_id,$sayi,$islem,$bakiye,$odul,$durum){
+    Global $db;
+    /*Ödül TABLOSUNA*/
+    $ekle = $db->prepare("INSERT INTO `oduller`( `odul_uye_id`, `odul_uye_miktar`, `odul_uye_sira`,`odul_sira_para`, `odul_tur`) 
+VALUES ('" . $kul_id . "','".$odul."','" . ($sayi + 1) . "','".$durum."','".$islem."')");
+    $ekle->execute(array());
+    /*KULLANICI BAKİYESİNE*/
+    $bakiyegun = $db->prepare('UPDATE kullanicilar SET kul_Bakiye=? WHERE kul_Id=?');
+    $bakiyegun->execute(array(($bakiye + $odul), $kul_id));
+    /*LOG KAYDINA*/
+    $ekle_log = $db->prepare("INSERT INTO log(log_kul_id, log_eylem, log_aciklama) 
+VALUES ('" .$kul_id . "','Ödül_".$islem."','" . $kul_id . " -Nolu kullanıcı üstün bir başarı göstererek ".$islem." sıralamasında ".($sayi + 1).".
+ olarak ".$odul." ödül kazandı')");
+    $ekle_log->execute(array());
+}
 ?>

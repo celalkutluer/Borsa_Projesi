@@ -37,14 +37,14 @@ $("#btnfrmKayit").click(function () {
     }
 });
 $("#btnKodD").click(function () {
-    var kod =document.getElementById('kod').value;
-    var dkodu =document.getElementById('kod_dkodu').value;
-    var toplam =document.getElementById('kod_dogrulama_input').value;
+    var kod = document.getElementById('kod').value;
+    var dkodu = document.getElementById('kod_dkodu').value;
+    var toplam = document.getElementById('kod_dogrulama_input').value;
 
     $.ajax({
         type: 'POST',
         url: 'settings/islem.php?islem=kodD',
-        data: {'kod': kod,dkodu:dkodu,toplam:toplam },
+        data: {'kod': kod, dkodu: dkodu, toplam: toplam},
         success: function (cevap) {
             $("#kod_alert").html(cevap).hide().fadeIn(700);
         }
@@ -52,43 +52,43 @@ $("#btnKodD").click(function () {
 });
 $("#btnKodt").click(function () {
     /*$('#btnKodt').attr('disabled', true);*/
-    var kodt =document.getElementById('kodt').value;
-    var dkodu =document.getElementById('kodt_dkodu').value;
-    var toplam =document.getElementById('kodt_dogrulama_input').value;
+    var kodt = document.getElementById('kodt').value;
+    var dkodu = document.getElementById('kodt_dkodu').value;
+    var toplam = document.getElementById('kodt_dogrulama_input').value;
 
     $.ajax({
         type: 'POST',
         url: 'settings/islem.php?islem=kodDt',
-        data: {'kodt': kodt ,dkodu:dkodu,toplam:toplam},
+        data: {'kodt': kodt, dkodu: dkodu, toplam: toplam},
         success: function (cevap) {
             $("#kodt_alert").html(cevap).hide().fadeIn(700);
         }
     });
 });
 $("#btnSifre_Unuttum").click(function () {
-    var sif_u_eposta =document.getElementById('sif_u_eposta').value;
-    var dkodu =document.getElementById('kodsif_dkodu').value;
-    var toplam =document.getElementById('kodsif_dogrulama_input').value;
+    var sif_u_eposta = document.getElementById('sif_u_eposta').value;
+    var dkodu = document.getElementById('kodsif_dkodu').value;
+    var toplam = document.getElementById('kodsif_dogrulama_input').value;
     $.ajax({
         type: 'POST',
         url: 'settings/islem.php?islem=sif_u',
-        data: {'sif_u_eposta': sif_u_eposta ,dkodu:dkodu,toplam:toplam},
+        data: {'sif_u_eposta': sif_u_eposta, dkodu: dkodu, toplam: toplam},
         success: function (cevap) {
             $("#sif_u_alert").html(cevap).hide().fadeIn(700);
         }
     });
 });
 $("#iletisim_btn").click(function () {
-    var i_Ad =document.getElementById('iletisim_Ad').value;
-    var i_Soyad =document.getElementById('iletisim_Soyad').value;
-    var i_Email =document.getElementById('iletisim_Email').value;
-    var i_Txt =document.getElementById('iletisim_text').value;
-    var i_dkodu =document.getElementById('iletisim_dkodu').value;
-    var i_toplam =document.getElementById('iletisim_toplam').value;
+    var i_Ad = document.getElementById('iletisim_Ad').value;
+    var i_Soyad = document.getElementById('iletisim_Soyad').value;
+    var i_Email = document.getElementById('iletisim_Email').value;
+    var i_Txt = document.getElementById('iletisim_text').value;
+    var i_dkodu = document.getElementById('iletisim_dkodu').value;
+    var i_toplam = document.getElementById('iletisim_toplam').value;
     $.ajax({
         type: 'POST',
         url: 'settings/islem.php?islem=iletisim',
-        data: {i_Ad:i_Ad,i_Soyad:i_Soyad,i_Email:i_Email,i_Txt:i_Txt,i_dkodu:i_dkodu,i_toplam:i_toplam },
+        data: {i_Ad: i_Ad, i_Soyad: i_Soyad, i_Email: i_Email, i_Txt: i_Txt, i_dkodu: i_dkodu, i_toplam: i_toplam},
         success: function (cevap) {
             $("#iletisim_alert").html(cevap).hide().fadeIn(700);
         }
@@ -124,6 +124,7 @@ $("#lig_ayril_btn").click(function () {
         }
     });
 });
+
 function Tablo_veri_cek() {
     $.ajax({
         type: 'POST', url: 'settings/islem.php?islem=tablo_bilgi_al', success: function (cevap) {
@@ -159,7 +160,8 @@ function Tablo_veri_cek() {
                 $("#hisse_zaman_" + sayi).text(hisse_bilgi[sayi][8]);
             }
         }
-    });/*hisseler*/
+    });
+    /*hisseler*/
     $.ajax({
         type: 'POST', url: 'settings/islem.php?islem=tablo_yukselen_dusen', success: function (cevap) {
             hisse_bilgi = JSON.parse(cevap);
@@ -241,41 +243,50 @@ function Tablo_veri_cek() {
         }
     });
 }
-function disableElement(id){
-    $('#'+id).attr('disabled', false);
-    /*$().prop('disabled', false);*/
+
+function odul_sorgula() {
+    $.ajax({
+        type: 'POST',
+        url: 'settings/islem.php?islem=odul_sorgulama',
+        success: function (cevap) {
+
+        }
+    });
 }
 
-setTimeout(disableElement, 5*60*1000);
-
 $(document).ready(function () {
-    setInterval(Tablo_veri_cek, 60000);/*60 saniyede bir otomatik güncelleme*/
+    setInterval(Tablo_veri_cek, 60000);
+    /*60 saniyede bir otomatik güncelleme*/
+    setTimeout(odul_sorgula, 120000);
+    /*Sıralama Ödülleri verilmedi ise vermek için. 2 dk sonra çalışır*/
+
     $('#profil_form_bilgi').on('input change', function () {
         $('#profil_bilgi_kaydet_btn').attr('disabled', false);
     });
     $('#profil_form_sifre').on('input change', function () {
         $('#profil_sifre_kaydet_btn').attr('disabled', false);
     });
-    $("input.phone").keyup(function() {
+    /**/
+    $("input.phone").keyup(function () {
         var val = $(this).val();
-        var bas = val.length > 15 ? val.substr(0,15) : val;
-        var son = val.length > 15 ? val.substr(15,val.length) : "";
+        var bas = val.length > 15 ? val.substr(0, 15) : val;
+        var son = val.length > 15 ? val.substr(15, val.length) : "";
         val = val.length > 15 ? String(bas.replace(/[\D]/g, '')) +
             String(son.replace(/[^0-9\s\-]/g, '')) : String(val.replace(/[\D]/g,
             ''));
         var str = "";
-        if(val.length == 11) {
-            str = "(" + val.substr(0,3) + ") " + val.substr(3,3) + " " +
-                val.substr(6,2) + " " + val.substr(8,2) + " - " +
-                val.substr(10,val.length);
-        } else if(val.length >= 8) {
-            str = "(" + val.substr(0,3) + ") " + val.substr(3,3) + " " +
-                val.substr(6,2) + " " + val.substr(8,val.length);
-        } else if(val.length >=6) {
-            str = "(" + val.substr(0,3) + ") " + val.substr(3,3) + " " +
-                val.substr(6,val.length);
-        } else if(val.length >=3) {
-            str = "(" + val.substr(0,3) + ") " + val.substr(3,val.length);
+        if (val.length == 11) {
+            str = "(" + val.substr(0, 3) + ") " + val.substr(3, 3) + " " +
+                val.substr(6, 2) + " " + val.substr(8, 2) + " - " +
+                val.substr(10, val.length);
+        } else if (val.length >= 8) {
+            str = "(" + val.substr(0, 3) + ") " + val.substr(3, 3) + " " +
+                val.substr(6, 2) + " " + val.substr(8, val.length);
+        } else if (val.length >= 6) {
+            str = "(" + val.substr(0, 3) + ") " + val.substr(3, 3) + " " +
+                val.substr(6, val.length);
+        } else if (val.length >= 3) {
+            str = "(" + val.substr(0, 3) + ") " + val.substr(3, val.length);
         } else {
             str = val;
         }

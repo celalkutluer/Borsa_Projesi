@@ -385,6 +385,12 @@ include "inc/header.php";
                     </div>
                 </div>
             </div>
+            <p class="text-center">Sıralamada yükselerek ödül kazanabilirsiniz.</p>
+            <p class="text-center">Haftalık, Aylık ve Yıl sonunda yapılacak ödül dağıtımları için bizi takipte kalın ve sıkı çalışın.</p>
+            <p class="text-center">Haftalık pazar akşamı 00:00 ve her ayın ilk günü 00:00 itibariyle lig ve kullanıcı sıralamasında ilk 10' a giren üyelerimiz ödül kazanacaklardır. </p>
+            <p class="text-center">Sıralamaya Göre Ödül Dağılımı:
+            <p class="text-center">Kullanıcı Sıralaması için ; 1. :800 &#x20BA;-  2. :400 &#x20BA; - 3. :200 &#x20BA; - 4. ve 5. :150 &#x20BA; - 6.ve 10. arası :100 &#x20BA; kazanacaktır.</p>
+            <p class="text-center">Lig Sıralaması için; 1. :800 &#x20BA;-  2. :400 &#x20BA; - 3. :200 &#x20BA; - 4. ve 5. :150 &#x20BA; - 6.ve 10. arası :100 &#x20BA; kazanacaktır. Lig liderleri +100 &#x20BA; fazla kazanacaktır.</p>
         </div>
     </section>
 <?php include "inc/footer.php"; ?>
