@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Anamakine: localhost:3306
--- Üretim Zamanı: 08 Haz 2020, 16:39:56
+-- Üretim Zamanı: 20 Haz 2020, 08:38:19
 -- Sunucu sürümü: 10.3.16-MariaDB
 -- PHP Sürümü: 7.3.12
 
@@ -19,10 +19,8 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Veritabanı: `id11425759_borsa`
+-- Veritabanı: `borsa`
 --
-CREATE DATABASE IF NOT EXISTS `id11425759_borsa` DEFAULT CHARACTER SET utf8 COLLATE utf8_turkish_ci;
-USE `id11425759_borsa`;
 
 -- --------------------------------------------------------
 
@@ -60,8 +58,8 @@ INSERT INTO `alim` (`alim_id`, `alim_kul_id`, `alim_hisse_sembol`, `alim_hisse_d
 (128, 11, 'AFYON', 2.82, 29.91, 3535, 3534, 9998.61, '2020-06-01 19:07:27'),
 (129, 10, 'BIMAS', 64.00, 14.78, 77, -1, 4942.78, '2020-06-02 07:15:36'),
 (130, 10, 'BIMAS', 64.00, 14.78, 77, 19, 4942.78, '2020-06-02 07:15:37'),
-(131, 9, 'AEFES', 18.75, 8.89, 158, 158, 2971.39, '2020-06-02 07:15:50'),
-(132, 9, 'AFYON', 2.85, 5.40, 631, 315, 1803.75, '2020-06-02 07:16:06'),
+(131, 9, 'AEFES', 18.75, 8.89, 158, 0, 2971.39, '2020-06-02 07:15:50'),
+(132, 9, 'AFYON', 2.85, 5.40, 631, -121, 1803.75, '2020-06-02 07:16:06'),
 (133, 9, 'AFYON', 2.85, 5.40, 631, 631, 1803.75, '2020-06-02 07:16:11'),
 (134, 9, 'ALARK', 5.15, 4.39, 284, 284, 1466.99, '2020-06-02 07:16:18'),
 (135, 10, 'ANELE', 3.91, 13.13, 1119, 1119, 4388.42, '2020-06-02 07:18:27'),
@@ -73,17 +71,40 @@ INSERT INTO `alim` (`alim_id`, `alim_kul_id`, `alim_hisse_sembol`, `alim_hisse_d
 (141, 1, 'IEYHO', 0.65, 0.00, 1, 0, 0.65, '2020-06-08 08:00:47'),
 (142, 1, 'IEYHO', 0.65, 0.00, 1, 0, 0.65, '2020-06-08 08:00:58'),
 (143, 1, 'BIZIM', 15.53, 6.66, 143, 0, 2227.45, '2020-06-08 10:14:08'),
-(144, 1, 'GUBRF', 25.78, 7.12, 92, 92, 2378.88, '2020-06-08 10:14:22'),
+(144, 1, 'GUBRF', 25.78, 7.12, 92, 0, 2378.88, '2020-06-08 10:14:22'),
 (145, 1, 'GSRAY', 3.65, 5.00, 457, 0, 1673.05, '2020-06-08 10:14:36'),
 (146, 1, 'TTRAK', 66.70, 12.21, 61, 0, 4080.91, '2020-06-08 10:14:48'),
 (147, 1, 'ZOREN', 1.57, 0.00, 1, 0, 1.57, '2020-06-08 10:24:09'),
 (148, 1, 'KLGYO', 4.03, 6.73, 557, 0, 2251.44, '2020-06-08 10:47:57'),
 (149, 1, 'SNGYO', 1.22, 12.29, 3359, 0, 4110.27, '2020-06-08 11:08:49'),
-(150, 1, 'IEYHO', 0.65, 0.00, 1, 1, 0.65, '2020-06-08 11:13:37'),
-(151, 1, 'IEYHO', 0.65, 0.00, 1, 1, 0.65, '2020-06-08 11:13:48'),
+(150, 1, 'IEYHO', 0.65, 0.00, 1, 0, 0.65, '2020-06-08 11:13:37'),
+(151, 1, 'IEYHO', 0.65, 0.00, 1, 0, 0.65, '2020-06-08 11:13:48'),
 (152, 1, 'SNGYO', 1.24, 3.84, 1033, 0, 1284.76, '2020-06-08 12:36:10'),
-(153, 1, 'PETKM', 3.84, 20.25, 1758, 1758, 6770.97, '2020-06-08 12:38:01'),
-(154, 1, 'SNGYO', 1.27, 3.88, 1019, 1019, 1298.01, '2020-06-08 13:13:17');
+(153, 1, 'PETKM', 3.84, 20.25, 1758, 0, 6770.97, '2020-06-08 12:38:01'),
+(154, 1, 'SNGYO', 1.27, 3.88, 1019, 0, 1298.01, '2020-06-08 13:13:17'),
+(155, 1, 'HURGZ', 1.52, 0.00, 1, 1, 1.52, '2020-06-10 07:34:53'),
+(156, 1, 'HURGZ', 1.52, 0.00, 1, 1, 1.52, '2020-06-10 07:35:09'),
+(157, 1, 'HURGZ', 1.52, 8.97, 1967, 1967, 2998.81, '2020-06-10 14:40:09'),
+(158, 1, 'AEFES', 19.53, 0.06, 1, 0, 19.59, '2020-06-11 08:25:24'),
+(159, 1, 'GARAN', 8.11, 24.26, 997, 0, 8109.93, '2020-06-11 10:42:21'),
+(160, 1, 'EKGYO', 1.97, 0.01, 1, 1, 1.98, '2020-06-11 10:56:09'),
+(161, 15, 'AEFES', 19.37, 14.93, 257, 0, 4993.02, '2020-06-11 20:08:33'),
+(162, 15, 'AEFES', 19.37, 14.93, 257, 0, 4993.02, '2020-06-11 20:08:34'),
+(163, 15, 'AKBNK', 5.80, 0.02, 1, 0, 5.82, '2020-06-11 20:08:47'),
+(164, 15, 'AKSA', 6.78, 14.85, 730, 730, 4964.25, '2020-06-11 20:09:23'),
+(165, 15, 'BIZIM', 18.45, 7.42, 134, 134, 2479.72, '2020-06-11 20:09:36'),
+(166, 15, 'ANELE', 4.02, 3.73, 309, 309, 1245.91, '2020-06-11 20:09:49'),
+(167, 7, 'AEFES', 19.38, 8.37, 144, 144, 2799.09, '2020-06-13 12:03:02'),
+(168, 7, 'GOODY', 5.23, 1.87, 119, 119, 624.24, '2020-06-13 12:03:23'),
+(169, 7, 'ANELE', 4.02, 0.63, 52, 52, 209.67, '2020-06-13 12:09:01'),
+(170, 9, 'AEFES', 19.38, 4.53, 78, 78, 1516.17, '2020-06-13 12:11:47'),
+(171, 16, 'AEFES', 19.38, 29.88, 514, 514, 9991.20, '2020-06-14 20:17:16'),
+(172, 1, 'VKGYO', 2.63, 24.25, 3074, 0, 8108.87, '2020-06-15 08:34:56'),
+(173, 1, 'IHLAS', 0.80, 24.48, 10200, 0, 8184.48, '2020-06-16 10:05:42'),
+(174, 1, 'IEYHO', 0.90, 0.00, 1, 0, 0.90, '2020-06-16 10:49:04'),
+(175, 1, 'IHLGM', 1.57, 24.64, 5231, 0, 8237.31, '2020-06-17 11:29:31'),
+(176, 1, 'IHLAS', 0.82, 0.00, 1, 0, 0.82, '2020-06-17 11:37:53'),
+(177, 1, 'KARSN', 2.44, 37.21, 5084, 5084, 12442.17, '2020-06-18 09:18:36');
 
 -- --------------------------------------------------------
 
@@ -119,17 +140,19 @@ CREATE TABLE `kullanicilar` (
 --
 
 INSERT INTO `kullanicilar` (`kul_Id`, `kul_Ad`, `kul_Soyad`, `kul_Eposta`, `kul_CepNo`, `kul_DogumTar`, `kul_Sifre`, `kul_Sifre_yeni`, `kul_Bakiye`, `kul_Eposta_Dogrulama_Kod`, `kul_Eposta_Dogrulama`, `kul_kod_zaman`, `kul_Uyelik_Tarih`, `kul_Son_Giris_Tar`, `kul_lig_id`, `kul_Yetki`, `kul_Resim`, `kul_Pasif_Durum`, `kul_Pasif_Tarih`, `kul_Pasif_Sure`) VALUES
-(1, 'CELAL', 'KUTLUER', 'celal@c.c', '(500) 500 10 10', '1989-01-21', '4a7d1ed414474e4033ac29ccb8653d9b', NULL, 1.84, NULL, '1', NULL, '2020-03-23 17:28:39', '2020-06-08 16:11:43', 5, '1', 'img/2646C5626JMZK3468R1539YUZU5050O1320VJCW6538X7052ZQWO3975M.jpg', '1', NULL, NULL),
-(5, 'a', 'a', 'aaa@c.c', '(500) 500 10 10', '2020-05-04', '0cc175b9c0f1b6a831c399e269772661', NULL, 10000.00, '6f9b0a55df8ac28564cb9f63a10be8af6ab3f7c2', '1', NULL, '2020-05-20 20:06:20', NULL, 2, '0', 'img/logged-user.jpg', '0', '2020-05-27 22:15:09', 1),
-(6, 'hasan', 'ulutaş', 'hasan.ulutas@yobu.edu.tr', '(345) 324 2342', '1987-02-28', '4297f44b13955235245b2497399d7a93', NULL, 12.23, 'ac3dbab61b0d35355fd9e3394cf1564f019965ab', '1', NULL, '2020-05-21 23:01:19', NULL, NULL, '1', 'img/logged-user.jpg', '1', NULL, NULL),
-(7, 'Beyzanur', 'Taşköprü', 'beyzataskopru09@gmail.com', '(555) 555 5555', '1998-05-01', 'dcddb75469b4b4875094e14561e573d8', NULL, 10000.00, 'a3c48f9ee1fc434049485234ce7312c528cea896', '1', NULL, '2020-06-01 17:14:30', '2020-06-01 17:17:21', NULL, '1', 'img/logged-user.jpg', '1', NULL, NULL),
-(8, 'haydar', 'bulut', 'haydar@hotmail.com', '(500) 500 10 10', '2020-06-04', '4304bcfa7c70020681b91085b31d2019', NULL, 10000.00, '509644903b9ec546addc1bc0bb97c1438ae9dbd9', '1', NULL, '2020-06-01 17:15:10', NULL, NULL, '1', 'img/logged-user.jpg', '0', '2020-06-08 08:03:21', 1),
-(9, 'Tarık', 'ERDEN', 'trk60566@hotmail.com', '(553) 919 97 66', '1997-12-09', 'e10adc3949ba59abbe56e057f20f883e', NULL, 2852.02, '8bcf309890051a82c359a730aac8726f312c747f', '1', NULL, '2020-06-01 17:17:12', '2020-06-02 07:10:41', NULL, '1', 'img/8008Q3779BPFJ8492P4723SCHI7442C9435AZET5054B1686UZWZ5785H.jpg', '1', NULL, NULL),
-(10, 'Merve', 'Tokat', 'merve@gmail.com', '(543) 422 34 42', '1999-11-11', '827ccb0eea8a706c4c34a16891f84e7b', NULL, 2195.90, 'd6eb8e34e87cafc38b6385c4544d57e23922de31', '1', NULL, '2020-06-01 17:19:35', '2020-06-02 07:15:09', 3, '1', 'img/6860W1858OASN9313V8477JRGO1616D5788MGKA6151U9370WZKE5387O.jpg', '1', NULL, NULL),
-(11, 'Mahmut', 'Tuncer', 'celalkutluer6@gmail.com', '(555) 000 99 88', '2020-06-06', '4a7d1ed414474e4033ac29ccb8653d9b', NULL, 4.20, '371302', '1', NULL, '2020-06-01 19:04:30', '2020-06-01 19:05:11', 3, '0', 'img/1790N3225CNQK7325F5219XAYH4286V6551IQQU9517R8196TAOA8557X.jpg', '1', NULL, NULL),
-(12, 'haydar', 'bulut', 'haydar10@hotmail.com', '(500) 500 10 10', '1996-12-31', '9475aa516e4dd1eb386f9d8a9e7ee7be', NULL, 10000.00, '548767', '0', NULL, '2020-06-02 06:12:08', NULL, NULL, '0', 'img/logged-user.jpg', '1', NULL, NULL),
-(13, 'haydar', 'bulut', 'haydar6475@gmail.com', '(500) 500 10 10', '1996-06-23', '25f9e794323b453885f5181f1b624d0b', NULL, 10000.00, '176865', '1', NULL, '2020-06-02 06:24:35', '2020-06-02 06:55:43', NULL, '0', 'img/logged-user.jpg', '1', NULL, NULL),
-(14, 'ali', 'ali', '16008117026@ogr.bozok.edu.tr', '(500) 500 10 10', '1996-06-16', '25f9e794323b453885f5181f1b624d0b', NULL, 10000.00, '431988', '0', NULL, '2020-06-02 06:56:55', NULL, NULL, '0', 'img/logged-user.jpg', '0', '2020-06-08 08:03:07', 1);
+(1, 'CELAL', 'KUTLUER', 'celal', '(507) 509 10 32', '1989-01-21', '4a7d1ed414474e4033ac29ccb8653d9b', NULL, 1.05, NULL, '1', NULL, '2020-03-23 17:28:39', '2020-06-19 16:26:38', 5, '1', 'img/8701M5894ZACD4794J3286UVLT8994W2739HIVG3571W9577TIRB1662R.jpg', '1', NULL, NULL),
+(5, 'a', 'a', 'a', 'a', '2020-05-04', '0cc175b9c0f1b6a831c399e269772661', NULL, 10000.00, '6f9b0a55df8ac28564cb9f63a10be8af6ab3f7c2', '1', NULL, '2020-05-20 20:06:20', NULL, 2, '0', 'img/logged-user.jpg', '0', '2020-05-27 22:15:09', 1),
+(6, 'hasan', 'ulutaş', 'hasan.ulutas@yobu.edu.tr', '34532423423432423', '1987-02-28', '4297f44b13955235245b2497399d7a93', NULL, 12.23, 'ac3dbab61b0d35355fd9e3394cf1564f019965ab', '1', NULL, '2020-05-21 23:01:19', NULL, NULL, '1', 'img/logged-user.jpg', '1', NULL, NULL),
+(7, 'Beyzanur', 'Taşköprü', 'beyzataskopru09@gmail.com', '(555) 555 55 55', '1998-05-01', 'dcddb75469b4b4875094e14561e573d8', NULL, 6367.00, 'a3c48f9ee1fc434049485234ce7312c528cea896', '1', NULL, '2020-06-01 17:14:30', '2020-06-13 12:02:48', 9, '1', 'img/logged-user.jpg', '1', NULL, NULL),
+(8, 'haydar', 'bulut', 'haydar@hotmail.com', '(123) 456 78 90', '2020-06-04', '4304bcfa7c70020681b91085b31d2019', NULL, 10000.00, '509644903b9ec546addc1bc0bb97c1438ae9dbd9', '1', NULL, '2020-06-01 17:15:10', NULL, NULL, '1', 'img/logged-user.jpg', '0', '2020-06-08 08:03:21', 1),
+(9, 'Tarık', 'ERDEN', 'trk60566@hotmail.com', '(553) 919 97 66', '1997-12-09', 'e10adc3949ba59abbe56e057f20f883e', NULL, 7053.65, '8bcf309890051a82c359a730aac8726f312c747f', '1', NULL, '2020-06-01 17:17:12', '2020-06-13 12:10:16', 5, '1', 'img/8008Q3779BPFJ8492P4723SCHI7442C9435AZET5054B1686UZWZ5785H.jpg', '1', NULL, NULL),
+(10, 'Merve', 'Tokat', 'merve@gmail.com', '(543) 422 34 42', '1999-11-11', '827ccb0eea8a706c4c34a16891f84e7b', NULL, 2845.90, 'd6eb8e34e87cafc38b6385c4544d57e23922de31', '1', NULL, '2020-06-01 17:19:35', '2020-06-12 10:11:01', 3, '1', 'img/6860W1858OASN9313V8477JRGO1616D5788MGKA6151U9370WZKE5387O.jpg', '1', NULL, NULL),
+(11, 'Mahmut', 'Tuncer', 'celalkutluer6@gmail.com', '(555) 000-9988', '2020-06-06', '4a7d1ed414474e4033ac29ccb8653d9b', NULL, 1204.20, '371302', '1', NULL, '2020-06-01 19:04:30', '2020-06-09 17:32:12', 3, '0', 'img/1972P2651NVTP9743M4175MFGR5291T8962URHA2817N9291PDDD6122R.jpg', '0', '2020-06-12 10:21:27', 1),
+(12, 'haydar', 'bulut', 'haydar10@hotmail.com', '123456789', '1996-12-31', '9475aa516e4dd1eb386f9d8a9e7ee7be', NULL, 10000.00, '548767', '0', NULL, '2020-06-02 06:12:08', NULL, NULL, '0', 'img/logged-user.jpg', '1', NULL, NULL),
+(13, 'haydar', 'bulut', 'haydar6475@gmail.com', '123456789', '1996-06-23', '25f9e794323b453885f5181f1b624d0b', NULL, 10000.00, '176865', '1', NULL, '2020-06-02 06:24:35', '2020-06-02 06:55:43', NULL, '0', 'img/logged-user.jpg', '1', NULL, NULL),
+(14, 'ali', 'ali', '16008117026@ogr.bozok.edur.tr', '123456789', '1996-06-16', '25f9e794323b453885f5181f1b624d0b', NULL, 10000.00, '431988', '0', NULL, '2020-06-02 06:56:55', NULL, NULL, '0', 'img/logged-user.jpg', '0', '2020-06-08 08:03:07', 1),
+(15, 'merve2', 'merve', '16008116062@ogr.bozok.edu.tr', '(057) 865 44 68', '1996-11-11', '827ccb0eea8a706c4c34a16891f84e7b', NULL, 1950.36, '589275', '1', NULL, '2020-06-11 15:07:11', '2020-06-11 19:34:40', 8, '0', 'img/9691Z2497DFMW8146K7052OZYS4735U2569INKF9728X3387XIRD3640Y.png', '1', NULL, NULL),
+(16, 'ilkan', 'kizilkaya', 'ilkankizilkaya1@outlook.com', '(545) 519 76 15', '1998-02-11', '9627b7957597da4df288c4fa7f048124', NULL, 8.80, '931593', '1', NULL, '2020-06-14 20:15:40', '2020-06-14 20:37:12', NULL, '0', 'img/8645R6430LRXK3530A9609VYIQ7537M4224SJMF8960F7090RDKN2413P.png', '1', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -153,7 +176,9 @@ CREATE TABLE `ligler` (
 INSERT INTO `ligler` (`lig_id`, `lig_baslik`, `lig_duyuru`, `lig_bos_uyelik`, `lig_yonetici_id`, `lig_son_siralama`) VALUES
 (2, 'HİSSENİN YILDIZLARI', '...', 9, 5, NULL),
 (3, 'Borsacılar', ':)', 8, 10, NULL),
-(5, 'Hisselere Fısıldayanlar', 'Hep birlikte ileriye...', 9, 1, NULL);
+(5, 'Hisselere Fısıldayanlar', 'Hep birlikte ileriye...', 8, 1, NULL),
+(8, 'bir nolu lig', 'aktif', 9, 15, NULL),
+(9, 'Beyzaa', 'Borsaa', 9, 7, NULL);
 
 -- --------------------------------------------------------
 
@@ -345,7 +370,145 @@ INSERT INTO `log` (`log_id`, `log_kul_id`, `log_eylem`, `log_aciklama`, `log_zam
 (236, 1, 'Lig Oluşturma', '1 -Nolu kullanıcı CELAL KUTLUER 5 nolu Hisselere Fısıldayanlar ligini oluşturdu.', '2020-06-08 13:09:51'),
 (237, 1, 'Hisse Satım', '1 -Nolu kullanıcı CELAL KUTLUER SNGYO hissesini 1.26 TL tutardan 1033 adet sattı. Bu işlem için 3.90 TL komisyon ödedi. 1297.68 TL toplam tutar aldı.', '2020-06-08 13:12:15'),
 (238, 1, 'Hisse Alım', '1 -Nolu kullanıcı CELAL KUTLUER SNGYO hissesini 1.27 TL tutardan 1019 adet aldı. Bu işlem için 3.88 TL komisyon ile 1298.01 TL toplam tutar ödedi.', '2020-06-08 13:13:17'),
-(239, 1, 'Giriş', '1 -Nolu kullanıcı CELAL KUTLUER, 46.155.58.243 ip adresi üzerinden giriş yaptı.', '2020-06-08 16:11:43');
+(239, 1, 'Giriş', '1 -Nolu kullanıcı CELAL KUTLUER, 46.155.58.243 ip adresi üzerinden giriş yaptı.', '2020-06-08 16:11:43'),
+(240, 1, 'Giriş', '1 -Nolu kullanıcı CELAL KUTLUER, 212.156.81.250 ip adresi üzerinden giriş yaptı.', '2020-06-09 06:13:49'),
+(241, 1, 'Giriş', '1 -Nolu kullanıcı CELAL KUTLUER, 212.156.81.250 ip adresi üzerinden giriş yaptı.', '2020-06-09 07:43:54'),
+(242, 1, 'Giriş', '1 -Nolu kullanıcı CELAL KUTLUER, 212.156.81.250 ip adresi üzerinden giriş yaptı.', '2020-06-09 07:43:54'),
+(243, 1, 'Giriş', '1 -Nolu kullanıcı CELAL KUTLUER, 212.156.81.250 ip adresi üzerinden giriş yaptı.', '2020-06-09 08:31:41'),
+(244, 1, 'Giriş', '1 -Nolu kullanıcı CELAL KUTLUER, 212.156.81.250 ip adresi üzerinden giriş yaptı.', '2020-06-09 10:03:48'),
+(245, 1, 'Hisse Satım', '1 -Nolu kullanıcı CELAL KUTLUER IEYHO hissesini 0.65 TL tutardan 1 adet sattı. Bu işlem için 0 TL komisyon ödedi. 0.65 TL toplam tutar aldı.', '2020-06-09 10:41:20'),
+(246, 1, 'Hisse Satım', '1 -Nolu kullanıcı CELAL KUTLUER IEYHO hissesini 0.65 TL tutardan 1 adet sattı. Bu işlem için 0 TL komisyon ödedi. 0.65 TL toplam tutar aldı.', '2020-06-09 10:41:31'),
+(247, 1, 'Giriş', '1 -Nolu kullanıcı CELAL KUTLUER, 212.156.81.250 ip adresi üzerinden giriş yaptı.', '2020-06-09 12:18:36'),
+(248, 11, 'Giriş', '11 -Nolu kullanıcı Mahmut Tuncer, 193.109.85.10 ip adresi üzerinden giriş yaptı.', '2020-06-09 17:32:12'),
+(249, 11, 'Profil Resim Değiştirme', '11 -Nolu kullanıcı Mahmut Tuncer, resmini değiştirdi.', '2020-06-09 17:32:32'),
+(250, 1, 'Giriş', '1 -Nolu kullanıcı CELAL KUTLUER, 193.109.85.10 ip adresi üzerinden giriş yaptı.', '2020-06-09 17:35:11'),
+(251, 1, 'Giriş', '1 -Nolu kullanıcı CELAL KUTLUER, 212.156.81.250 ip adresi üzerinden giriş yaptı.', '2020-06-10 05:34:12'),
+(252, 1, 'Giriş', '1 -Nolu kullanıcı CELAL KUTLUER, 212.156.81.250 ip adresi üzerinden giriş yaptı.', '2020-06-10 06:15:39'),
+(253, 1, 'Giriş', '1 -Nolu kullanıcı CELAL KUTLUER, 212.156.81.250 ip adresi üzerinden giriş yaptı.', '2020-06-10 07:34:01'),
+(254, 1, 'Hisse Alım', '1 -Nolu kullanıcı CELAL KUTLUER HURGZ hissesini 1.52 TL tutardan 1 adet aldı. Bu işlem için 0 TL komisyon ile 1.52 TL toplam tutar ödedi.', '2020-06-10 07:34:53'),
+(255, 1, 'Hisse Alım', '1 -Nolu kullanıcı CELAL KUTLUER HURGZ hissesini 1.52 TL tutardan 1 adet aldı. Bu işlem için 0 TL komisyon ile 1.52 TL toplam tutar ödedi.', '2020-06-10 07:35:09'),
+(256, 1, 'Giriş', '1 -Nolu kullanıcı CELAL KUTLUER, 212.156.81.250 ip adresi üzerinden giriş yaptı.', '2020-06-10 08:32:32'),
+(257, 1, 'Giriş', '1 -Nolu kullanıcı CELAL KUTLUER, 212.156.81.250 ip adresi üzerinden giriş yaptı.', '2020-06-10 09:29:51'),
+(258, 1, 'Giriş', '1 -Nolu kullanıcı CELAL KUTLUER, 212.156.81.250 ip adresi üzerinden giriş yaptı.', '2020-06-10 10:41:10'),
+(259, 1, 'Giriş', '1 -Nolu kullanıcı CELAL KUTLUER, 212.156.81.250 ip adresi üzerinden giriş yaptı.', '2020-06-10 12:33:14'),
+(260, 1, 'Giriş', '1 -Nolu kullanıcı CELAL KUTLUER, 107.181.177.139 ip adresi üzerinden giriş yaptı.', '2020-06-10 14:34:11'),
+(261, 1, 'Giriş', '1 -Nolu kullanıcı CELAL KUTLUER, 107.181.177.139 ip adresi üzerinden giriş yaptı.', '2020-06-10 14:34:11'),
+(262, 11, 'Ödül_haftalik_kullanici', '11 -Nolu kullanıcı üstün bir başarı göstererek haftalik_kullanici sıralamasında 1.\n olarak 800 ödül kazandı', '2020-06-10 14:36:20'),
+(263, 1, 'Ödül_haftalik_kullanici', '1 -Nolu kullanıcı üstün bir başarı göstererek haftalik_kullanici sıralamasında 2.\n olarak 400 ödül kazandı', '2020-06-10 14:36:20'),
+(264, 9, 'Ödül_haftalik_kullanici', '9 -Nolu kullanıcı üstün bir başarı göstererek haftalik_kullanici sıralamasında 3.\n olarak 200 ödül kazandı', '2020-06-10 14:36:20'),
+(265, 10, 'Ödül_haftalik_kullanici', '10 -Nolu kullanıcı üstün bir başarı göstererek haftalik_kullanici sıralamasında 4.\n olarak 150 ödül kazandı', '2020-06-10 14:36:20'),
+(266, 1, 'Ödül_aylik_kullanici', '1 -Nolu kullanıcı üstün bir başarı göstererek aylik_kullanici sıralamasında 1.\n olarak 800 ödül kazandı', '2020-06-10 14:36:20'),
+(267, 1, 'Ödül_haftalik_lig', '1 -Nolu kullanıcı üstün bir başarı göstererek haftalik_lig sıralamasında 1.\n olarak 900 ödül kazandı', '2020-06-10 14:36:20'),
+(268, 10, 'Ödül_haftalik_lig', '10 -Nolu kullanıcı üstün bir başarı göstererek haftalik_lig sıralamasında 2.\n olarak 500 ödül kazandı', '2020-06-10 14:36:20'),
+(269, 11, 'Ödül_haftalik_lig', '11 -Nolu kullanıcı üstün bir başarı göstererek haftalik_lig sıralamasında 2.\n olarak 400 ödül kazandı', '2020-06-10 14:36:20'),
+(270, 1, 'Ödül_aylik_lig', '1 -Nolu kullanıcı üstün bir başarı göstererek aylik_lig sıralamasında 1.\n olarak 900 ödül kazandı', '2020-06-10 14:36:20'),
+(271, 1, 'Hisse Alım', '1 -Nolu kullanıcı CELAL KUTLUER HURGZ hissesini 1.52 TL tutardan 1967 adet aldı. Bu işlem için 8.97 TL komisyon ile 2998.81 TL toplam tutar ödedi.', '2020-06-10 14:40:09'),
+(272, 1, 'Giriş', '1 -Nolu kullanıcı CELAL KUTLUER, 212.156.81.250 ip adresi üzerinden giriş yaptı.', '2020-06-11 05:43:22'),
+(273, 1, 'Giriş', '1 -Nolu kullanıcı CELAL KUTLUER, 212.156.81.250 ip adresi üzerinden giriş yaptı.', '2020-06-11 08:16:32'),
+(274, 1, 'Hisse Satım', '1 -Nolu kullanıcı CELAL KUTLUER SNGYO hissesini 1.29 TL tutardan 1019 adet sattı. Bu işlem için 3.94 TL komisyon ödedi. 1310.57 TL toplam tutar aldı.', '2020-06-11 08:17:17'),
+(275, 1, 'Giriş', '1 -Nolu kullanıcı CELAL KUTLUER, 212.156.81.250 ip adresi üzerinden giriş yaptı.', '2020-06-11 08:25:14'),
+(276, 1, 'Hisse Alım', '1 -Nolu kullanıcı CELAL KUTLUER AEFES hissesini 19.53 TL tutardan 1 adet aldı. Bu işlem için 0.06 TL komisyon ile 19.59 TL toplam tutar ödedi.', '2020-06-11 08:25:24'),
+(277, 1, 'Hisse Satım', '1 -Nolu kullanıcı CELAL KUTLUER AEFES hissesini 19.53 TL tutardan 1 adet sattı. Bu işlem için 0.06 TL komisyon ödedi. 19.47 TL toplam tutar aldı.', '2020-06-11 08:25:37'),
+(278, 1, 'Giriş', '1 -Nolu kullanıcı CELAL KUTLUER, 212.156.81.250 ip adresi üzerinden giriş yaptı.', '2020-06-11 10:36:25'),
+(279, 1, 'Hisse Satım', '1 -Nolu kullanıcı CELAL KUTLUER PETKM hissesini 3.88 TL tutardan 1758 adet sattı. Bu işlem için 20.46 TL komisyon ödedi. 6800.58 TL toplam tutar aldı.', '2020-06-11 10:37:37'),
+(280, 1, 'Hisse Alım', '1 -Nolu kullanıcı CELAL KUTLUER GARAN hissesini 8.11 TL tutardan 997 adet aldı. Bu işlem için 24.26 TL komisyon ile 8109.93 TL toplam tutar ödedi.', '2020-06-11 10:42:21'),
+(281, 1, 'Hisse Alım', '1 -Nolu kullanıcı CELAL KUTLUER EKGYO hissesini 1.97 TL tutardan 1 adet aldı. Bu işlem için 0.01 TL komisyon ile 1.98 TL toplam tutar ödedi.', '2020-06-11 10:56:09'),
+(282, 15, 'Üyelik Kaydı', '15 -Nolu kullanıcı merve2 merve2, 81.215.169.208 ip adresi üzerinden 16008116062@ogr.bozok.edu.tr e-posta adresi ile üyelik başvurusunda bulundu.', '2020-06-11 15:07:13'),
+(283, 15, 'Giriş', '15 -Nolu kullanıcı merve2 merve2, 81.215.169.208 ip adresi üzerinden giriş yaptı.', '2020-06-11 15:13:32'),
+(284, 10, 'Giriş', '10 -Nolu kullanıcı Merve Tokat, 81.215.169.208 ip adresi üzerinden giriş yaptı.', '2020-06-11 15:14:23'),
+(285, 15, 'Giriş', '15 -Nolu kullanıcı merve2 merve2, 81.215.169.208 ip adresi üzerinden giriş yaptı.', '2020-06-11 15:15:06'),
+(286, 15, 'Profil Bilgi Güncelleme', '15 -Nolu kullanıcı merve2 merve2, soyadını merve olarak değiştirdi', '2020-06-11 15:29:25'),
+(287, 15, 'Profil Şifre Güncelleme', '15 -Nolu kullanıcı merve2 merve2, şifresini değiştirdi', '2020-06-11 15:32:13'),
+(288, 15, 'Profil Resim Değiştirme', '15 -Nolu kullanıcı merve2 merve2, resmini değiştirdi.', '2020-06-11 15:37:17'),
+(289, 10, 'Giriş', '10 -Nolu kullanıcı Merve Tokat, 81.215.169.208 ip adresi üzerinden giriş yaptı.', '2020-06-11 19:30:00'),
+(290, 15, 'Giriş', '15 -Nolu kullanıcı merve2 merve, 81.215.169.208 ip adresi üzerinden giriş yaptı.', '2020-06-11 19:34:40'),
+(291, 15, 'Lig Giriş', '15 -Nolu kullanıcı merve2 merve 5 nolu Hisselere Fısıldayanlar ligine katıldı', '2020-06-11 19:35:04'),
+(292, 15, 'Lig Çıkış', '15 -Nolu kullanıcı merve2 merve 5 nolu Hisselere Fısıldayanlar liginden ayrıldı', '2020-06-11 19:38:33'),
+(293, 15, 'Lig Giriş', '15 -Nolu kullanıcı merve2 merve 5 nolu Hisselere Fısıldayanlar ligine katıldı', '2020-06-11 19:38:37'),
+(294, 15, 'Lig Çıkış', '15 -Nolu kullanıcı merve2 merve 5 nolu Hisselere Fısıldayanlar liginden ayrıldı', '2020-06-11 19:38:52'),
+(295, 15, 'Lig Oluşturma', '15 -Nolu kullanıcı merve2 merve 6 nolu bir ligini oluşturdu.', '2020-06-11 19:39:19'),
+(296, 15, 'Lig Silme', '15 -Nolu kullanıcı merve2 merve 6 nolu bir liginden ayrıldı. Ligin son üyesi olduğundan lig silindi', '2020-06-11 19:54:12'),
+(297, 15, 'Lig Çıkış', '15 -Nolu kullanıcı merve2 merve 6 nolu bir liginden ayrıldı', '2020-06-11 19:54:12'),
+(298, 15, 'Lig Oluşturma', '15 -Nolu kullanıcı merve2 merve 7 nolu bir nolu lig ligini oluşturdu.', '2020-06-11 19:56:10'),
+(299, 15, 'Lig Silme', '15 -Nolu kullanıcı merve2 merve 7 nolu bir nolu lig liginden ayrıldı. Ligin son üyesi olduğundan lig silindi', '2020-06-11 19:56:15'),
+(300, 15, 'Lig Çıkış', '15 -Nolu kullanıcı merve2 merve 7 nolu bir nolu lig liginden ayrıldı', '2020-06-11 19:56:15'),
+(301, 15, 'Lig Oluşturma', '15 -Nolu kullanıcı merve2 merve 8 nolu bir nolu lig ligini oluşturdu.', '2020-06-11 19:56:25'),
+(302, 15, 'Hisse Alım', '15 -Nolu kullanıcı merve2 merve AEFES hissesini 19.37 TL tutardan 257 adet aldı. Bu işlem için 14.93 TL komisyon ile 4993.02 TL toplam tutar ödedi.', '2020-06-11 20:08:33'),
+(303, 15, 'Hisse Alım', '15 -Nolu kullanıcı merve2 merve AEFES hissesini 19.37 TL tutardan 257 adet aldı. Bu işlem için 14.93 TL komisyon ile 4993.02 TL toplam tutar ödedi.', '2020-06-11 20:08:34'),
+(304, 15, 'Hisse Alım', '15 -Nolu kullanıcı merve2 merve AKBNK hissesini 5.80 TL tutardan 1 adet aldı. Bu işlem için 0.02 TL komisyon ile 5.82 TL toplam tutar ödedi.', '2020-06-11 20:08:47'),
+(305, 15, 'Hisse Satım', '15 -Nolu kullanıcı merve2 merve AEFES hissesini 19.37 TL tutardan 257 adet sattı. Bu işlem için 14.93 TL komisyon ödedi. 4963.16 TL toplam tutar aldı.', '2020-06-11 20:08:58'),
+(306, 15, 'Hisse Satım', '15 -Nolu kullanıcı merve2 merve AEFES hissesini 19.37 TL tutardan 257 adet sattı. Bu işlem için 14.93 TL komisyon ödedi. 4963.16 TL toplam tutar aldı.', '2020-06-11 20:09:00'),
+(307, 15, 'Hisse Satım', '15 -Nolu kullanıcı merve2 merve AKBNK hissesini 5.80 TL tutardan 1 adet sattı. Bu işlem için 0.02 TL komisyon ödedi. 5.78 TL toplam tutar aldı.', '2020-06-11 20:09:11'),
+(308, 15, 'Hisse Alım', '15 -Nolu kullanıcı merve2 merve AKSA hissesini 6.78 TL tutardan 730 adet aldı. Bu işlem için 14.85 TL komisyon ile 4964.25 TL toplam tutar ödedi.', '2020-06-11 20:09:23'),
+(309, 15, 'Hisse Alım', '15 -Nolu kullanıcı merve2 merve BIZIM hissesini 18.45 TL tutardan 134 adet aldı. Bu işlem için 7.42 TL komisyon ile 2479.72 TL toplam tutar ödedi.', '2020-06-11 20:09:36'),
+(310, 15, 'Hisse Alım', '15 -Nolu kullanıcı merve2 merve ANELE hissesini 4.02 TL tutardan 309 adet aldı. Bu işlem için 3.73 TL komisyon ile 1245.91 TL toplam tutar ödedi.', '2020-06-11 20:09:49'),
+(311, 10, 'Giriş', '10 -Nolu kullanıcı Merve Tokat, 81.215.169.208 ip adresi üzerinden giriş yaptı.', '2020-06-11 21:01:25'),
+(312, 10, 'Giriş', '10 -Nolu kullanıcı Merve Tokat, 81.215.169.208 ip adresi üzerinden giriş yaptı.', '2020-06-11 21:01:26'),
+(313, 1, 'Giriş', '1 -Nolu kullanıcı CELAL KUTLUER, 212.156.81.250 ip adresi üzerinden giriş yaptı.', '2020-06-12 06:34:57'),
+(314, 1, 'Profil Resim Değiştirme', '1 -Nolu kullanıcı CELAL KUTLUER, resmini değiştirdi.', '2020-06-12 06:54:08'),
+(315, 1, 'Profil Resim Değiştirme', '1 -Nolu kullanıcı CELAL KUTLUER, resmini değiştirdi.', '2020-06-12 07:23:49'),
+(316, 10, 'Giriş', '10 -Nolu kullanıcı Merve Tokat, 81.215.169.208 ip adresi üzerinden giriş yaptı.', '2020-06-12 10:11:01'),
+(317, 1, 'Giriş', '1 -Nolu kullanıcı CELAL KUTLUER, 212.156.81.250 ip adresi üzerinden giriş yaptı.', '2020-06-12 10:14:42'),
+(318, 11, 'Pasife Alma', '10 -Nolu Yönetici ,11 nolu Kullanıcı olan MahmutTuncer i2020-06-12 10:21:27 de 1 günlüğüne pasife aldı', '2020-06-12 10:21:27'),
+(319, 11, 'Yönetici Yetkisi Verme', '10 -Nolu Yönetici ,11 id li kullanıcıya yönetici yetkisi verdi.', '2020-06-12 10:22:58'),
+(320, 1, 'Hisse Satım', '1 -Nolu kullanıcı CELAL KUTLUER GARAN hissesini 8.16 TL tutardan 997 adet sattı. Bu işlem için 24.41 TL komisyon ödedi. 8111.11 TL toplam tutar aldı.', '2020-06-12 10:23:35'),
+(321, 11, 'Yönetici Yetkisi Alma', '10 -Nolu Yönetici ,11 id li kullanıcının yönetici yetkisini aldı.', '2020-06-12 10:27:25'),
+(322, 11, 'Yönetici Yetkisi Verme', '10 -Nolu Yönetici ,11 id li kullanıcıya yönetici yetkisi verdi.', '2020-06-12 10:27:25'),
+(323, 11, 'Yönetici Yetkisi Alma', '10 -Nolu Yönetici ,11 id li kullanıcının yönetici yetkisini aldı.', '2020-06-12 10:28:28'),
+(324, 11, 'Yönetici Yetkisi Verme', '10 -Nolu Yönetici ,11 id li kullanıcıya yönetici yetkisi verdi.', '2020-06-12 10:28:49'),
+(325, 11, 'Yönetici Yetkisi Alma', '10 -Nolu Yönetici ,11 id li kullanıcının yönetici yetkisini aldı.', '2020-06-12 10:28:49'),
+(326, 1, 'Giriş', '1 -Nolu kullanıcı CELAL KUTLUER, 95.211.230.211 ip adresi üzerinden giriş yaptı.', '2020-06-12 10:35:23'),
+(327, 7, 'Giriş', '7 -Nolu kullanıcı Beyzanur Taşköprü, 88.241.69.16 ip adresi üzerinden giriş yaptı.', '2020-06-13 12:02:48'),
+(328, 7, 'Hisse Alım', '7 -Nolu kullanıcı Beyzanur Taşköprü AEFES hissesini 19.38 TL tutardan 144 adet aldı. Bu işlem için 8.37 TL komisyon ile 2799.09 TL toplam tutar ödedi.', '2020-06-13 12:03:02'),
+(329, 7, 'Hisse Alım', '7 -Nolu kullanıcı Beyzanur Taşköprü GOODY hissesini 5.23 TL tutardan 119 adet aldı. Bu işlem için 1.87 TL komisyon ile 624.24 TL toplam tutar ödedi.', '2020-06-13 12:03:23'),
+(330, 7, 'Lig Oluşturma', '7 -Nolu kullanıcı Beyzanur Taşköprü 9 nolu Beyzaa ligini oluşturdu.', '2020-06-13 12:08:10'),
+(331, 7, 'Hisse Alım', '7 -Nolu kullanıcı Beyzanur Taşköprü ANELE hissesini 4.02 TL tutardan 52 adet aldı. Bu işlem için 0.63 TL komisyon ile 209.67 TL toplam tutar ödedi.', '2020-06-13 12:09:01'),
+(332, 9, 'Giriş', '9 -Nolu kullanıcı Tarık ERDEN, 81.215.169.131 ip adresi üzerinden giriş yaptı.', '2020-06-13 12:10:16'),
+(333, 9, 'Lig Giriş', '9 -Nolu kullanıcı Tarık ERDEN 5 nolu Hisselere Fısıldayanlar ligine katıldı', '2020-06-13 12:10:48'),
+(334, 9, 'Hisse Satım', '9 -Nolu kullanıcı Tarık ERDEN AFYON hissesini 2.91 TL tutardan 436 adet sattı. Bu işlem için 3.81 TL komisyon ödedi. 1264.95 TL toplam tutar aldı.', '2020-06-13 12:11:24'),
+(335, 9, 'Hisse Alım', '9 -Nolu kullanıcı Tarık ERDEN AEFES hissesini 19.38 TL tutardan 78 adet aldı. Bu işlem için 4.53 TL komisyon ile 1516.17 TL toplam tutar ödedi.', '2020-06-13 12:11:47'),
+(336, 9, 'Hisse Satım', '9 -Nolu kullanıcı Tarık ERDEN AEFES hissesini 19.38 TL tutardan 158 adet sattı. Bu işlem için 9.19 TL komisyon ödedi. 3052.85 TL toplam tutar aldı.', '2020-06-13 12:12:05'),
+(337, 1, 'Giriş', '1 -Nolu kullanıcı CELAL KUTLUER, 109.169.23.85 ip adresi üzerinden giriş yaptı.', '2020-06-14 12:40:51'),
+(338, 1, 'Giriş', '1 -Nolu kullanıcı CELAL KUTLUER, 109.169.23.85 ip adresi üzerinden giriş yaptı.', '2020-06-14 12:40:51'),
+(339, 1, 'Giriş', '1 -Nolu kullanıcı CELAL KUTLUER, 109.169.23.85 ip adresi üzerinden giriş yaptı.', '2020-06-14 12:40:51'),
+(340, 1, 'Giriş', '1 -Nolu kullanıcı CELAL KUTLUER, 23.227.142.146 ip adresi üzerinden giriş yaptı.', '2020-06-14 12:45:25'),
+(341, 1, 'Giriş', '1 -Nolu kullanıcı CELAL KUTLUER, 23.227.142.146 ip adresi üzerinden giriş yaptı.', '2020-06-14 12:45:25'),
+(342, 16, 'Üyelik Kaydı', '16 -Nolu kullanıcı ilkan kizilkaya, 81.213.244.25 ip adresi üzerinden ilkankizilkaya1@outlook.com e-posta adresi ile üyelik başvurusunda bulundu.', '2020-06-14 20:15:41'),
+(343, 16, 'Giriş', '16 -Nolu kullanıcı ilkan kizilkaya, 81.213.244.25 ip adresi üzerinden giriş yaptı.', '2020-06-14 20:16:44'),
+(344, 16, 'Hisse Alım', '16 -Nolu kullanıcı ilkan kizilkaya AEFES hissesini 19.38 TL tutardan 514 adet aldı. Bu işlem için 29.88 TL komisyon ile 9991.20 TL toplam tutar ödedi.', '2020-06-14 20:17:16'),
+(345, 16, 'Profil Resim Değiştirme', '16 -Nolu kullanıcı ilkan kizilkaya, resmini değiştirdi.', '2020-06-14 20:22:21'),
+(346, 16, 'Giriş', '16 -Nolu kullanıcı ilkan kizilkaya, 81.213.244.25 ip adresi üzerinden giriş yaptı.', '2020-06-14 20:36:24'),
+(347, 16, 'Giriş', '16 -Nolu kullanıcı ilkan kizilkaya, 81.213.244.25 ip adresi üzerinden giriş yaptı.', '2020-06-14 20:37:12'),
+(348, 16, 'Profil Resim Değiştirme', '16 -Nolu kullanıcı ilkan kizilkaya, resmini değiştirdi.', '2020-06-14 20:45:35'),
+(349, 1, 'Giriş', '1 -Nolu kullanıcı CELAL KUTLUER, 212.156.81.250 ip adresi üzerinden giriş yaptı.', '2020-06-15 08:33:49'),
+(350, 1, 'Profil Resim Değiştirme', '1 -Nolu kullanıcı CELAL KUTLUER, resmini değiştirdi.', '2020-06-15 08:34:30'),
+(351, 1, 'Hisse Alım', '1 -Nolu kullanıcı CELAL KUTLUER VKGYO hissesini 2.63 TL tutardan 3074 adet aldı. Bu işlem için 24.25 TL komisyon ile 8108.87 TL toplam tutar ödedi.', '2020-06-15 08:34:56'),
+(352, 1, 'Giriş', '1 -Nolu kullanıcı CELAL KUTLUER, 212.156.81.250 ip adresi üzerinden giriş yaptı.', '2020-06-15 11:29:09'),
+(353, 1, 'Giriş', '1 -Nolu kullanıcı CELAL KUTLUER, 212.156.81.250 ip adresi üzerinden giriş yaptı.', '2020-06-16 06:12:54'),
+(354, 1, 'Giriş', '1 -Nolu kullanıcı CELAL KUTLUER, 212.156.81.250 ip adresi üzerinden giriş yaptı.', '2020-06-16 10:02:18'),
+(355, 1, 'Hisse Satım', '1 -Nolu kullanıcı CELAL KUTLUER VKGYO hissesini 2.67 TL tutardan 3074 adet sattı. Bu işlem için 24.62 TL komisyon ödedi. 8182.96 TL toplam tutar aldı.', '2020-06-16 10:03:27'),
+(356, 1, 'Hisse Alım', '1 -Nolu kullanıcı CELAL KUTLUER IHLAS hissesini 0.80 TL tutardan 10200 adet aldı. Bu işlem için 24.48 TL komisyon ile 8184.48 TL toplam tutar ödedi.', '2020-06-16 10:05:42'),
+(357, 1, 'Giriş', '1 -Nolu kullanıcı CELAL KUTLUER, 212.156.81.250 ip adresi üzerinden giriş yaptı.', '2020-06-16 10:47:13'),
+(358, 1, 'Hisse Alım', '1 -Nolu kullanıcı CELAL KUTLUER IEYHO hissesini 0.90 TL tutardan 1 adet aldı. Bu işlem için 0 TL komisyon ile 0.9 TL toplam tutar ödedi.', '2020-06-16 10:49:04'),
+(359, 1, 'Giriş', '1 -Nolu kullanıcı CELAL KUTLUER, 46.221.249.184 ip adresi üzerinden giriş yaptı.', '2020-06-16 15:46:28'),
+(360, 1, 'Giriş', '1 -Nolu kullanıcı CELAL KUTLUER, 212.156.81.250 ip adresi üzerinden giriş yaptı.', '2020-06-17 11:27:02'),
+(361, 1, 'Hisse Satım', '1 -Nolu kullanıcı CELAL KUTLUER IHLAS hissesini 0.81 TL tutardan 10200 adet sattı. Bu işlem için 24.79 TL komisyon ödedi. 8237.21 TL toplam tutar aldı.', '2020-06-17 11:27:34'),
+(362, 1, 'Hisse Satım', '1 -Nolu kullanıcı CELAL KUTLUER IEYHO hissesini 0.94 TL tutardan 1 adet sattı. Bu işlem için 0 TL komisyon ödedi. 0.94 TL toplam tutar aldı.', '2020-06-17 11:28:01'),
+(363, 1, 'Hisse Alım', '1 -Nolu kullanıcı CELAL KUTLUER IHLGM hissesini 1.57 TL tutardan 5231 adet aldı. Bu işlem için 24.64 TL komisyon ile 8237.31 TL toplam tutar ödedi.', '2020-06-17 11:29:31'),
+(364, 1, 'Hisse Alım', '1 -Nolu kullanıcı CELAL KUTLUER IHLAS hissesini 0.82 TL tutardan 1 adet aldı. Bu işlem için 0 TL komisyon ile 0.82 TL toplam tutar ödedi.', '2020-06-17 11:37:53'),
+(365, 1, 'Hisse Satım', '1 -Nolu kullanıcı CELAL KUTLUER IHLAS hissesini 0.81 TL tutardan 1 adet sattı. Bu işlem için 0 TL komisyon ödedi. 0.81 TL toplam tutar aldı.', '2020-06-17 11:38:26'),
+(366, 1, 'Giriş', '1 -Nolu kullanıcı CELAL KUTLUER, 212.156.81.250 ip adresi üzerinden giriş yaptı.', '2020-06-18 09:14:52'),
+(367, 1, 'Hisse Satım', '1 -Nolu kullanıcı CELAL KUTLUER GUBRF hissesini 26.14 TL tutardan 92 adet sattı. Bu işlem için 7.21 TL komisyon ödedi. 2397.67 TL toplam tutar aldı.', '2020-06-18 09:15:14'),
+(368, 1, 'Hisse Satım', '1 -Nolu kullanıcı CELAL KUTLUER IHLGM hissesini 1.60 TL tutardan 5231 adet sattı. Bu işlem için 25.11 TL komisyon ödedi. 8344.49 TL toplam tutar aldı.', '2020-06-18 09:15:34'),
+(369, 1, 'Ödül_haftalik_kullanici', '1 -Nolu kullanıcı üstün bir başarı göstererek haftalik_kullanici sıralamasında 1.\n olarak 800 ödül kazandı', '2020-06-18 09:17:56'),
+(370, 9, 'Ödül_haftalik_kullanici', '9 -Nolu kullanıcı üstün bir başarı göstererek haftalik_kullanici sıralamasında 2.\n olarak 400 ödül kazandı', '2020-06-18 09:17:56'),
+(371, 15, 'Ödül_haftalik_kullanici', '15 -Nolu kullanıcı üstün bir başarı göstererek haftalik_kullanici sıralamasında 3.\n olarak 200 ödül kazandı', '2020-06-18 09:17:56'),
+(372, 1, 'Ödül_haftalik_lig', '1 -Nolu kullanıcı üstün bir başarı göstererek haftalik_lig sıralamasında 1.\n olarak 900 ödül kazandı', '2020-06-18 09:17:56'),
+(373, 9, 'Ödül_haftalik_lig', '9 -Nolu kullanıcı üstün bir başarı göstererek haftalik_lig sıralamasında 1.\n olarak 800 ödül kazandı', '2020-06-18 09:17:56'),
+(374, 15, 'Ödül_haftalik_lig', '15 -Nolu kullanıcı üstün bir başarı göstererek haftalik_lig sıralamasında 2.\n olarak 500 ödül kazandı', '2020-06-18 09:17:56'),
+(375, 1, 'Hisse Alım', '1 -Nolu kullanıcı CELAL KUTLUER KARSN hissesini 2.44 TL tutardan 5084 adet aldı. Bu işlem için 37.21 TL komisyon ile 12442.17 TL toplam tutar ödedi.', '2020-06-18 09:18:36'),
+(376, 1, 'Giriş', '1 -Nolu kullanıcı CELAL KUTLUER, 212.156.81.250 ip adresi üzerinden giriş yaptı.', '2020-06-19 11:23:44'),
+(377, 1, 'Giriş', '1 -Nolu kullanıcı CELAL KUTLUER, 176.55.49.136 ip adresi üzerinden giriş yaptı.', '2020-06-19 16:26:38');
 
 -- --------------------------------------------------------
 
@@ -371,7 +534,66 @@ CREATE TABLE `mesajlar` (
 
 INSERT INTO `mesajlar` (`msj_id`, `msj_ad`, `msj_soyad`, `msj_eposta`, `msj_text`, `msj_kul_id`, `msj_okundumu`, `msj_okuyan_id`, `msj_zaman`) VALUES
 (1, 'Celal', 'KUTLUER', 'celalkutluer@gmail.com', 'Deneme', NULL, NULL, NULL, '2020-06-07 18:03:01'),
-(2, 'Celal', 'KUTLUER', 'celalkutluer@gmail.com', 'Deneme', NULL, NULL, NULL, '2020-06-08 12:33:35');
+(2, 'Celal', 'KUTLUER', 'celalkutluer@gmail.com', 'Deneme', NULL, NULL, NULL, '2020-06-08 12:33:35'),
+(3, 'Celal', 'KUTLUER', 'celal@c.c', 'Deneme Mesajıdır Dikkate Almayınız.', NULL, NULL, NULL, '2020-06-11 08:26:29'),
+(4, 'merve', 'tokat', '16008116062@ogr.bozok.edu.tr', 'İletişim sayfasını test ediyorum eger çalışıyorsa geri dönüş yapınız', NULL, 1, 10, '2020-06-11 15:00:24'),
+(5, 'Celal', 'KUTLUER', 'celal@c.c', 'hi', NULL, NULL, NULL, '2020-06-16 15:47:52');
+
+-- --------------------------------------------------------
+
+--
+-- Tablo için tablo yapısı `oduller`
+--
+
+CREATE TABLE `oduller` (
+                           `odul_id` int(11) NOT NULL,
+                           `odul_uye_id` int(11) DEFAULT NULL,
+                           `odul_uye_miktar` smallint(6) DEFAULT NULL,
+                           `odul_uye_sira` tinyint(4) DEFAULT NULL,
+                           `odul_sira_para` text COLLATE utf8_turkish_ci DEFAULT NULL,
+                           `odul_tur` varchar(25) COLLATE utf8_turkish_ci DEFAULT NULL,
+                           `odul_zaman` datetime DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_turkish_ci;
+
+--
+-- Tablo döküm verisi `oduller`
+--
+
+INSERT INTO `oduller` (`odul_id`, `odul_uye_id`, `odul_uye_miktar`, `odul_uye_sira`, `odul_sira_para`, `odul_tur`, `odul_zaman`) VALUES
+(23, 11, 800, 1, '-0.02', 'haftalik_kullanici', '2020-06-10 14:36:20'),
+(24, 1, 400, 2, '-0.02', 'haftalik_kullanici', '2020-06-10 14:36:20'),
+(25, 9, 200, 3, '-5.40', 'haftalik_kullanici', '2020-06-10 14:36:20'),
+(26, 10, 150, 4, '-18.87', 'haftalik_kullanici', '2020-06-10 14:36:20'),
+(27, 1, 800, 1, '-0.10', 'aylik_kullanici', '2020-06-10 14:36:20'),
+(28, 1, 900, 1, '91.04', 'haftalik_lig', '2020-06-10 14:36:20'),
+(29, 10, 500, 2, '-65.82', 'haftalik_lig', '2020-06-10 14:36:20'),
+(30, 11, 400, 2, '-65.82', 'haftalik_lig', '2020-06-10 14:36:20'),
+(31, 1, 900, 1, '192.49', 'aylik_lig', '2020-06-10 14:36:20'),
+(32, 1, 800, 1, '20.92', 'haftalik_kullanici', '2020-06-18 09:17:56'),
+(33, 9, 400, 2, '18.62', 'haftalik_kullanici', '2020-06-18 09:17:56'),
+(34, 15, 200, 3, '-29.86', 'haftalik_kullanici', '2020-06-18 09:17:56'),
+(35, 1, 900, 1, '310.71', 'haftalik_lig', '2020-06-18 09:17:56'),
+(36, 9, 800, 1, '310.71', 'haftalik_lig', '2020-06-18 09:17:56'),
+(37, 15, 500, 2, '-59.76', 'haftalik_lig', '2020-06-18 09:17:56');
+
+-- --------------------------------------------------------
+
+--
+-- Tablo için tablo yapısı `sabitler`
+--
+
+CREATE TABLE `sabitler` (
+                            `id` int(5) NOT NULL,
+                            `sabit_ad` varchar(20) COLLATE utf8_turkish_ci DEFAULT NULL,
+                            `sabit_deger` varchar(20) COLLATE utf8_turkish_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_turkish_ci;
+
+--
+-- Tablo döküm verisi `sabitler`
+--
+
+INSERT INTO `sabitler` (`id`, `sabit_ad`, `sabit_deger`) VALUES
+(1, 'komisyon', '1.003');
 
 -- --------------------------------------------------------
 
@@ -430,7 +652,24 @@ INSERT INTO `satim` (`satim_id`, `satim_kul_id`, `satim_hisse_sembol`, `satim_hi
 (69, 1, 'SNGYO', 1.23, 12.39, 3359, 8.91, 4119.18, '2020-06-08 11:18:56'),
 (70, 1, 'KLGYO', 4.07, 6.80, 557, 8.75, 2260.19, '2020-06-08 12:35:23'),
 (71, 1, 'ZOREN', 1.58, 0.00, 1, 0.01, 1.58, '2020-06-08 12:38:28'),
-(72, 1, 'SNGYO', 1.26, 3.90, 1033, 12.92, 1297.68, '2020-06-08 13:12:15');
+(72, 1, 'SNGYO', 1.26, 3.90, 1033, 12.92, 1297.68, '2020-06-08 13:12:15'),
+(73, 1, 'IEYHO', 0.65, 0.00, 1, 0.00, 0.65, '2020-06-09 10:41:20'),
+(74, 1, 'IEYHO', 0.65, 0.00, 1, 0.00, 0.65, '2020-06-09 10:41:31'),
+(75, 1, 'SNGYO', 1.29, 3.94, 1019, 12.56, 1310.57, '2020-06-11 08:17:17'),
+(76, 1, 'AEFES', 19.53, 0.06, 1, -0.12, 19.47, '2020-06-11 08:25:37'),
+(77, 1, 'PETKM', 3.88, 20.46, 1758, 29.61, 6800.58, '2020-06-11 10:37:37'),
+(78, 15, 'AEFES', 19.37, 14.93, 257, -29.86, 4963.16, '2020-06-11 20:08:58'),
+(79, 15, 'AEFES', 19.37, 14.93, 257, -29.86, 4963.16, '2020-06-11 20:09:00'),
+(80, 15, 'AKBNK', 5.80, 0.02, 1, -0.04, 5.78, '2020-06-11 20:09:11'),
+(81, 1, 'GARAN', 8.16, 24.41, 997, 1.18, 8111.11, '2020-06-12 10:23:35'),
+(82, 9, 'AFYON', 2.91, 3.81, 436, 18.62, 1264.95, '2020-06-13 12:11:24'),
+(83, 9, 'AEFES', 19.38, 9.19, 158, 81.46, 3052.85, '2020-06-13 12:12:05'),
+(84, 1, 'VKGYO', 2.67, 24.62, 3074, 74.09, 8182.96, '2020-06-16 10:03:27'),
+(85, 1, 'IHLAS', 0.81, 24.79, 10200, 52.73, 8237.21, '2020-06-17 11:27:34'),
+(86, 1, 'IEYHO', 0.94, 0.00, 1, 0.04, 0.94, '2020-06-17 11:28:01'),
+(87, 1, 'IHLAS', 0.81, 0.00, 1, -0.01, 0.81, '2020-06-17 11:38:26'),
+(88, 1, 'GUBRF', 26.14, 7.21, 92, 18.79, 2397.67, '2020-06-18 09:15:14'),
+(89, 1, 'IHLGM', 1.60, 25.11, 5231, 107.18, 8344.49, '2020-06-18 09:15:34');
 
 -- --------------------------------------------------------
 
@@ -453,31 +692,46 @@ CREATE TABLE `varliklar` (
 --
 
 INSERT INTO `varliklar` (`varlik_id`, `varlik_kul_id`, `varlik_hisse_sembol`, `varlik_alim_adet`, `varlik_satim_adet`, `varlik_elde`, `varlik_degisim_zaman`) VALUES
-(12, 1, 'AEFES', 580, 580, 0, '2020-05-18 21:06:00'),
+(12, 1, 'AEFES', 581, 581, 0, '2020-05-18 21:06:00'),
 (13, 1, 'DEVA', 1115, 1115, 0, '2020-05-18 23:34:00'),
 (14, 1, 'PGSUS', 192, 192, 0, '2020-05-20 09:40:58'),
 (15, 6, 'AEFES', 570, 0, 570, '2020-05-21 23:02:37'),
 (16, 1, 'TLMAN', 724, 724, 0, '2020-05-25 12:45:24'),
 (17, 1, 'AKBNK', 1, 1, 0, '2020-05-25 17:54:03'),
 (18, 1, 'AFYON', 6, 6, 0, '2020-05-27 15:36:07'),
-(19, 1, 'IEYHO', 10, 8, 2, '2020-05-27 15:36:30'),
+(19, 1, 'IEYHO', 11, 11, 0, '2020-05-27 15:36:30'),
 (20, 11, 'AFYON', 3535, 1, 3534, '2020-06-01 19:07:27'),
 (21, 10, 'BIMAS', 154, 136, 18, '2020-06-02 07:15:36'),
-(22, 9, 'AEFES', 158, 0, 158, '2020-06-02 07:15:50'),
-(23, 9, 'AFYON', 1262, 316, 946, '2020-06-02 07:16:06'),
+(22, 9, 'AEFES', 236, 158, 78, '2020-06-02 07:15:50'),
+(23, 9, 'AFYON', 1262, 752, 510, '2020-06-02 07:16:06'),
 (24, 9, 'ALARK', 284, 0, 284, '2020-06-02 07:16:18'),
 (25, 10, 'ANELE', 1119, 0, 1119, '2020-06-02 07:18:27'),
 (26, 10, 'HURGZ', 1318, 0, 1318, '2020-06-02 07:42:50'),
 (27, 1, 'SKBNK', 8267, 8267, 0, '2020-06-06 21:45:49'),
-(28, 1, 'EKGYO', 6007, 6007, 0, '2020-06-08 08:00:15'),
+(28, 1, 'EKGYO', 6008, 6007, 1, '2020-06-08 08:00:15'),
 (29, 1, 'BIZIM', 143, 143, 0, '2020-06-08 10:14:08'),
-(30, 1, 'GUBRF', 92, 0, 92, '2020-06-08 10:14:22'),
+(30, 1, 'GUBRF', 92, 92, 0, '2020-06-08 10:14:22'),
 (31, 1, 'GSRAY', 457, 457, 0, '2020-06-08 10:14:36'),
 (32, 1, 'TTRAK', 61, 61, 0, '2020-06-08 10:14:48'),
 (33, 1, 'ZOREN', 1, 1, 0, '2020-06-08 10:24:09'),
 (34, 1, 'KLGYO', 557, 557, 0, '2020-06-08 10:47:57'),
-(35, 1, 'SNGYO', 5411, 4392, 1019, '2020-06-08 11:08:49'),
-(36, 1, 'PETKM', 1758, 0, 1758, '2020-06-08 12:38:01');
+(35, 1, 'SNGYO', 5411, 5411, 0, '2020-06-08 11:08:49'),
+(36, 1, 'PETKM', 1758, 1758, 0, '2020-06-08 12:38:01'),
+(37, 1, 'HURGZ', 1969, 0, 1969, '2020-06-10 07:34:53'),
+(38, 1, 'GARAN', 997, 997, 0, '2020-06-11 10:42:21'),
+(39, 15, 'AEFES', 514, 514, 0, '2020-06-11 20:08:33'),
+(40, 15, 'AKBNK', 1, 1, 0, '2020-06-11 20:08:47'),
+(41, 15, 'AKSA', 730, 0, 730, '2020-06-11 20:09:23'),
+(42, 15, 'BIZIM', 134, 0, 134, '2020-06-11 20:09:36'),
+(43, 15, 'ANELE', 309, 0, 309, '2020-06-11 20:09:49'),
+(44, 7, 'AEFES', 144, 0, 144, '2020-06-13 12:03:02'),
+(45, 7, 'GOODY', 119, 0, 119, '2020-06-13 12:03:23'),
+(46, 7, 'ANELE', 52, 0, 52, '2020-06-13 12:09:01'),
+(47, 16, 'AEFES', 514, 0, 514, '2020-06-14 20:17:16'),
+(48, 1, 'VKGYO', 3074, 3074, 0, '2020-06-15 08:34:56'),
+(49, 1, 'IHLAS', 10201, 10201, 0, '2020-06-16 10:05:42'),
+(50, 1, 'IHLGM', 5231, 5231, 0, '2020-06-17 11:29:31'),
+(51, 1, 'KARSN', 5084, 0, 5084, '2020-06-18 09:18:36');
 
 -- --------------------------------------------------------
 
@@ -1155,6 +1409,18 @@ ALTER TABLE `mesajlar`
     ADD PRIMARY KEY (`msj_id`);
 
 --
+-- Tablo için indeksler `oduller`
+--
+ALTER TABLE `oduller`
+    ADD PRIMARY KEY (`odul_id`);
+
+--
+-- Tablo için indeksler `sabitler`
+--
+ALTER TABLE `sabitler`
+    ADD PRIMARY KEY (`id`);
+
+--
 -- Tablo için indeksler `satim`
 --
 ALTER TABLE `satim`
@@ -1180,43 +1446,55 @@ ALTER TABLE `yasakli_kelimeler`
 -- Tablo için AUTO_INCREMENT değeri `alim`
 --
 ALTER TABLE `alim`
-    MODIFY `alim_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=155;
+    MODIFY `alim_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=178;
 
 --
 -- Tablo için AUTO_INCREMENT değeri `kullanicilar`
 --
 ALTER TABLE `kullanicilar`
-    MODIFY `kul_Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+    MODIFY `kul_Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- Tablo için AUTO_INCREMENT değeri `ligler`
 --
 ALTER TABLE `ligler`
-    MODIFY `lig_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+    MODIFY `lig_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- Tablo için AUTO_INCREMENT değeri `log`
 --
 ALTER TABLE `log`
-    MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=240;
+    MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=378;
 
 --
 -- Tablo için AUTO_INCREMENT değeri `mesajlar`
 --
 ALTER TABLE `mesajlar`
-    MODIFY `msj_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+    MODIFY `msj_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- Tablo için AUTO_INCREMENT değeri `oduller`
+--
+ALTER TABLE `oduller`
+    MODIFY `odul_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+
+--
+-- Tablo için AUTO_INCREMENT değeri `sabitler`
+--
+ALTER TABLE `sabitler`
+    MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Tablo için AUTO_INCREMENT değeri `satim`
 --
 ALTER TABLE `satim`
-    MODIFY `satim_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=73;
+    MODIFY `satim_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=90;
 
 --
 -- Tablo için AUTO_INCREMENT değeri `varliklar`
 --
 ALTER TABLE `varliklar`
-    MODIFY `varlik_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+    MODIFY `varlik_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
 
 --
 -- Tablo için AUTO_INCREMENT değeri `yasakli_kelimeler`
