@@ -7,3 +7,9 @@ Borsa Yatırım Fantezi Ligi
 
 # Proje Hakkında kısa açıklama : 
 Yatırımcıların finansal hisse senedi alım satımını öğrenmelerini sağlayan bir fantezi oyunu geliştirir. Oyun, alım satım faaliyetlerini desteklemekte ve alım-satım emirleri yürütüyormuş gibi davranan bir aracıyı simüle etmektedir.
+
+# Proje Raporları: 
+https://github.com/celalkutluer/Borsa_Projesi_Raporlari
+
+# Proje İnternet Sitesi: 
+http://www.celalkutluer.com.tr
