@@ -36,7 +36,7 @@ $komisyon = sabit_getir("komisyon");
                                         <th class="text-center" scope="col">(%) Fark</th>
                                     </tr>
                                     </thead>
-                                    <tbody> <?php for ($sayi = 0; $sayi < 100; $sayi++) {
+                                    <tbody> <?php for ($sayi = 0; $sayi < count($h_td_sembol); $sayi++) {
                                         $tum_hiss = array();
                                         $hisse_tekil_yuzde = ara('h_td_yuzde_id_' . $h_td_sembol[$sayi] . '">', '</li>', $icerik);
                                         $hisse_tekil_fiyat = ara('h_td_fiyat_id_' . $h_td_sembol[$sayi] . '">', '</li>', $icerik);
@@ -44,7 +44,7 @@ $komisyon = sabit_getir("komisyon");
                                         array_push($tum_hisse_dizileri, $tum_hiss);
                                     }
                                     $sorted = val_sort($tum_hisse_dizileri, 1);/*1=yuzde*/
-                                    for ($sayi = 99; $sayi > 94; $sayi--) { ?>
+                                    for ($sayi = (count($h_td_sembol)-1); $sayi > (count($h_td_sembol)-6); $sayi--) { ?>
                                         <tr>
                                             <td class="text-center"
                                                 id="hisse_yukselen_sembol_<?php echo $sayi; ?>"><?php echo $sorted[$sayi][0]; ?></td>
@@ -119,7 +119,7 @@ $komisyon = sabit_getir("komisyon");
                         } ?> </tr>
                     </thead>
                     <tbody> <?php for ($sayi = 0;
-                    $sayi < 100;
+                    $sayi < count($h_td_sembol);
                     $sayi++) {
                     $h_td_yuzde_id_deger = ara('h_td_yuzde_id_' . $h_td_sembol[$sayi] . '">', '</li>', $icerik);
                     $h_td_fiyat_id_deger = ara('h_td_fiyat_id_' . $h_td_sembol[$sayi] . '">', '</li>', $icerik);
