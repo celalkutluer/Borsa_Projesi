@@ -12,4 +12,4 @@ Yatırımcıların finansal hisse senedi alım satımını öğrenmelerini sağl
 https://github.com/celalkutluer/Borsa_Projesi_Raporlari
 
 # Proje İnternet Sitesi: 
-http://www.borsa.celalkutluer.com.tr
+http://www.celalkutluer.com.tr/borsa
